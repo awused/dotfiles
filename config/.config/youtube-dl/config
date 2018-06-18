@@ -1,0 +1,8 @@
+# ~/.config/youtube-dl/config
+
+--merge-output-format mkv
+--no-mtime
+--write-description
+--write-thumbnail
+--output /storage/media/youtube/%(uploader)s/%(title)s-%(id)s.%(ext)s
+

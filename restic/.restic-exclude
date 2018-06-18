@@ -1,0 +1,37 @@
+# ~/.restic-exclude
+# Individual files and directories that should be excluded
+/usr/home/desushare
+/usr/home/root
+/usr/home/shutdown
+
+/usr/home/desuwa/.weechat/logs
+/usr/home/desuwa/.cache
+
+/usr/local/etc/tcsd.conf
+/usr/local/etc/tcsd.conf.sample
+/usr/local/etc/transmission
+/usr/local/etc/cups
+
+/storage/media/users/desuwa/**/upscale
+/storage/media/users/desuwa/Pictures/Wallpapers/cache
+# Should eventually include this
+/storage/media/users/desuwa/Unsorted Downloads
+
+/storage/media/public/steam/*/*.jpg
+
+/etc/opieaccess
+/etc/opiekeys
+/etc/ppp/
+/etc/security
+/etc/snmpd.config
+/etc/spwd.db
+/etc/bluetooth
+/etc/mail/certs
+/etc/master.passwd
+/etc/nsmb.conf
+/etc/ntp
+/etc/ssh/ssh_host_rsa_key
+/etc/ssh/ssh_host_ecdsa_key
+/etc/ssh/ssh_host_ed25519_key
+
+.ipfs/

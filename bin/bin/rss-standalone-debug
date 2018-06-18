@@ -1,0 +1,3 @@
+#!/bin/sh
+
+go run /usr/home/desuwa/go/src/github.com/awused/rss-aggregator/backend/rssfetcher/standalone/rssfetcher-standalone.go -logtostderr=true -alsologtostderr=false -db /usr/home/desuwa/backed_up/rss-standalone.db $@

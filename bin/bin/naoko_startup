@@ -1,0 +1,4 @@
+#! /bin/sh
+
+cd ~/git/isnaoko
+python naoko/main.py > /dev/null 2>&1 &

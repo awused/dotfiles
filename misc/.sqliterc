@@ -1,0 +1,6 @@
+-- ~/.sqliterc
+.output /dev/null 
+
+PRAGMA foreign_keys = ON;
+
+.output stdout

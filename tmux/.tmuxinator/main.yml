@@ -1,0 +1,53 @@
+# ~/.tmuxinator/main.yml
+
+name: main
+root: ~/
+
+# Optional tmux socket
+# socket_name: foo
+
+# Runs before everything. Use it to start daemons etc.
+# pre: sudo /etc/rc.d/mysqld start
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+# pre_window: rbenv shell 2.0.0-p247
+
+# Pass command line options to tmux. Useful for specifying a different tmux.conf.
+# tmux_options: -f ~/.tmux.mac.conf
+
+# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
+# tmux_command: byobu
+
+# Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
+# startup_window: logs
+
+# Controls whether the tmux session should be attached to automatically. Defaults to true.
+# attach: false
+
+# Runs after everything. Use it to attach to tmux with custom options etc.
+# post: tmux -CC attach -t main
+
+windows:
+  - ~: weechat 
+  - null:
+  - NULL:
+      layout: main-vertical
+      root: ~/go/src/github.com/awused/rss-aggregator
+      panes:
+          -
+          -
+  - Null:
+      layout: 1f50,180x45,0,0[180x32,0,0{127x32,0,0,3,52x32,128,0,335},180x12,0,33{127x12,0,33,12,52x12,128,33,367}]
+      root: ~/go/src/github.com/awused/rss-aggregator
+      panes:
+          -
+          -
+          -
+          -
+  - NUll: sqlite3 ~/backed_up/rss-aggregator.db
+  - NULl:
+  - nUll:
+  - nULl:
+  - nULL:
+  - nuLl: cd /storage/media
+

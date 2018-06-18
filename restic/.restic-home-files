@@ -1,0 +1,8 @@
+# ~/.restic-home-files
+/usr/home
+/usr/local/etc
+/storage/media/users
+/storage/media/public
+/storage/media/src
+/etc
+

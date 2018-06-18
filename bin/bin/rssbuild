@@ -1,0 +1,6 @@
+#!/bin/sh
+
+go install github.com/awused/rss-aggregator/backend/rss-server
+
+#rm -r go/pkg/freebsd_amd64
+#go build $@ github.com/awused/rss-aggregator/backend/rss-server

@@ -1,0 +1,36 @@
+#!/bin/sh
+set -e
+
+[ -e "$1" ] ||
+{
+	echo 'edreq.sh v1.0 - 2015/10/23, 21:04'
+	echo "Need a filename or directory name"
+	exit 1
+}
+
+curl=$(which curl) || curl=''
+
+[ $curl ] ||
+{
+	echo "Need curl"
+	exit 1
+}
+
+[ -d "$1" ] &&
+{
+	echo "Uploading all files in directory $x"
+	find "$1" -type f |
+	while IFS= read x; do
+		"$0" "$x"
+	done
+	exit 0
+}
+
+echo -n "Uploading $1 ... "
+
+[ $curl ] &&
+{
+	"$curl" -s -F "f[]"=@"$1" https://ocv.me/up/ | grep 'you upped' | sed 's/^[^<]*<h1>//'
+	exit 0
+}
+

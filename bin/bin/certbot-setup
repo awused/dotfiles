@@ -1,0 +1,49 @@
+#!/bin/sh
+# ~/bin/certbot-setup
+
+set -e
+
+# The following directories must exist and be writeable by the user running this
+webroot=/usr/local/www/letsencrypt
+config_dir=/usr/local/etc/letsencrypt
+logs_dir=/usr/local/var/log/letsencrypt
+work_dir=/usr/local/var/lib/letsencrypt
+
+root="desuwa.net"
+
+cert=$config_dir/live/$root/cert.pem
+chain=$config_dir/live/$root/chain.pem
+ocsp_resp=$config_dir/live/$root/ocsp.resp
+
+domains="$root,www.$root"
+domains="$domains,anime.$root,www.anime.$root"
+domains="$domains,graphite.$root,www.graphite.$root"
+domains="$domains,h.$root,www.h.$root"
+domains="$domains,monitor.$root,www.monitor.$root"
+domains="$domains,public.$root,www.public.$root"
+domains="$domains,rss.$root,www.rss.$root"
+domains="$domains,transmission.$root,www.transmission.$root"
+domains="$domains,wurls.$root,www.wurls.$root"
+
+echo $domains
+
+# --staging
+#--dry-run
+
+certbot certonly \
+  --no-eff-email \
+  --agree-tos \
+  --must-staple \
+  --email "$(get-automation-password certbot-email)" \
+  --config-dir $config_dir \
+  --logs-dir $logs_dir \
+  --work-dir $work_dir \
+  --webroot -w $webroot \
+  -d $domains
+
+python -c 'import time; time.sleep(60)'
+
+~/bin/ocsp-renew $cert $chain $ocsp_resp
+
+sudo /root/nginx-reload.sh
+

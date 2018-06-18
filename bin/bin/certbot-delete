@@ -1,0 +1,26 @@
+#!/bin/sh
+# ~/bin/certbot-delete
+
+# The following directories must exist and be writeable by the user running this
+webroot=/usr/local/www/letsencrypt
+config_dir=/usr/local/etc/letsencrypt
+logs_dir=/usr/local/var/log/letsencrypt
+work_dir=/usr/local/var/lib/letsencrypt
+
+root="desuwa.net"
+
+cert=$config_dir/live/$root/cert.pem
+
+# --staging
+#--dry-run
+
+certbot revoke \
+  --agree-tos \
+  --email "$(get-automation-password certbot-email)" \
+  --reason unspecified \
+  --config-dir $config_dir \
+  --logs-dir $logs_dir \
+  --work-dir $work_dir \
+  --webroot -w $webroot \
+  --cert-path $cert
+
