@@ -297,6 +297,6 @@ zplug "arzzen/calc.plugin.zsh"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug load
 
-# Enforce unique PATH, must do this at the end because it clears $PATH for the rest of the script
+# Enforce unique PATH, unsets $PATH for the rest of the script
 typeset -U path
 
