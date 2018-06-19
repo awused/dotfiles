@@ -26,6 +26,7 @@ let mapleader = " "
 " , fold
 " <F4> NerdTreeToggle
 " <F5> UndoTreeToggle
+" :Nnum and :Num hides/shows numbers
 
 " vim/surround
 " cs/ds to surround things
@@ -204,6 +205,8 @@ set softtabstop=2
 set autoindent
 set number
 set relativenumber
+command! Nnum set nonumber | set norelativenumber
+command! Num set number | set relativenumber
 set mouse=a
 set shell=/usr/local/bin/dash
 set hidden

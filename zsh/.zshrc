@@ -179,7 +179,7 @@ fi
 
 ##### FZF
 # CTRL-T - paste into cli
-# ALT-T - CD into directory
+# ALT-C - CD into directory
 # ALT-H - CD into directory starting from home
 # CTRL-R - search history
 # CTRL-P - open in vim
@@ -296,6 +296,8 @@ source ~/.zplug/init.zsh
 zplug "arzzen/calc.plugin.zsh"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug load
+
+ZSH_HIGHLIGHT_STYLES[globbing]=fg=blue,bold
 
 # Enforce unique PATH, unsets $PATH for the rest of the script
 typeset -U path

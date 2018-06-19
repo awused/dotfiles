@@ -10,4 +10,5 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/usr/home/desu
   0  *  *  *  * ~/git/youtube-grabber/cron_grabber.py
   0  5  *  *  * ~/.cron/zfs_incr_send
   0  0,12  *  *  * ~/.cron/certbot-renew
-  *  * *  *  *  steam-screenshots
+  *  *  *  *  * steam-screenshots
+  30  7  *  *  * fix-twitter-images 2>&1 | grep -v "no matches found"
