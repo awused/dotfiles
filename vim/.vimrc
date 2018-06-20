@@ -108,25 +108,26 @@ endfunction
 
 packadd! matchit 
 
-" By default bufkill creates a lot of <leader>b mappings
-let g:BufKillCreateMappings = 0
-
 call plug#begin('$HOME/.vim/plugged')
 Plug 'leafgarland/typescript-vim'
 Plug 'fatih/vim-go'
-Plug 'isRuslan/vim-es6'
-"Plug 'othree/yajs.vim'
+Plug 'othree/yajs.vim'
+Plug 'othree/es.next.syntax.vim'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-"Plug 'jistr/vim-nerdtree-tabs'
 Plug 'tpope/vim-surround'
 Plug 'tomtom/tcomment_vim'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
-Plug 'junegunn/fzf', { 'dir': '~/.fzf' }
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'ap/vim-buftabline'
 Plug 'ConradIrwin/vim-bracketed-paste'
+" Seamless clipboard
+Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'roxma/vim-tmux-clipboard'
+" By default bufkill creates a lot of <leader>b mappings
+let g:BufKillCreateMappings = 0
 Plug 'qpkorr/vim-bufkill'
 Plug 'christoomey/vim-tmux-navigator'
 
@@ -134,7 +135,6 @@ Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
 Plug 'tpope/vim-vividchalk'
-" Consider ctags and gotags 
 call plug#end()
 
 nnoremap <F4> :NERDTreeToggle<cr>
@@ -147,13 +147,19 @@ function! s:CompleteTags()
   inoremap <buffer> ><CR> ></<C-x><C-o><Esc>:startinsert!<CR><C-O>?</<CR><CR><Tab><CR><Up><C-O>$
   inoremap <buffer> </ </<C-x><C-o><Esc>:startinsert!<CR><C-O>?</<CR>
 endfunction
-autocmd BufRead,BufNewFile *.html,*.js,*.ts,*.xml call s:CompleteTags()
+
+augroup filetype_settings
+  autocmd!
+  autocmd FileType go setlocal noexpandtab nosmarttab tabstop=2
+  autocmd BufRead,BufNewFile *.html,*.js,*.ts,*.xml call s:CompleteTags()
+augroup END
 
 call glaive#Install()
 Glaive codefmt plugin[mappings]
 Glaive codefmt clang_format_executable="clang-format50"
 
 augroup autoformat_settings
+  autocmd!
   " autocmd FileType bzl AutoFormatBuffer buildifier
   autocmd FileType c,cpp,proto,javascript,typescript AutoFormatBuffer clang-format
   " autocmd FileType dart AutoFormatBuffer dartfmt
@@ -164,12 +170,12 @@ augroup autoformat_settings
   " Alternative: autocmd FileType python AutoFormatBuffer autopep8
 augroup END
 
-augroup filetype javascript syntax=javascript
 
 " #### YouCompleteMe
 " Disable preview entirely
 set completeopt-=preview
 let g:ycm_add_preview_to_completeopt=0
+" let g:ycm_autoclose_preview_window_after_completion=1
  
 let g:ycm_filetype_specific_completion_to_disable = {
       \ 'vim' : 1,
@@ -177,7 +183,6 @@ let g:ycm_filetype_specific_completion_to_disable = {
       \ 'vimrc' : 1,
       \ 'zsh' : 1
       \}
-" let g:ycm_autoclose_preview_window_after_completion$(stat -f %m ~/.zshrc)=1
 
 " The following is a hack to make the carriage return key function as the
 " 'accept' action when using YouCompleteMe plugin for autocompletion
@@ -192,8 +197,6 @@ nnoremap <leader>f :YcmCompleter FixIt<cr>
 nnoremap <leader>o :YcmCompleter OrganizeImports<cr>
 call SetupCommandAlias("RR", "YcmCompleter RefactorRename")
 call SetupCommandAlias("rrc", "so ~/.vimrc")
-
-
 
 colorscheme vividchalk
 " highlight Pmenu ctermfg=15 ctermbg=0 guifg=#ffffff guibg=#0000ff
@@ -234,7 +237,6 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = "goimports"
 
-autocmd FileType go setlocal noexpandtab nosmarttab tabstop=2
 
 if has("persistent_undo")
     set undodir=$HOME/.vim/undodir//
