@@ -110,10 +110,12 @@ bindkey "\ee[D" backward-word
 autoload -U zcalc
 
 # ZMV replaces renamerx
-# zmv -n for dry runs
+# zmv -n for dry runs (remove from these)
 # zmv -n '(?)(?).t' '$1$(($2+1)).t'
 # x1.t -> x2.t
-# mmv *.txt *
+# mmv -n *.txt *
+# zmv -n '(*)' '${(Lc)1/ /-}'
+# AbC Def -> abc-def
 autoload -U zmv
 alias mmv='noglob zmv -W'
 

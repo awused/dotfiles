@@ -108,6 +108,9 @@ endfunction
 
 packadd! matchit 
 
+" By default bufkill creates a lot of <leader>b mappings
+let g:BufKillCreateMappings = 0
+
 call plug#begin('$HOME/.vim/plugged')
 Plug 'leafgarland/typescript-vim'
 Plug 'fatih/vim-go'
@@ -277,7 +280,7 @@ endfun
 set grepprg=rg\ --vimgrep
 
 let g:rgf_command = '
-  \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always" --max-count 10
+  \ rg --column --line-number --no-heading --fixed-strings --smart-case --no-ignore --hidden --follow --color "always" --max-count 10
   \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf,ts,dart,toml,scss,css,sass,yaml}"
   \ -g "!**/{.git,node_modules,vendor,dist,.sass-cache}/*" '
 
@@ -294,13 +297,6 @@ if !empty($FZF_CTRL_T_COMMAND)
 endif
 
 
-"let g:fzf_action = {
-"  \ 'enter': 'tab split',
-"  \ 'ctrl-e' : 'edit',
-"  \ 'ctrl-t': 'tab split',
-"  \ 'ctrl-x': 'split',
-"  \ 'ctrl-v': 'vsplit' }
-
 command! -bang -nargs=* S call GrepDir(ProjectRoot(), g:rgf_command .shellescape(<q-args>), 1, <bang>0)
 command! -bang -nargs=* P call GrepDir(ProjectRoot(), g:rgs_command, 0, <bang>0)
 command! -bang -nargs=* H call GrepDir('~', g:rgs_command, 0, <bang>0)
@@ -308,10 +304,6 @@ call SetupCommandAlias("M", "Buffers")
 nnoremap <leader>h :H<cr>
 nnoremap <leader>p :P<cr>
 nnoremap <leader>m :Buffers<cr>
-nnoremap <Leader>v :ls<CR>:b<Space>
-nnoremap <leader>d :bd<cr>
-nnoremap <leader>c <C-w>c
-nnoremap <leader>D :e #<cr>
 nnoremap <leader>s :call PromptInput(":S")<cr>
 
 " Enable the list of buffers
@@ -327,5 +319,9 @@ nmap <leader>7 <Plug>BufTabLine.Go(7)
 nmap <leader>8 <Plug>BufTabLine.Go(8)
 nmap <leader>9 <Plug>BufTabLine.Go(9)
 nmap <leader>0 <Plug>BufTabLine.Go(10)
+
 nnoremap <leader>d :BD<cr>
+nnoremap <leader>D :BUNDO<cr>:e<cr>
+nnoremap <Leader>v :ls<CR>:b<Space>
+nnoremap <leader>c <C-w>c
 
