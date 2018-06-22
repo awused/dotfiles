@@ -317,10 +317,10 @@ compinit
 # Source plugins as late as possible
 # https://github.com/zsh-users/zsh-syntax-highlighting/issues/46
 source ~/.zplug/init.zsh
-# = 1+1
-zplug "arzzen/calc.plugin.zsh"
+# = 1+1, must be deferred after zsh-syntax-highlighting
+zplug "arzzen/calc.plugin.zsh", defer:2
 # Loading this plugin multiple times causes vim to slow down
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "zsh-users/zsh-syntax-highlighting"
 zplug load
 
 ZSH_HIGHLIGHT_STYLES[globbing]=fg=blue,bold

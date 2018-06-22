@@ -20,7 +20,7 @@ data.location=~/.task
 #include /usr/local/share/taskwarrior/rc/dark-red-256.theme
 #include /usr/local/share/taskwarrior/rc/dark-green-256.theme
 #include /usr/local/share/taskwarrior/rc/dark-blue-256.theme
-#include /usr/local/share/taskwarrior/rc/dark-violets-256.theme
+include /usr/local/share/taskwarrior/rc/dark-violets-256.theme
 #include /usr/local/share/taskwarrior/rc/dark-yellow-green.theme
 #include /usr/local/share/taskwarrior/rc/dark-gray-256.theme
 #include /usr/local/share/taskwarrior/rc/dark-gray-blue-256.theme
@@ -28,6 +28,15 @@ data.location=~/.task
 #include /usr/local/share/taskwarrior/rc/solarized-light-256.theme
 #include /usr/local/share/taskwarrior/rc/no-color.theme
 
-include /usr/local/share/taskwarrior/rc/dark-green-256.theme
-task-web.filter=project.not:rss
+# task-warrior web escapes spaces and treats the filter as a single string
+# making this useless
+#task-web.filter=status:pending
 
+
+default.command=status:pending and project.none: list
+
+report.rss.description=Pending list for RSS aggregator
+report.rss.columns=id,priority,status,description
+report.rss.filter=status:pending and project:rss
+report.rss.sort=priority-\/,entry+
+recurrence.limit=1

@@ -72,25 +72,25 @@ def shouldSendOverdue(task, now):
 
 def shouldSendOneDay(task, now):
     # type: (Dict[str, Any], datetime) -> bool
-    return checkSendAndAddTag(task, now - timedelta(days=1, minutes=30), 'n1',
+    return checkSendAndAddTag(task, now + timedelta(days=1, minutes=10), 'n1',
                               'n3', 'nw')
 
 
 def shouldSendThreeDays(task, now):
     # type: (Dict[str, Any], datetime) -> bool
-    return checkSendAndAddTag(task, now - timedelta(days=3, minutes=30), 'n3',
+    return checkSendAndAddTag(task, now + timedelta(days=3, minutes=10), 'n3',
                               'nw')
 
 
 def shouldSendWeek(task, now):
     # type: (Dict[str, Any], datetime) -> bool
-    return checkSendAndAddTag(task, now - timedelta(days=7, minutes=30), 'nw')
+    return checkSendAndAddTag(task, now + timedelta(days=7, minutes=10), 'nw')
 
 
 def checkSendAndAddTag(task, afterTime, tag, *tags):
     # type: (Dict[str, Any], datetime, string) -> bool
     dueDate = task['due']  # type: datetime
-    if dueDate < afterTime or tag in task['tags']:
+    if dueDate > afterTime or tag in task['tags']:
         return False
 
     task['tags'].add(tag)
