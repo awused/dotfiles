@@ -1,0 +1,19 @@
+SHELL=/bin/sh
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
+# .---------------- minute (0 - 59) 
+# |  .------------- hour (0 - 23)
+# |  |  .---------- day of month (1 - 31)
+# |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ... 
+# |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7)  OR sun,mon,tue,wed,thu,fri,sat 
+# |  |  |  |  |
+# *  *  *  *  *  command to be executed
+  0  3  *  *  mon zpool scrub storage
+  0  3  *  *  mon zpool scrub zroot 
+  0  3  *  *  mon zpool scrub bootpool 
+  0  0  *  *  sun pfctl -t bruteforce -T expire 8640000
+  */5 *  *  *  * /usr/local/sbin/zfs-auto-snapshot 5min 36
+  0  *  *  *  * /usr/local/sbin/zfs-auto-snapshot hourly 25
+  0  7  *  *  * /usr/local/sbin/zfs-auto-snapshot daily 8 
+  0  7  *  *  sun /usr/local/sbin/zfs-auto-snapshot weekly 8
+  0  8  *  *  * freebsd-update cron 
+

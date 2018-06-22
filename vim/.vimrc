@@ -4,7 +4,10 @@
 " selected)
 "
 " install dash, libclang (included with llvm past 40), llvm50 (or higher),
-" boost-all, boost-python-libs, fzf
+" boost-all, boost-python-libs, fzf, python-dev, python3-dev
+"
+" python -m ensurepip
+" pip install yapf
 "
 " Be sure to set clang-format for Glaive for formatting
 "
@@ -31,7 +34,8 @@ let mapleader = " "
 
 " Eunuch
 " :SudoWrite
-" :SudoEdit
+" :SudoEdit -- full e replacement, no syntax
+" :Sudoe -- Current buffer only, working syntax
 " :Delete
 " :Move
 " :Rename (:Move relative to the file) 
@@ -138,6 +142,11 @@ fun! GrepDir(dir, ...)
   call call("fzf#vim#grep", a:000)
   exe 'lcd '.l:cwdb
 endfun
+
+fun! Sudoe()
+  execute "SudoEdit"
+  doautocmd filetypedetect BufReadPost
+endfun
 "}}}
 
 packadd! matchit
@@ -180,6 +189,11 @@ Plug 'qpkorr/vim-bufkill'
 Plug 'leafgarland/typescript-vim'
 Plug 'othree/yajs.vim'
 Plug 'othree/es.next.syntax.vim'
+let g:python_highlight_all = 1
+Plug 'vim-python/python-syntax'
+Plug 'tmhedberg/SimpylFold'
+let g:yapf_style = "google"
+Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
@@ -194,35 +208,6 @@ Plug 'fatih/vim-go'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-surround'
 
-"{{{ YouCompleteMe Settings
-" Disable preview entirely
-set completeopt-=preview
-let g:ycm_add_preview_to_completeopt=0
-" let g:ycm_autoclose_preview_window_after_completion=1
-
-let g:ycm_filetype_specific_completion_to_disable = {
-  \ 'vim' : 1,
-  \ 'help' : 1,
-  \ 'vimrc' : 1,
-  \ 'zsh' : 1,
-  \ 'xml' : 1,
-  \ 'html' : 1,
-  \ '' : 1,
-  \}
-
-" The following is a hack to make the carriage return key function as the
-" 'accept' action when using YouCompleteMe plugin for autocompletion
-" See https://github.com/Valloric/YouCompleteMe/issues/232#issuecomment-299677328
-imap <expr> <CR> pumvisible() ? "\<c-y>" : "\<CR>"
-
-nnoremap <leader>g :YcmCompleter GoTo<cr>
-nnoremap <leader>r :YcmCompleter GoToReferences<cr>
-" Disabled in favour of googlefmt
-"nnoremap <leader>f :YcmCompleter Format<cr>
-nnoremap <leader>f :YcmCompleter FixIt<cr>
-nnoremap <leader>o :YcmCompleter OrganizeImports<cr>
-call SetupCommandAlias("RR", "YcmCompleter RefactorRename")
-
 function! BuildYCM(info)
   " info is a dictionary with 3 fields
   " - name:   name of the plugin
@@ -232,8 +217,6 @@ function! BuildYCM(info)
     !./install.py --clang-completer --go-completer --js-completer
   endif
 endfunction
-"}}}
-
 Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 "}}}
 "{{{ Navigation / Searching
@@ -272,14 +255,16 @@ Plug 'junegunn/fzf.vim'
 nnoremap <F4> :NERDTreeToggle<cr>
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 "}}}
-"{{{ Copying and Pasting
-let g:highlightedyank_highlight_duration = 2000
-Plug 'machakann/vim-highlightedyank'
-Plug 'roxma/vim-tmux-clipboard'
-Plug 'ConradIrwin/vim-bracketed-paste'
-"}}}
 "{{{ Tmux
-Plug 'tmux-plugins/vim-tmux-focus-events'
+if !exists("g:loaded_bracketed_paste")
+  let s:loaded_tmux_focus_events=1
+  Plug 'tmux-plugins/vim-tmux-focus-events'
+else
+  if !exists("s:loaded_tmux_focus_events")
+    echo "ERROR: loaded bracketed_paste before tmux-focus-events, fix your vimrc"
+    echom "ERROR: loaded bracketed_paste before tmux-focus-events, fix your vimrc"
+  endif
+endif
 Plug 'christoomey/vim-tmux-navigator'
 "}}}
 "{{{ Code Formatting
@@ -300,12 +285,49 @@ Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
 "}}}
+"{{{ Copying and Pasting
+let g:highlightedyank_highlight_duration = 2000
+Plug 'machakann/vim-highlightedyank'
+Plug 'roxma/vim-tmux-clipboard'
+" This needs to be loaded after vim-tmux-focus-events
+Plug 'ConradIrwin/vim-bracketed-paste'
+"}}}
 
 nnoremap <F5> :UndotreeToggle<cr>
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-vividchalk'
 call plug#end()
+"{{{ YouCompleteMe Settings
+" Disable preview entirely
+set completeopt-=preview
+let g:ycm_add_preview_to_completeopt=0
+" let g:ycm_autoclose_preview_window_after_completion=1
+
+let g:ycm_filetype_specific_completion_to_disable = {
+  \ 'vim' : 1,
+  \ 'help' : 1,
+  \ 'vimrc' : 1,
+  \ 'zsh' : 1,
+  \ 'xml' : 1,
+  \ 'html' : 1,
+  \ '' : 1,
+  \}
+
+" The following is a hack to make the carriage return key function as the
+" 'accept' action when using YouCompleteMe plugin for autocompletion
+" See https://github.com/Valloric/YouCompleteMe/issues/232#issuecomment-299677328
+imap <expr> <CR> pumvisible() ? "\<c-y>" : "\<CR>"
+
+nnoremap <leader>g :YcmCompleter GoTo<cr>
+nnoremap <leader>r :YcmCompleter GoToReferences<cr>
+" Disabled in favour of googlefmt
+"nnoremap <leader>f :YcmCompleter Format<cr>
+nnoremap <leader>f :YcmCompleter FixIt<cr>
+nnoremap <leader>o :YcmCompleter OrganizeImports<cr>
+call SetupCommandAlias("RR", "YcmCompleter RefactorRename")
+
+"}}}
 "}}}
 
 call glaive#Install()
@@ -323,17 +345,20 @@ augroup filetype_settings
   autocmd!
   autocmd FileType go setlocal noexpandtab nosmarttab tabstop=2
   autocmd BufRead,BufNewFile *.html,*.js,*.ts,*.xml call s:CompleteTags()
+  autocmd FileType zsh setlocal syntax=sh foldmethod=indent
   autocmd FileType vim setlocal foldmethod=marker foldlevel=0
 augroup END
 "}}}
 "{{{ Custom Commands and Keybinds
 command! Nnum set nonumber | set norelativenumber
 command! Num set number | set relativenumber
+command! Sudoe call Sudoe()
 call SetupCommandAlias("rrc", "so ~/.vimrc")
 call SetupCommandAlias("W", "w")
 nnoremap <Leader>v :ls<CR>:b<Space>
 nnoremap <leader>c <C-w>c
 nnoremap , za
+nnoremap <leader>, za
 "}}}
 "{{{ Settings
 colorscheme vividchalk
@@ -363,13 +388,13 @@ endif
 "}}}
 "{{{ Create Directories
 if has("persistent_undo")
-  call CreateDirectoryIfMissing('$HOME/.vim/undodir')
+  call CreateDirectoryIfMissing($HOME."/.vim/undodir")
   set undodir=$HOME/.vim/undodir//
   set undofile
 endif
 
-call CreateDirectoryIfMissing('$HOME/.vim/swapfiles')
-call CreateDirectoryIfMissing('$HOME/.vim/backups')
+call CreateDirectoryIfMissing($HOME."/.vim/swapfiles")
+call CreateDirectoryIfMissing($HOME."/.vim/backups")
 set directory=$HOME/.vim/swapfiles//
 set backupdir=$HOME/.vim/backups//
 "}}}

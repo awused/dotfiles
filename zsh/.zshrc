@@ -6,6 +6,7 @@
 # Skip all this for non-interactive shells
 [[ -z "$PS1" ]] && return
 
+
 ##### Zplug
 # zplug install, zplug update, zplug clean
 if [[ ! -d ~/.zplug ]];then
@@ -25,7 +26,6 @@ precmd() {
     source ~/.zshrc
   }
 }
-
 
 stty icrnl
 umask 002
@@ -148,9 +148,31 @@ fi
 ##### Load passwords from unsecured password-store
 get-automation-password() {
   [[ $#@ -eq 1 ]] || echo "Must supply exactly one account name"
-  echo -n $(pass "$1" 2> /dev/null)
+  echo -n "$(pass "$1" 2> /dev/null)"
 }
 zle -N get-automation-password
+
+set-automation-password() {
+  [[ $#@ -eq 2 ]] || echo "Must supply exactly two arguments"
+  echo $2 | pass insert -fm $1 >/dev/null 2>&1
+  return $?
+}
+zle -N set-automation-password
+
+__print-subdomains() {
+  echo "$(get-automation-password subdomains)" 2>/dev/null | while read item; do
+    [[ ! -z $item ]] && echo "${(q)item}"
+  done
+  echo -n "${(q)1}"
+}
+
+# TODO -- could pull this from nginx config files
+add-subdomain() {
+  [[ $#@ -eq 1 ]] || echo "Must supply exactly one new subdomain"
+  __print-subdomains $1 | pass insert -fm subdomains >/dev/null 2>&1
+  return $?
+}
+zle -N add-subdomain
 
 alias weechat='export WEECHAT_PASSPHRASE=$(get-automation-password weechat); unalias weechat; weechat'
 
@@ -297,6 +319,7 @@ compinit
 source ~/.zplug/init.zsh
 # = 1+1
 zplug "arzzen/calc.plugin.zsh"
+# Loading this plugin multiple times causes vim to slow down
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug load
 

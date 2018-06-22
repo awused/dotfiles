@@ -1,0 +1,103 @@
+#! /usr/bin/env python
+# Run once a day
+# pip install tasklib
+
+# Overdue tasks get mailed every time
+# Tasks get 1, 3, and 7 day warnings
+
+from datetime import datetime, timedelta
+from tasklib import TaskWarrior
+from gmail_send import sendEmail
+import pytz
+
+
+def sendNotifications():
+    tw = TaskWarrior()
+    tasks = tw.tasks.filter('(status:pending or status:waiting)',
+                            'due.before:now+1w')
+
+    tasks = sorted(tasks, key=lambda x: x['due'])
+    section = 0
+    overDue = []
+    oneDays = []
+    threeDays = []
+    weeks = []
+
+    now = datetime.now(pytz.utc)
+
+    for task in tasks:
+        if shouldSendOverdue(task, now):
+            overDue.append(makeTaskString(task))
+        elif shouldSendOneDay(task, now):
+            oneDays.append(makeTaskString(task))
+        elif shouldSendThreeDays(task, now):
+            threeDays.append(makeTaskString(task))
+        elif shouldSendWeek(task, now):
+            weeks.append(makeTaskString(task))
+
+    body = ""
+    if len(overDue):
+        body += "Overdue Tasks:\n\t"
+        body += "\n\t".join(overDue)
+        body += "\n\n"
+
+    if len(oneDays):
+        body += "Due in 24 Hours:\n\t"
+        body += "\n\t".join(oneDays)
+        body += "\n\n"
+
+    if len(threeDays):
+        body += "Due in Three Days:\n\t"
+        body += "\n\t".join(threeDays)
+        body += "\n\n"
+
+    if len(weeks):
+        body += "Due in Seven Days:\n\t"
+        body += "\n\t".join(weeks)
+        body += "\n"
+
+    if len(body):
+        sendEmail("Upcoming and Overdue Tasks", body)
+
+
+def makeTaskString(task):
+    return "%s: %s" % (task['due'].date(), task['description'])
+
+
+def shouldSendOverdue(task, now):
+    # type: (Dict[str, Any], datetime) -> bool
+    dueDate = task['due']  # type: datetime
+    return dueDate < now
+
+
+def shouldSendOneDay(task, now):
+    # type: (Dict[str, Any], datetime) -> bool
+    return checkSendAndAddTag(task, now - timedelta(days=1, minutes=30), 'n1',
+                              'n3', 'nw')
+
+
+def shouldSendThreeDays(task, now):
+    # type: (Dict[str, Any], datetime) -> bool
+    return checkSendAndAddTag(task, now - timedelta(days=3, minutes=30), 'n3',
+                              'nw')
+
+
+def shouldSendWeek(task, now):
+    # type: (Dict[str, Any], datetime) -> bool
+    return checkSendAndAddTag(task, now - timedelta(days=7, minutes=30), 'nw')
+
+
+def checkSendAndAddTag(task, afterTime, tag, *tags):
+    # type: (Dict[str, Any], datetime, string) -> bool
+    dueDate = task['due']  # type: datetime
+    if dueDate < afterTime or tag in task['tags']:
+        return False
+
+    task['tags'].add(tag)
+    task['tags'].update(tags)
+    task.save()
+    return True
+
+
+if __name__ == '__main__':
+    sendNotifications()

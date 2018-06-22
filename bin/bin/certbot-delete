@@ -24,3 +24,5 @@ certbot revoke \
   --webroot -w $webroot \
   --cert-path $cert
 
+echo "You should remove $config_dir/live/$root/ manually before renewing"
+

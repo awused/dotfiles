@@ -1,4 +1,4 @@
-#!/bin/sh
+#! /usr/bin/env zsh
 # ~/bin/certbot-setup
 
 set -e
@@ -15,21 +15,19 @@ cert=$config_dir/live/$root/cert.pem
 chain=$config_dir/live/$root/chain.pem
 ocsp_resp=$config_dir/live/$root/ocsp.resp
 
+
+
 domains="$root,www.$root"
-domains="$domains,anime.$root,www.anime.$root"
-domains="$domains,graphite.$root,www.graphite.$root"
-domains="$domains,h.$root,www.h.$root"
-domains="$domains,monitor.$root,www.monitor.$root"
-domains="$domains,public.$root,www.public.$root"
-domains="$domains,rss.$root,www.rss.$root"
-domains="$domains,transmission.$root,www.transmission.$root"
-domains="$domains,wurls.$root,www.wurls.$root"
+local sd
+echo "$(get-automation-password subdomains)" | while read sd; do
+  [[ ! -z $sd ]] && domains="$domains,$sd.$root,www.$sd.$root"
+done
 
 echo $domains
 
+
 # --staging
 #--dry-run
-
 certbot certonly \
   --no-eff-email \
   --agree-tos \
