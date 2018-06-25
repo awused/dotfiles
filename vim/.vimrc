@@ -304,9 +304,12 @@ Plug 'tpope/vim-eunuch'
 
 " Prefer vividchalk in 256 colour mode, but gruvbox highlights much more
 let g:gruvbox_contrast_dark="hard"
+" Italics would be nice if FreeBSD ever updates ncurses
+" TODO -- change this for other machines
+"let g:gruvbox_italic=1
 Plug 'morhetz/gruvbox'
 
-Plug 'tpope/vim-vividchalk'
+"Plug 'tpope/vim-vividchalk'
 call plug#end()
 "{{{ YouCompleteMe Settings
 " Disable preview entirely
@@ -371,6 +374,9 @@ nnoremap <leader>, za
 "{{{ Settings
 let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+let &t_ZH="\<Esc>[3m"
+let &t_ZR="\<Esc>[23m"
+
 set termguicolors
 set background=dark
 colorscheme gruvbox

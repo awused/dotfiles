@@ -36,7 +36,9 @@ export LANG=en_US.UTF-8
 export LSCOLORS=ExGxdxdxCxDxDxBxBxegeg
 export LS_COLORS="di=1;34:ln=1;36:so=33:pi=33:ex=1;32:bd=1;33:cd=1;33:su=1;31:sg=1;31:tw=34;46:ow=34;46"
 export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN
+
 export SOURCE_DIR=/storage/media/src
 export THIRD_PARTY_SOURCE=$SOURCE_DIR/third_party
 
@@ -52,6 +54,9 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_REDUCE_BLANKS
 setopt HIST_VERIFY
+
+export LINES
+export COLUMNS
 
 # Say how long a command took, if it took more than 30 seconds
 export REPORTTIME=30
@@ -86,11 +91,13 @@ zstyle ':url-quote-magic:*' url-metas '*?[]^(|)~#='
 zle -N self-insert url-quote-magic
 # {{{ Aliases
 alias j='jobs -l'
+alias cp='cp -i'
 alias ls='ls -G'
 alias la='ls -aF'
 alias lf='ls -F'
 alias ll='ls -laFh'
-alias lv='exa -lFiHhag --time-style=long-iso'
+alias lv='exa -lFiHhg --time-style=long-iso'
+alias lva='exa -lFiHhag --time-style=long-iso'
 alias tree='exa -Ta -L'
 alias treel='exa -Tal --time-style=long-iso -L'
 alias clang-format='clang-format50'
@@ -116,6 +123,10 @@ if [[ $(uname) == 'FreeBSD' ]]; then
    cd $(whereis -qs $1)
   }
   zle -N cdp
+
+  # Reorder path so installed ports are preferred over the base system
+  # This fixes tput complaining when ncurses is installed
+  export PATH=$HOME/bin:/usr/local/bin:$PATH:$GOBIN
 fi
 #}}}
 #{{{ Fix Keybinds
