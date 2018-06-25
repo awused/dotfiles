@@ -39,8 +39,7 @@ setenv	PAGER	more
 setenv  LANG    en_US.UTF-8
 setenv  LSCOLORS ExGxdxdxCxDxDxBxBxegeg
 setenv  GOPATH /usr/home/desuwa/go
-setenv  GCLOUD_PATH /usr/home/desuwa/src/google-cloud-sdk/bin
-setenv  PATH $PATH\:$GOPATH/bin\:$GCLOUD_PATH
+setenv  PATH $PATH\:$GOPATH/bin
 
 if ($?prompt) then
 	# An interactive shell -- set some stuff up

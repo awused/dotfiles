@@ -1,19 +1,17 @@
 # Created by desuwa for 5.2
 # ~/.zshrc
+# vim: set foldmethod=marker foldlevel=0:
+
 # Install fzf, ripgrep, and bfs
 # Uses BFS for fzf, but ripgrep for fzf in vim
+
+# zplug install, zplug update, zplug clean
 
 # Skip all this for non-interactive shells
 [[ -z "$PS1" ]] && return
 
 
-##### Zplug
-# zplug install, zplug update, zplug clean
-if [[ ! -d ~/.zplug ]];then
-  git clone --depth 1 https://github.com/b4b4r07/zplug ~/.zplug
-fi
-
-##### Auto-source
+#{{{ Auto-source
 stat-rc() {
  echo -n $(stat -f %m $(readlink -f ~/.zshrc))
 }
@@ -26,23 +24,10 @@ precmd() {
     source ~/.zshrc
   }
 }
+#}}}
 
-stty icrnl
+stty icrnl -ixoff -ixon
 umask 002
-
-alias j='jobs -l'
-alias ls='ls -G'
-alias la='ls -aF'
-alias lf='ls -F'
-alias ll='ls -laFh'
-alias lv='exa -lFiHhag --time-style=long-iso'
-alias tree='exa -Ta -L'
-alias treel='exa -Tal --time-style=long-iso -L'
-alias clang-format='clang-format50'
-eval $(thefuck --alias)
-
-alias mux='tmuxinator'
-alias tm='tmux attach -d -t main'
 
 export EDITOR='vim'
 export PAGER='less'
@@ -52,6 +37,8 @@ export LSCOLORS=ExGxdxdxCxDxDxBxBxegeg
 export LS_COLORS="di=1;34:ln=1;36:so=33:pi=33:ex=1;32:bd=1;33:cd=1;33:su=1;31:sg=1;31:tw=34;46:ow=34;46"
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
+export SOURCE_DIR=/storage/media/src
+export THIRD_PARTY_SOURCE=$SOURCE_DIR/third_party
 
 PROMPT="%n@%m:%~ %# "
 
@@ -76,11 +63,62 @@ setopt RM_STAR_WAIT
 # Set TIME_STYLE for GNU coreutils
 export TIME_STYLE="long-iso"
 
+# ZCalc
+autoload -U zcalc
+
+# ZMV replaces renamerx
+# zmv -n for dry runs (remove from these)
+# zmv -n '(?)(?).t' '$1$(($2+1)).t'
+# x1.t -> x2.t
+# mmv -n *.txt *
+# zmv -n '(*)' '${(Lc)1/ /-}'
+# AbC Def -> abc-def
+autoload -U zmv
+
+
+# Quote URLs automatically
+autoload -Uz bracketed-paste-magic
+zle -N bracketed-paste bracketed-paste-magic
+
+autoload -U url-quote-magic
+zstyle ':urlglobber' url-other-schema ftp git gopher http https magnet
+zstyle ':url-quote-magic:*' url-metas '*?[]^(|)~#='
+zle -N self-insert url-quote-magic
+# {{{ Aliases
+alias j='jobs -l'
+alias ls='ls -G'
+alias la='ls -aF'
+alias lf='ls -F'
+alias ll='ls -laFh'
+alias lv='exa -lFiHhag --time-style=long-iso'
+alias tree='exa -Ta -L'
+alias treel='exa -Tal --time-style=long-iso -L'
+alias clang-format='clang-format50'
+eval $(thefuck --alias)
+
+alias mux='tmuxinator'
+alias tm='tmux attach -d -t main'
+
+alias mmv='noglob zmv -W'
 
 # Typing errors...
 alias 'cd..=cd ..'
+# }}}
+#{{{ OS/Computer specific settings
+if [[ $(uname) == 'FreeBSD' ]]; then
+  # Set equivalent date formats for BSD
+  alias date='date +"%Y-%m-%d %H:%M:%S"'
+  alias ls='ls -G -D "%Y-%m-%d %H:%M:%S"'
+  alias cutleaves='pkg_cutleaves -Rxg'
 
-# Fix HOME/END
+  # cdp to jump to ports dir
+  cdp() {
+   cd $(whereis -qs $1)
+  }
+  zle -N cdp
+fi
+#}}}
+#{{{ Fix Keybinds
 bindkey "${terminfo[khome]}" beginning-of-line
 bindkey "${terminfo[kend]}" end-of-line
 
@@ -105,47 +143,8 @@ bindkey "\e[5D" backward-word
 bindkey "\eOd" emacs-backward-word
 bindkey "\ee[C" forward-word
 bindkey "\ee[D" backward-word
-
-# ZCalc
-autoload -U zcalc
-
-# ZMV replaces renamerx
-# zmv -n for dry runs (remove from these)
-# zmv -n '(?)(?).t' '$1$(($2+1)).t'
-# x1.t -> x2.t
-# mmv -n *.txt *
-# zmv -n '(*)' '${(Lc)1/ /-}'
-# AbC Def -> abc-def
-autoload -U zmv
-alias mmv='noglob zmv -W'
-
-
-# Quote URLs automatically
-autoload -Uz bracketed-paste-magic
-zle -N bracketed-paste bracketed-paste-magic
-
-autoload -U url-quote-magic
-zstyle ':urlglobber' url-other-schema ftp git gopher http https magnet
-zstyle ':url-quote-magic:*' url-metas '*?[]^(|)~#='
-zle -N self-insert url-quote-magic
-
-
-##### FreeBSD specific settings
-if [[ $(uname) == 'FreeBSD' ]]; then
-  # Set equivalent date formats for BSD
-  alias date='date +"%Y-%m-%d %H:%M:%S"'
-  alias ls='ls -G -D "%Y-%m-%d %H:%M:%S"'
-  alias cutleaves='pkg_cutleaves -Rxg'
-
-  # cdp to jump to ports dir
-  cdp() {
-   cd $(whereis -qs $1)
-  }
-  zle -N cdp
-fi
-
-
-##### Load passwords from unsecured password-store
+#}}}
+#{{{ Automation Passwords
 get-automation-password() {
   [[ $#@ -eq 1 ]] || echo "Must supply exactly one account name"
   echo -n "$(pass "$1" 2> /dev/null)"
@@ -175,8 +174,8 @@ add-subdomain() {
 zle -N add-subdomain
 
 alias weechat='export WEECHAT_PASSPHRASE=$(get-automation-password weechat); unalias weechat; weechat'
-
-##### shrink-path
+#}}}
+#{{{ Prompt
 zstyle ':prompt:shrink_path' last 2
 zstyle ':prompt:shrink_path' short 1
 zstyle ':prompt:shrink_path' tilde 1
@@ -200,18 +199,21 @@ if [[ -a ~/.zsh/shrink-path.plugin.zsh ]]; then
   #PROMPT='%n@%m:$(shrink_path)> '
   PROMPT='$(__build-prompt)'
 fi
-
-##### FZF
+#}}}
+#{{{ FZF
 # CTRL-T - paste into cli
 # ALT-C - CD into directory
-# ALT-H - CD into directory starting from home
 # CTRL-R - search history
 # CTRL-P - open in vim
-# CTRL-H - open from home directory in vim
+# CTRL-Q - open from home directory in vim
+# CTRL-S - open from source directory in vim
+# ALT-CPQS - CD into directory starting from wherever
+# fkill {signal} - kill processes using signal, default 9
+#{{{ Overrides
 export FZF_DEFAULT_OPTS='--height 40% --reverse --border --ansi -m'
 #export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --color "always" -g "!**/{.git,node_modules,vendor,.sass-cache}/*" 2> /dev/null'
 #export FZF_DEFAULT_COMMAND='fd --no-ignore --type file --hidden --follow --color "always" --exclude "**/{.git,node_modules,vendor,.sass-cache}"'
-export FZF_DEFAULT_COMMAND="bfs -L -color \
+export FZF_DEFAULT_COMMAND="bfs -color -L \
   -not \( -path '*/.git/*' -prune \) \
   -not \( -path '*/node_modules' -prune \) \
   -not \( -path '*/vendor' -prune \) \
@@ -221,6 +223,21 @@ export FZF_DEFAULT_COMMAND="bfs -L -color \
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="bfs -L -type d -nohidden -color"
 export FZF_TMUX=1
+
+# Override functions in fzf/completion.zsh
+# TODO -- consider overriding their settings too
+_fzf_compgen_path() {
+  echo "$1"
+  command bfs -L "$1" -color \
+    -name .git -prune -o -name .svn -prune -o \( -type d -o -type f -o -type l \) \
+    -a -not -path "$1" -print 2> /dev/null | sed -E 's@^([^/]*)\./@\1@'
+}
+_fzf_compgen_dir() {
+  command bfs -L "$1" -color \
+    -name .git -prune -o -name .svn -prune -o -type d \
+    -a -not -path "$1" -print 2> /dev/null | sed -E 's@^([^/]*)\./@\1@'
+}
+#}}}
 if [[ -a ~/.zsh/fzf/completion.zsh ]]; then
   source ~/.zsh/fzf/key-bindings.zsh
 fi
@@ -228,6 +245,7 @@ if [[ -a ~/.zsh/fzf/key-bindings.zsh ]]; then
   source ~/.zsh/fzf/completion.zsh
 fi
 
+#{{{ Editor/CD Widgets
 fzf-editor() {
   local file="$(__fsel)"
   # local file=$(echo -e "$fzfout" | sed 's/^[ \t]*//;s/[ \t]*$//')
@@ -246,9 +264,9 @@ fzf-editor() {
 }
 zle -N fzf-editor
 
-fzf-editor-home() {
+fzf-editor-dir() {
   local oldt="$FZF_CTRL_T_COMMAND"
-  FZF_CTRL_T_COMMAND="$FZF_CTRL_T_COMMAND ~"; fzf-editor
+  FZF_CTRL_T_COMMAND="$FZF_CTRL_T_COMMAND \"$1\""; fzf-editor
   export FZF_CTRL_T_COMMAND="$oldt"
 
   # Would be nice to get working
@@ -257,24 +275,54 @@ fzf-editor-home() {
   # echo $homediresc
   # FZF_CTRL_T_COMMAND="$FZF_CTRL_T_COMMAND ~ | sed 's/$homediresc/~/g'"; fzf_then_open_in_editor
 }
+
+fzf-cd-dir() {
+  local oldc="$FZF_ALT_C_COMMAND"
+  FZF_ALT_C_COMMAND="$FZF_ALT_C_COMMAND \"$1\""; fzf-cd-widget
+  export FZF_ALT_C_COMMAND="$oldc"
+}
+
+fzf-editor-home() {
+  fzf-editor-dir $HOME
+}
 zle -N fzf-editor-home
 
+fzf-editor-source() {
+  fzf-editor-dir $SOURCE_DIR
+}
+zle -N fzf-editor-source
+
 fzf-cd-home() {
-  local oldc="$FZF_ALT_C_COMMAND"
-  FZF_ALT_C_COMMAND="$FZF_ALT_C_COMMAND ~"; fzf-cd-widget
-  export FZF_ALT_C_COMMAND="$oldc"
+  fzf-cd-dir $HOME
 }
 zle -N fzf-cd-home
 
-bindkey -r '^P'
+fzf-cd-source() {
+  fzf-cd-dir $SOURCE_DIR
+}
+zle -N fzf-cd-source
+#}}}
+
 bindkey '^P' fzf-editor
-bindkey -r '^H'
-bindkey '^H' fzf-editor-home
-bindkey -r '^[h'
-bindkey '^[h' fzf-cd-home
+bindkey '^Q' fzf-editor-home
+bindkey '^S' fzf-editor-source
+bindkey '^[q' fzf-cd-home
+bindkey '^[s' fzf-cd-source
+bindkey '^[p' fzf-cd-widget
 
 
-##### Completion
+# fkill - kill process
+# https://github.com/junegunn/fzf/wiki/examples#processes
+fkill() {
+  local pid
+  pid=$(ps -ax -O user | sed 1d | fzf -m | awk '{print $1}')
+
+  if [[ -n "${pid// }" ]]; then
+    echo $pid | xargs kill -${1:-9}
+  fi
+}
+#}}}
+#{{{ Completion
 # Can potentially cause slowdown, disable to require explicit rehashes
 zstyle ':completion:*' rehash true
 
@@ -313,17 +361,25 @@ zstyle :compinstall filename '/usr/home/desuwa/.zshrc'
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
-
+#}}}
+#{{{ Plugins
+if [[ ! -d ~/.zplug ]];then
+  git clone --depth 1 https://github.com/b4b4r07/zplug ~/.zplug
+fi
 # Source plugins as late as possible
 # https://github.com/zsh-users/zsh-syntax-highlighting/issues/46
 source ~/.zplug/init.zsh
+zplug "plugins/taskwarrior", from:oh-my-zsh
+# ctrl-z twice to fg application
+zplug "plugins/fancy-ctrl-z", from:oh-my-zsh
 # = 1+1, must be deferred after zsh-syntax-highlighting
-zplug "arzzen/calc.plugin.zsh", defer:2
-# Loading this plugin multiple times causes vim to slow down
-zplug "zsh-users/zsh-syntax-highlighting"
+zplug "arzzen/calc.plugin.zsh", defer:3
+# Loading this plugin multiple times causes zsh to slow down
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug load
 
 ZSH_HIGHLIGHT_STYLES[globbing]=fg=blue,bold
+#}}}
 
 # Enforce unique PATH, unsets $PATH for the rest of the script
 typeset -U path

@@ -6,6 +6,8 @@
 
 /usr/home/desuwa/.weechat/logs
 /usr/home/desuwa/.cache
+# I keep nothing in .vim/
+/usr/home/desuwa/.vim/*
 
 /usr/local/etc/tcsd.conf
 /usr/local/etc/tcsd.conf.sample

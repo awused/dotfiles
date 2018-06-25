@@ -1,4 +1,5 @@
 " ~/.vimrc
+" vim: set foldmethod=marker foldlevel=0:
 "
 " Need to compile vim with python support (editors/vim with CONSOLE mode
 " selected)
@@ -68,8 +69,9 @@ let mapleader = " "
 
 " FZF + ripgrep/bfs searching
 " :S <search> or <leader>s <search> to grep file content for <search>, then fuzzy match
-" :P or <leader>p to just search for files
-" :H to <leader>h search home for files
+" <C-p> to just search current project for files
+" <C-q> search home for files
+" <C-s> search $SOURCE_DIR for files
 " :M or <leader>m search buffers
 " S uses a whitelist of extensions and excludes some directories
 
@@ -219,7 +221,7 @@ function! BuildYCM(info)
 endfunction
 Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 "}}}
-"{{{ Navigation / Searching
+"{{{ Navigation / Sear$SOURCE_DIRg
 "{{{ FZF Searching
 let g:rgf_command = '
   \ rg --column --line-number --no-heading --fixed-strings --smart-case --no-ignore --hidden --follow --color "always" --max-count 10
@@ -241,11 +243,10 @@ if !empty($FZF_CTRL_T_COMMAND)
 endif
 
 command! -bang -nargs=* S call GrepDir(ProjectRoot(), g:rgf_command .shellescape(<q-args>), 1, <bang>0)
-command! -bang -nargs=* P call GrepDir(ProjectRoot(), g:rgs_command, 0, <bang>0)
-command! -bang -nargs=* H call GrepDir('~', g:rgs_command, 0, <bang>0)
 call SetupCommandAlias("M", "Buffers")
-nnoremap <leader>h :H<cr>
-nnoremap <leader>p :P<cr>
+nnoremap <C-p> :call GrepDir(ProjectRoot(), g:rgs_command, 0, 0)<cr>
+nnoremap <C-q> :call GrepDir($HOME, g:rgs_command, 0, 0)<cr>
+nnoremap <C-s> :call GrepDir($SOURCE_DIR, g:rgs_command, 0, 0)<cr>
 nnoremap <leader>m :Buffers<cr>
 nnoremap <leader>s :call PromptInput(":S")<cr>
 "}}}
@@ -269,16 +270,20 @@ Plug 'christoomey/vim-tmux-navigator'
 "}}}
 "{{{ Code Formatting
 
+fun! s:ShouldFormat() abort
+  return expand('%:p') !~# '\V'.$THIRD_PARTY_SOURCE
+endfun
+
 augroup autoformat_settings
   autocmd!
-  " autocmd FileType bzl AutoFormatBuffer buildifier
-  autocmd FileType c,cpp,proto,javascript,typescript AutoFormatBuffer clang-format
-  " autocmd FileType dart AutoFormatBuffer dartfmt
-  " autocmd FileType gn AutoFormatBuffer gn
-  autocmd FileType html,css,json AutoFormatBuffer js-beautify
-  " autocmd FileType java AutoFormatBuffer google-java-format
-  autocmd FileType python AutoFormatBuffer yapf
-  " Alternative: autocmd FileType python AutoFormatBuffer autopep8
+  " autocmd FileType bzl if s:ShouldFormat() | exe 'AutoFormatBuffer buildifier' | endif
+  autocmd FileType c,cpp,proto,javascript,typescript if s:ShouldFormat() | exe 'AutoFormatBuffer clang-format' | endif
+  " autocmd FileType dart if s:ShouldFormat() | exe 'AutoFormatBuffer dartfmt' | endif
+  " autocmd FileType gn if s:ShouldFormat() | exe 'AutoFormatBuffer gn' | endif
+  autocmd FileType html,css,json if s:ShouldFormat() | exe 'AutoFormatBuffer js-beautify' | endif
+  " autocmd FileType java if s:ShouldFormat() | exe 'AutoFormatBuffer google-java-format' | endif
+  autocmd FileType python if s:ShouldFormat() | exe 'AutoFormatBuffer yapf' | endif
+  " Alternative: autocmd FileType python if s:ShouldFormat() | exe 'AutoFormatBuffer autopep8' | endif
 augroup END
 
 Plug 'google/vim-maktaba'
@@ -296,6 +301,11 @@ Plug 'ConradIrwin/vim-bracketed-paste'
 nnoremap <F5> :UndotreeToggle<cr>
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'tpope/vim-eunuch'
+
+" Prefer vividchalk in 256 colour mode, but gruvbox highlights much more
+let g:gruvbox_contrast_dark="hard"
+Plug 'morhetz/gruvbox'
+
 Plug 'tpope/vim-vividchalk'
 call plug#end()
 "{{{ YouCompleteMe Settings
@@ -345,8 +355,6 @@ augroup filetype_settings
   autocmd!
   autocmd FileType go setlocal noexpandtab nosmarttab tabstop=2
   autocmd BufRead,BufNewFile *.html,*.js,*.ts,*.xml call s:CompleteTags()
-  autocmd FileType zsh setlocal syntax=sh foldmethod=indent
-  autocmd FileType vim setlocal foldmethod=marker foldlevel=0
 augroup END
 "}}}
 "{{{ Custom Commands and Keybinds
@@ -361,7 +369,11 @@ nnoremap , za
 nnoremap <leader>, za
 "}}}
 "{{{ Settings
-colorscheme vividchalk
+let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+set termguicolors
+set background=dark
+colorscheme gruvbox
 set nohlsearch
 set expandtab
 set smarttab
@@ -375,6 +387,7 @@ set hidden
 set foldmethod=syntax
 set foldlevelstart=20
 set backspace=indent,eol,start
+set modeline
 "set notimeout
 " Handle escape character timeouts
 set timeout

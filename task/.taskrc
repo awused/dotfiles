@@ -33,10 +33,16 @@ include /usr/local/share/taskwarrior/rc/dark-violets-256.theme
 #task-web.filter=status:pending
 
 
+recurrence.limit=1
 default.command=status:pending and project.none: list
 
 report.rss.description=Pending list for RSS aggregator
 report.rss.columns=id,priority,status,description
 report.rss.filter=status:pending and project:rss
 report.rss.sort=priority-\/,entry+
-recurrence.limit=1
+
+
+report.dotfiles.description=Miscellaneous small programming tasks
+report.dotfiles.columns=id,priority,status,description
+report.dotfiles.filter=status:pending and project:dotfiles
+report.dotfiles.sort=priority-\/,entry+
