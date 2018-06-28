@@ -221,11 +221,11 @@ function! BuildYCM(info)
 endfunction
 Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 "}}}
-"{{{ Navigation / Sear$SOURCE_DIRg
+"{{{ Navigation / Search
 "{{{ FZF Searching
 let g:rgf_command = '
   \ rg --column --line-number --no-heading --fixed-strings --smart-case --no-ignore --hidden --follow --color "always" --max-count 10
-  \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf,ts,dart,toml,scss,css,sass,yaml}"
+  \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf,ts,dart,toml,scss,css,sass,yaml,h}"
   \ -g "!**/{.git,node_modules,vendor,dist,.sass-cache,.vim}/*" '
 
 " Ripgrep in --files mode is still faster than find
@@ -314,6 +314,7 @@ call plug#end()
 "{{{ YouCompleteMe Settings
 " Disable preview entirely
 set completeopt-=preview
+let g:ycm_global_ycm_extra_conf = $HOME.'/.ycm_extra_conf.py'
 let g:ycm_add_preview_to_completeopt=0
 " let g:ycm_autoclose_preview_window_after_completion=1
 
@@ -394,6 +395,8 @@ set foldmethod=syntax
 set foldlevelstart=20
 set backspace=indent,eol,start
 set modeline
+set smartcase
+
 "set notimeout
 " Handle escape character timeouts
 set timeout

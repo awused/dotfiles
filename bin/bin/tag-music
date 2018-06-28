@@ -1,0 +1,120 @@
+#! /usr/bin/env python
+# Recursively tags audio files that lack titles with a title from my filename format
+# Also ensures all files have replaygain tags, though it won't realize when the replaygain format is wrong
+
+# Run with -n for a dry run or with -f to force overwriting replaygain
+
+import mutagen
+import os
+import re
+import subprocess
+import sys
+from mutagen.oggvorbis import OggVorbis
+from mutagen.id3 import ID3, TIT2
+
+filetypes = ['flac', 'aac', 'ac3', 'opus']
+id3filetypes = ['mp3']
+oggfiletypes = ['ogg']
+rgfiles = []
+
+# My format
+fname_re = re.compile(u"^.* - x?[0-9]+ - (.+)\.[^.]+$")
+
+# Primitive arg "parsing"
+dry_run = "-n" in sys.argv or "-nf" in sys.argv or "-fn" in sys.argv
+force_rg = "-f" in sys.argv or "-nf" in sys.argv or "-fn" in sys.argv
+
+
+def tagFile(fname):
+    f = mutagen.File(fname)
+    if 'title' not in f:
+        match = fname_re.match(fname)
+        if match:
+            print fname
+            print match.group(1)
+            f["title"] = match.group(1)
+            if not dry_run:
+                f.save()
+    if force_rg or ('replaygain_track_gain' not in f
+                    and 'r128_track_gain' not in f):
+        rgfiles.append(fname)
+
+
+def tagID3File(fname):
+    f = ""
+    try:
+        f = ID3(fname)
+    except Exception as e:
+        print f
+        print e
+        print
+        return
+    if 'TIT2' not in f:
+        match = fname_re.match(fname)
+        if match:
+            print fname
+            print match.group(1)
+            f.add(TIT2(encoding=3, text=match.group(1)))
+            if not dry_run:
+                f.save()
+    if force_rg or 'TXXX:replaygain_track_gain' not in f:
+        rgfiles.append(fname)
+
+
+def tagOggFile(fname):
+    f = OggVorbis(fname)
+    if 'title' not in f:
+        match = fname_re.match(fname)
+        if match:
+            print fname
+            print match.group(1)
+            f["title"] = match.group(1)
+            if not dry_run:
+                f.save()
+    if force_rg or 'replaygain_track_gain' not in f:
+        rgfiles.append(fname)
+
+
+def tagM4AFile(fname):
+    f = mutagen.File(fname)
+    if '\xa9nam' not in f:
+        match = fname_re.match(fname)
+        if match:
+            print fname
+            print match.group(1)
+            f["\xa9nam"] = match.group(1)
+            if not dry_run:
+                f.save()
+    if force_rg or '----:com.apple.iTunes:replaygain_track_peak' not in f:
+        rgfiles.append(fname)
+
+
+for root, dirs, files in os.walk(u"."):
+    for f in files:
+        for ft in filetypes:
+            if f.endswith(ft):
+                tagFile(os.path.join(root, f))
+                break
+        for ft in id3filetypes:
+            if f.endswith(ft):
+                tagID3File(os.path.join(root, f))
+                break
+        for ft in oggfiletypes:
+            if f.endswith(ft):
+                tagOggFile(os.path.join(root, f))
+                break
+        for ft in ['m4a']:
+            if f.endswith(ft):
+                tagM4AFile(os.path.join(root, f))
+                break
+
+print "EBU R128 Scanning"
+
+if len(rgfiles) > 0:
+    for files in [rgfiles[i:i + 50] for i in range(0, len(rgfiles), 50)]:
+        print files
+        args = ['loudness', 'tag', '-t']
+        args.extend(files)
+        if not dry_run:
+            p = subprocess.Popen(args, stdout=sys.stdout)
+            p.wait()

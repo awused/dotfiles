@@ -7,11 +7,16 @@
 
 # Keep TCSH as login shell, it's part of the base system
 # Switch to ZSH if it's available and this is an interactive login shell
+# If outside of TMUX prompt to confirm, in case ZSH is broken (thanks ncurses)
 if ($?prompt && $?loginsh) then
   if ( -f /usr/local/bin/zsh ) then
-    #echo -n "Type Y to run zsh: "
-    #if ( "$<" == Y ) exec /usr/local/bin/zsh -l
-    exec /usr/local/bin/zsh -l
+    if ( $?TMUX ) then
+      if ( "$TMUX" != "" ) then
+        exec /usr/local/bin/zsh -l
+      endif
+    endif
+    echo -n "Type Y to run zsh: "
+    if ( "$<" == Y ) exec /usr/local/bin/zsh -l
   endif
 endif
 

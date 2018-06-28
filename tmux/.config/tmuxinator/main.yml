@@ -1,4 +1,4 @@
-# ~/.tmuxinator/main.yml
+# ~/.config/tmuxinator/main.yml
 
 name: main
 root: ~/
@@ -32,13 +32,13 @@ windows:
   - null:
   - NULL:
       layout: main-vertical
-      root: ~/go/src/github.com/awused/rss-aggregator
+      root: $GOPATH/src/github.com/awused/rss-aggregator
       panes:
           -
           -
   - Null:
       layout: 1f50,180x45,0,0[180x32,0,0{127x32,0,0,3,52x32,128,0,335},180x12,0,33{127x12,0,33,12,52x12,128,33,367}]
-      root: ~/go/src/github.com/awused/rss-aggregator
+      root: $GOPATH/src/github.com/awused/rss-aggregator
       panes:
           -
           -

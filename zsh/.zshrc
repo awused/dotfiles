@@ -35,12 +35,13 @@ export LANG=en_US.UTF-8
 # https://geoff.greer.fm/lscolors/
 export LSCOLORS=ExGxdxdxCxDxDxBxBxegeg
 export LS_COLORS="di=1;34:ln=1;36:so=33:pi=33:ex=1;32:bd=1;33:cd=1;33:su=1;31:sg=1;31:tw=34;46:ow=34;46"
-export GOPATH=$HOME/go
-export GOBIN=$GOPATH/bin
+export GOBIN=$HOME/go/bin
 export PATH=$PATH:$GOBIN
+export PYTHONIOENCODING=UTF-8
 
 export SOURCE_DIR=/storage/media/src
 export THIRD_PARTY_SOURCE=$SOURCE_DIR/third_party
+export GOPATH=$SOURCE_DIR/go
 
 PROMPT="%n@%m:%~ %# "
 
@@ -98,6 +99,7 @@ alias lf='ls -F'
 alias ll='ls -laFh'
 alias lv='exa -lFiHhg --time-style=long-iso'
 alias lva='exa -lFiHhag --time-style=long-iso'
+alias mpc='mpc --host=/storage/mpd/.mpd/socket'
 alias tree='exa -Ta -L'
 alias treel='exa -Tal --time-style=long-iso -L'
 alias clang-format='clang-format50'
@@ -116,7 +118,7 @@ if [[ $(uname) == 'FreeBSD' ]]; then
   # Set equivalent date formats for BSD
   alias date='date +"%Y-%m-%d %H:%M:%S"'
   alias ls='ls -G -D "%Y-%m-%d %H:%M:%S"'
-  alias cutleaves='pkg_cutleaves -Rxg'
+  alias cutleaves='sudo pkg_cutleaves -Rxg'
 
   # cdp to jump to ports dir
   cdp() {
@@ -230,6 +232,7 @@ export FZF_DEFAULT_COMMAND="bfs -color -L \
   -not \( -path '*/vendor' -prune \) \
   -not \( -path '*/.sass-cache' -prune \) \
   -not \( -path '*/.vim/*' -prune \) \
+  -not \( -path '*/go/pkg*' -prune \) \
   -type f"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="bfs -L -type d -nohidden -color"
