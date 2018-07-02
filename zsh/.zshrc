@@ -99,7 +99,6 @@ alias lf='ls -F'
 alias ll='ls -laFh'
 alias lv='exa -lFiHhg --time-style=long-iso'
 alias lva='exa -lFiHhag --time-style=long-iso'
-alias mpc='mpc --host=/storage/mpd/.mpd/socket'
 alias tree='exa -Ta -L'
 alias treel='exa -Tal --time-style=long-iso -L'
 alias clang-format='clang-format50'
@@ -129,6 +128,8 @@ if [[ $(uname) == 'FreeBSD' ]]; then
   # Reorder path so installed ports are preferred over the base system
   # This fixes tput complaining when ncurses is installed
   export PATH=$HOME/bin:/usr/local/bin:$PATH:$GOBIN
+
+  export MPD_HOST=/storage/mpd/.mpd/socket
 fi
 #}}}
 #{{{ Fix Keybinds
@@ -226,16 +227,28 @@ fi
 export FZF_DEFAULT_OPTS='--height 40% --reverse --border --ansi -m'
 #export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --color "always" -g "!**/{.git,node_modules,vendor,.sass-cache}/*" 2> /dev/null'
 #export FZF_DEFAULT_COMMAND='fd --no-ignore --type file --hidden --follow --color "always" --exclude "**/{.git,node_modules,vendor,.sass-cache}"'
-export FZF_DEFAULT_COMMAND="bfs -color -L \
-  -not \( -path '*/.git/*' -prune \) \
+export FZF_EXCLUDES="-not \( -path '*/.git/*' -prune \) \
   -not \( -path '*/node_modules' -prune \) \
   -not \( -path '*/vendor' -prune \) \
   -not \( -path '*/.sass-cache' -prune \) \
   -not \( -path '*/.vim/*' -prune \) \
-  -not \( -path '*/go/pkg*' -prune \) \
+  -not \( -path '*/go/pkg' -prune \) \
+  -not \( -path '*/.cache' -prune \) \
+  -not \( -path '*/.zplug' -prune \) \
+  -not \( -path '*/.jspm' -prune \) \
+  -not \( -path '*/.vegas' -prune \) \
+  -not \( -path '*/.node-gyp' -prune \) \
+  -not \( -path '*/.gocode' -prune \) \
+  -not \( -path '*/.gem' -prune \) \
+  -not \( -path '*/.npm' -prune \) \
+  -not \( -path '*/.ipfs' -prune \) \
+  -not \( -path '*/env/*' -prune \) "
+
+export FZF_DEFAULT_COMMAND="bfs -color -L \
+  $FZF_EXCLUDES \
   -type f"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="bfs -L -type d -nohidden -color"
+export FZF_ALT_C_COMMAND="bfs -color -L -type d -nohidden $FZF_EXCLUDES"
 export FZF_TMUX=1
 
 # Override functions in fzf/completion.zsh
@@ -383,6 +396,7 @@ fi
 # Source plugins as late as possible
 # https://github.com/zsh-users/zsh-syntax-highlighting/issues/46
 source ~/.zplug/init.zsh
+zplug "zsh-users/zsh-completions"
 zplug "plugins/taskwarrior", from:oh-my-zsh
 # ctrl-z twice to fg application
 zplug "plugins/fancy-ctrl-z", from:oh-my-zsh

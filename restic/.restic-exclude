@@ -6,6 +6,14 @@
 
 /usr/home/desuwa/.weechat/logs
 /usr/home/desuwa/.cache
+/usr/home/desuwa/.zplug
+/usr/home/desuwa/.jspm
+/usr/home/desuwa/.vegas
+/usr/home/desuwa/.node-gyp
+/usr/home/desuwa/.npm
+/usr/home/desuwa/.gocode
+/usr/home/desuwa/.gem
+/usr/home/desuwa/.ipfs
 # I keep nothing in .vim/
 /usr/home/desuwa/.vim/*
 
@@ -36,4 +44,4 @@
 /etc/ssh/ssh_host_ecdsa_key
 /etc/ssh/ssh_host_ed25519_key
 
-.ipfs/
+*/env/*

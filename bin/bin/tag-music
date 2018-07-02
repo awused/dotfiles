@@ -4,6 +4,7 @@
 
 # Run with -n for a dry run or with -f to force overwriting replaygain
 
+import argparse
 import mutagen
 import os
 import re
@@ -11,6 +12,7 @@ import subprocess
 import sys
 from mutagen.oggvorbis import OggVorbis
 from mutagen.id3 import ID3, TIT2
+from mutagen.apev2 import APEv2, APEv2File, APENoHeaderError
 
 filetypes = ['flac', 'aac', 'ac3', 'opus']
 id3filetypes = ['mp3']
@@ -20,9 +22,24 @@ rgfiles = []
 # My format
 fname_re = re.compile(u"^.* - x?[0-9]+ - (.+)\.[^.]+$")
 
-# Primitive arg "parsing"
-dry_run = "-n" in sys.argv or "-nf" in sys.argv or "-fn" in sys.argv
-force_rg = "-f" in sys.argv or "-nf" in sys.argv or "-fn" in sys.argv
+parser = argparse.ArgumentParser(
+    description=
+    "Recursively tags files and runs loudness scanner for EBU R128 replaygain scanning"
+)
+parser.add_argument("-n", "--dry_run", help="Dry run", action="store_true")
+parser.add_argument(
+    "-f",
+    "--force_rg",
+    help="Force Replaygain scanning even for files that have tags",
+    action="store_true")
+parser.add_argument(
+    "directory",
+    help="The directory to be scanned",
+    nargs="?",
+    default=u".",
+    type=unicode)
+
+args = parser.parse_args()
 
 
 def tagFile(fname):
@@ -33,10 +50,10 @@ def tagFile(fname):
             print fname
             print match.group(1)
             f["title"] = match.group(1)
-            if not dry_run:
+            if not args.dry_run:
                 f.save()
-    if force_rg or ('replaygain_track_gain' not in f
-                    and 'r128_track_gain' not in f):
+    if args.force_rg or ('replaygain_track_gain' not in f
+                         and 'r128_track_gain' not in f):
         rgfiles.append(fname)
 
 
@@ -45,9 +62,12 @@ def tagID3File(fname):
     try:
         f = ID3(fname)
     except Exception as e:
-        print f
-        print e
-        print
+        if e.message.endswith("doesn't start with an ID3 tag"):
+            tagAPEFile(fname)
+        else:
+            print fname
+            print e
+            print
         return
     if 'TIT2' not in f:
         match = fname_re.match(fname)
@@ -55,9 +75,9 @@ def tagID3File(fname):
             print fname
             print match.group(1)
             f.add(TIT2(encoding=3, text=match.group(1)))
-            if not dry_run:
+            if not args.dry_run:
                 f.save()
-    if force_rg or 'TXXX:replaygain_track_gain' not in f:
+    if args.force_rg or 'TXXX:replaygain_track_gain' not in f:
         rgfiles.append(fname)
 
 
@@ -69,9 +89,9 @@ def tagOggFile(fname):
             print fname
             print match.group(1)
             f["title"] = match.group(1)
-            if not dry_run:
+            if not args.dry_run:
                 f.save()
-    if force_rg or 'replaygain_track_gain' not in f:
+    if args.force_rg or 'replaygain_track_gain' not in f:
         rgfiles.append(fname)
 
 
@@ -83,13 +103,34 @@ def tagM4AFile(fname):
             print fname
             print match.group(1)
             f["\xa9nam"] = match.group(1)
-            if not dry_run:
+            if not args.dry_run:
                 f.save()
-    if force_rg or '----:com.apple.iTunes:replaygain_track_peak' not in f:
+    if args.force_rg or '----:com.apple.iTunes:replaygain_track_peak' not in f:
         rgfiles.append(fname)
 
 
-for root, dirs, files in os.walk(u"."):
+def tagAPEFile(fname):
+    f = None
+    try:
+        f = APEv2(fname)
+    except APENoHeaderError as e:
+        f = APEv2File(fname)
+        f.add_tags()
+        f = f.tags
+
+    if 'Title' not in f:
+        match = fname_re.match(fname)
+        if match:
+            print fname
+            print match.group(1)
+            f["Title"] = match.group(1)
+            if not args.dry_run:
+                f.save(fname)
+    if args.force_rg or 'replaygain_track_gain' not in f:
+        rgfiles.append(fname)
+
+
+for root, dirs, files in os.walk(args.directory):
     for f in files:
         for ft in filetypes:
             if f.endswith(ft):
@@ -108,13 +149,12 @@ for root, dirs, files in os.walk(u"."):
                 tagM4AFile(os.path.join(root, f))
                 break
 
-print "EBU R128 Scanning"
-
 if len(rgfiles) > 0:
+    print "EBU R128 Scanning"
     for files in [rgfiles[i:i + 50] for i in range(0, len(rgfiles), 50)]:
         print files
-        args = ['loudness', 'tag', '-t']
-        args.extend(files)
-        if not dry_run:
-            p = subprocess.Popen(args, stdout=sys.stdout)
+        rgargs = ['loudness', 'tag', '-t']
+        rgargs.extend(files)
+        if not args.dry_run:
+            p = subprocess.Popen(rgargs, stdout=sys.stdout)
             p.wait()

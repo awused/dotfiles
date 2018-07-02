@@ -1,0 +1,24 @@
+#! /usr/bin/env bash
+# Adapted from https://github.com/aver-d/mpd-fzf/blob/master/mpd-fzf-play.bash
+# Changes -- Handles multiple songs and doesn't immediately play them
+# Relies on my changes to mpd-fzf
+# TODO -- really this shell script shouldn't be necessary at all, and this is really inefficient
+
+# Should delete tracks in reverse order then add them all at once, instead of calling mpc playlist each time
+
+while read fzfout; do
+  delimiter='::::'
+
+  path=$(echo "$fzfout" | sed -r "s/^.+$delimiter//")
+  position=$(mpc playlist -f "%position% %file%" | grep -m1 -F "$path" | cut -d' ' -f1)
+
+  if [ -z "$position" ]; then
+    mpc insert "$path"
+  fi
+
+  if [ -n "$position" ]; then
+    mpc del "$position"
+    mpc insert "$path"
+  fi
+done < /dev/stdin
+

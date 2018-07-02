@@ -116,5 +116,5 @@ browser_sort_format = {%a - %t}{%f} {(%l)}
 ##   available.
 ##
 #
-song_columns_list_format = (20)[white]{t|f:Title} (3f)[green]{NE:#} (20)[]{a - b} (20)[cyan]{b} (10)[white]{f} (7f)[magenta]{l}
+song_columns_list_format = (30)[white]{t|f:Title} (3f)[green]{NE:#} (20)[]{a - b} (20)[cyan]{b} (10)[white]{f} (7f)[magenta]{l}
 #
