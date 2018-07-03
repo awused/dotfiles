@@ -342,7 +342,7 @@ bindkey '^[p' fzf-cd-widget
 # https://github.com/junegunn/fzf/wiki/examples#processes
 fkill() {
   local pid
-  pid=$(ps -ax -O user | sed 1d | fzf -m | awk '{print $1}')
+  pid=$(ps -ax -O user | sed 1d | fzf-tmux -m | awk '{print $1}')
 
   if [[ -n "${pid// }" ]]; then
     echo $pid | xargs kill -${1:-9}

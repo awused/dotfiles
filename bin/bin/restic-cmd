@@ -1,5 +1,5 @@
 #!/bin/sh
-# ~/bin/restic
+# ~/bin/restic-cmd
 
 usbdir=/media/BACKUPS/google_cloud_storage
 

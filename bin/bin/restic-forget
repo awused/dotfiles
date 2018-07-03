@@ -1,0 +1,32 @@
+#! /bin/sh
+
+usbdir=/media/BACKUPS/google_cloud_storage
+
+export TMPDIR=/storage/cache/restic/tmp
+export GOOGLE_PROJECT_ID="$(get-automation-password restic-google-project)"
+export GOOGLE_APPLICATION_CREDENTIALS=$usbdir/.restic-robot.json
+
+
+# Keep everything within 90 days due to google coldline making it pointless to
+# delete anything newer
+
+restic \
+  -r "$(get-automation-password restic-bucket)" \
+  forget \
+  --cache-dir=/storage/cache/restic/cache \
+  --limit-upload=500 \
+  --password-file=$usbdir/.restic-password \
+  --group-by host \
+  --keep-within 90d \
+  --keep-daily 10 \
+  --keep-weekly 10 \
+  --keep-monthly 10 \
+  --prune
+
+restic \
+  -r "$(get-automation-password restic-bucket)" \
+  check \
+  --cache-dir=/storage/cache/restic/cache \
+  --limit-upload=500 \
+  --password-file=$usbdir/.restic-password
+

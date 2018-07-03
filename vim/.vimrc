@@ -238,10 +238,10 @@ let g:rgs_command = '
 " Steal the default command from FZF's environment variables
 " TODO -- It'd be nice to get rid of awk here
 if !empty($FZF_DEFAULT_COMMAND)
-  let g:rgs_command = $FZF_DEFAULT_COMMAND . ' | awk ''{print $1":1:1"}'''
+  let g:rgs_command = $FZF_DEFAULT_COMMAND . ' -not \( -path ''*/go/bin/*'' -prune \) | awk ''{print $1":1:1"}'''
 endif
 if !empty($FZF_CTRL_T_COMMAND)
-  let g:rgs_command = $FZF_CTRL_T_COMMAND . ' | awk ''{print $1":1:1"}'''
+  let g:rgs_command = $FZF_CTRL_T_COMMAND . ' -not \( -path ''*/go/bin/*'' -prune \) | awk ''{print $1":1:1"}'''
 endif
 
 command! -bang -nargs=* S call GrepDir(ProjectRoot(), g:rgf_command .shellescape(<q-args>), 1, <bang>0)
@@ -409,6 +409,9 @@ if executable('dash')
 elseif executable('bash')
   set shell=bash
 endif
+
+" Highlight once past 80 characters. Works out well for two files side-by-side.
+match ColorColumn "\%>79v."
 "}}}
 "{{{ Create Directories
 if has("persistent_undo")
