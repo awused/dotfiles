@@ -22,7 +22,7 @@
 " Set g:plug_timeout to large value if necessary
 
 " --- REMINDER --- Also need to set Glaive
-let $LD_LIBRARY_PATH .= ':/usr/local/llvm50/lib/'
+let $LD_LIBRARY_PATH .= ':/usr/local/llvm60/lib/'
 
 let mapleader = " "
 
@@ -348,7 +348,7 @@ call SetupCommandAlias("RR", "YcmCompleter RefactorRename")
 
 call glaive#Install()
 Glaive codefmt plugin[mappings]
-Glaive codefmt clang_format_executable="clang-format50"
+Glaive codefmt clang_format_executable="clang-format60"
 
 "{{{ Filetype Settings
 function! s:CompleteTags()
