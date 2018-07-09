@@ -28,7 +28,7 @@ let mapleader = " "
 
 "{{{ Key Bindings
 " :rrc -> reload vimrc
-" , fold
+" . fold
 " <F4> NerdTreeToggle
 " <F5> UndoTreeToggle
 " :Nnum and :Num hides/shows numbers
@@ -203,10 +203,11 @@ let g:go_highlight_fields = 1
 let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
-let g:go_fmt_command = "goimports"
+" let g:go_fmt_command = "goimports"
+let g:go_fmt_autosave = 0
 " Remember fold state after write
-let g:go_fmt_experimental = 1
-Plug 'fatih/vim-go'
+" let g:go_fmt_experimental = 1
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 "}}}
 "{{{ Autocompletion
 Plug 'tomtom/tcomment_vim'
@@ -254,6 +255,7 @@ nnoremap <leader>s :call PromptInput(":S")<cr>
 "}}}
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'justinmk/vim-sneak'
 
 nnoremap <F4> :NERDTreeToggle<cr>
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -282,6 +284,7 @@ augroup autoformat_settings
   autocmd FileType c,cpp,proto,javascript,typescript if s:ShouldFormat() | exe 'AutoFormatBuffer clang-format' | endif
   " autocmd FileType dart if s:ShouldFormat() | exe 'AutoFormatBuffer dartfmt' | endif
   " autocmd FileType gn if s:ShouldFormat() | exe 'AutoFormatBuffer gn' | endif
+  autocmd FileType go if s:ShouldFormat() | exe 'AutoFormatBuffer gofmt' | endif
   autocmd FileType html,css,json if s:ShouldFormat() | exe 'AutoFormatBuffer js-beautify' | endif
   " autocmd FileType java if s:ShouldFormat() | exe 'AutoFormatBuffer google-java-format' | endif
   autocmd FileType python if s:ShouldFormat() | exe 'AutoFormatBuffer yapf' | endif
@@ -303,6 +306,7 @@ Plug 'ConradIrwin/vim-bracketed-paste'
 nnoremap <F5> :UndotreeToggle<cr>
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-characterize'
 
 " Prefer vividchalk in 256 colour mode, but gruvbox highlights much more
 let g:gruvbox_contrast_dark="hard"
@@ -349,6 +353,7 @@ call SetupCommandAlias("RR", "YcmCompleter RefactorRename")
 call glaive#Install()
 Glaive codefmt plugin[mappings]
 Glaive codefmt clang_format_executable="clang-format60"
+Glaive codefmt gofmt_executable="goimports"
 
 "{{{ Filetype Settings
 function! s:CompleteTags()
@@ -359,6 +364,7 @@ endfunction
 
 augroup filetype_settings
   autocmd!
+  autocmd FileType python setlocal softtabstop=4 shiftwidth=4
   autocmd FileType go setlocal noexpandtab nosmarttab tabstop=2
   autocmd BufRead,BufNewFile *.html,*.js,*.ts,*.xml call s:CompleteTags()
 augroup END
@@ -371,8 +377,8 @@ call SetupCommandAlias("rrc", "so ~/.vimrc")
 call SetupCommandAlias("W", "w")
 nnoremap <Leader>v :ls<CR>:b<Space>
 nnoremap <leader>c <C-w>c
-nnoremap , za
-nnoremap <leader>, za
+nnoremap . za
+nnoremap <leader>. za
 "}}}
 "{{{ Settings
 let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"

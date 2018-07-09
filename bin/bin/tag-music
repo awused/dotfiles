@@ -1,4 +1,6 @@
 #! /usr/bin/env python
+# -*- coding: utf-8 -*-
+# vim: set foldmethod=marker foldlevel=0:
 # Recursively tags audio files that lack titles with a title from my filename format
 # Also ensures all files have replaygain tags, though it won't realize when the replaygain format is wrong
 
@@ -11,7 +13,7 @@ import re
 import subprocess
 import sys
 from mutagen.oggvorbis import OggVorbis
-from mutagen.id3 import ID3, TIT2
+from mutagen.id3 import ID3, TIT2, TPE1, TPE2
 from mutagen.apev2 import APEv2, APEv2File, APENoHeaderError
 
 filetypes = ['flac', 'aac', 'ac3', 'opus']
@@ -33,6 +35,11 @@ parser.add_argument(
     help="Force Replaygain scanning even for files that have tags",
     action="store_true")
 parser.add_argument(
+    "--force_title",
+    help="Force taking the title from the filename. " +
+    "You really want to test this with -n first",
+    action="store_true")
+parser.add_argument(
     "directory",
     help="The directory to be scanned",
     nargs="?",
@@ -40,24 +47,155 @@ parser.add_argument(
     type=unicode)
 
 args = parser.parse_args()
+# {{{ Artist override map
+artist_map = {
+    u"ぴずやの独房": u"Pizuya's Cell",
+    u"あ～るの～と": u"R-Note",
+    u"発熱巫女～ず": u"Hatsunetsumiko's",
+    u"発熱巫女〜ず": u"Hatsunetsumiko's",
+    u"サリー": u"Sally",
+    u"豚乙女": u"BUTAOTOME",
+    u"りすとら": u"Liz Triangle",
+    u"魂音泉": u"TAMAONSEN",
+    u"幽閉サテライト": u"Yuuhei Satellite",
+    u"イオシス": u"IOSYS",
+    u"まぐなむお～ぱす": u"Magnum Opus",
+    u"白狐茶会": u"White Fox Tea Party",
+    u"幽閉サテライト 白狐茶会": u"Pizuya's Cell x White Fox Tea Party",
+    u"いえろ～ぜぶら": u"Yellow Zebra",
+    u"ふぉれすとぴれお": u"Forestpireo",
+    u"こなぐすり": u"Conagusuri",
+    u"とらのあな": u"Toranoana",
+    u"領域ZERO": u"Area-ZERO",
+    u"セブンスヘブンMAXION": u"Seventh Heaven MAXION",
+    u"第零交響師団": u"Zero Symphonic Battalion",
+    u"凋叶棕": u"RD-Sounds",
+    u"はちみつれもん": u"Hachimitsu-Lemon",
+    u"岸田教団&THE明星ロケッツ": u"Kishida Kyoudan & The Akeboshi Rockets",
+    u"森羅万象": u"ShinRa-Bansho",
+    u"俺++": u"Includeore",
+    u"舞風": u"MAIKAZE",
+    u"子猫奪回屋": u"KONEKODAKKAIYA",
+    u"魂音泉 x 豚乙女 x COOL&CREATE": u"TAMAONSEN x BUTAOTOME x COOL&CREATE",
+    u"ななひら": u"Nanahira",
+    u"綾倉 盟": u"Mei Ayakura",
+    u"綾倉盟": u"Mei Ayakura",
+    u"めらみぽっぷ": u"Meramipop",
+    u"めらみぽっぷ(COSMOPOLITAN)": u"Meramipop",
+    u"紫咲ほたる": u"Hotaru Murasaki",
+    u"隣人": u"Linjin",
+    u"みぃ": u"Mie",
+    u"美歌": u"Mika",
+    u"舞花": u"Maika",
+    u"綾倉 盟／市松 椿": u"Mei Ayakura/Tsubaki Ichimatsu",
+    u"綾倉 盟/市松 椿": u"Mei Ayakura/Tsubaki Ichimatsu",
+    u"まめみ": u"Mamemi",
+    u"真崎エリカ": u"Masaki Erica",
+    u"流派華劇団": u"Ryuuha Mitsukitei",
+    u"天然ジェミニ": u"Tennenjemini",
+    u"愛原佑季＆愛原千尋": u"Yuuki Aihara & Chihiro Aihara",
+    u"藤宮ゆき": u"Yuki Fujimiya",
+    u"ゆーな": u"Yuuna",
+    u"未知艺术家": u"Vivienne",
+    u"びびあん": u"Vivienne",
+    u"花咲あんな": u"Hanasaki Anna",
+    u"East New Sound": u"EastNewSound",
+    u"暁Records": u"Akatsuki Records",
+    u"暁Records×Liz Triangle": u"Akatsuki Records x Liz Triangle",
+    u"芳葉": u"Yoshiha",
+    u"此糸ウルヱ": u"Urue Koreito",
+    u"東方黒髪少女地位向上委員会": u"Foxtail Grass Studio",
+    u"オーライフジャパン": u"O-Life Japan",
+    u"バル": u"Baru",
+    u"ハム": u"Ham",
+    u"佳織みちる": u"Michiru Kaori",
+    u"あいざわ": u"Aizawa",
+    u"ゆーな/悠花": u"Yuuna/Yuka",
+    u"弟の姉": u"Kurosawa Madoka",
+    u"yukina;みぃ": u"yukina & Mie",
+    u"坂上なち": u"Sakaue Nachi",
+    u"小田ユウ": u"Oda Yuu",
+    u"あき": u"Aki",
+    u"陽花": u"Youka",
+    u"まやろーやる": u"Mayaroyal",
+    u"にょ。": u"Nyo.",
+    u"たま": u"Tama",
+    u"ランコ": u"Ranko",
+    u"ほたる": u"Hotaru",
+    u"556ミリメートル": u"556mm",
+    u"あよ": u"Ayo",
+    u"夕月椿": u"Yuzuki Tsubaki",
+    u"マンダリン": u"Mandarin",
+    u"霖": u"Rin",
+    u"あやぽんず＊": u"Ayaponzu*",
+    u"茶太": u"Chata"
+}
+# }}}
+
+# Compares a title while ignoring characters that aren't safe for file names
+# and their common replacements
+# Tries to avoid replacing "Title?" with "Title" or "A/B" with "A／Z"
+# This is a manually curated list, and it could be smarter
+# TODO -- Handle replacement characters positionally?
+title_re = re.compile(u"[/?^\\<>\"'|:／,_.-]")
+spaces_re = re.compile(u" ( )+")
+
+
+def titlesDiffer(title, fnametitle):
+    fn = title_re.sub(" ", fnametitle)
+    ti = title_re.sub(" ", title).replace("*", "x")
+    fn = spaces_re.sub(" ", fn)
+    ti = spaces_re.sub(" ", ti)
+    if not title.endswith(" "):
+        ti = ti.rstrip(" ")
+    return fn != ti and not fn.endswith(ti)
 
 
 def tagFile(fname):
+    changed = False
     f = mutagen.File(fname)
-    if 'title' not in f:
-        match = fname_re.match(fname)
-        if match:
-            print fname
-            print match.group(1)
-            f["title"] = match.group(1)
-            if not args.dry_run:
-                f.save()
+
+    match = fname_re.match(fname)
+    if match:
+        oldt = f.get('title', [''])[0]
+        newt = match.group(1)
+        if oldt == '' or (args.force_title and titlesDiffer(oldt, newt)):
+            if not changed: print "\n" + fname
+            changed = True
+            f["title"] = newt
+            print "Title: " + oldt + " -> " + newt
+
+    a = f.get('artist', [''])[0]
+    if a in artist_map:
+        if not changed: print "\n" + fname
+        changed = True
+        f["artist"] = artist_map[a]
+        print "Artist: " + a + " -> " + artist_map[a]
+
+    aa = f.get('albumartist', [''])[0]
+    if aa in artist_map:
+        if not changed: print "\n" + fname
+        changed = True
+        f["albumartist"] = artist_map[aa]
+        print "Album Artist: " + aa + " -> " + artist_map[aa]
+
+    aa = f.get('album artist', [''])[0]
+    if aa in artist_map:
+        if not changed: print "\n" + fname
+        changed = True
+        f["album artist"] = artist_map[aa]
+        print "Album Artist: " + aa + " -> " + artist_map[aa]
+
+    if changed and not args.dry_run:
+        f.save()
+
     if args.force_rg or ('replaygain_track_gain' not in f
                          and 'r128_track_gain' not in f):
         rgfiles.append(fname)
 
 
 def tagID3File(fname):
+    changed = False
     f = ""
     try:
         f = ID3(fname)
@@ -69,47 +207,113 @@ def tagID3File(fname):
             print e
             print
         return
-    if 'TIT2' not in f:
-        match = fname_re.match(fname)
-        if match:
-            print fname
-            print match.group(1)
-            f.add(TIT2(encoding=3, text=match.group(1)))
-            if not args.dry_run:
-                f.save()
+
+    match = fname_re.match(fname)
+    if match:
+        oldt = f.get('TIT2', [''])[0]
+        newt = match.group(1)
+        if oldt == '' or (args.force_title and titlesDiffer(oldt, newt)):
+            if not changed: print "\n" + fname
+            changed = True
+            f.delall('TIT2')
+            f.add(TIT2(encoding=3, text=newt))
+            print "Title: " + oldt + " -> " + newt
+
+    a = f.get('TPE1', [''])[0]
+    if a in artist_map:
+        if not changed: print "\n" + fname
+        changed = True
+        f.delall('TPE1')
+        f.add(TPE1(encoding=3, text=artist_map[a]))
+        print "Artist: " + a + " -> " + artist_map[a]
+
+    aa = f.get('TPE2', [''])[0]
+    if aa in artist_map:
+        if not changed: print "\n" + fname
+        changed = True
+        f.delall('TPE2')
+        f.add(TPE2(encoding=3, text=artist_map[aa]))
+        print "Album Artist: " + aa + " -> " + artist_map[aa]
+
+    if changed and not args.dry_run:
+        f.save()
+
     if args.force_rg or 'TXXX:replaygain_track_gain' not in f:
         rgfiles.append(fname)
 
 
 def tagOggFile(fname):
+    changed = False
     f = OggVorbis(fname)
-    if 'title' not in f:
-        match = fname_re.match(fname)
-        if match:
-            print fname
-            print match.group(1)
-            f["title"] = match.group(1)
-            if not args.dry_run:
-                f.save()
+
+    match = fname_re.match(fname)
+    if match:
+        oldt = f.get('title', [''])[0]
+        newt = match.group(1)
+        if oldt == '' or (args.force_title and titlesDiffer(oldt, newt)):
+            if not changed: print "\n" + fname
+            changed = True
+            f["title"] = newt
+            print "Title: " + oldt + " -> " + newt
+
+    a = f.get('artist', [''])[0]
+    if a in artist_map:
+        if not changed: print "\n" + fname
+        changed = True
+        f["artist"] = artist_map[a]
+        print "Artist: " + a + " -> " + artist_map[a]
+
+    aa = f.get('albumartist', [''])[0]
+    if aa in artist_map:
+        if not changed: print "\n" + fname
+        changed = True
+        f["albumartist"] = artist_map[aa]
+        print "Album Artist: " + aa + " -> " + artist_map[aa]
+
+    if changed and not args.dry_run:
+        f.save()
+
     if args.force_rg or 'replaygain_track_gain' not in f:
         rgfiles.append(fname)
 
 
 def tagM4AFile(fname):
+    changed = False
     f = mutagen.File(fname)
-    if '\xa9nam' not in f:
-        match = fname_re.match(fname)
-        if match:
-            print fname
-            print match.group(1)
-            f["\xa9nam"] = match.group(1)
-            if not args.dry_run:
-                f.save()
+
+    match = fname_re.match(fname)
+    if match:
+        oldt = f.get("\xa9nam", [''])[0]
+        newt = match.group(1)
+        if oldt == '' or (args.force_title and titlesDiffer(oldt, newt)):
+            if not changed: print "\n" + fname
+            changed = True
+            f["\xa9nam"] = newt
+            print "Title: " + oldt + " -> " + newt
+
+    a = f.get("\xa9ART", [''])[0]
+    if a in artist_map:
+        if not changed: print "\n" + fname
+        changed = True
+        f["\xa9ART"] = artist_map[a]
+        print "Artist: " + a + " -> " + artist_map[a]
+
+    aa = f.get("aART", [''])[0]
+    if aa in artist_map:
+        if not changed: print "\n" + fname
+        changed = True
+        f["aART"] = artist_map[aa]
+        print "Album Artist: " + aa + " -> " + artist_map[aa]
+
+    if changed and not args.dry_run:
+        f.save()
+
     if args.force_rg or '----:com.apple.iTunes:replaygain_track_peak' not in f:
         rgfiles.append(fname)
 
 
 def tagAPEFile(fname):
+    changed = False
     f = None
     try:
         f = APEv2(fname)
@@ -118,19 +322,39 @@ def tagAPEFile(fname):
         f.add_tags()
         f = f.tags
 
-    if 'Title' not in f:
-        match = fname_re.match(fname)
-        if match:
-            print fname
-            print match.group(1)
-            f["Title"] = match.group(1)
-            if not args.dry_run:
-                f.save(fname)
+    match = fname_re.match(fname)
+    if match:
+        oldt = f.get('Title', [''])[0]
+        newt = match.group(1)
+        if oldt == '' or (args.force_title and titlesDiffer(oldt, newt)):
+            if not changed: print "\n" + fname
+            changed = True
+            f["Title"] = newt
+            print "Title: " + oldt + " -> " + newt
+
+    a = f.get('Artist', [''])[0]
+    if a in artist_map:
+        if not changed: print "\n" + fname
+        changed = True
+        f["Artist"] = artist_map[a]
+        print "Artist: " + a + " -> " + artist_map[a]
+
+    aa = f.get('Album artist', [''])[0]
+    if aa in artist_map:
+        if not changed: print "\n" + fname
+        changed = True
+        f["Album artist"] = artist_map[aa]
+        print "Album Artist: " + aa + " -> " + artist_map[aa]
+
+    if changed and not args.dry_run:
+        f.save()
+
     if args.force_rg or 'replaygain_track_gain' not in f:
         rgfiles.append(fname)
 
 
 for root, dirs, files in os.walk(args.directory):
+    files.sort()
     for f in files:
         for ft in filetypes:
             if f.endswith(ft):
