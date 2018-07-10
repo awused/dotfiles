@@ -7,6 +7,7 @@
 # Run with -n for a dry run or with -f to force overwriting replaygain
 
 import argparse
+import codecs
 import mutagen
 import os
 import re
@@ -16,13 +17,16 @@ from mutagen.oggvorbis import OggVorbis
 from mutagen.id3 import ID3, TIT2, TPE1, TPE2
 from mutagen.apev2 import APEv2, APEv2File, APENoHeaderError
 
-filetypes = ['flac', 'aac', 'ac3', 'opus']
-id3filetypes = ['mp3']
-oggfiletypes = ['ogg']
+sys.stdin = codecs.getreader('utf-8')(sys.stdin)
+
+filetypes = ['.flac', '.aac', '.opus']
+apefiletypes = ['.ac3']
+id3filetypes = ['.mp3']
+oggfiletypes = ['.ogg']
 rgfiles = []
 
 # My format
-fname_re = re.compile(u"^.* - x?[0-9]+ - (.+)\.[^.]+$")
+fname_re = re.compile(u"^(.+) - x?[0-9]+ - (.+)\.[^.]+$")
 
 parser = argparse.ArgumentParser(
     description=
@@ -30,7 +34,6 @@ parser = argparse.ArgumentParser(
 )
 parser.add_argument("-n", "--dry_run", help="Dry run", action="store_true")
 parser.add_argument(
-    "-f",
     "--force_rg",
     help="Force Replaygain scanning even for files that have tags",
     action="store_true")
@@ -40,11 +43,22 @@ parser.add_argument(
     "You really want to test this with -n first",
     action="store_true")
 parser.add_argument(
+    "--set_album_artist",
+    help="Set the album artist from the filename if it isn't present. " +
+    "You really want to test this with -n first",
+    action="store_true")
+parser.add_argument(
     "directory",
-    help="The directory to be scanned",
+    help="The directory to be scanned, - for stdin",
     nargs="?",
     default=u".",
     type=unicode)
+parser.add_argument(
+    "-d",
+    "--depth",
+    help="The depth to be scanned, -1 for no limit",
+    default=3,
+    type=int)
 
 args = parser.parse_args()
 # {{{ Artist override map
@@ -155,10 +169,10 @@ def tagFile(fname):
     changed = False
     f = mutagen.File(fname)
 
-    match = fname_re.match(fname)
+    match = fname_re.match(os.path.basename(fname))
     if match:
         oldt = f.get('title', [''])[0]
-        newt = match.group(1)
+        newt = match.group(2)
         if oldt == '' or (args.force_title and titlesDiffer(oldt, newt)):
             if not changed: print "\n" + fname
             changed = True
@@ -179,12 +193,11 @@ def tagFile(fname):
         f["albumartist"] = artist_map[aa]
         print "Album Artist: " + aa + " -> " + artist_map[aa]
 
-    aa = f.get('album artist', [''])[0]
-    if aa in artist_map:
+    if match and aa == "" and args.set_album_artist:
         if not changed: print "\n" + fname
         changed = True
-        f["album artist"] = artist_map[aa]
-        print "Album Artist: " + aa + " -> " + artist_map[aa]
+        f["albumartist"] = match.group(1)
+        print "Album Artist:  -> " + match.group(1)
 
     if changed and not args.dry_run:
         f.save()
@@ -208,10 +221,10 @@ def tagID3File(fname):
             print
         return
 
-    match = fname_re.match(fname)
+    match = fname_re.match(os.path.basename(fname))
     if match:
         oldt = f.get('TIT2', [''])[0]
-        newt = match.group(1)
+        newt = match.group(2)
         if oldt == '' or (args.force_title and titlesDiffer(oldt, newt)):
             if not changed: print "\n" + fname
             changed = True
@@ -235,6 +248,13 @@ def tagID3File(fname):
         f.add(TPE2(encoding=3, text=artist_map[aa]))
         print "Album Artist: " + aa + " -> " + artist_map[aa]
 
+    if match and aa == "" and args.set_album_artist:
+        if not changed: print "\n" + fname
+        changed = True
+        f.delall('TPE2')
+        f.add(TPE2(encoding=3, text=match.group(1)))
+        print "Album Artist:  -> " + match.group(1)
+
     if changed and not args.dry_run:
         f.save()
 
@@ -246,10 +266,10 @@ def tagOggFile(fname):
     changed = False
     f = OggVorbis(fname)
 
-    match = fname_re.match(fname)
+    match = fname_re.match(os.path.basename(fname))
     if match:
         oldt = f.get('title', [''])[0]
-        newt = match.group(1)
+        newt = match.group(2)
         if oldt == '' or (args.force_title and titlesDiffer(oldt, newt)):
             if not changed: print "\n" + fname
             changed = True
@@ -270,6 +290,12 @@ def tagOggFile(fname):
         f["albumartist"] = artist_map[aa]
         print "Album Artist: " + aa + " -> " + artist_map[aa]
 
+    if match and aa == "" and args.set_album_artist:
+        if not changed: print "\n" + fname
+        changed = True
+        f["albumartist"] = match.group(1)
+        print "Album Artist:  -> " + match.group(1)
+
     if changed and not args.dry_run:
         f.save()
 
@@ -281,10 +307,10 @@ def tagM4AFile(fname):
     changed = False
     f = mutagen.File(fname)
 
-    match = fname_re.match(fname)
+    match = fname_re.match(os.path.basename(fname))
     if match:
         oldt = f.get("\xa9nam", [''])[0]
-        newt = match.group(1)
+        newt = match.group(2)
         if oldt == '' or (args.force_title and titlesDiffer(oldt, newt)):
             if not changed: print "\n" + fname
             changed = True
@@ -305,6 +331,12 @@ def tagM4AFile(fname):
         f["aART"] = artist_map[aa]
         print "Album Artist: " + aa + " -> " + artist_map[aa]
 
+    if match and aa == "" and args.set_album_artist:
+        if not changed: print "\n" + fname
+        changed = True
+        f["aART"] = match.group(1)
+        print "Album Artist:  -> " + match.group(1)
+
     if changed and not args.dry_run:
         f.save()
 
@@ -322,10 +354,10 @@ def tagAPEFile(fname):
         f.add_tags()
         f = f.tags
 
-    match = fname_re.match(fname)
+    match = fname_re.match(os.path.basename(fname))
     if match:
         oldt = f.get('Title', [''])[0]
-        newt = match.group(1)
+        newt = match.group(2)
         if oldt == '' or (args.force_title and titlesDiffer(oldt, newt)):
             if not changed: print "\n" + fname
             changed = True
@@ -346,6 +378,12 @@ def tagAPEFile(fname):
         f["Album artist"] = artist_map[aa]
         print "Album Artist: " + aa + " -> " + artist_map[aa]
 
+    if match and aa == "" and args.set_album_artist:
+        if not changed: print "\n" + fname
+        changed = True
+        f["Album artist"] = match.group(1)
+        print "Album Artist:  -> " + match.group(1)
+
     if changed and not args.dry_run:
         f.save()
 
@@ -353,25 +391,52 @@ def tagAPEFile(fname):
         rgfiles.append(fname)
 
 
-for root, dirs, files in os.walk(args.directory):
-    files.sort()
-    for f in files:
-        for ft in filetypes:
-            if f.endswith(ft):
-                tagFile(os.path.join(root, f))
-                break
-        for ft in id3filetypes:
-            if f.endswith(ft):
-                tagID3File(os.path.join(root, f))
-                break
-        for ft in oggfiletypes:
-            if f.endswith(ft):
-                tagOggFile(os.path.join(root, f))
-                break
-        for ft in ['m4a']:
-            if f.endswith(ft):
-                tagM4AFile(os.path.join(root, f))
-                break
+# See https://stackoverflow.com/questions/229186/os-walk-without-digging-into-directories-below
+def walklevel(some_dir, level=-1):
+    some_dir = some_dir.rstrip(os.path.sep)
+    assert os.path.isdir(some_dir)
+    num_sep = some_dir.count(os.path.sep)
+    for root, dirs, files in os.walk(some_dir):
+        if u"$RECYCLE.BIN" in root:
+            del dirs[:]
+            continue
+        yield root, dirs, files
+        num_sep_this = root.count(os.path.sep)
+        if level != -1 and num_sep + level <= num_sep_this:
+            del dirs[:]
+
+
+def tagPath(path):
+    for ft in filetypes:
+        if path.endswith(ft):
+            tagFile(path)
+            return
+    for ft in apefiletypes:
+        if path.endswith(ft):
+            tagAPEFile(path)
+            return
+    for ft in id3filetypes:
+        if path.endswith(ft):
+            tagID3File(path)
+            return
+    for ft in oggfiletypes:
+        if path.endswith(ft):
+            tagOggFile(path)
+            return
+    for ft in ['m4a']:
+        if path.endswith(ft):
+            tagM4AFile(path)
+            return
+
+
+if args.directory != u'-':
+    for root, dirs, files in walklevel(args.directory, args.depth):
+        files.sort()
+        for f in files:
+            tagPath(os.path.join(root, f))
+else:
+    for line in sys.stdin:
+        tagPath(line.rstrip('\n'))
 
 if len(rgfiles) > 0:
     print "EBU R128 Scanning"
