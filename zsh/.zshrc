@@ -101,7 +101,6 @@ alias lv='exa -lFiHhg --time-style=long-iso'
 alias lva='exa -lFiHhag --time-style=long-iso'
 alias tree='exa -Ta -L'
 alias treel='exa -Tal --time-style=long-iso -L'
-alias clang-format='clang-format50'
 eval $(thefuck --alias)
 
 alias mux='tmuxinator'
