@@ -49,7 +49,8 @@ parser.add_argument(
     action="store_true")
 parser.add_argument(
     "--override_various_artists",
-    help="Overrides 'Various Artists' when used with --set_album_artist. ",
+    help=
+    "Overrides 'Various Artists' and 'various' when used with --set_album_artist. ",
     action="store_true")
 parser.add_argument(
     "directory",
@@ -201,7 +202,8 @@ def tagFile(fname):
 
     if match and args.set_album_artist and (
             aa == "" or
-        (args.override_various_artists and aa.lower() == 'various artists')):
+        (args.override_various_artists and
+         (aa.lower() == 'various artists' or aa.lower() == 'various'))):
         if not changed: print "\n" + fname
         changed = True
         f["albumartist"] = match.group(1)
@@ -258,7 +260,8 @@ def tagID3File(fname):
 
     if match and args.set_album_artist and (
             aa == "" or
-        (args.override_various_artists and aa.lower() == 'various artists')):
+        (args.override_various_artists and
+         (aa.lower() == 'various artists' or aa.lower() == 'various'))):
         if not changed: print "\n" + fname
         changed = True
         f.delall('TPE2')
@@ -302,7 +305,8 @@ def tagOggFile(fname):
 
     if match and args.set_album_artist and (
             aa == "" or
-        (args.override_various_artists and aa.lower() == 'various artists')):
+        (args.override_various_artists and
+         (aa.lower() == 'various artists' or aa.lower() == 'various'))):
         if not changed: print "\n" + fname
         changed = True
         f["albumartist"] = match.group(1)
@@ -345,7 +349,8 @@ def tagM4AFile(fname):
 
     if match and args.set_album_artist and (
             aa == "" or
-        (args.override_various_artists and aa.lower() == 'various artists')):
+        (args.override_various_artists and
+         (aa.lower() == 'various artists' or aa.lower() == 'various'))):
         if not changed: print "\n" + fname
         changed = True
         f["aART"] = match.group(1)
@@ -394,7 +399,8 @@ def tagAPEFile(fname):
 
     if match and args.set_album_artist and (
             aa == "" or
-        (args.override_various_artists and aa.lower() == 'various artists')):
+        (args.override_various_artists and
+         (aa.lower() == 'various artists' or aa.lower() == 'various'))):
         if not changed: print "\n" + fname
         changed = True
         f["Album artist"] = match.group(1)
