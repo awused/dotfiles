@@ -417,7 +417,10 @@ elseif executable('bash')
 endif
 
 " Highlight once past 80 characters. Works out well for two files side-by-side.
-match ColorColumn "\%>79v."
+augroup window_settings
+  autocmd!
+  autocmd BufWinEnter * match ColorColumn "\%>79v."
+augroup END
 "}}}
 "{{{ Create Directories
 if has("persistent_undo")

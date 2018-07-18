@@ -124,6 +124,22 @@ if [[ $(uname) == 'FreeBSD' ]]; then
   }
   zle -N cdp
 
+  # Recursively list unmet port dependencies without installing them
+  # Not the most efficient implementation, but good enough
+  _unmet_port_depends() {
+    echo "$(pkg rquery %dn $1)" | while read dep; do
+      local met=$(pkg query %n $dep)
+      [ -n "$met" ] && continue
+      echo $dep
+      _unmet_port_depends $dep
+    done
+  }
+  unmet-port-depends() {
+    [ -z "$(pkg rquery %n $1)" ] && echo "Invalid port name" && return
+    _unmet_port_depends $1 | awk '!a[$0]++'
+  }
+  zle -N unmet-port-depends
+
   # Reorder path so installed ports are preferred over the base system
   # This fixes tput complaining when ncurses is installed
   export PATH=$HOME/bin:/usr/local/bin:$PATH:$GOBIN

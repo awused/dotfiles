@@ -1,6 +1,6 @@
 DIR="/storage/media/users/desuwa/Music/Unsorted"
 OUTPATTERN="@artist/{@year - }@album/@track - @title.@ext"
-COPYMASKS="[Cc]overs \*.log \*.txt \*.jpg \*.cbr"
+COPYMASKS="[Cc]overs *.log *.txt *.{jpg,JPG} *.cbr"
 COPYFILES=1
 NOSUBDIRS=0
 NOPIC=0

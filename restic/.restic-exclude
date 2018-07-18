@@ -21,6 +21,8 @@
 /usr/local/etc/tcsd.conf.sample
 /usr/local/etc/transmission
 /usr/local/etc/cups
+/usr/local/etc/sasldb2.db
+/usr/local/etc/znc
 
 /storage/media/users/desuwa/**/upscale
 /storage/media/users/desuwa/Pictures/Wallpapers/cache
