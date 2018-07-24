@@ -407,7 +407,7 @@ def tagAPEFile(fname):
         print "Album Artist: " + aa + " -> " + match.group(1)
 
     if changed and not args.dry_run:
-        f.save()
+        f.save(fname)
 
     if args.force_rg or 'replaygain_track_gain' not in f:
         rgfiles.append(fname)

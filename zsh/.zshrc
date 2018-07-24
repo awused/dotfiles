@@ -12,15 +12,16 @@
 
 
 #{{{ Auto-source
+# GNU stat by default
+__stat_format='-c %Y'
 stat-rc() {
- echo -n $(stat -f %m $(readlink -f ~/.zshrc))
+ echo -n $(stat $__stat_format $(readlink -f ~/.zshrc))
 }
 zle -N stat-rc
 
-zshrc_sourced=$(stat-rc)
 precmd() {
-  if (( $zshrc_sourced != $(stat-rc) )) {
-    zshrc_sourced=$(stat-rc)
+  if (( $__zshrc_sourced != $(stat-rc) )) {
+    __zshrc_sourced=$(stat-rc)
     source ~/.zshrc
   }
 }
@@ -113,9 +114,11 @@ alias 'cd..=cd ..'
 # }}}
 #{{{ OS/Computer specific settings
 if [[ $(uname) == 'FreeBSD' ]]; then
-  # Set equivalent date formats for BSD
   alias date='date +"%Y-%m-%d %H:%M:%S"'
   alias ls='ls -G -D "%Y-%m-%d %H:%M:%S"'
+
+  __stat_format='-f %m'
+
   alias cutleaves='sudo pkg_cutleaves -Rxg'
 
   # cdp to jump to ports dir
@@ -423,6 +426,9 @@ zplug load
 
 ZSH_HIGHLIGHT_STYLES[globbing]=fg=blue,bold
 #}}}
+
+# Record mtime for auto-sourcing on change
+__zshrc_sourced=$(stat-rc)
 
 # Enforce unique PATH, unsets $PATH for the rest of the script
 typeset -U path
