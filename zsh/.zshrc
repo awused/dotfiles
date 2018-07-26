@@ -57,6 +57,13 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_REDUCE_BLANKS
 setopt HIST_VERIFY
 
+
+# Directory stack
+export DIRSTACKSIZE=8
+setopt AUTO_PUSHD
+setopt PUSHD_SILENT
+setopt PUSHD_IGNORE_DUPS
+
 export LINES
 export COLUMNS
 
@@ -94,6 +101,7 @@ zle -N self-insert url-quote-magic
 # {{{ Aliases
 alias j='jobs -l'
 alias cp='cp -i'
+alias pd='popd'
 alias ls='ls -G'
 alias la='ls -aF'
 alias lf='ls -F'
@@ -130,16 +138,16 @@ if [[ $(uname) == 'FreeBSD' ]]; then
   # Recursively list unmet port dependencies without installing them
   # Not the most efficient implementation, but good enough
   _unmet_port_depends() {
-    echo "$(pkg rquery %dn $1)" | while read dep; do
+    echo "$(make all-depends-list | cut -f 4- -d /)" | while read dep; do
       local met=$(pkg query %n $dep)
       [ -n "$met" ] && continue
       echo $dep
-      _unmet_port_depends $dep
     done
   }
   unmet-port-depends() {
     [ -z "$(pkg rquery %n $1)" ] && echo "Invalid port name" && return
-    _unmet_port_depends $1 | awk '!a[$0]++'
+    cdp $1
+    _unmet_port_depends | awk '!a[$0]++'
   }
   zle -N unmet-port-depends
 
@@ -360,7 +368,7 @@ bindkey '^[p' fzf-cd-widget
 # https://github.com/junegunn/fzf/wiki/examples#processes
 fkill() {
   local pid
-  pid=$(ps -ax -O user | sed 1d | fzf-tmux -m | awk '{print $1}')
+  pid=$(ps ax -O user | sed 1d | fzf-tmux -m | awk '{print $1}')
 
   if [[ -n "${pid// }" ]]; then
     echo $pid | xargs kill -${1:-9}

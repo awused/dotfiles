@@ -26,6 +26,7 @@
 
 /storage/media/users/desuwa/**/upscale
 /storage/media/users/desuwa/Pictures/Wallpapers/cache
+/storage/media/users/wallpaper-cache
 # Should eventually include this
 /storage/media/users/desuwa/Unsorted Downloads
 
