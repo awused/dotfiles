@@ -13,4 +13,3 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/usr/home/desu
   0  9  *  *  * ~/.cron/task-notify
   0  0,12  *  *  * ~/.cron/certbot-renew
   *  *  *  *  * steam-screenshots
-  30  7  *  *  * fix-twitter-images 2>&1 | grep -v "no matches found"
