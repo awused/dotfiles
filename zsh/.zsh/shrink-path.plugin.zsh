@@ -103,13 +103,13 @@ shrink_path() {
         (( tilde )) && dir=${dir/$HOME/\~}
         tree=(${(s:/:)dir})
         (
-                unfunction chpwd 2> /dev/null
+                #unfunction chpwd 2> /dev/null
                 if [[ $tree[1] == \~* ]] {
-                        cd ${~tree[1]}
+                        #cd ${~tree[1]}
                         result=$tree[1]
                         shift tree
                 } else {
-                        cd /
+                        #cd /
                 }
                 for dir in $tree; {
                         if (( lastfull >= $#tree )) {
@@ -126,7 +126,7 @@ shrink_path() {
                                 (( short )) && break
                         done
                         result+="/$part"
-                        cd $dir
+                        #cd $dir
                         shift tree
                 }
                 echo ${result:-/}
