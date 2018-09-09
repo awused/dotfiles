@@ -23,6 +23,10 @@ export TIME_STYLE="long-iso"
 
 
 #{{{ OS/Computer specific settings
+if [[ $(uname) == 'Linux' ]]; then
+  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+fi
+
 if [[ $(hostname) == 'desutop' ]]; then
   export CFLAGS="-march=native -O2 -pipe"
   export CXXFLAGS="$CFLAGS"

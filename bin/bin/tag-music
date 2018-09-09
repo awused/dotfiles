@@ -468,7 +468,7 @@ else:
 
 if len(rgfiles) > 0:
     print "EBU R128 Scanning"
-    for files in [rgfiles[i:i + 50] for i in range(0, len(rgfiles), 50)]:
+    for files in [rgfiles[i:i + 128] for i in range(0, len(rgfiles), 128)]:
         print files
         rgargs = ['loudness', 'tag', '-t']
         rgargs.extend(files)

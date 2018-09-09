@@ -1,4 +1,4 @@
-#!/usr/local/bin/dash
+#!/usr/bin/env dash
 # /usr/local/www/collectd/collectd-cpuinfo.sh
 ###
 # ABOUT  : collectd monitoring script for cpu frequency and temperature per core statistics
