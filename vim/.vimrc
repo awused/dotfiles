@@ -13,7 +13,7 @@
 " Be sure to set clang-format for Glaive for formatting
 "
 "
-" npm install -g typescript, js-beautify
+" npm install -g typescript js-beautify
 "
 " install yapf for python
 "
@@ -22,7 +22,10 @@
 " Set g:plug_timeout to large value if necessary
 
 " --- REMINDER --- Also need to set Glaive
-let $LD_LIBRARY_PATH .= ':/usr/local/llvm60/lib/'
+let g:os = substitute(system('uname'), '\n', '', '')
+if g:os == "FreeBSD"
+  let $LD_LIBRARY_PATH .= ':/usr/local/llvm60/lib/'
+endif
 
 let mapleader = " "
 
@@ -39,7 +42,7 @@ let mapleader = " "
 " :Sudoe -- Current buffer only, working syntax
 " :Delete
 " :Move
-" :Rename (:Move relative to the file) 
+" :Rename (:Move relative to the file)
 
 " vim/surround
 " cs/ds to surround things
@@ -87,7 +90,7 @@ let mapleader = " "
 
 " Terminal stuff
 " This is not interactive
-" :term <commands> 
+" :term <commands>
 " https://github.com/vim/vim/blob/master/runtime/doc/terminal.txt
 "}}}
 "{{{ Custom Functions
@@ -352,7 +355,9 @@ call SetupCommandAlias("RR", "YcmCompleter RefactorRename")
 
 call glaive#Install()
 Glaive codefmt plugin[mappings]
-Glaive codefmt clang_format_executable="clang-format60"
+if g:os == "FreeBSD"
+  Glaive codefmt clang_format_executable="clang-format60"
+endif
 Glaive codefmt gofmt_executable="goimports"
 
 "{{{ Filetype Settings

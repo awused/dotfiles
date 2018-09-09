@@ -28,21 +28,6 @@ precmd() {
 #}}}
 
 stty icrnl -ixoff -ixon
-umask 002
-
-export EDITOR='vim'
-export PAGER='less'
-export LANG=en_US.UTF-8
-# https://geoff.greer.fm/lscolors/
-export LSCOLORS=ExGxdxdxCxDxDxBxBxegeg
-export LS_COLORS="di=1;34:ln=1;36:so=33:pi=33:ex=1;32:bd=1;33:cd=1;33:su=1;31:sg=1;31:tw=34;46:ow=34;46"
-export GOBIN=$HOME/go/bin
-export PATH=$PATH:$GOBIN
-export PYTHONIOENCODING=UTF-8
-
-export SOURCE_DIR=/storage/media/src
-export THIRD_PARTY_SOURCE=$SOURCE_DIR/third_party
-export GOPATH=$SOURCE_DIR/go
 
 PROMPT="%n@%m:%~ %# "
 
@@ -74,9 +59,6 @@ export REPORTTIME=30
 # Helps avoid mistakes like 'rm * o' when 'rm *.o' was intended
 setopt RM_STAR_WAIT
 
-# Set TIME_STYLE for GNU coreutils
-export TIME_STYLE="long-iso"
-
 # ZCalc
 autoload -U zcalc
 
@@ -88,7 +70,6 @@ autoload -U zcalc
 # zmv -n '(*)' '${(Lc)1/ /-}'
 # AbC Def -> abc-def
 autoload -U zmv
-
 
 # Quote URLs automatically
 autoload -Uz bracketed-paste-magic
@@ -102,7 +83,7 @@ zle -N self-insert url-quote-magic
 alias j='jobs -l'
 alias cp='cp -i'
 alias pd='popd'
-alias ls='ls -G'
+#alias ls='ls -G'
 alias la='ls -aF'
 alias lf='ls -F'
 alias ll='ls -laFh'
@@ -110,7 +91,6 @@ alias lv='exa -lFiHhg --time-style=long-iso'
 alias lva='exa -lFiHhag --time-style=long-iso'
 alias tree='exa -Ta -L'
 alias treel='exa -Tal --time-style=long-iso -L'
-eval $(thefuck --alias)
 
 alias mux='tmuxinator'
 alias tm='tmux attach -d -t main'
@@ -363,6 +343,7 @@ bindkey '^[q' fzf-cd-home
 bindkey '^[s' fzf-cd-source
 bindkey '^[p' fzf-cd-widget
 
+export LS_COLORS="di=1;34:ln=1;36:so=33:pi=33:ex=1;32:bd=1;33:cd=1;33:su=1;31:sg=1;31:tw=34;46:ow=34;46"
 
 # fkill - kill process
 # https://github.com/junegunn/fzf/wiki/examples#processes
@@ -409,7 +390,7 @@ zstyle ':completion:*' list-suffixes true
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}' 'r:|[._-]=** r:|=**' 'l:|=* r:|=*'
 zstyle ':completion:*' original false
 zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
-zstyle :compinstall filename '/usr/home/desuwa/.zshrc'
+zstyle :compinstall filename '$HOME/.zshrc'
 
 autoload -Uz compinit
 compinit
