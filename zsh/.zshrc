@@ -151,6 +151,8 @@ bindkey '^[[A' history-beginning-search-backward-end
 bindkey '^[[B' history-beginning-search-forward-end
 
 # Fix weird broken keybinds
+bindkey '^[[H' beginning-of-line
+bindkey '^[[F' end-of-line
 bindkey "\e[1~" beginning-of-line
 bindkey "\e[4~" end-of-line
 bindkey "\e[5~" beginning-of-history
@@ -228,6 +230,7 @@ fi
 # CTRL-Q - open from home directory in vim
 # CTRL-S - open from source directory in vim
 # ALT-CPQS - CD into directory starting from wherever
+# CTRL-ALT-CPQS - CTRL-T-alikes 
 # fkill {signal} - kill processes using signal, default 9
 #{{{ Overrides
 export FZF_DEFAULT_OPTS='--height 40% --reverse --border --ansi -m'
@@ -315,6 +318,12 @@ fzf-cd-dir() {
   export FZF_ALT_C_COMMAND="$oldc"
 }
 
+fzf-ctrlt-dir() {
+  local oldt="$FZF_CTRL_T_COMMAND"
+  FZF_CTRL_T_COMMAND="$FZF_CTRL_T_COMMAND \"$1\""; fzf-file-widget
+  export FZF_CTRL_T_COMMAND="$oldt"
+}
+
 fzf-editor-home() {
   fzf-editor-dir $HOME
 }
@@ -334,16 +343,28 @@ fzf-cd-source() {
   fzf-cd-dir $SOURCE_DIR
 }
 zle -N fzf-cd-source
+
+fzf-ctrlt-home() {
+  fzf-ctrlt-dir $HOME
+}
+zle -N fzf-ctrlt-home
+
+fzf-ctrlt-source() {
+  fzf-ctrlt-dir $SOURCE_DIR
+}
+zle -N fzf-ctrlt-source
 #}}}
 
+# TODO -- The P bindings would be nice if they were "project" level
 bindkey '^P' fzf-editor
 bindkey '^Q' fzf-editor-home
 bindkey '^S' fzf-editor-source
+bindkey '^[p' fzf-cd-widget
 bindkey '^[q' fzf-cd-home
 bindkey '^[s' fzf-cd-source
-bindkey '^[p' fzf-cd-widget
-
-export LS_COLORS="di=1;34:ln=1;36:so=33:pi=33:ex=1;32:bd=1;33:cd=1;33:su=1;31:sg=1;31:tw=34;46:ow=34;46"
+bindkey '^[^P' fzf-file-widget
+bindkey '^[^Q' fzf-ctrlt-home
+bindkey '^[^S' fzf-ctrlt-source
 
 # fkill - kill process
 # https://github.com/junegunn/fzf/wiki/examples#processes
