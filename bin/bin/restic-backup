@@ -1,19 +1,28 @@
 #!/bin/sh
-# ~/bin/restic-home-backup
+# ~/bin/restic-backup
+
+
+# chmod 750 ~/dotfiles/bin/bin/restic-backup
+# setcap cap_dac_read_search=+ep ~/dotfiles/bin/bin/restic-backup
+
 
 usbdir=/media/BACKUPS/google_cloud_storage
+cacheroot=/cache/restic
 
-export TMPDIR=/storage/cache/restic/tmp
+if [ "`uname`" = "Linux" ]; then
+  usbdir=/run/media/$USER/BACKUPS/google_cloud_storage
+fi
+
+export TMPDIR=$cacheroot/tmp
 export GOOGLE_PROJECT_ID="$(get-automation-password restic-google-project)"
 export GOOGLE_APPLICATION_CREDENTIALS=$usbdir/.restic-robot.json
 
-
-restic \
+sudo -E restic \
   -r "$(get-automation-password restic-bucket)" \
   backup \
-  --cache-dir=/storage/cache/restic/cache \
-  --hostname=desuserver \
-  --tag=home \
+  --cache-dir=$cacheroot/cache \
+  --hostname=$HOSTNAME \
+  --tag=$HOSTNAME \
   --limit-upload=500 \
   --password-file=$usbdir/.restic-password \
   --exclude='*.swp' \
@@ -25,6 +34,6 @@ restic \
   --exclude='go/pkg' \
   --exclude='node.core' \
   --exclude-file=$HOME/.restic-exclude \
-  --files-from=$HOME/.restic-home-files \
+  --files-from=$HOME/.restic-$HOSTNAME-files \
   $@
 

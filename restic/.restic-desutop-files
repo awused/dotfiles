@@ -1,0 +1,4 @@
+# ~/.restic-home-files
+/home
+/etc
+

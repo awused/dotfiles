@@ -3,26 +3,50 @@
 /usr/home/desushare
 /usr/home/root
 /usr/home/shutdown
+/home/desushare
 
-/usr/home/desuwa/.weechat/logs
-/usr/home/desuwa/.cache
-/usr/home/desuwa/.zplug
-/usr/home/desuwa/.jspm
-/usr/home/desuwa/.vegas
-/usr/home/desuwa/.node-gyp
-/usr/home/desuwa/.npm
-/usr/home/desuwa/.gocode
-/usr/home/desuwa/.gem
-/usr/home/desuwa/.ipfs
+# /usr/home/desuwa/.weechat/logs
+# /usr/home/desuwa/.cache
+# /usr/home/desuwa/.zplug
+# /usr/home/desuwa/.jspm
+# /usr/home/desuwa/.vegas
+# /usr/home/desuwa/.node-gyp
+# /usr/home/desuwa/.npm
+# /usr/home/desuwa/.gocode
+# /usr/home/desuwa/.gem
+# /usr/home/desuwa/.ipfs
+# # I keep nothing in .vim/
+# /usr/home/desuwa/.vim/*
+
+$HOME/.weechat/logs
+$HOME/.cache
+$HOME/.zplug
+$HOME/.jspm
+$HOME/.vegas
+$HOME/.local
+$HOME/.dbus
+$HOME/.node-gyp
+$HOME/.npm
+$HOME/.nv
+$HOME/.waifu2x
+$HOME/.gocode
+$HOME/.gem
+$HOME/.ipfs
 # I keep nothing in .vim/
-/usr/home/desuwa/.vim/*
+$HOME/.vim/*
+$HOME/.gstreamer-*
+$HOME/Downloads
+$Home/.wallpapers/*
 
 /usr/local/etc/tcsd.conf
 /usr/local/etc/tcsd.conf.sample
-/usr/local/etc/transmission
 /usr/local/etc/cups
 /usr/local/etc/sasldb2.db
-/usr/local/etc/znc
+
+/etc/cups
+
+/etc/selinux/targeted/policy
+/etc/
 
 /storage/media/users/desuwa/**/upscale
 /storage/media/users/desuwa/Pictures/Wallpapers/cache
