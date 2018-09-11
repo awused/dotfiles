@@ -1,13 +1,9 @@
 #!/bin/sh
 # ~/bin/restic-backup
 
-
-# chmod 750 ~/dotfiles/bin/bin/restic-backup
-# setcap cap_dac_read_search=+ep ~/dotfiles/bin/bin/restic-backup
-
-
 usbdir=/media/BACKUPS/google_cloud_storage
 cacheroot=/cache/restic
+host=`hostname`
 
 if [ "`uname`" = "Linux" ]; then
   usbdir=/run/media/$USER/BACKUPS/google_cloud_storage
@@ -21,8 +17,8 @@ sudo -E restic \
   -r "$(get-automation-password restic-bucket)" \
   backup \
   --cache-dir=$cacheroot/cache \
-  --hostname=$HOSTNAME \
-  --tag=$HOSTNAME \
+  --hostname=$host \
+  --tag=$host \
   --limit-upload=500 \
   --password-file=$usbdir/.restic-password \
   --exclude='*.swp' \
@@ -34,6 +30,6 @@ sudo -E restic \
   --exclude='go/pkg' \
   --exclude='node.core' \
   --exclude-file=$HOME/.restic-exclude \
-  --files-from=$HOME/.restic-$HOSTNAME-files \
+  --files-from=$HOME/.restic-$host-files \
   $@
 

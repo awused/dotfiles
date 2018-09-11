@@ -36,7 +36,9 @@ $HOME/.ipfs
 $HOME/.vim/*
 $HOME/.gstreamer-*
 $HOME/Downloads
-$Home/.wallpapers/*
+$HOME/.wallpapers/*
+
+$THIRD_PARTY_SOURCE/
 
 /usr/local/etc/tcsd.conf
 /usr/local/etc/tcsd.conf.sample
