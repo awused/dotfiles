@@ -224,13 +224,12 @@ fi
 #}}}
 #{{{ FZF
 # CTRL-T - paste into cli
-# ALT-C - CD into directory
 # CTRL-R - search history
 # CTRL-P - open in vim
 # CTRL-Q - open from home directory in vim
 # CTRL-S - open from source directory in vim
 # ALT-CPQS - CD into directory starting from wherever
-# CTRL-ALT-CPQS - CTRL-T-alikes 
+# CTRL-ALT-PQS - CTRL-T-alikes
 # fkill {signal} - kill processes using signal, default 9
 #{{{ Overrides
 export FZF_DEFAULT_OPTS='--height 40% --reverse --border --ansi -m'
@@ -258,6 +257,7 @@ export FZF_DEFAULT_COMMAND="bfs -color -L \
   -type f"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="bfs -color -L -type d -nohidden $FZF_EXCLUDES"
+FZF_BOTH_COMMAND="bfs -color -L $FZF_EXCLUDES"
 export FZF_TMUX=1
 
 # Override functions in fzf/completion.zsh
@@ -320,7 +320,7 @@ fzf-cd-dir() {
 
 fzf-ctrlt-dir() {
   local oldt="$FZF_CTRL_T_COMMAND"
-  FZF_CTRL_T_COMMAND="$FZF_CTRL_T_COMMAND \"$1\""; fzf-file-widget
+  FZF_CTRL_T_COMMAND="$FZF_BOTH_COMMAND \"$1\""; fzf-file-widget
   export FZF_CTRL_T_COMMAND="$oldt"
 }
 
