@@ -8,4 +8,4 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/home/desuwa/g
 # |  |  |  |  |
 # *  *  *  *  *  command to be executed
   0  0  *  *  * ~/.cron/zfs_health
-
+  */15  *  *  *  * wallpapers random --unlocked

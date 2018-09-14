@@ -1,0 +1,16 @@
+#!/bin/sh -e
+# https://faq.i3wm.org/question/83/how-to-run-i3lock-after-computer-inactivity.1.html
+
+scrot /tmp/screen_locked.bmp
+# Needs to be PNG
+convert /tmp/screen_locked.bmp -blur 0x6 /tmp/screen_locked.png
+
+rm -f /tmp/screen_locked.bmp
+
+# Not necessary
+# xset dpms 600 600 600
+
+i3lock -e -i  /tmp/screen_locked.png
+
+# Use -n to run a script on unlock
+

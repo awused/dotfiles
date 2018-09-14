@@ -1,0 +1,3 @@
+rofi.matching: fuzzy
+# Currently focused monitor, ignoring mouse pointer
+rofi.monitor: -1

@@ -19,11 +19,18 @@ both:
 	stow tmux
 	stow vim
 	stow zsh
+	stow youtube-dl
 
 desktop: both
 	stow desktop
+	stow gui
+	stow pulse
+	crontab desktop.user.crontab
+	sudo crontab desktop.root.crontab
 
 server: both
 	stow server
 	stow mpd
 	stow weechat
+	crontab server.user.crontab
+	sudo crontab server.root.crontab

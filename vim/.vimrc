@@ -101,6 +101,10 @@ fun! SetupCommandAlias(from, to)
         \ .'? ("'.a:to.'") : ("'.a:from.'"))'
 endfun
 
+fun! RemoveBG(target)
+  exec 'hi '.a:target.' guibg=NONE ctermbg=NONE'
+endfun
+
 function! PromptInput(command)
   call inputsave()
   let l:input = input(a:command.' ')
@@ -314,8 +318,9 @@ Plug 'tpope/vim-characterize'
 " Prefer vividchalk in 256 colour mode, but gruvbox highlights much more
 let g:gruvbox_contrast_dark="hard"
 " Italics would be nice if FreeBSD ever updates ncurses
-" TODO -- change this for other machines
-"let g:gruvbox_italic=1
+if g:os == "Linux"
+  let g:gruvbox_italic=1
+endif
 Plug 'morhetz/gruvbox'
 
 "Plug 'tpope/vim-vividchalk'
@@ -409,6 +414,9 @@ set foldlevelstart=20
 set backspace=indent,eol,start
 set modeline
 set smartcase
+set encoding=utf8
+set fillchars+=vert:│
+set fillchars+=fold:─
 
 "set notimeout
 " Handle escape character timeouts
@@ -438,4 +446,20 @@ call CreateDirectoryIfMissing($HOME."/.vim/swapfiles")
 call CreateDirectoryIfMissing($HOME."/.vim/backups")
 set directory=$HOME/.vim/swapfiles//
 set backupdir=$HOME/.vim/backups//
+"}}}
+"{{{ OS Settings
+" At least the ones that don't belong anywhere else
+if g:os == "Linux"
+  if empty($FORCE_BG)
+    " Make most backgrounds transparent
+    call RemoveBG("BufTabLineActive")
+    hi BufTabLineCurrent guibg=NONE ctermbg=NONE guifg=#c8b9a4 ctermfg=white
+    call RemoveBG("BufTabLineFill")
+    hi BufTabLineHidden guibg=NONE ctermbg=NONE guifg=#555555
+    call RemoveBG("CursorLineNR")
+    call RemoveBG("Folded")
+    call RemoveBG("Normal")
+    call RemoveBG("VertSplit")
+  endif
+endif
 "}}}

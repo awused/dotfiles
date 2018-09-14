@@ -27,11 +27,17 @@ loudness-scanner: sudo
 	  mkdir -p fedora; cd fedora; cmake ..; \
 	  $(MAKE); sudo $(MAKE) install 
 
+rofi: sudo
+	cd ${THIRD_PARTY_SOURCE}/rofi; \
+	  git submodule update; \
+	  autoreconf --force --install; \
+	  rm -rf build; mkdir -p build; cd build; \
+	  ../configure; $(MAKE); sudo $(MAKE) install
+
 split2flac: sudo
 	sudo mkdir -p /usr/local/bin ; \
 	  sudo install -m755 ${THIRD_PARTY_SOURCE}/split2flac/split2flac \
 	  /usr/local/bin/split2flac
-
 
 timg: sudo
 	cd ${THIRD_PARTY_SOURCE}/timg/src; $(MAKE) clean; \
@@ -43,7 +49,7 @@ waifu2x: sudo
 	  $(MAKE); sudo $(MAKE) install
 
 
-third-party: bfs i3-gaps loudness-scanner split2flac timg waifu2x
+third-party: bfs i3-gaps loudness-scanner rofi split2flac timg waifu2x
 
 all-install: go third-party
 
