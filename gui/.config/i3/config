@@ -140,7 +140,7 @@ bindsym Mod1+Shift+Down move workspace to output down
 bindsym Mod1+Shift+Up move workspace to output up
 bindsym Mod1+Shift+Right move workspace to output right
 #}}}
-#{{{ Reload and Restart
+#{{{ i3 and Service Commands
 # reload the configuration file
 bindsym $mod+Shift+r reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -149,6 +149,7 @@ bindsym Mod1+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 # Give pulseaudio its necessary kick
 bindsym $mod+Shift+p exec --no-startup-id pulseaudio -k
+bindsym Ctrl+Mod1+l exec "xset dpms 10 10 10; ~/.config/i3/lock"
 #}}}
 #{{{ Resize Mode
 bindsym $mod+r mode "resize"
@@ -189,4 +190,5 @@ exec_always --no-startup-id "killall dunst; dunst &"
 exec_always --no-startup-id "killall xautolock; xautolock -time 10 -locker ~/.config/i3/lock -secure &"
 # Screens turn off after 30 minutes
 exec --no-startup-id xset dpms 1800 1800 1800
+exec --no-startup-id "~/.fehbg || :"
 #}}}
