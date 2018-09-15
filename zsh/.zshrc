@@ -136,6 +136,11 @@ if [[ $(uname) == 'FreeBSD' ]]; then
   export PATH=$HOME/bin:/usr/local/bin:$PATH:$GOBIN
 
   export MPD_HOST=/storage/mpd/.mpd/socket
+
+  if [[ $TERM = "tmux-256color" ]] {
+    # Work around FreeBSD's ancient base system ncurses
+    export TERM="screen-256color"
+  }
 fi
 #}}}
 #{{{ Fix Keybinds
