@@ -33,6 +33,8 @@ if [[ $(hostname) == 'desutop' ]]; then
   export CFLAGS="-march=native -O2 -pipe"
   export CXXFLAGS="$CFLAGS"
   export MAKEFLAGS="-j32"
+
+  mount | grep "${HOME}/GoogleDrive" > /dev/null || google-drive-ocamlfuse "${HOME}/GoogleDrive"
 fi
 #}}}
 

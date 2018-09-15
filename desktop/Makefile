@@ -73,8 +73,11 @@ pip: sudo
 npm: sudo
 	sudo npm update -g
 
+opam:
+	opam update
+	opam upgrade
 #go-update:
 #	go get -u all
 
-update: gems pip npm 
+update: gems pip npm opam
 

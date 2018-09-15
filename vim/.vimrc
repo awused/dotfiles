@@ -429,11 +429,19 @@ elseif executable('bash')
   set shell=bash
 endif
 
-" Highlight once past 80 characters. Works out well for two files side-by-side.
 augroup window_settings
   autocmd!
+  " Highlight once past 80 characters. Works out well for two files side-by-side.
   autocmd BufWinEnter * match ColorColumn "\%>79v."
+  autocmd BufWinEnter * highlight ExtraWhitespace ctermbg=red guibg=red
+  autocmd BufWinEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 augroup END
+
+
+" Use X clipboard if we can
+if has('clipboard')
+  set clipboard=unnamedplus
+endif
 "}}}
 "{{{ Create Directories
 if has("persistent_undo")

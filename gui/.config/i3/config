@@ -24,7 +24,10 @@ mouse_warping none
 font pango:DejaVu Sans Mono 10
 
 default_border pixel 1
+#}}}
+#{{{ Application Overrides
 for_window [class="Firefox"] border pixel 0
+for_window [class="KeePass2"] floating enable
 #}}}
 #{{{ Launchers
 # start a terminal
@@ -44,13 +47,30 @@ bindsym $mod+Shift+s exec "rofi -modi ssh -show ssh"
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+bindsym $mod+Shift+k exec ~/.config/i3/keepass
+#}}}
+#{{{ Other Commands
+# reload the configuration file
+bindsym $mod+Shift+r reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym Mod1+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+# Give pulseaudio its necessary kick
+bindsym $mod+Shift+p exec --no-startup-id pulseaudio -k
+bindsym Ctrl+Mod1+l exec --no-startup-id "xset dpms 10 10 10; ~/.config/i3/lock"
+
+bindsym $mod+Shift+w exec --no-startup-id wallpapers random
 #}}}
 #{{{ Movement and Layout
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+# bindsym $mod+j focus left
+# bindsym $mod+k focus down
+# bindsym $mod+l focus up
+# bindsym $mod+semicolon focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -59,10 +79,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+# bindsym $mod+Shift+j move left
+# bindsym $mod+Shift+k move down
+# bindsym $mod+Shift+l move up
+# bindsym $mod+Shift+semicolon move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -140,17 +160,6 @@ bindsym Mod1+Shift+Down move workspace to output down
 bindsym Mod1+Shift+Up move workspace to output up
 bindsym Mod1+Shift+Right move workspace to output right
 #}}}
-#{{{ i3 and Service Commands
-# reload the configuration file
-bindsym $mod+Shift+r reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym Mod1+Shift+r restart
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-# Give pulseaudio its necessary kick
-bindsym $mod+Shift+p exec --no-startup-id pulseaudio -k
-bindsym Ctrl+Mod1+l exec "xset dpms 10 10 10; ~/.config/i3/lock"
-#}}}
 #{{{ Resize Mode
 bindsym $mod+r mode "resize"
 
@@ -178,7 +187,7 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 #}}}
-#{{{ Status bar 
+#{{{ Status bar
 bar {
         status_command i3status
 }
@@ -189,6 +198,7 @@ exec_always --no-startup-id "killall dunst; dunst &"
 # Lock after 10 minutes
 exec_always --no-startup-id "killall xautolock; xautolock -time 10 -locker ~/.config/i3/lock -secure &"
 # Screens turn off after 30 minutes
-exec --no-startup-id xset dpms 1800 1800 1800
+# Setting s off breaks xautolock
+exec --no-startup-id xset s 1800 dpms 1800 1800 1800
 exec --no-startup-id "~/.fehbg || :"
 #}}}

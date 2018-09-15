@@ -20,6 +20,7 @@ both:
 	stow vim
 	stow zsh
 	stow youtube-dl
+	stow ocaml
 
 desktop: both
 	stow desktop

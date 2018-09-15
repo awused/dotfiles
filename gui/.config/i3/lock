@@ -1,4 +1,5 @@
-#!/bin/sh -e
+#!/usr/bin/env bash
+set -e
 # https://faq.i3wm.org/question/83/how-to-run-i3lock-after-computer-inactivity.1.html
 
 scrot /tmp/screen_locked.bmp
@@ -7,8 +8,11 @@ convert /tmp/screen_locked.bmp -blur 0x6 /tmp/screen_locked.png
 
 rm -f /tmp/screen_locked.bmp
 
-i3lock -e -i  /tmp/screen_locked.png
-
 # Manually locking the screens sets these low
-sleep 30; xset dpms 1800 1800 1800
+(sleep 30; xset dpms 1800 1800 1800) &
+
+i3lock -n -i  /tmp/screen_locked.png -e
+
+xset dpms 1800 1800 1800
+rm -f /tmp/screen_locked.png
 

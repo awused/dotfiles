@@ -1,2 +1,4 @@
 rofi.matching: fuzzy
 rofi.monitor: -1
+rofi.ssh-client: ssh
+rofi.ssh-command: {terminal} -- {ssh-client} {host}

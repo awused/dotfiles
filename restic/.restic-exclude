@@ -22,6 +22,7 @@ $HOME/.weechat/logs
 $HOME/.cache
 $HOME/.zplug
 $HOME/.jspm
+$HOME/.opam
 $HOME/.vegas
 $HOME/.local
 $HOME/.dbus

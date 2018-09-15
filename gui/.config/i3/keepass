@@ -1,0 +1,21 @@
+#!/usr/bin/env bash 
+# Launch keepass if it's not running
+# Show keepass if it's hidden
+# Move keepass to this workspace if it's visible somewhere else
+# Hide keepass if it's visible on this workspace
+set -e
+
+pid=$(pgrep -u $USER -f "KeePass" || test $? = 1)
+if [[ $pid == "" ]]; then
+  keepass ~/GoogleDrive/KeePass/KeePass.kdbx &
+  exit
+fi
+
+wid=$(xdotool search --all --onlyvisible --desktop $(xprop -notype -root _NET_CURRENT_DESKTOP | cut -c 24-) --class "KeePass" || test $? = 1)
+if [[ $wid != "" ]]; then
+  i3-msg [title="^KeePass"] move scratchpad > /dev/null
+  exit
+fi
+
+i3-msg [title="^KeePass"] move workspace current > /dev/null
+i3-msg [title="^KeePass"] focus 
