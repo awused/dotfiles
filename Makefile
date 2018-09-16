@@ -13,19 +13,23 @@ both:
 	stow cron
 	stow gnupg
 	stow misc
+	stow ocaml
 	stow password-store
 	stow restic
 	stow task
 	stow tmux
 	stow vim
-	stow zsh
 	stow youtube-dl
-	stow ocaml
+	stow zsh
 
 desktop: both
 	stow desktop
 	stow gui
+	stow mcomix
+	stow mpv
+	stow nautilus
 	stow pulse
+	stow xdg
 	crontab desktop.user.crontab
 	sudo crontab desktop.root.crontab
 

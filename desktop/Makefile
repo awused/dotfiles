@@ -8,7 +8,13 @@ sudo:
 wallpapers:
 	go install github.com/awused/wallpapers
 
-go: wallpapers
+dispatcher:
+	go install github.com/awused/dispatcher
+
+add-to-transmission:
+	go install github.com/awused/add-to-transmission
+
+go: wallpapers dispatcher add-to-transmission
 
 
 # Third party code
@@ -25,7 +31,7 @@ i3-gaps: sudo
 loudness-scanner: sudo
 	cd ${THIRD_PARTY_SOURCE}/loudness-scanner; \
 	  mkdir -p fedora; cd fedora; cmake ..; \
-	  $(MAKE); sudo $(MAKE) install 
+	  $(MAKE); sudo $(MAKE) install
 
 rofi: sudo
 	cd ${THIRD_PARTY_SOURCE}/rofi; \
@@ -76,6 +82,7 @@ npm: sudo
 opam:
 	opam update
 	opam upgrade
+
 #go-update:
 #	go get -u all
 

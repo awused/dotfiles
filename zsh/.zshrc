@@ -80,7 +80,6 @@ zstyle ':urlglobber' url-other-schema ftp git gopher http https magnet
 zstyle ':url-quote-magic:*' url-metas '*?[]^(|)~#='
 zle -N self-insert url-quote-magic
 
-test -r $HOME/.opam/opam-init/init.zsh && . $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 # {{{ Aliases
 alias j='jobs -l'
@@ -258,6 +257,8 @@ export FZF_EXCLUDES="-not \( -path '*/.git/*' -prune \) \
   -not \( -path '*/.zplug' -prune \) \
   -not \( -path '*/.jspm' -prune \) \
   -not \( -path '*/.opam/*' -prune \) \
+  -not \( -path '*/.gcloud-sdk' -prune \) \
+  -not \( -path '*/.mozilla' -prune \) \
   -not \( -path '*/.vegas' -prune \) \
   -not \( -path '*/.local' -prune \) \
   -not \( -path '*/.node-gyp' -prune \) \
@@ -265,7 +266,6 @@ export FZF_EXCLUDES="-not \( -path '*/.git/*' -prune \) \
   -not \( -path '*/.gem' -prune \) \
   -not \( -path '*/.npm' -prune \) \
   -not \( -path '*/.ipfs' -prune \) \
-  -not \( -path '*/GoogleDrive' -prune \) \
   -not \( -path '*/env/*' -prune \) "
 
 export FZF_DEFAULT_COMMAND="bfs -color -L \

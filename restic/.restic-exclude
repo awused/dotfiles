@@ -36,6 +36,7 @@ $HOME/.ipfs
 # I keep nothing in .vim/
 $HOME/.vim/*
 $HOME/.gstreamer-*
+$HOME/.gcloud-sdk
 $HOME/Downloads
 $HOME/.wallpapers/*
 

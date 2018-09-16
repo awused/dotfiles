@@ -1,0 +1,26 @@
+# Config file for dispatcher
+# Executables need a regex and a path (relative to the dispatcher executable, but preferably absolute)
+# The first matching executable in this config will be passed the URL as its first argument. You are responsible for making sure that whatever you call is safe.
+
+# TODO: Allow multiple matching executables? in parallel?
+
+# example:
+
+# [[executables]]
+# regex = '^https://(www\.)?youtube\.com/'
+# path = "relative/path/my-youtube-executable"
+
+# TODO: add name field to make error messages better?
+
+#[[executables]]
+#regex = '^(https?://)?(www\.)?youtube\.com/.*v=([A-Za-z0-9_-]{11})'
+#path = "youtube-mpc"
+
+#[[executables]]
+#regex = '^https://manga\.madokami\.al/'
+#path = "madokami-honeyview"
+
+# Maybe this shouldn't be a catch-all?
+[[executables]]
+regex = '.+'
+path = "add-to-transmission"

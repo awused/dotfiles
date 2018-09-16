@@ -1,0 +1,57 @@
+# Where original wallpapers are located
+OriginalsDirectory = '/storage/media/users/desuwa/Pictures/Wallpapers/originals'
+
+# Directory to store the upscaled and cropped versions of each wallpaper for each monitor
+# This can get very large if you have high resolution monitors
+# This directory must be created manually.
+CacheDirectory = '/storage/media/users/wallpaper-cache'
+
+# Directory where stitched together wallpapers should be stored
+# Only used for incapable desktop environments, like gnome
+# Defaults to $HOME/.wallpapers
+# OutputDir = ''
+
+# Uncomment to log errors to a file instead of stdout.
+# LogFile = 'C:\Logs\wallpapers.log'
+
+# The directory used for the database of recently used wallpapers.
+# It's not safe to use this database from multiple processes at once.
+# It is safe for multiple processes or computers to use, with the same originals directory, if they don't access it at the same time.
+# This directory must be created manually.
+DatabaseDir = '/storage/media/users/desuwa/Pictures/Wallpapers/db'
+
+# Directory to store temporary files, leave blank for the system default temp directory
+# TempDirectory = 'C:\temp'
+
+# Where to find waifu2x-caffe-cui.exe on Windows
+# If uncommented this takes precedence over waifu2x-converter-cpp
+# Only set this if you're using an nvidia GPU on Windows, otherwise leave it empty
+# Waifu2xCaffe = 'C:\path\to\waifu2x-caffe-cui.exe'
+
+# Where to find waifu2x-converter-cpp.
+# Does not need to be installed if waifu2x-caffe is used instead.
+# Only tested with https://github.com/DeadSix27/waifu2x-converter-cpp, other forks may or may not work.
+# It's recommended to use waifu2x-caffe on Windows if you have an nvidia GPU for better performance, but this should work on any system.
+Waifu2xCPP = 'waifu2x-converter-cpp'
+
+# Where to find waifu2x-converter-cpp's models_rgb directory
+# No trailing slash
+Waifu2xCPPModels = '/storage/media/src/third_party/waifu2x-converter-cpp/models_rgb'
+
+# Uncomment to do waifu2x scaling on the CPU.
+# Not recommended, even for background processing, unless you're very patient.
+# CPUScale = true
+
+# Uncomment to limit the number of threads for CPU scaling when using waifu2x-converter-cpp.
+# Waifu2x-caffe doesn't have an argument to limit its threads but it avoids using 100% CPU.
+# CPUThreads = 4
+
+# Comment this out or set to false to use ImageMagick6
+ImageMagick7 = false
+
+# Change this if ImageMagick isn't on your PATH, for ImageMagick6 use the path to "convert"
+# ImageMagick = 'magick'
+
+# Supported file extensions. Unlikely to work if you change this
+ImageFileExtensions = ["bmp", "jpg", "jpeg", "png", "tif", "tiff"]
+

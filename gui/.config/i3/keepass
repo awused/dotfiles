@@ -1,4 +1,4 @@
-#!/usr/bin/env bash 
+#!/usr/bin/env bash
 # Launch keepass if it's not running
 # Show keepass if it's hidden
 # Move keepass to this workspace if it's visible somewhere else
@@ -7,7 +7,7 @@ set -e
 
 pid=$(pgrep -u $USER -f "KeePass" || test $? = 1)
 if [[ $pid == "" ]]; then
-  keepass ~/GoogleDrive/KeePass/KeePass.kdbx &
+  keepass /mnt/GoogleDrive/KeePass/KeePass.kdbx &
   exit
 fi
 
@@ -18,4 +18,4 @@ if [[ $wid != "" ]]; then
 fi
 
 i3-msg [title="^KeePass"] move workspace current > /dev/null
-i3-msg [title="^KeePass"] focus 
+i3-msg [title="^KeePass"] focus

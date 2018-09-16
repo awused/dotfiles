@@ -23,10 +23,15 @@ export GOPATH=$SOURCE_DIR/go
 # Set TIME_STYLE for GNU coreutils
 export TIME_STYLE="long-iso"
 
+test -r $HOME/.opam/opam-init/init.zsh && . $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+test -r $HOME/.gcloud-sdk/path.zsh.inc && . $HOME/.gcloud-sdk/path.zsh.inc > /dev/null 2> /dev/null || true
+
 
 #{{{ OS/Computer specific settings
 if [[ $(uname) == 'Linux' ]]; then
   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+  export PATH=$PATH:$HOME/.bin
 fi
 
 if [[ $(hostname) == 'desutop' ]]; then
@@ -34,7 +39,7 @@ if [[ $(hostname) == 'desutop' ]]; then
   export CXXFLAGS="$CFLAGS"
   export MAKEFLAGS="-j32"
 
-  mount | grep "${HOME}/GoogleDrive" > /dev/null || google-drive-ocamlfuse "${HOME}/GoogleDrive"
+  mount | grep "/mnt/GoogleDrive" > /dev/null || google-drive-ocamlfuse "/mnt/GoogleDrive"
 fi
 #}}}
 

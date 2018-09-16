@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Create a new, empty workspace on every output
+set -e
+
+# Can't set outputs for workspaces at create time
+# Can only create one (on the current output) and move it to another monitor
+# Unfortunately results in a bit of flickering
+export name=$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).name' | cut -d"\"" -f2)
+output=$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).output' | cut -d"\"" -f2)
+
+xrandr -q --current | grep " connected" | awk '{ print $1 }' | xargs -r -I '{}' sh -c 'i3-msg workspace {}; i3-msg move workspace to output {}; i3-msg workspace $name'
+
+i3-msg workspace $output
