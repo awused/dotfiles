@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# args: window class, something to pgrep for, startup command
+
+# Launch program if it's not running
+# Show program if it's hidden
+# Move all windows of a program to this workspace if it's only visible somewhere else
+# Hide all windows of a program if any are visible on this workspace
+set -e
+
+class=$1
+
+count=$(pgrep -u $USER -f -c $2)
+# Expect to match this shell script
+if [[ $count < 2 ]]; then
+  $($3) &
+  exit
+fi
+
+wid=$(xdotool search --all --onlyvisible --desktop $(xprop -notype -root _NET_CURRENT_DESKTOP | cut -c 24-) --class "$class" || test $? = 1)
+if [[ $wid != "" ]]; then
+  i3-msg [class="$class"] move scratchpad > /dev/null
+  exit
+fi
+
+i3-msg [class="$class"] move workspace current > /dev/null
+i3-msg [class="$class"] focus

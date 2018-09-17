@@ -14,7 +14,14 @@ dispatcher:
 add-to-transmission:
 	go install github.com/awused/add-to-transmission
 
-go: wallpapers dispatcher add-to-transmission
+upscale-directory:
+	go install github.com/awused/upscale-directory
+
+public-clipboard:
+	go install github.com/awused/public-clipboard
+
+go: wallpapers dispatcher add-to-transmission \
+  upscale-directory public-clipboard
 
 
 # Third party code

@@ -1,0 +1,22 @@
+<?xml encoding="UTF-8" version="1.0"?>
+<actions>
+<action>
+	<icon>utilities-terminal</icon>
+	<name>Open Terminal Here</name>
+	<unique-id>1537143651601871-1</unique-id>
+	<command>exo-open --working-directory %f --launch TerminalEmulator</command>
+	<description>Example for a custom action</description>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+<action>
+	<icon></icon>
+	<name>Preview Wallpaper</name>
+	<unique-id>1537144025714133-1</unique-id>
+	<command>wallpapers preview %f</command>
+	<description></description>
+	<patterns>*</patterns>
+	<image-files/>
+</action>
+</actions>

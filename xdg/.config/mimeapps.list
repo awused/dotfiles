@@ -33,3 +33,5 @@ image/png=mcomix.desktop;
 image/jpeg=mcomix.desktop;
 image/bmp=mcomix.desktop;
 application/vnd.adobe.flash.movie=mpv.desktop;
+inode/directory=Thunar.desktop;
+

@@ -27,8 +27,8 @@ desktop: both
 	stow gui
 	stow mcomix
 	stow mpv
-	stow nautilus
 	stow pulse
+	stow thunar
 	stow xdg
 	crontab desktop.user.crontab
 	sudo crontab desktop.root.crontab
