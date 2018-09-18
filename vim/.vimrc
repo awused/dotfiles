@@ -432,9 +432,10 @@ endif
 augroup window_settings
   autocmd!
   " Highlight once past 80 characters. Works out well for two files side-by-side.
-  autocmd BufWinEnter * match ColorColumn "\%>79v."
+  autocmd BufWinEnter * call matchadd('ColorColumn', '\%>79v.')
   autocmd BufWinEnter * highlight ExtraWhitespace ctermbg=red guibg=red
-  autocmd BufWinEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+  "autocmd BufWinEnter * call matchadd('ExtraWhitespace', '\s\+$', 11)
+  autocmd BufWinEnter * call matchadd('ExtraWhitespace', '\s\+\%#\@<!$')
 augroup END
 
 
@@ -468,6 +469,7 @@ if g:os == "Linux"
     call RemoveBG("Folded")
     call RemoveBG("Normal")
     call RemoveBG("VertSplit")
+    hi Normal guifg=white ctermfg=white
   endif
 endif
 "}}}
