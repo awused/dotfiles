@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# args: window class, something to pgrep for, startup command
+# args: window instance, something to pgrep for, startup command
 
 # Launch program if it's not running
 # Show program if it's hidden
@@ -16,11 +16,11 @@ if [[ $count < 2 ]]; then
   exit
 fi
 
-wid=$(xdotool search --all --onlyvisible --desktop $(xprop -notype -root _NET_CURRENT_DESKTOP | cut -c 24-) --class "$class" || test $? = 1)
+wid=$(xdotool search --all --onlyvisible --desktop $(xprop -notype -root _NET_CURRENT_DESKTOP | cut -c 24-) --classname "$class" || test $? = 1)
 if [[ $wid != "" ]]; then
-  i3-msg [class="$class"] move scratchpad > /dev/null
+  i3-msg [instance="$class"] move scratchpad > /dev/null
   exit
 fi
 
-i3-msg [class="$class"] move workspace current > /dev/null
-i3-msg [class="$class"] focus
+i3-msg [instance="$class"] move workspace current > /dev/null
+i3-msg [instance="$class"] focus

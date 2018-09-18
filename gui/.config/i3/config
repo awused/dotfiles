@@ -26,11 +26,14 @@ font pango:DejaVu Sans Mono 10
 default_border pixel 1
 #}}}
 #{{{ Application Overrides
-for_window [class="Firefox"] border pixel 0
-# Doesn't work, will have to get fancier
-# for_window [class="Firefox" class="Navigator"] border pixel 0
+for_window [class="Firefox"] floating enable border normal
+for_window [class="Firefox" instance="Navigator"] floating disable border pixel 0
 for_window [class="KeePass2"] floating enable
+bindsym $mod+k exec ~/.config/i3/exec-once keepass keepass "keepass /mnt/GoogleDrive/KeePass/KeePass.kdbx"
 for_window [class="Thunar"] floating enable
+bindsym $mod+t exec ~/.config/i3/exec-once thunar thunar "thunar"
+for_window [instance="foobar2000.exe"] floating enable
+bindsym $mod+Shift+f exec ~/.config/i3/exec-once "foobar2000.exe" "foobar2000\.exe" "wine $HOME/.foobar2000/foobar2000.exe"
 #}}}
 #{{{ Launchers
 # start a terminal
@@ -53,8 +56,6 @@ bindsym $mod+Shift+s exec "rofi -modi ssh -show ssh"
 # Floating applications I generally only want one instance of
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
-bindsym $mod+k exec ~/.config/i3/exec-once KeePass keepass "keepass /mnt/GoogleDrive/KeePass/KeePass.kdbx"
-bindsym $mod+t exec ~/.config/i3/exec-once Thunar thunar "thunar"
 #}}}
 #{{{ Other Commands
 # reload the configuration file

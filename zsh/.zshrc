@@ -260,6 +260,9 @@ export FZF_EXCLUDES="-not \( -path '*/.git/*' -prune \) \
   -not \( -path '*/.gcloud-sdk' -prune \) \
   -not \( -path '*/.mozilla' -prune \) \
   -not \( -path '*/.vegas' -prune \) \
+  -not \( -path '*/.foobar2000' -prune \) \
+  -not \( -path '*/.wine' -prune \) \
+  -not \( -path '*/winebin' -prune \) \
   -not \( -path '*/.local' -prune \) \
   -not \( -path '*/.node-gyp' -prune \) \
   -not \( -path '*/.gocode' -prune \) \
