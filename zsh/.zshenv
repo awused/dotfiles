@@ -34,6 +34,13 @@ if [[ $(uname) == 'Linux' ]]; then
   export PATH=$PATH:$HOME/.bin
 fi
 
+if [[ $(uname) == 'FreeBSD' ]]; then
+  # FreeBSD's ancient ncurses
+  if [[ $TERM == 'xterm-kitty' ]]; then
+    export TERM='xterm-256color'
+  fi
+fi
+
 if [[ $(hostname) == 'desutop' ]]; then
   export CFLAGS="-march=native -O2 -pipe"
   export CXXFLAGS="$CFLAGS"
