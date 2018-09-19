@@ -30,6 +30,7 @@ desktop: both
 	stow pulse
 	stow thunar
 	stow xdg
+	stow slack
 	crontab desktop.user.crontab
 	sudo crontab desktop.root.crontab
 

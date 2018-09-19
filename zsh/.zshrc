@@ -207,7 +207,8 @@ add-subdomain() {
 }
 zle -N add-subdomain
 
-alias weechat='export WEECHAT_PASSPHRASE=$(get-automation-password weechat); unalias weechat; weechat'
+alias weechat='WEECHAT_PASSPHRASE=$(get-automation-password weechat) weechat'
+alias slack-term='SLACK_TOKEN=$(get-automation-password slack-token) slack-term'
 #}}}
 #{{{ Prompt
 zstyle ':prompt:shrink_path' last 2
@@ -261,7 +262,7 @@ export FZF_EXCLUDES="-not \( -path '*/.git/*' -prune \) \
   -not \( -path '*/.mozilla' -prune \) \
   -not \( -path '*/.vegas' -prune \) \
   -not \( -path '*/.foobar2000' -prune \) \
-  -not \( -path '*/.wine' -prune \) \
+  -not \( -path '*/.wine*' -prune \) \
   -not \( -path '*/winebin' -prune \) \
   -not \( -path '*/.local' -prune \) \
   -not \( -path '*/.node-gyp' -prune \) \

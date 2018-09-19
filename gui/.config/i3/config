@@ -20,6 +20,58 @@ focus_follows_mouse no
 # Mouse should not stay where I put it
 mouse_warping none
 
+#{{{ Workspaces
+workspace_auto_back_and_forth yes
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+
+bindsym Mod1+Shift+Left move workspace to output left
+bindsym Mod1+Shift+Down move workspace to output down
+bindsym Mod1+Shift+Up move workspace to output up
+bindsym Mod1+Shift+Right move workspace to output right
+
+set $wsct "chat"
+bindsym $mod+c workspace $wsct
+bindsym $mod+Shift+c move container to workspace $wsct
+
+#}}}
 #{{{ Visuals
 font pango:DejaVu Sans Mono 10
 
@@ -27,14 +79,25 @@ default_border pixel 1
 default_floating_border normal
 #}}}
 #{{{ Application Overrides
+set $wsff "firefox"
+bindsym $mod+z workspace $wsff
+assign [class="Firefox"] $wsff
 for_window [class="Firefox"] floating enable
 for_window [class="Firefox" instance="Navigator"] floating disable border pixel 0
+
+for_window [class="Thunar"] floating enable
+bindsym $mod+x exec --no-startup-id ~/.config/i3/exec-once thunar thunar "thunar"
+
+set $wsmx "mcomix"
+bindsym $mod+Mod1+m workspace $wsmx
+assign [class="MComix"] $wsmx
+
 for_window [class="KeePass2"] floating enable border normal
 bindsym $mod+Shift+k exec --no-startup-id ~/.config/i3/exec-once keepass keepass "keepass /mnt/GoogleDrive/KeePass/KeePass.kdbx"
-for_window [class="Thunar"] floating enable
-bindsym $mod+t exec --no-startup-id ~/.config/i3/exec-once thunar thunar "thunar"
 for_window [instance="foobar2000.exe"] floating enable
 bindsym $mod+Shift+f exec --no-startup-id ~/.config/i3/exec-once "foobar2000.exe" "foobar2000\.exe" "wine $HOME/.foobar2000/foobar2000.exe"
+
+for_window [instance="emuera-anchor.exe"] floating enable
 #}}}
 #{{{ Launchers
 # start a terminal
@@ -45,7 +108,7 @@ bindsym $mod+Shift+q kill
 
 # Rofi
 bindsym $mod+d exec "rofi -modi drun,run -show drun"
-bindsym Mod1+Tab exec "rofi -modi windowcd,window -show windowcd"
+bindsym Mod1+Tab exec "rofi -modi windowcd,window -show window"
 bindsym $mod+Shift+s exec "rofi -modi ssh -show ssh"
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
@@ -70,6 +133,13 @@ bindsym Ctrl+Mod1+l exec --no-startup-id "xset dpms 10 10 10; ~/.config/i3/lock"
 
 bindsym $mod+Shift+w exec --no-startup-id wallpapers random
 bindsym $mod+Shift+d exec --no-startup-id ~/.config/i3/show-desktop
+
+# Screenshots
+# Edit /etc/sysctl.d/99-sysctl.conf with kernel.sysrq = 0
+bindsym --release Print exec --no-startup-id screenshotter desktop
+bindsym --release Shift+Print exec --no-startup-id screenshotter region
+# bindsym --release Mod1+Print exec --no-startup-id screenshotter window
+bindsym --release Mod1+Sys_Req exec --no-startup-id screenshotter window
 #}}}
 #{{{ Movement and Layout
 # change focus
@@ -122,50 +192,6 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 #}}}
-#{{{ Workspaces
-# Define names for default workspaces for which we configure key bindings later on.
-# We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
-
-# switch to workspace
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
-
-# move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws10
-
-
-bindsym Mod1+Shift+Left move workspace to output left
-bindsym Mod1+Shift+Down move workspace to output down
-bindsym Mod1+Shift+Up move workspace to output up
-bindsym Mod1+Shift+Right move workspace to output right
-#}}}
 #{{{ Resize Mode
 bindsym $mod+r mode "resize"
 
@@ -204,7 +230,7 @@ exec_always --no-startup-id "killall dunst; dunst &"
 # Lock after 10 minutes
 exec_always --no-startup-id "killall xautolock; xautolock -time 10 -locker ~/.config/i3/lock -secure &"
 # Deal with files being overwritten
-exec_always --no-startup-id "rm ~/.config/user-dirs.dirs; rm ~/.config/mimeapps.list; cd ~/dotfiles && stow xdg"
+exec_always --no-startup-id "rm -f ~/.config/user-dirs.dirs; rm -f ~/.config/mimeapps.list; cd ~/dotfiles && stow xdg"
 # Screens turn off after 30 minutes
 # Setting s off breaks xautolock
 exec --no-startup-id xset s 1800 dpms 1800 1800 1800

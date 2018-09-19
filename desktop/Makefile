@@ -20,8 +20,11 @@ upscale-directory:
 public-clipboard:
 	go install github.com/awused/public-clipboard
 
+screenshotter:
+	go install github.com/awused/screenshotter
+
 go: wallpapers dispatcher add-to-transmission \
-  upscale-directory public-clipboard
+  upscale-directory public-clipboard screenshotter
 
 
 # Third party code
