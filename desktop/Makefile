@@ -23,8 +23,11 @@ public-clipboard:
 screenshotter:
 	go install github.com/awused/screenshotter
 
+madokami:
+	go install github.com/awused/madokami
+
 go: wallpapers dispatcher add-to-transmission \
-  upscale-directory public-clipboard screenshotter
+  upscale-directory public-clipboard screenshotter madokami
 
 
 # Third party code

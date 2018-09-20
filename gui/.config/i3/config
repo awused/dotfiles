@@ -20,8 +20,9 @@ focus_follows_mouse no
 # Mouse should not stay where I put it
 mouse_warping none
 
-#{{{ Workspaces
+#{{{ General Purpose Workspaces
 workspace_auto_back_and_forth yes
+bindsym $mod+b workspace back_and_forth
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -67,10 +68,6 @@ bindsym Mod1+Shift+Down move workspace to output down
 bindsym Mod1+Shift+Up move workspace to output up
 bindsym Mod1+Shift+Right move workspace to output right
 
-set $wsct "chat"
-bindsym $mod+c workspace $wsct
-bindsym $mod+Shift+c move container to workspace $wsct
-
 #}}}
 #{{{ Visuals
 font pango:DejaVu Sans Mono 10
@@ -85,6 +82,20 @@ assign [class="Firefox"] $wsff
 for_window [class="Firefox"] floating enable
 for_window [class="Firefox" instance="Navigator"] floating disable border pixel 0
 
+set $wsyt "youtube"
+bindsym $mod+y workspace $wsyt
+for_window [class="mpv" workspace="firefox"] move window to workspace $wsyt
+
+set $wscr "chromium"
+bindsym Mod1+z workspace $wscr
+assign [class="Chromium-browser"] $wscr
+#for_window [class="Chromium-browser"] floating enable
+#for_window [class="Chromium-browser" instance="chromium-browser"] floating disable border pixel 0
+
+set $wsct "chat"
+bindsym $mod+c workspace $wsct
+bindsym $mod+Shift+c move container to workspace $wsct
+
 for_window [class="Thunar"] floating enable
 bindsym $mod+x exec --no-startup-id ~/.config/i3/exec-once thunar thunar "thunar"
 
@@ -98,6 +109,7 @@ for_window [instance="foobar2000.exe"] floating enable
 bindsym $mod+Shift+f exec --no-startup-id ~/.config/i3/exec-once "foobar2000.exe" "foobar2000\.exe" "wine $HOME/.foobar2000/foobar2000.exe"
 
 for_window [instance="emuera-anchor.exe"] floating enable
+for_window [class="Displaycal"] floating enable border normal
 #}}}
 #{{{ Launchers
 # start a terminal

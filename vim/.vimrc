@@ -246,10 +246,10 @@ let g:rgs_command = '
 " Steal the default command from FZF's environment variables
 " TODO -- It'd be nice to get rid of awk here
 if !empty($FZF_DEFAULT_COMMAND)
-  let g:rgs_command = $FZF_DEFAULT_COMMAND . ' -not \( -path ''*/go/bin/*'' -prune \) | awk ''{print $1":1:1"}'''
+  let g:rgs_command = $FZF_DEFAULT_COMMAND . ' -not \( -path ''*/go/bin/*'' -prune \) | awk ''{print $0":1:1"}'''
 endif
 if !empty($FZF_CTRL_T_COMMAND)
-  let g:rgs_command = $FZF_CTRL_T_COMMAND . ' -not \( -path ''*/go/bin/*'' -prune \) | awk ''{print $1":1:1"}'''
+  let g:rgs_command = $FZF_CTRL_T_COMMAND . ' -not \( -path ''*/go/bin/*'' -prune \) | awk ''{print $0":1:1"}'''
 endif
 
 command! -bang -nargs=* S call GrepDir(ProjectRoot(), g:rgf_command .shellescape(<q-args>), 1, <bang>0)

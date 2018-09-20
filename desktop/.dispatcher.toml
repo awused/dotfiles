@@ -12,13 +12,13 @@
 
 # TODO: add name field to make error messages better?
 
-#[[executables]]
-#regex = '^(https?://)?(www\.)?youtube\.com/.*v=([A-Za-z0-9_-]{11})'
-#path = "youtube-mpc"
+[[executables]]
+regex = '^(https?://)?(www\.)?youtube\.com/.*v=([A-Za-z0-9_-]{11})'
+path = "mpvquiet"
 
-#[[executables]]
-#regex = '^https://manga\.madokami\.al/'
-#path = "madokami-honeyview"
+[[executables]]
+regex = '^https://manga\.madokami\.al/'
+path = "madokami"
 
 # Maybe this shouldn't be a catch-all?
 [[executables]]
