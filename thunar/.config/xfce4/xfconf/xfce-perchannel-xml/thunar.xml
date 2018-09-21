@@ -28,6 +28,6 @@
   <property name="shortcuts-icon-emblems" type="bool" value="true"/>
   <property name="last-side-pane" type="string" value="ThunarShortcutsPane"/>
   <property name="last-details-view-zoom-level" type="string" value="THUNAR_ZOOM_LEVEL_SMALLER"/>
-  <property name="last-details-view-column-widths" type="string" value="50,136,50,50,1115,50,50,83,160"/>
+  <property name="last-details-view-column-widths" type="string" value="50,136,50,50,1114,50,50,83,265"/>
   <property name="default-view" type="string" value="ThunarIconView"/>
 </channel>

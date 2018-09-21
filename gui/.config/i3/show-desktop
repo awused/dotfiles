@@ -8,6 +8,9 @@ set -e
 export name=$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).name' | cut -d"\"" -f2)
 output=$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).output' | cut -d"\"" -f2)
 
-xrandr -q --current | grep " connected" | awk '{ print $1 }' | xargs -r -I '{}' sh -c 'i3-msg workspace {}; i3-msg move workspace to output {}; i3-msg workspace $name'
+xrandr -q --current | grep " connected" | awk '{ print $1 }' | grep -v $name | xargs -r -I '{}' sh -c 'i3-msg workspace {}; i3-msg move workspace to output {}; i3-msg workspace $name'
 
-i3-msg workspace $output
+focused=$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).name' | cut -d"\"" -f2)
+if [[ $output != $focused ]]; then
+  i3-msg workspace $output
+fi

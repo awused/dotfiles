@@ -10,11 +10,12 @@ application/x-extension-shtml=firefox.desktop;
 application/xhtml+xml=firefox.desktop;
 application/x-extension-xhtml=firefox.desktop;
 application/x-extension-xht=firefox.desktop;
-application/zip=mcomix.desktop;
+application/zip=org.gnome.FileRoller.desktop;mcomix.desktop;
 image/gif=mcomix.desktop;
 application/vnd.rar=mcomix.desktop;
 audio/flac=rhythmbox.desktop;
 video/x-matroska=mpv.desktop;
+image/png=mcomix.desktop;
 
 [Default Applications]
 x-scheme-handler/http=firefox.desktop

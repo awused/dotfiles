@@ -10,3 +10,4 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/home/desuwa/g
   0  0  *  *  * ~/.cron/zfs_health
   */15  *  *  *  * wallpapers random --unlocked
   0  7  *  *  *  upscale-directory
+  0  8  *  *  sun  gio trash --empty

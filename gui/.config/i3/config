@@ -81,10 +81,15 @@ bindsym $mod+z workspace $wsff
 assign [class="Firefox"] $wsff
 for_window [class="Firefox"] floating enable
 for_window [class="Firefox" instance="Navigator"] floating disable border pixel 0
+for_window [class="Firefox" instance="Navigator" title="Torrents for .*"] floating enable border normal
 
 set $wsyt "youtube"
 bindsym $mod+y workspace $wsyt
 for_window [class="mpv" workspace="firefox"] move window to workspace $wsyt
+
+set $wstm "transmission"
+bindsym $mod+t workspace $wstm
+assign [class="Transgui"] $wstm
 
 set $wscr "chromium"
 bindsym Mod1+z workspace $wscr
@@ -110,6 +115,7 @@ bindsym $mod+Shift+f exec --no-startup-id ~/.config/i3/exec-once "foobar2000.exe
 
 for_window [instance="emuera-anchor.exe"] floating enable
 for_window [class="Displaycal"] floating enable border normal
+for_window [class="File-roller"] floating enable
 #}}}
 #{{{ Launchers
 # start a terminal
