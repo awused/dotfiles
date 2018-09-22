@@ -31,7 +31,7 @@ test -r $HOME/.gcloud-sdk/path.zsh.inc && . $HOME/.gcloud-sdk/path.zsh.inc > /de
 #{{{ OS/Computer specific settings
 if [[ $(uname) == 'Linux' ]]; then
   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
-  export PATH=$PATH:$HOME/.bin
+  export PATH=$PATH:$HOME/.bin:$HOME/.local/bin
 fi
 
 if [[ $(uname) == 'FreeBSD' ]]; then

@@ -1,0 +1,10 @@
+[Nemo Action]
+Name=Unar
+Comment=Unarchive
+
+Exec=unar "%F" -o "%P"
+
+Selection=S
+
+Extensions=zip;7z;rar;tar.gz;tar.bz2;
+

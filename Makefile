@@ -9,7 +9,6 @@ unstow:
 
 both:
 	stow bin
-	stow config
 	stow cron
 	stow gnupg
 	stow misc
@@ -27,12 +26,16 @@ desktop: both
 	stow gui
 	stow mcomix
 	stow mpv
+	stow nemo
 	stow pulse
-	stow thunar
 	stow xdg
 	stow slack
 	crontab desktop.user.crontab
 	sudo crontab desktop.root.crontab
+
+	stow xorg
+	sudo cp xorg.conf.d/* /etc/X11/xorg.conf.d/
+
 
 server: both
 	stow server

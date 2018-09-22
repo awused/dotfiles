@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Trackma
+Exec=trackma-gtk
+Terminal=false
