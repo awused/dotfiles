@@ -98,7 +98,7 @@ for_window [class="mpv" workspace="^(?!firefox)$"] move window to workspace $wsm
 for_window [class="mpv" workspace="firefox"] move window to workspace $wsyt
 
 set $wstm "transmission"
-bindsym $mod+t workspace $wstm
+# Some things don't need a hotkey
 assign [class="Transgui"] $wstm
 
 set $wscr "chromium"
@@ -110,6 +110,12 @@ assign [class="Chromium-browser"] $wscr
 set $wsct "chat"
 bindsym $mod+c workspace $wsct
 bindsym $mod+Shift+c move container to workspace $wsct
+
+set $wsst "steam"
+bindsym $mod+t workspace $wsst
+assign [class="Steam"] $wsst
+for_window [class="Steam"] floating enable
+
 
 set $wsnm "nemo"
 assign [class="Nemo"] $wsnm
