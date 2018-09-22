@@ -96,8 +96,11 @@ opam:
 	opam update
 	opam upgrade
 
+flatpak:
+	flatpak update --user
+
 #go-update:
 #	go get -u all
 
-update: gems pip npm opam
+update: gems pip npm opam flatpak
 

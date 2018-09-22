@@ -39,6 +39,7 @@ $HOME/.gstreamer-*
 $HOME/.gcloud-sdk
 $HOME/Downloads
 $HOME/.wallpapers/*
+$HOME/.local/share/flatpak
 
 $THIRD_PARTY_SOURCE/
 

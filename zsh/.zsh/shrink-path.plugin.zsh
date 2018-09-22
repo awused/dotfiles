@@ -43,7 +43,7 @@ shrink_path() {
         typeset -i named=0
 
         zstyle -s ':prompt:shrink_path' last lastfull
-        
+
         if zstyle -t ':prompt:shrink_path' fish; then
                 lastfull=1
                 short=1
@@ -105,11 +105,11 @@ shrink_path() {
         (
                 #unfunction chpwd 2> /dev/null
                 if [[ $tree[1] == \~* ]] {
-                        #cd ${~tree[1]}
+                        cd ${~tree[1]}
                         result=$tree[1]
                         shift tree
                 } else {
-                        #cd /
+                        cd /
                 }
                 for dir in $tree; {
                         if (( lastfull >= $#tree )) {
@@ -123,10 +123,10 @@ shrink_path() {
                                 (( i++ ))
                                 part+=$dir[$i]
                                 expn=($(echo ${part}*(-/)))
-                                (( short )) && break
+                                [[ $part != "." ]] && (( short )) && break
                         done
                         result+="/$part"
-                        #cd $dir
+                        cd $dir
                         shift tree
                 }
                 echo ${result:-/}

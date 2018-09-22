@@ -19,7 +19,7 @@ fi
 xrdb -merge ~/.Xresources
 # What a waste of resources.
 xrandr --output DP-0 --pos 2880x1800 \
-  --output DVI-D-0 --scale 1.5x1.5 --pos 3840x0 \
+  --output DVI-D-0 --scale 1.5x1.5 --pos 3360x0 \
   --output HDMI-0 --scale 1.5x1.5 --pos 6720x2160 \
   --output DP-5 --scale 1.5x1.5 --pos 0x2160
 exec i3

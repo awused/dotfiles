@@ -261,6 +261,9 @@ export FZF_EXCLUDES="-not \( -path '*/.git/*' -prune \) \
   -not \( -path '*/.gcloud-sdk' -prune \) \
   -not \( -path '*/.mozilla' -prune \) \
   -not \( -path '*/.vegas' -prune \) \
+  -not \( -path '*/.TeamSpeak*' -prune \) \
+  -not \( -path '*/.ts3client*' -prune \) \
+  -not \( -path '*/.QtWebEngineProcess' -prune \) \
   -not \( -path '*/.foobar2000' -prune \) \
   -not \( -path '*/.wine*' -prune \) \
   -not \( -path '*/winebin' -prune \) \

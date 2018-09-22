@@ -1,5 +1,6 @@
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 SHELL=/bin/sh
-PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/home/desuwa/go/bin:/home/desuwa/bin
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/home/desuwa/.gobin:/home/desuwa/bin
 # .---------------- minute (0 - 59)
 # |  .------------- hour (0 - 23)
 # |  |  .---------- day of month (1 - 31)

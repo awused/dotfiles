@@ -3,8 +3,12 @@ set -e
 # https://faq.i3wm.org/question/83/how-to-run-i3lock-after-computer-inactivity.1.html
 
 scrot /tmp/screen_locked.bmp
-# Needs to be PNG
-convert /tmp/screen_locked.bmp -blur 0x6 /tmp/screen_locked.png
+# Needs to be PNG. Optimize appearance then locking speed
+convert /tmp/screen_locked.bmp \
+  -define png:compression-level=0 \
+  -define png:compression-strategy=4 \
+  -define png:compression-filter=2 \
+  -blur 0x6 /tmp/screen_locked.png
 
 rm -f /tmp/screen_locked.bmp
 
