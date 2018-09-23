@@ -89,26 +89,32 @@ assign [class="Firefox"] $wsff
 for_window [class="Firefox"] floating enable
 for_window [class="Firefox" instance="Navigator"] floating disable border pixel 0
 for_window [class="Firefox" instance="Navigator" title="Torrents for .*"] floating enable border normal
+workspace $wsff output $m_center
 
-set $wsmp "mpv"
-bindsym $mod+m workspace $wsmp
+set $wsmpv "mpv"
+bindsym $mod+m workspace $wsmpv
 set $wsyt "youtube"
 bindsym $mod+y workspace $wsyt
-for_window [class="mpv" workspace="^(?!firefox)$"] move window to workspace $wsmp focus
+for_window [class="mpv" workspace="^(?!firefox)$"] move window to workspace $wsmpv focus
 for_window [class="mpv" workspace="firefox"] move window to workspace $wsyt
+workspace $wsmpv output $m_center
+workspace $wsyt output $m_center
 
 set $wstm "transmission"
 assign [class="Transgui"] $wstm
+workspace $wstm output $m_top
 
 set $wscr "chromium"
 bindsym Mod1+z workspace $wscr
 assign [class="Chromium-browser"] $wscr
+workspace $wscr output $m_left
 #for_window [class="Chromium-browser"] floating enable
 #for_window [class="Chromium-browser" instance="chromium-browser"] floating disable border pixel 0
 
 set $wsct "chat"
 bindsym $mod+c workspace $wsct
 bindsym $mod+Shift+c move container to workspace $wsct
+workspace $wsct output $m_right
 
 set $wsst "steam"
 bindsym $mod+t $wsst
@@ -120,7 +126,9 @@ bindsym $mod+x workspace $wsnm
 
 set $wsmx "mcomix"
 bindsym Mod1+m workspace $wsmx
-assign [class="MComix"] $wsmx
+for_window [class="Mcomix" workspace="^(?!firefox)$"] move window to workspace $wsmx focus
+for_window [class="Mcomix" workspace="firefox"] move window to workspace $wsmx
+workspace $wsmx output $m_center
 
 for_window [class="keepassxc"] floating enable border normal
 bindsym $mod+Shift+k exec --no-startup-id ~/.config/i3/exec-once keepassxc keepassxc keepassxc

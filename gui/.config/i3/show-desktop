@@ -1,16 +1,22 @@
 #!/usr/bin/env bash
 # Create a new, empty workspace on every output
+# Doesn't handle the case where workspaces with the same names as their outputs
+# already exist
 set -e
 
-# Can't set outputs for workspaces at create time
-# Can only create one (on the current output) and move it to another monitor
-# Unfortunately results in a bit of flickering
-export name=$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).name' | cut -d"\"" -f2)
-output=$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).output' | cut -d"\"" -f2)
+current=$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).output' | cut -d"\"" -f2)
 
-xrandr -q --current | grep " connected" | awk '{ print $1 }' | grep -v $name | xargs -r -I '{}' sh -c 'i3-msg workspace {}; i3-msg move workspace to output {}; i3-msg workspace $name'
 
-focused=$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).name' | cut -d"\"" -f2)
-if [[ $output != $focused ]]; then
-  i3-msg workspace $output
-fi
+IFS=" "
+echo $(i3-msg -t get_workspaces | jq '.[] | select(.visible==true and .output!=.name) | (.name,.output)' | cut -d"\"" -f2) | \
+  while read -r name; do
+  [ -z "$name" ] && continue
+  read -r output
+  echo $name $output $current
+  [[ "$current" != "$output" ]] && i3-msg workspace "$name"
+
+  echo $output
+  i3-msg workspace "$output"
+  current=
+done
+
