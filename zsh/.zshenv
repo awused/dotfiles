@@ -2,7 +2,7 @@
 # These don't change often, so no auto-sourcing
 # vim: set foldmethod=marker foldlevel=0:
 
-umask 002
+umask 022
 
 export EDITOR='vim'
 export PAGER='less'
