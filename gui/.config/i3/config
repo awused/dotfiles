@@ -95,7 +95,7 @@ set $wsmpv "mpv"
 bindsym $mod+m workspace $wsmpv
 set $wsyt "youtube"
 bindsym $mod+y workspace $wsyt
-for_window [class="mpv" workspace="^(?!firefox)$"] move window to workspace $wsmpv focus
+for_window [class="mpv" workspace="^(?!firefox$)"] move window to workspace $wsmpv focus
 for_window [class="mpv" workspace="firefox"] move window to workspace $wsyt
 workspace $wsmpv output $m_center
 workspace $wsyt output $m_center
@@ -114,20 +114,25 @@ workspace $wscr output $m_left
 set $wsct "chat"
 bindsym $mod+c workspace $wsct
 bindsym $mod+Shift+c move container to workspace $wsct
+assign [class="Slack"] $wsct
+assign [class="TeamSpeak 3"] $wsct
 workspace $wsct output $m_right
 
 set $wsst "steam"
-bindsym $mod+t $wsst
+bindsym $mod+t workspace $wsst
 for_window [class="Steam"] move container to workspace $wsst
+for_window [class="Steam"] floating enable
+workspace $wsst output $m_right
 
 set $wsnm "nemo"
 assign [class="Nemo"] $wsnm
+for_window [class="Nemo"] focus
 bindsym $mod+x workspace $wsnm
 
 set $wsmx "mcomix"
 bindsym Mod1+m workspace $wsmx
-for_window [class="Mcomix" workspace="^(?!firefox)$"] move window to workspace $wsmx focus
-for_window [class="Mcomix" workspace="firefox"] move window to workspace $wsmx
+for_window [class="MComix" workspace="^(?!firefox$)"] move window to workspace $wsmx focus
+for_window [class="MComix" workspace="firefox"] move window to workspace $wsmx
 workspace $wsmx output $m_center
 
 for_window [class="keepassxc"] floating enable border normal
@@ -174,6 +179,7 @@ bindsym Ctrl+Mod1+l exec --no-startup-id "xset dpms 10 10 10; ~/.config/i3/lock"
 
 bindsym $mod+Shift+w exec --no-startup-id wallpapers random
 bindsym $mod+Shift+d exec --no-startup-id ~/.config/i3/show-desktop
+bindsym $mod+Mod1+d exec --no-startup-id ~/.config/i3/show-desktop false
 
 # Screenshots
 # Edit /etc/sysctl.d/99-sysctl.conf with kernel.sysrq = 0
@@ -271,9 +277,20 @@ exec_always --no-startup-id "killall dunst; dunst &"
 # Lock after 10 minutes
 exec_always --no-startup-id "killall xautolock; xautolock -time 10 -locker ~/.config/i3/lock -secure &"
 # Deal with files being overwritten
-exec_always --no-startup-id "rm -f ~/.config/user-dirs.dirs; rm -f ~/.config/mimeapps.list; cd ~/dotfiles && stow xdg"
+#exec_always --no-startup-id "rm -f ~/.config/user-dirs.dirs; rm -f ~/.config/mimeapps.list; cd ~/dotfiles && stow xdg"
 # Screens turn off after 30 minutes
 # Setting s off breaks xautolock
+exec --no-startup-id xrandr \
+  --output DP-0 --pos 2880x1800 \
+  --output DVI-D-0 --scale 1.5x1.5 --pos 3360x0 \
+  --output HDMI-0 --scale 1.5x1.5 --pos 6720x2160 \
+  --output DP-5 --scale 1.5x1.5 --pos 0x2160 \
+  && i3-msg restart # Restart at the end or rofi doesn't pick up the changes
+
 exec --no-startup-id xset s 1800 dpms 1800 1800 1800
 exec --no-startup-id "~/.fehbg || :"
+
+# Enable in sudoers with
+# desuwa ALL=(root) NOPASSWD:/usr/bin/nvidia-smi -i 1 -pl 375
+exec_always --no-startup-id "sudo /usr/bin/nvidia-smi -i 1 -pl 375"
 #}}}

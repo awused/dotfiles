@@ -32,7 +32,6 @@ desktop: both
 	stow slack
 	crontab desktop.user.crontab
 	sudo crontab desktop.root.crontab
-
 	stow xorg
 	sudo cp xorg.conf.d/* /etc/X11/xorg.conf.d/
 

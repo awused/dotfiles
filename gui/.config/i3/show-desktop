@@ -5,17 +5,17 @@
 set -e
 
 current=$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).output' | cut -d"\"" -f2)
-
+initial=$current
 
 IFS=" "
 echo $(i3-msg -t get_workspaces | jq '.[] | select(.visible==true and .output!=.name) | (.name,.output)' | cut -d"\"" -f2) | \
   while read -r name; do
-  [ -z "$name" ] && continue
+  [[ -z "$name" ]] && continue
   read -r output
-  echo $name $output $current
   [[ "$current" != "$output" ]] && i3-msg workspace "$name"
 
-  echo $output
+  [[ "$1" == "false" && "$initial" == "$output" ]] && continue
+
   i3-msg workspace "$output"
   current=
 done
