@@ -28,10 +28,12 @@ test -r $HOME/.opam/opam-init/init.zsh && . $HOME/.opam/opam-init/init.zsh > /de
 test -r $HOME/.gcloud-sdk/path.zsh.inc && . $HOME/.gcloud-sdk/path.zsh.inc > /dev/null 2> /dev/null || true
 
 
+
 #{{{ OS/Computer specific settings
 if [[ $(uname) == 'Linux' ]]; then
   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
   export PATH=$PATH:$HOME/.bin:$HOME/.local/bin
+  export GTK_THEME=Arc-Dark
 fi
 
 if [[ $(uname) == 'FreeBSD' ]]; then

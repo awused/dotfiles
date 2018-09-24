@@ -26,8 +26,12 @@ screenshotter:
 madokami:
 	go install github.com/awused/madokami
 
+hydrus-mover:
+	go install github.com/awused/hydrus-mover
+
 go: wallpapers dispatcher add-to-transmission \
-  upscale-directory public-clipboard screenshotter madokami
+  upscale-directory public-clipboard screenshotter madokami \
+  hydrus-mover
 
 
 # Third party code
