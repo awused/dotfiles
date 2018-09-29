@@ -1,5 +1,7 @@
-mpd_host = ~/.config/mpd/socket
-mpd_music_dir = /storage/media/users/desuwa/Music
+mpd_host = /storage/mpd/.mpd/socket
+mpd_music_dir = /storage/mpd/.mpd/music
+
+# TODO -- Use this to automate desktop player
 
 ## Note: Custom command that will be executed each time player state
 ## changes. The environment variable MPD_PLAYER_STATE is set to the current

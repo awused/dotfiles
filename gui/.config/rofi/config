@@ -3,3 +3,6 @@ rofi.monitor: -1
 rofi.ssh-client: ssh
 rofi.ssh-command: desu-terminal -- {ssh-client} {host}
 rofi.theme: /usr/local/share/rofi/themes/gruvbox-dark-hard.rasi
+rofi.terminal: desu-terminal
+rofi.sort: true
+rofi.sorting-method: fzf

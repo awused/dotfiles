@@ -187,6 +187,15 @@ bindsym --release Print exec --no-startup-id screenshotter desktop
 bindsym --release Shift+Print exec --no-startup-id screenshotter region
 # bindsym --release Mod1+Print exec --no-startup-id screenshotter window
 bindsym --release Mod1+Sys_Req exec --no-startup-id screenshotter window
+
+
+# MPD
+bindsym $mod+Control+s exec --no-startup-id mpc toggle
+bindsym $mod+Control+Shift+S exec --no-startup-id mpc stop
+bindsym $mod+Control+Right exec --no-startup-id mpc next
+bindsym $mod+Control+Left exec --no-startup-id mpc previous
+bindsym $mod+Control+Up exec --no-startup-id "mpc volume +5; notify-send Volume \\"$(mpc volume)\\" -t 1000"
+bindsym $mod+Control+Down exec --no-startup-id "mpc volume -5; notify-send Volume \\"$(mpc volume)\\" -t 1000"
 #}}}
 #{{{ Movement and Layout
 # change focus
@@ -289,6 +298,7 @@ exec --no-startup-id xrandr \
 
 exec --no-startup-id xset s 1800 dpms 1800 1800 1800
 exec --no-startup-id "~/.fehbg || :"
+exec --no-startup-id mpd
 
 # Enable in sudoers with
 # desuwa ALL=(root) NOPASSWD:/usr/bin/nvidia-smi -i 1 -pl 375

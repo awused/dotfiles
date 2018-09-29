@@ -48,6 +48,8 @@ if [[ $(hostname) == 'desutop' ]]; then
   export CXXFLAGS="$CFLAGS"
   export MAKEFLAGS="-j32"
 
+  export MPD_HOST=$HOME/.config/mpd/socket
+
   mount | grep "/mnt/GoogleDrive" > /dev/null || google-drive-ocamlfuse "/mnt/GoogleDrive"
 fi
 #}}}

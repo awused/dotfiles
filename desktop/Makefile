@@ -81,9 +81,9 @@ gems: sudo
 	sudo gem update
 
 pip: sudo
-	sudo python3 -m pip install pip --upgrade
+	sudo pip3 install pip --upgrade
 	python3 -m pip install \
-	 $$(python3 -m pip list --format=columns --outdated \
+	 $$(pip3 list --format=columns --outdated \
 	   | sed 1,2d | tr '\n' ' ' | sed -r 's/ +/ /g' \
 	   | awk -v RS=" " '1==NR%4') \
 	   --upgrade --user

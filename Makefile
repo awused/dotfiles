@@ -25,6 +25,7 @@ desktop: both
 	stow desktop
 	stow gui
 	stow mcomix
+	stow mpd
 	stow mpv
 	stow nemo
 	stow pulse
@@ -38,7 +39,6 @@ desktop: both
 
 server: both
 	stow server
-	stow mpd
 	stow weechat
 	crontab server.user.crontab
 	sudo crontab server.root.crontab
