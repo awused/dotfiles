@@ -193,9 +193,9 @@ bindsym --release Mod1+Sys_Req exec --no-startup-id screenshotter window
 bindsym $mod+Control+s exec --no-startup-id mpc toggle
 bindsym $mod+Control+Shift+S exec --no-startup-id mpc stop
 bindsym $mod+Control+Right exec --no-startup-id mpc next
-bindsym $mod+Control+Left exec --no-startup-id mpc previous
-bindsym $mod+Control+Up exec --no-startup-id "mpc volume +5; notify-send Volume \\"$(mpc volume)\\" -t 1000"
-bindsym $mod+Control+Down exec --no-startup-id "mpc volume -5; notify-send Volume \\"$(mpc volume)\\" -t 1000"
+bindsym $mod+Control+Left exec --no-startup-id mpc prev
+bindsym $mod+Control+Up exec --no-startup-id "mpc volume +5; notify-send Volume \\"$(mpc volume)\\" -t 1000 -i /usr/share/icons/Adwaita/32x32/status/audio-volume-high.png"
+bindsym $mod+Control+Down exec --no-startup-id "mpc volume -5; notify-send Volume \\"$(mpc volume)\\" -t 1000 -i /usr/share/icons/Adwaita/32x32/status/audio-volume-high.png"
 #}}}
 #{{{ Movement and Layout
 # change focus
@@ -301,6 +301,6 @@ exec --no-startup-id "~/.fehbg || :"
 exec --no-startup-id mpd
 
 # Enable in sudoers with
-# desuwa ALL=(root) NOPASSWD:/usr/bin/nvidia-smi -i 1 -pl 375
-exec_always --no-startup-id "sudo /usr/bin/nvidia-smi -i 1 -pl 375"
+# desuwa ALL=(root) NOPASSWD:/usr/bin/nvidia-smi -i 0 -pl 375
+exec_always --no-startup-id "sudo /usr/bin/nvidia-smi -i 0 -pl 375"
 #}}}

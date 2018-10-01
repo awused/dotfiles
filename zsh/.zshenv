@@ -16,7 +16,7 @@ export GOBIN=$HOME/.gobin
 export PATH=$PATH:$GOBIN
 export PYTHONIOENCODING=UTF-8
 
-export SOURCE_DIR=/storage/media/src
+export SOURCE_DIR=/storage/src
 export THIRD_PARTY_SOURCE=$SOURCE_DIR/third_party
 export GOPATH=$SOURCE_DIR/go
 
@@ -47,6 +47,8 @@ if [[ $(hostname) == 'desutop' ]]; then
   export CFLAGS="-march=native -O2 -pipe"
   export CXXFLAGS="$CFLAGS"
   export MAKEFLAGS="-j32"
+
+  export LIBVIRT_DEFAULT_URI="qemu:///system"
 
   export MPD_HOST=$HOME/.config/mpd/socket
 

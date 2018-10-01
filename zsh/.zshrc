@@ -22,6 +22,7 @@ zle -N stat-rc
 precmd() {
   if (( $__zshrc_sourced != $(stat-rc) )) {
     __zshrc_sourced=$(stat-rc)
+    source ~/.zshenv
     source ~/.zshrc
   }
 }
