@@ -1,0 +1,53 @@
+# Used for desktop screenshots and when the window name can't be determined
+Fallback = 'desktop'
+RootDir = '/storage/public/shots'
+
+# Any applications that get separate directories for each year.
+# This is checked after any applicable overrides.
+YearlyApplications = ['firefox', 'mcomix', 'mpv']
+
+# Will be ignored in favour of any available children
+# Note that gnome-terminal is uniquely incapable and doesn't set WINDOWID
+IgnoredParents = ['kitty', 'xfce4-terminal', 'zsh']
+
+# Uncomment to check for WINDOWID if you're using a terminal that doesn't use
+# separate processes per window. Doesn't help with gnome-terminal.
+CheckWindowID = true
+
+# Callback will be called with the path to screenshot.
+Callback = 'public-clipboard'
+
+# Overrides. The first one with a matching name and Regex is used.
+#
+# Name: The application name to match against. Multiple overrides can be
+# specified for a name.
+#
+# TODO -- Regex
+# Regex: If present, the full command line is matched against this RE.
+# Leave blank to match every instance of Name. Regex can't match every window,
+# some windows have no pids so we use the name instead.
+#
+# Format: The output pattern. Use %s to reference the groups from any regex
+# match.
+
+[[Overrides]]
+  Name = "vimx"
+  Format = "vim"
+
+[[Overrides]]
+  Name = "i3"
+  Format = "desktop"
+
+[[Overrides]]
+  Name = "chromium-browser"
+  Format = "chromium"
+
+[[Overrides]]
+  Name = "wine32-preloader"
+  Regex = '^.*/([^/ ]+)\.exe'
+  Format = "%[2]s"
+
+[[Overrides]]
+  Name = "python2-7"
+  Regex = '^/usr/bin/python.*/bin/([^/ ]+)( .*)?'
+  Format = "%[2]s"

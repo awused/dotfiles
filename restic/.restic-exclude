@@ -59,7 +59,7 @@ $THIRD_PARTY_SOURCE/
 # Should eventually include this
 /storage/media/users/desuwa/Unsorted Downloads
 
-/storage/media/public/steam/*/*.jpg
+/storage/public/steam/*/*.jpg
 
 /etc/opieaccess
 /etc/opiekeys
