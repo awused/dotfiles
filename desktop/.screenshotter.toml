@@ -17,6 +17,12 @@ CheckWindowID = true
 # Callback will be called with the path to screenshot.
 Callback = 'public-clipboard'
 
+# PNG compression level in the range of 0-9
+# 0 is fastest, 9 is slowest
+# 8 and 9 are slow enough to be annoying for interactive usage
+# 0 compresses too poorly to use and saves little time over 1
+Compression = 5
+
 # Overrides. The first one with a matching name and Regex is used.
 #
 # Name: The application name to match against. Multiple overrides can be
@@ -50,4 +56,9 @@ Callback = 'public-clipboard'
 [[Overrides]]
   Name = "python2-7"
   Regex = '^/usr/bin/python.*/bin/([^/ ]+)( .*)?'
+  Format = "%[2]s"
+
+[[Overrides]]
+  Name = "watch"
+  Regex = '^watch ([^ ]*)?'
   Format = "%[2]s"

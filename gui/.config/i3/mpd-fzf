@@ -1,0 +1,4 @@
+#! /bin/sh
+
+export FZF_DEFAULT_OPTS="--reverse --ansi -m"
+kitty -- mpd-fzf

@@ -144,6 +144,7 @@ bindsym $mod+Shift+f exec --no-startup-id ~/.config/i3/exec-once "foobar2000.exe
 for_window [instance="emuera-anchor.exe"] floating enable
 for_window [class="Displaycal"] floating enable border normal
 for_window [class="File-roller"] floating enable
+
 #}}}
 #{{{ Launchers
 # start a terminal
@@ -175,6 +176,8 @@ bindsym Mod1+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 # Give pulseaudio its necessary kick
 bindsym $mod+Shift+p exec --no-startup-id pulseaudio -k
+# Give pulseaudio its necessary kick
+bindsym Mod1+Shift+p exec --no-startup-id "pulseaudio --kill; pulseaudio --start"
 bindsym Ctrl+Mod1+l exec --no-startup-id "xset dpms 10 10 10; ~/.config/i3/lock"
 
 bindsym $mod+Shift+w exec --no-startup-id wallpapers random
@@ -196,6 +199,11 @@ bindsym $mod+Control+Right exec --no-startup-id mpc next
 bindsym $mod+Control+Left exec --no-startup-id mpc prev
 bindsym $mod+Control+Up exec --no-startup-id "mpc volume +5; notify-send Volume \\"$(mpc volume)\\" -t 1000 -i /usr/share/icons/Adwaita/32x32/status/audio-volume-high.png"
 bindsym $mod+Control+Down exec --no-startup-id "mpc volume -5; notify-send Volume \\"$(mpc volume)\\" -t 1000 -i /usr/share/icons/Adwaita/32x32/status/audio-volume-high.png"
+# Rofi rendering ended up being very janky for some reason I haven't figured out
+# It should be a better option than spinning up a new terminal just to run mpd-fzf in a floating window
+for_window [title="^mpd-fzf$"] floating enable
+bindsym $mod+Control+m exec ~/.config/i3/mpd-fzf
+bindsym $mod+Mod1+m exec mpd-rofi
 #}}}
 #{{{ Movement and Layout
 # change focus
@@ -290,7 +298,7 @@ exec_always --no-startup-id "killall xautolock; xautolock -time 10 -locker ~/.co
 # Screens turn off after 30 minutes
 # Setting s off breaks xautolock
 exec --no-startup-id xrandr \
-  --output DP-0 --pos 2880x1800 \
+  --output DP-0 --pos 2880x1800 --primary \
   --output DVI-D-0 --scale 1.5x1.5 --pos 3360x0 \
   --output HDMI-0 --scale 1.5x1.5 --pos 6720x2160 \
   --output DP-5 --scale 1.5x1.5 --pos 0x2160 \
@@ -303,4 +311,6 @@ exec --no-startup-id mpd
 # Enable in sudoers with
 # desuwa ALL=(root) NOPASSWD:/usr/bin/nvidia-smi -i 0 -pl 375
 exec_always --no-startup-id "sudo /usr/bin/nvidia-smi -i 0 -pl 375"
+exec_always --no-startup-id "nvidia-settings -a '[gpu:0]/GPUGraphicsClockOffset[3]=60'"
+exec_always --no-startup-id "nvidia-settings -a '[gpu:0]/GPUMemoryTransferRateOffset[3]=200'"
 #}}}

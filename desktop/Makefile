@@ -29,9 +29,15 @@ madokami:
 hydrus-mover:
 	go install github.com/awused/hydrus-mover
 
+mpd-fzf:
+	go install github.com/awused/mpd-fzf
+
+mpd-rofi:
+	go install github.com/awused/mpd-rofi
+
 go: wallpapers dispatcher add-to-transmission \
   upscale-directory public-clipboard screenshotter madokami \
-  hydrus-mover
+  hydrus-mover mpd-fzf mpd-rofi
 
 
 # Third party code
