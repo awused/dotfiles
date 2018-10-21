@@ -128,11 +128,13 @@ set $wsnm "nemo"
 assign [class="Nemo"] $wsnm
 for_window [class="Nemo"] focus
 bindsym $mod+x workspace $wsnm
+workspace $wsnm output $m_left
 
 set $wsmx "mcomix"
 bindsym Mod1+m workspace $wsmx
-for_window [class="MComix" workspace="^(?!firefox$)"] move window to workspace $wsmx focus
-for_window [class="MComix" workspace="firefox"] move window to workspace $wsmx
+#for_window [class="MComix" workspace="^(?!firefox$)"] move window to workspace $wsmx focus
+#for_window [class="MComix" workspace="firefox"] move window to workspace $wsmx
+for_window [class="MComix"] move window to workspace $wsmx
 workspace $wsmx output $m_center
 
 for_window [class="keepassxc"] floating enable border normal
@@ -195,6 +197,7 @@ bindsym --release Mod1+Sys_Req exec --no-startup-id screenshotter window
 # MPD
 bindsym $mod+Control+s exec --no-startup-id mpc toggle
 bindsym $mod+Control+Shift+S exec --no-startup-id mpc stop
+bindsym $mod+Control+u exec --no-startup-id mpc update
 bindsym $mod+Control+Right exec --no-startup-id mpc next
 bindsym $mod+Control+Left exec --no-startup-id mpc prev
 bindsym $mod+Control+Up exec --no-startup-id "mpc volume +5; notify-send Volume \\"$(mpc volume)\\" -t 1000 -i /usr/share/icons/Adwaita/32x32/status/audio-volume-high.png"
@@ -292,7 +295,7 @@ bar {
 exec_always --no-startup-id "killall compton; compton -b"
 exec_always --no-startup-id "killall dunst; dunst &"
 # Lock after 10 minutes
-exec_always --no-startup-id "killall xautolock; xautolock -time 10 -locker ~/.config/i3/lock -secure &"
+exec_always --no-startup-id "killall xautolock; xautolock -time 20 -locker ~/.config/i3/lock -secure &"
 # Deal with files being overwritten
 #exec_always --no-startup-id "rm -f ~/.config/user-dirs.dirs; rm -f ~/.config/mimeapps.list; cd ~/dotfiles && stow xdg"
 # Screens turn off after 30 minutes

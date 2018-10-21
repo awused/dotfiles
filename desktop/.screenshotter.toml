@@ -1,6 +1,6 @@
 # Used for desktop screenshots and when the window name can't be determined
 Fallback = 'desktop'
-RootDir = '/storage/public/shots'
+ScreenshotDir = '/storage/public/shots'
 
 # Any applications that get separate directories for each year.
 # This is checked after any applicable overrides.
