@@ -12,3 +12,5 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/home/desuwa/.
   */15  *  *  *  * wallpapers random --unlocked --no-fullscreen
   0  7  *  *  *  upscale-directory
   0  8  *  *  sun  gio trash --empty
+  0  8  *  *  sun ~/.cron/empty-nfs-trash
+  0  7  *  *  * pulseaudio --kill; pulseaudio --start
