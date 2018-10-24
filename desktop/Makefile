@@ -40,6 +40,20 @@ go: wallpapers dispatcher add-to-transmission \
   hydrus-mover mpd-fzf mpd-rofi
 
 
+windows-wallpapers:
+	cd /storage/winshare/gobin; \
+	  GOOS=windows go build github.com/awused/wallpapers
+
+windows-sharex:
+	cd /storage/winshare/gobin; \
+	  GOOS=windows go build github.com/awused/sharex-mover
+
+windows-clipboard:
+	cd /storage/winshare/gobin; \
+	  GOOS=windows go build github.com/awused/public-clipboard
+
+windows-go: windows-wallpapers windows-sharex windows-clipboard
+
 # Third party code
 bfs: sudo
 	cd ${THIRD_PARTY_SOURCE}/bfs; $(MAKE) clean; \

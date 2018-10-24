@@ -33,6 +33,7 @@ $HOME/.waifu2x
 $HOME/.gocode
 $HOME/.gem
 $HOME/.ipfs
+$HOME/.var
 # I keep nothing in .vim/
 $HOME/.vim/*
 $HOME/.gstreamer-*
