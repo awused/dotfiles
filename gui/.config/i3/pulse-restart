@@ -1,0 +1,15 @@
+#! /bin/sh
+# Reliably kill and restart pulse
+
+pulseaudio --kill
+
+while true; do
+  pulseaudio --check || break
+  sleep 1
+done
+
+while true; do
+  pulseaudio --check && break
+  pulseaudio --start
+  sleep 1
+done

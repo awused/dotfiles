@@ -62,3 +62,9 @@ Compression = 5
   Name = "watch"
   Regex = '^watch ([^ ]*)?'
   Format = "%[2]s"
+
+[[Overrides]]
+  Name = "wine32-preloader"
+  Regex = '^Game.exe'
+  Format = "the-last-sovereign"
+

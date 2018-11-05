@@ -179,7 +179,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 # Give pulseaudio its necessary kick
 bindsym $mod+Shift+p exec --no-startup-id pulseaudio -k
 # Give pulseaudio its necessary kick
-bindsym Mod1+Shift+p exec --no-startup-id "pulseaudio --kill; pulseaudio --start"
+bindsym Mod1+Shift+p exec --no-startup-id ~/.config/i3/pulse-restart
 bindsym Ctrl+Mod1+l exec --no-startup-id "xset dpms 10 10 10; ~/.config/i3/lock"
 
 bindsym $mod+Shift+w exec --no-startup-id wallpapers random
@@ -294,6 +294,7 @@ bar {
 #{{{ Startup Programs
 exec_always --no-startup-id "killall compton; compton -b"
 exec_always --no-startup-id "killall dunst; dunst &"
+exec_always --no-startup-id "killall vmrpc-server; vmrpc-server &"
 # Lock after 10 minutes
 exec_always --no-startup-id "killall xautolock; xautolock -time 20 -locker ~/.config/i3/lock -secure &"
 # Deal with files being overwritten
@@ -309,7 +310,7 @@ exec --no-startup-id xrandr \
 
 exec --no-startup-id xset s 1800 dpms 1800 1800 1800
 exec --no-startup-id "~/.fehbg || :"
-exec --no-startup-id mpd
+exec --no-startup-id "mpd; sleep 5; mpd-shuffler &"
 
 # Enable in sudoers with
 # desuwa ALL=(root) NOPASSWD:/usr/bin/nvidia-smi -i 0 -pl 375

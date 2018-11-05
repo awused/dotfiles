@@ -35,22 +35,33 @@ mpd-fzf:
 mpd-rofi:
 	go install github.com/awused/mpd-rofi
 
+mpd-shuffler:
+	go install github.com/awused/mpd-shuffler
+
+vmrpc:
+	cd ${GOPATH}/src/github.com/awused/vmrpc/clipboard; \
+	  protoc --go_out=plugins=grpc:. *.proto
+	go install github.com/awused/vmrpc/vmrpc-server
+	# cd /storage/winshare/gobin; \
+	#   GOOS=windows go build -ldflags -H=windowsgui github.com/awused/vmrpc/vmrpc-client
+
 go: wallpapers dispatcher add-to-transmission \
   upscale-directory public-clipboard screenshotter madokami \
-  hydrus-mover mpd-fzf mpd-rofi
+  hydrus-mover mpd-fzf mpd-rofi mpd-shuffler vmrpc
 
 
 windows-wallpapers:
 	cd /storage/winshare/gobin; \
-	  GOOS=windows go build github.com/awused/wallpapers
+	  GOOS=windows go build -ldflags -H=windowsgui github.com/awused/wallpapers; \
+	  GOOS=windows go build -o wallcon.exe github.com/awused/wallpapers
 
-windows-sharex:
+windows-sharex: vmrpc
 	cd /storage/winshare/gobin; \
-	  GOOS=windows go build github.com/awused/sharex-mover
+	  GOOS=windows go build -ldflags -H=windowsgui github.com/awused/sharex-mover
 
 windows-clipboard:
 	cd /storage/winshare/gobin; \
-	  GOOS=windows go build github.com/awused/public-clipboard
+	  GOOS=windows go build -ldflags -H=windowsgui github.com/awused/public-clipboard
 
 windows-go: windows-wallpapers windows-sharex windows-clipboard
 

@@ -20,6 +20,7 @@
 
 $HOME/.weechat/logs
 $HOME/.cache
+$HOME/.gobin
 $HOME/.zplug
 $HOME/.jspm
 $HOME/.opam
@@ -56,6 +57,7 @@ $THIRD_PARTY_SOURCE/
 /etc/
 
 /storage/media/users/desuwa/**/upscale
+/storage/media/users/desuwa/**/hydrus
 # Should eventually include this
 /storage/media/users/desuwa/Unsorted Downloads
 
