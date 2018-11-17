@@ -13,9 +13,11 @@ import os
 import re
 import subprocess
 import sys
+import multiprocessing
 from mutagen.oggvorbis import OggVorbis
 from mutagen.id3 import ID3, TIT2, TPE1, TPE2
 from mutagen.apev2 import APEv2, APEv2File, APENoHeaderError
+from multiprocessing.pool import ThreadPool
 
 sys.stdin = codecs.getreader('utf-8')(sys.stdin)
 
@@ -457,14 +459,19 @@ def tagPath(path):
             return
 
 
+pool = ThreadPool(multiprocessing.cpu_count() * 2)
+
 if args.directory != u'-':
     for root, dirs, files in walklevel(args.directory, args.depth):
         files.sort()
         for f in files:
-            tagPath(os.path.join(root, f))
+            pool.apply_async(tagPath, (os.path.join(root, f), ))
 else:
     for line in sys.stdin:
-        tagPath(line.rstrip('\n'))
+        pool.apply_async(tagPath, (line.rstrip('\n'), ))
+
+pool.close()
+pool.join()
 
 if len(rgfiles) > 0:
     print "EBU R128 Scanning"

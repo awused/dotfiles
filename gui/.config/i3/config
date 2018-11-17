@@ -128,11 +128,13 @@ set $wsnm "nemo"
 assign [class="Nemo"] $wsnm
 for_window [class="Nemo"] focus
 bindsym $mod+x workspace $wsnm
+workspace $wsnm output $m_left
 
 set $wsmx "mcomix"
 bindsym Mod1+m workspace $wsmx
-for_window [class="MComix" workspace="^(?!firefox$)"] move window to workspace $wsmx focus
-for_window [class="MComix" workspace="firefox"] move window to workspace $wsmx
+#for_window [class="MComix" workspace="^(?!firefox$)"] move window to workspace $wsmx focus
+#for_window [class="MComix" workspace="firefox"] move window to workspace $wsmx
+for_window [class="MComix"] move window to workspace $wsmx
 workspace $wsmx output $m_center
 
 for_window [class="keepassxc"] floating enable border normal
@@ -144,6 +146,7 @@ bindsym $mod+Shift+f exec --no-startup-id ~/.config/i3/exec-once "foobar2000.exe
 for_window [instance="emuera-anchor.exe"] floating enable
 for_window [class="Displaycal"] floating enable border normal
 for_window [class="File-roller"] floating enable
+
 #}}}
 #{{{ Launchers
 # start a terminal
@@ -175,6 +178,8 @@ bindsym Mod1+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 # Give pulseaudio its necessary kick
 bindsym $mod+Shift+p exec --no-startup-id pulseaudio -k
+# Give pulseaudio its necessary kick
+bindsym Mod1+Shift+p exec --no-startup-id ~/.config/i3/pulse-restart
 bindsym Ctrl+Mod1+l exec --no-startup-id "xset dpms 10 10 10; ~/.config/i3/lock"
 
 bindsym $mod+Shift+w exec --no-startup-id wallpapers random
@@ -192,10 +197,16 @@ bindsym --release Mod1+Sys_Req exec --no-startup-id screenshotter window
 # MPD
 bindsym $mod+Control+s exec --no-startup-id mpc toggle
 bindsym $mod+Control+Shift+S exec --no-startup-id mpc stop
+bindsym $mod+Control+u exec --no-startup-id mpc update
 bindsym $mod+Control+Right exec --no-startup-id mpc next
 bindsym $mod+Control+Left exec --no-startup-id mpc prev
 bindsym $mod+Control+Up exec --no-startup-id "mpc volume +5; notify-send Volume \\"$(mpc volume)\\" -t 1000 -i /usr/share/icons/Adwaita/32x32/status/audio-volume-high.png"
 bindsym $mod+Control+Down exec --no-startup-id "mpc volume -5; notify-send Volume \\"$(mpc volume)\\" -t 1000 -i /usr/share/icons/Adwaita/32x32/status/audio-volume-high.png"
+# Rofi rendering ended up being very janky for some reason I haven't figured out
+# It should be a better option than spinning up a new terminal just to run mpd-fzf in a floating window
+for_window [title="^mpd-fzf$"] floating enable
+bindsym $mod+Control+m exec ~/.config/i3/mpd-fzf
+bindsym $mod+Mod1+m exec mpd-rofi
 #}}}
 #{{{ Movement and Layout
 # change focus
@@ -283,14 +294,15 @@ bar {
 #{{{ Startup Programs
 exec_always --no-startup-id "killall compton; compton -b"
 exec_always --no-startup-id "killall dunst; dunst &"
+exec_always --no-startup-id "killall vmrpc-server; vmrpc-server &"
 # Lock after 10 minutes
-exec_always --no-startup-id "killall xautolock; xautolock -time 10 -locker ~/.config/i3/lock -secure &"
+exec_always --no-startup-id "killall xautolock; xautolock -time 20 -locker ~/.config/i3/lock -secure &"
 # Deal with files being overwritten
 #exec_always --no-startup-id "rm -f ~/.config/user-dirs.dirs; rm -f ~/.config/mimeapps.list; cd ~/dotfiles && stow xdg"
 # Screens turn off after 30 minutes
 # Setting s off breaks xautolock
 exec --no-startup-id xrandr \
-  --output DP-0 --pos 2880x1800 \
+  --output DP-0 --pos 2880x1800 --primary \
   --output DVI-D-0 --scale 1.5x1.5 --pos 3360x0 \
   --output HDMI-0 --scale 1.5x1.5 --pos 6720x2160 \
   --output DP-5 --scale 1.5x1.5 --pos 0x2160 \
@@ -298,9 +310,11 @@ exec --no-startup-id xrandr \
 
 exec --no-startup-id xset s 1800 dpms 1800 1800 1800
 exec --no-startup-id "~/.fehbg || :"
-exec --no-startup-id mpd
+exec --no-startup-id "mpd; sleep 5; mpd-shuffler &"
 
 # Enable in sudoers with
 # desuwa ALL=(root) NOPASSWD:/usr/bin/nvidia-smi -i 0 -pl 375
 exec_always --no-startup-id "sudo /usr/bin/nvidia-smi -i 0 -pl 375"
+exec_always --no-startup-id "nvidia-settings -a '[gpu:0]/GPUGraphicsClockOffset[3]=60'"
+exec_always --no-startup-id "nvidia-settings -a '[gpu:0]/GPUMemoryTransferRateOffset[3]=200'"
 #}}}

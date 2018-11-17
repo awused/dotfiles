@@ -20,6 +20,7 @@
 
 $HOME/.weechat/logs
 $HOME/.cache
+$HOME/.gobin
 $HOME/.zplug
 $HOME/.jspm
 $HOME/.opam
@@ -33,6 +34,7 @@ $HOME/.waifu2x
 $HOME/.gocode
 $HOME/.gem
 $HOME/.ipfs
+$HOME/.var
 # I keep nothing in .vim/
 $HOME/.vim/*
 $HOME/.gstreamer-*
@@ -40,6 +42,7 @@ $HOME/.gcloud-sdk
 $HOME/Downloads
 $HOME/.wallpapers/*
 $HOME/.local/share/flatpak
+$HOME/.config/chromium
 
 $THIRD_PARTY_SOURCE/
 
@@ -54,8 +57,7 @@ $THIRD_PARTY_SOURCE/
 /etc/
 
 /storage/media/users/desuwa/**/upscale
-/storage/media/users/desuwa/Pictures/Wallpapers/cache
-/storage/media/users/wallpaper-cache
+/storage/media/users/desuwa/**/hydrus
 # Should eventually include this
 /storage/media/users/desuwa/Unsorted Downloads
 

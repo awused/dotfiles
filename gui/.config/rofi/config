@@ -6,3 +6,4 @@ rofi.theme: /usr/local/share/rofi/themes/gruvbox-dark-hard.rasi
 rofi.terminal: desu-terminal
 rofi.sort: true
 rofi.sorting-method: fzf
+rofi.dpi: 1

@@ -1,0 +1,28 @@
+# Network to connect to MPD on
+# unix or tcp are the most likely values
+MPDNetwork = 'unix'
+
+# The address to use for MPD
+# /path/to/socket or localhost:6600
+MPDAddress = '/home/desuwa/.config/mpd/socket'
+
+# Password for MPD
+# MPDPassword = ''
+
+# Directory to store the database of tracks
+DatabaseDir = '/home/desuwa/.config/mpd-shuffler/db'
+
+# The maximum time between MPD commands in seconds
+# Default MPD timeout is 60 seconds, and this must be lower
+MPDTimeout = 50
+
+# Prefix that songs must have to be included in the rotation
+PathPrefix = 'Anime/'
+
+# How many previously played songs to keep on the playlist.
+# Doesn't impact the randomization
+# Negative values disable this behaviour
+KeepLast = 10
+
+# Enable debugging output
+# Debug = true

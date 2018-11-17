@@ -2,7 +2,7 @@
 Name=Unar
 Comment=Unarchive
 
-Exec=unar "%F" -o "%P"
+Exec=/bin/sh -c 'unar "%F" -o "%P" && notify-send done "%F"'
 
 Selection=S
 
