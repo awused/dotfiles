@@ -310,7 +310,7 @@ exec --no-startup-id xrandr \
 
 exec --no-startup-id xset s 1800 dpms 1800 1800 1800
 exec --no-startup-id "~/.fehbg || :"
-exec --no-startup-id "mpd; sleep 5; mpd-shuffler &"
+exec --no-startup-id "mpd; mpd-shuffler &"
 
 # Enable in sudoers with
 # desuwa ALL=(root) NOPASSWD:/usr/bin/nvidia-smi -i 0 -pl 375
