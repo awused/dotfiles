@@ -79,3 +79,4 @@ $THIRD_PARTY_SOURCE/
 /etc/ssh/ssh_host_ed25519_key
 
 */env/*
+*/.Trash-*
