@@ -1,0 +1,10 @@
+[Nemo Action]
+Name=Zip Folders
+Comment=Create individual zip archives for folders
+
+Exec=<zip-folders.sh %P %F>
+
+Selection=notnone
+
+Extensions=dir
+EscapeSpaces=true
