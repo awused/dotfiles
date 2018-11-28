@@ -18,6 +18,8 @@ video/x-matroska=mpv.desktop;
 image/png=mcomix.desktop;
 video/mp4=mpv.desktop;
 video/webm=mpv.desktop;
+video/mp2t=mpv.desktop;
+video/x-ms-wmv=mpv.desktop;
 
 [Default Applications]
 x-scheme-handler/http=firefox.desktop
@@ -41,3 +43,5 @@ image/bmp=mcomix.desktop;
 application/vnd.adobe.flash.movie=mpv.desktop;
 inode/directory=nemo.desktop
 application/x-gnome-saved-search=nemo.desktop
+video/mp2t=mpv.desktop
+video/x-ms-wmv=mpv.desktop
