@@ -78,8 +78,8 @@ i3-gaps: sudo
 
 loudness-scanner: sudo
 	cd ${THIRD_PARTY_SOURCE}/loudness-scanner; \
-	  mkdir -p fedora; cd fedora; cmake ..; \
-	  $(MAKE); sudo $(MAKE) install
+	  rm -rf fedora/; mkdir -p fedora; cd fedora; \
+	  cmake ..; $(MAKE); sudo $(MAKE) install
 
 rofi: sudo
 	cd ${THIRD_PARTY_SOURCE}/rofi; \
@@ -99,7 +99,7 @@ timg: sudo
 
 waifu2x: sudo
 	cd ${THIRD_PARTY_SOURCE}/waifu2x-converter-cpp; \
-	  mkdir -p fedora; cd fedora; cmake ..; \
+	  rm -rf fedora/; mkdir -p fedora; cd fedora; cmake ..; \
 	  $(MAKE); sudo $(MAKE) install
 
 
@@ -129,7 +129,7 @@ npm: sudo
 
 opam:
 	opam update
-	opam upgrade
+	source ~/.zshenv; opam upgrade
 
 flatpak:
 	flatpak update --user

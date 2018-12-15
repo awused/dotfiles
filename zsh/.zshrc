@@ -95,6 +95,7 @@ alias lva='exa -lFiHhag --time-style=long-iso'
 alias tree='exa -Ta -L'
 alias treel='exa -Tal --time-style=long-iso -L'
 alias nemo='nemo "$(pwd)"'
+alias sgrep='/usr/bin/lv -g -Is -'
 
 alias mux='tmuxinator'
 alias tm='tmux attach -d -t main'

@@ -417,6 +417,7 @@ set smartcase
 set encoding=utf8
 set fillchars+=vert:│
 set fillchars+=fold:─
+set fileencodings=ucs-bom,utf-8,sjis
 
 "set notimeout
 " Handle escape character timeouts
