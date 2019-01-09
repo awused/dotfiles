@@ -2,7 +2,7 @@
 Name=Unar
 Comment=Unarchive
 
-Exec=/bin/sh -c 'unar -o "`dirname %F`" "%F" && notify-send done "%F"'
+Exec=/home/desuwa/.local/share/nemo/actions/unar.sh "%F"
 
 Selection=S
 
