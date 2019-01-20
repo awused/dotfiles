@@ -225,7 +225,7 @@ function! BuildYCM(info)
   " - name:   name of the plugin
   " - status: 'installed', 'updated', or 'unchanged'
   " - force:  set on PlugInstall! or PlugUpdate!
-  if a:info.status == 'installed' || a.info.status == 'updated' || a:info.force
+  if a:info.status == 'installed' || a:info.status == 'updated' || a:info.force
     !./install.py --clang-completer --go-completer --js-completer
   endif
 endfunction
