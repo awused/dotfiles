@@ -24,5 +24,9 @@ PathPrefix = 'Anime/'
 # Negative values disable this behaviour
 KeepLast = 10
 
+# Automatically disable repeat mode
+# Repeat mode will effectively disable the shuffler
+DisableRepeat = true
+
 # Enable debugging output
 # Debug = true

@@ -295,6 +295,7 @@ bar {
 exec_always --no-startup-id "killall compton; compton -b"
 exec_always --no-startup-id "killall dunst; dunst &"
 exec_always --no-startup-id "killall vmrpc-server; vmrpc-server &"
+exec_always --no-startup-id "ibus-daemon -drx"
 # Lock after 10 minutes
 exec_always --no-startup-id "killall xautolock; xautolock -time 20 -locker ~/.config/i3/lock -secure &"
 # Deal with files being overwritten

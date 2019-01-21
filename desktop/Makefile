@@ -42,8 +42,6 @@ vmrpc:
 	cd ${GOPATH}/src/github.com/awused/vmrpc/clipboard; \
 	  protoc --go_out=plugins=grpc:. *.proto
 	go install github.com/awused/vmrpc/vmrpc-server
-	# cd /storage/winshare/gobin; \
-	#   GOOS=windows go build -ldflags -H=windowsgui github.com/awused/vmrpc/vmrpc-client
 
 go: wallpapers dispatcher add-to-transmission \
   upscale-directory public-clipboard screenshotter madokami \
@@ -116,13 +114,13 @@ pip: sudo
 	python3 -m pip install \
 	 $$(pip3 list --format=columns --outdated \
 	   | sed 1,2d | tr '\n' ' ' | sed -r 's/ +/ /g' \
-	   | awk -v RS=" " '1==NR%4') \
-	   --upgrade --user
+	   | awk -v RS=" " '1==NR%4' | grep -v 'libvirt' ) \
+	   --upgrade --user || true
 	sudo pip2 install pip --upgrade
 	pip2 install \
 	 $$(pip2 list --format=columns --outdated \
 	   | sed 1,2d | tr '\n' ' ' | sed -r 's/ +/ /g' \
-	   | awk -v RS=" " '1==NR%4') \
+	   | awk -v RS=" " '1==NR%4' | grep -v -E 'libvirt|wxPython' ) \
 	   --upgrade --user
 npm: sudo
 	sudo npm update -g
@@ -137,5 +135,5 @@ flatpak:
 #go-update:
 #	go get -u all
 
-update: gems pip npm opam flatpak
+# update: gems pip npm opam flatpak
 
