@@ -1,0 +1,274 @@
+; Modified from the example config
+
+[colors]
+background = #bf000000
+background-alt = #444
+foreground = #dfdfdf
+foreground-alt = #555
+primary = #ffb52a
+secondary = #e60053
+alert = #bd2c40
+
+[bar/primary]
+monitor = ${env:MONITOR:}
+monitor-strict = false
+
+width = 100%
+height = 30
+bottom = true
+;offset-x = 1%
+;offset-y = 1%
+radius = 10.0
+fixed-center = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 4
+line-color = #f00
+
+border-size = 2
+border-color = #00000000
+
+module-margin-left = 1
+module-margin-right = 2
+
+font-0 = DejaVu Sans Mono:size=16;4
+font-1 = Noto Sans JP:size=16;4
+font-2 = FontAwesome:size=16;4
+font-3 = unifont:fontformat=truetype:size=16:antialias=false;4
+
+modules-left = i3 xkeyboard
+modules-center = mpd
+modules-right = fs0 fs1 cpu gpu memory cputemp0 cputemp1 gputemp watertemp date
+padding-right = 1
+
+;tray-position = right
+tray-padding = 2
+;tray-background = #0063ff
+
+
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
+
+cursor-click = default
+
+click-right = ~/.config/polybar/popup-calendar.sh --popup
+
+; [bar/secondary]
+; inherit = bar/primary
+; monitor = ${env:MONITOR:}
+;
+; tray-position =
+;
+
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+
+format-prefix-foreground = ${colors.foreground-alt}
+format-prefix-underline = ${colors.secondary}
+
+label-indicator-padding = 2
+label-indicator-margin = 1
+label-indicator-background = ${colors.secondary}
+label-indicator-underline = ${colors.secondary}
+format = <label-indicator>
+
+[module/fs0]
+type = internal/fs
+interval = 30
+
+mount-0 = /
+
+label-mounted = %free%
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.foreground-alt}
+
+[module/fs1]
+inherit = module/fs0
+
+mount-0 = /storage
+
+fixed-values = true
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+reverse-scroll = false
+
+; Only show workspaces on the same output as the bar
+pin-workspaces = true
+
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
+
+; focused = Active workspace on focused monitor
+label-focused = %name%
+label-focused-background = #307090
+label-focused-underline= ${colors.primary}
+label-focused-padding = 2
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %name%
+label-unfocused-padding = 2
+
+; visible = Active workspace on unfocused monitor
+label-visible = %name%
+label-visible-background = ${colors.background-alt}
+label-visible-underline= ${colors.primary}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %name%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 2
+
+
+[module/mpd]
+type = internal/mpd
+format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+
+host = /home/desuwa/.config/mpd/socket
+icon-prev = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
+
+label-song-maxlen = 160
+label-song-ellipsis = true
+
+label-song = %artist% - %title%
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+
+format-underline = #f90000
+label = %percentage:2%%
+format = <ramp-load><label>
+
+ramp-load-0 = ▁
+ramp-load-1 = ▂
+ramp-load-2 = ▃
+ramp-load-3 = ▄
+ramp-load-4 = ▅
+ramp-load-5 = ▆
+ramp-load-6 = ▇
+ramp-load-7 = █
+
+[module/gpu]
+type = custom/script
+exec = ~/.config/polybar/ramp-percent.sh $(~/.config/polybar/gpu-query.sh utilization.gpu)
+interval = 2
+
+format-underline = #a0a0ff
+
+[module/memory]
+type = internal/memory
+interval = 2
+format = <ramp-used><label>
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #4bffdc
+label = %gb_used%
+
+ramp-used-0 = ▁
+ramp-used-1 = ▂
+ramp-used-2 = ▃
+ramp-used-3 = ▄
+ramp-used-4 = ▅
+ramp-used-5 = ▆
+ramp-used-6 = ▇
+ramp-used-7 = █
+
+; [module/eth]
+; type = internal/network
+; interface = enp3s0
+; interval = 3.0
+;
+; format-connected-underline = #55aa55
+; format-connected-prefix = " "
+; format-connected-prefix-foreground = ${colors.foreground-alt}
+; label-connected = %local_ip%
+;
+; format-disconnected =
+;format-disconnected = <label-disconnected>
+;format-disconnected-underline = ${self.format-connected-underline}
+;label-disconnected = %ifname% disconnected/
+;label-disconnected-foreground = ${colors.foreground-alt}
+
+[module/date]
+type = internal/date
+interval = 5
+
+date = %m-%d
+date-alt = %Y-%m-%d
+
+time = %H:%M
+time-alt = %H:%M:%S
+
+; format-prefix =
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #0a6cf5
+
+label = %date% %time%
+
+[module/cputemp]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 67
+
+format = <label>
+format-underline = #f50a4d
+format-warn = <label-warn>
+format-warn-underline = ${self.format-underline}
+
+label = %temperature-c%
+label-warn = %temperature-c%
+label-warn-foreground = ${colors.secondary}
+
+ramp-foreground = ${colors.foreground-alt}
+
+[module/cputemp0]
+inherit = module/cputemp
+
+hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon0/temp1_input
+
+[module/cputemp1]
+inherit = module/cputemp
+
+hwmon-path = /sys/devices/pci0000:00/0000:00:19.3/hwmon/hwmon1/temp1_input
+
+[module/watertemp]
+inherit = module/cputemp
+
+warn-temperature = 50
+format-underline = #0a6cf5
+
+hwmon-path = /sys/devices/platform/it87.656/hwmon/hwmon3/temp4_input
+
+[module/gputemp]
+type = custom/script
+exec = ~/.config/polybar/gpu-query.sh temperature.gpu
+interval = 2
+
+label = %output%°C
+format-underline = #a0a0ff
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+;pseudo-transparency = false
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+
+

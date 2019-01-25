@@ -101,6 +101,7 @@ workspace $wsmpv output $m_center
 workspace $wsyt output $m_center
 
 set $wstm "transmission"
+bindsym Mod1+t workspace $wstm
 assign [class="Transgui"] $wstm
 workspace $wstm output $m_top
 
@@ -146,7 +147,7 @@ bindsym $mod+Shift+f exec --no-startup-id ~/.config/i3/exec-once "foobar2000.exe
 for_window [instance="emuera-anchor.exe"] floating enable
 for_window [class="Displaycal"] floating enable border normal
 for_window [class="File-roller"] floating enable
-
+for_window [class="Yad"] floating enable
 #}}}
 #{{{ Launchers
 # start a terminal
@@ -311,7 +312,7 @@ exec --no-startup-id xrandr \
 
 exec --no-startup-id xset s 1800 dpms 1800 1800 1800
 exec --no-startup-id "~/.fehbg || :"
-exec --no-startup-id "mpd; mpd-shuffler &"
+exec --no-startup-id "killall mpd; killall mpd-shuffler; mpd; mpd-shuffler &"
 
 # Enable in sudoers with
 # desuwa ALL=(root) NOPASSWD:/usr/bin/nvidia-smi -i 0 -pl 375

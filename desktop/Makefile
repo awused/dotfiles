@@ -100,8 +100,15 @@ waifu2x: sudo
 	  rm -rf fedora/; mkdir -p fedora; cd fedora; cmake ..; \
 	  $(MAKE); sudo $(MAKE) install
 
+polybar:
+	cd ${THIRD_PARTY_SOURCE}/polybar; \
+	  rm -rf build/; mkdir -p build; cd build; cmake ..; \
+	  $(MAKE); sudo $(MAKE) install
 
-third-party: bfs i3-gaps loudness-scanner rofi split2flac timg waifu2x
+
+
+third-party: bfs i3-gaps loudness-scanner rofi split2flac timg waifu2x \
+  polybar
 
 all-install: go third-party
 
