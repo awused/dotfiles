@@ -364,6 +364,11 @@ if g:os == "FreeBSD"
   Glaive codefmt clang_format_executable="clang-format60"
 endif
 Glaive codefmt gofmt_executable="goimports"
+"{{{ Clang Format
+Glaive codefmt clang_format_style="{
+  \ BasedOnStyle: Google,
+  \  ColumnLimit: 0 }"
+"}}}
 
 "{{{ Filetype Settings
 function! s:CompleteTags()
