@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Weechat
+Categories=Application
+GenericName=IRC Client
+Exec=/bin/sh -c 'WEECHAT_PASSPHRASE=$(get-automation-password weechat) weechat'
+
+Terminal=true
+Type=Application
+MimeType=x-scheme-handler/irc
+
