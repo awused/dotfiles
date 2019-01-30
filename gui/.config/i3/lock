@@ -12,11 +12,15 @@ convert /tmp/screen_locked.bmp \
 
 rm -f /tmp/screen_locked.bmp
 
-# Manually locking the screens sets these low
-(sleep 30; xset dpms 1800 1800 1800) &
+# Manually locking the screens sets these extremely low
+# Keep them low while it's locked
+(sleep 30; xset dpms 300 300 300) &
 
 i3lock -n -i  /tmp/screen_locked.png -e
 
-xset dpms 1800 1800 1800
+xset dpms 7200 7200 7200
+# In handle the case where it gets unlocked within 30 seconds
+(sleep 30; xset dpms 7200 7200 7200) &
+
 rm -f /tmp/screen_locked.png
 

@@ -101,7 +101,7 @@ workspace $wsmpv output $m_center
 workspace $wsyt output $m_center
 
 set $wstm "transmission"
-bindsym Mod1+t workspace $wstm
+bindsym $mod+t workspace $wstm
 assign [class="Transgui"] $wstm
 workspace $wstm output $m_top
 
@@ -120,7 +120,7 @@ assign [class="TeamSpeak 3"] $wsct
 workspace $wsct output $m_right
 
 set $wsst "steam"
-bindsym $mod+t workspace $wsst
+bindsym $mod+Mod1+t workspace $wsst
 for_window [class="Steam"] move container to workspace $wsst
 for_window [class="Steam"] floating enable
 workspace $wsst output $m_right
@@ -288,17 +288,18 @@ mode "resize" {
 }
 #}}}
 #{{{ Status bar
-bar {
-        status_command i3status
-}
+# bar {
+#         status_command i3status
+# }
 #}}}
 #{{{ Startup Programs
+exec_always --no-startup-id "~/.config/polybar/launch.sh"
 exec_always --no-startup-id "killall compton; compton -b"
 exec_always --no-startup-id "killall dunst; dunst &"
 exec_always --no-startup-id "killall vmrpc-server; vmrpc-server &"
 exec_always --no-startup-id "ibus-daemon -drx"
 # Lock after 10 minutes
-exec_always --no-startup-id "killall xautolock; xautolock -time 20 -locker ~/.config/i3/lock -secure &"
+exec_always --no-startup-id "killall xautolock; xautolock -time 110 -locker ~/.config/i3/lock -secure &"
 # Deal with files being overwritten
 #exec_always --no-startup-id "rm -f ~/.config/user-dirs.dirs; rm -f ~/.config/mimeapps.list; cd ~/dotfiles && stow xdg"
 # Screens turn off after 30 minutes
@@ -310,7 +311,7 @@ exec --no-startup-id xrandr \
   --output DP-5 --scale 1.5x1.5 --pos 0x2160 \
   && i3-msg restart # Restart at the end or rofi doesn't pick up the changes
 
-exec --no-startup-id xset s 1800 dpms 1800 1800 1800
+exec --no-startup-id xset s 7200 dpms 7200 7200 7200
 exec --no-startup-id "~/.fehbg || :"
 exec --no-startup-id "killall mpd; killall mpd-shuffler; mpd; mpd-shuffler &"
 
