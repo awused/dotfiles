@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Type=Application
+Name=Curve Viewer
+GenericName=Calibration and ICC profile tone response curve viewer
+Exec=displaycal-curve-viewer
+Icon=displaycal-curve-viewer
+Terminal=false
+Categories=Graphics;
+Comment=Shows calibration and ICC profile tone response curves. Only support ICC v2.
+NoDisplay=true

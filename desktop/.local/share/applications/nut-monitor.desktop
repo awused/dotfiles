@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=NUT Monitor
+Comment=Network UPS Tools GUI client
+Categories=Application;Network;
+Encoding=UTF-8
+Exec=nut-monitor
+Icon=nut-monitor.png
+Terminal=false
+Type=Application
+X-Desktop-File-Install-Version=0.23
+NoDisplay=true

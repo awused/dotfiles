@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Type=Application
+Name=ICC Profile Info
+GenericName=ICC profile information
+Exec=displaycal-profile-info
+Icon=displaycal-profile-info
+Terminal=false
+Categories=Graphics;
+Comment=Shows information about an ICC profile. Graphs only support ICC v2.
+NoDisplay=true

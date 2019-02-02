@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Type=Application
+Name=Synthetic ICC
+GenericName=Synthetic RGB ICC profile creator
+Exec=displaycal-synthprofile
+Icon=displaycal-synthprofile
+Terminal=false
+Categories=Graphics;
+Comment=Creates ICC profiles of synthetic RGB colorspaces
+NoDisplay=true

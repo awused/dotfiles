@@ -4,4 +4,3 @@ Encoding=UTF-8
 Name=Hydrus Network
 Exec=hydrus-client
 Terminal=false
-

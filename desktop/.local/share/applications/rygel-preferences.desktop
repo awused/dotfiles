@@ -1,0 +1,16 @@
+[Desktop Entry]
+Name=Rygel Preferences
+GenericName=UPnP/DLNA Preferences
+Categories=Settings;X-GNOME-PersonalSettings;
+# Translators: Do NOT translate or transliterate this text (this is an icon file name)!
+Icon=rygel
+Exec=rygel-preferences
+Terminal=false
+Type=Application
+StartupNotify=true
+NotShowIn=GNOME;
+X-GNOME-Bugzilla-Bugzilla=GNOME
+X-GNOME-Bugzilla-Product=Rygel
+X-GNOME-Bugzilla-Component=rygel-preferences
+X-GNOME-Bugzilla-Version=0.36.2
+NoDisplay=true

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Type=Application
+Name=3D LUT Maker
+GenericName=3D LUT maker
+Exec=displaycal-3dlut-maker
+Icon=displaycal-3dlut-maker
+Terminal=false
+Categories=Graphics;
+Comment=Generates 3D LUTs and ICC DeviceLink profiles
+NoDisplay=true

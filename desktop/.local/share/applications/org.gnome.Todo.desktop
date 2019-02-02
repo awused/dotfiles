@@ -1,0 +1,14 @@
+[Desktop Entry]
+Name=To Do
+Comment=Manage your personal tasks
+Exec=gnome-todo
+# Translators: Do NOT translate or transliterate this text (this is an icon file name)!
+Icon=org.gnome.Todo
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;Utility;
+# Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+Keywords=Task;Productivity;Todo;
+DBusActivatable=true
+NoDisplay=true

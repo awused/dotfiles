@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=WineMine
+Comment=Wine Minesweeper
+Exec=winemine
+Icon=winemine
+Terminal=false
+Type=Application
+StartupNotify=true
+StartupWMClass=winemine.exe
+Categories=Game;LogicGame;
+X-Desktop-File-Install-Version=0.23
+NoDisplay=true
