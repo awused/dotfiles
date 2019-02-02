@@ -18,35 +18,49 @@
 # # I keep nothing in .vim/
 # /usr/home/desuwa/.vim/*
 
-$HOME/.weechat/logs
 $HOME/.cache
-$HOME/.gobin
-$HOME/.zplug
-$HOME/.jspm
-$HOME/.opam
-$HOME/.vegas
-$HOME/.local
+$HOME/.cargo
+$HOME/.config/chromium
 $HOME/.dbus
+$HOME/.gcloud-sdk
+$HOME/.gem
+$HOME/.gocode
+$HOME/.gobin
+$HOME/.gstreamer-*
+$HOME/.ipfs
+$HOME/.jspm
+$HOME/.kde
+$HOME/.local/bin
+$HOME/.local/etc
+$HOME/.local/include
+$HOME/.local/kitty.app
+$HOME/.local/lib
+$HOME/.local/lib64
+$HOME/.local/TeamSpeak3-Client-linux_amd64
+$HOME/.local/share/flatpak
+$HOME/.local/share/Steam
 $HOME/.node-gyp
 $HOME/.npm
 $HOME/.nv
-$HOME/.waifu2x
-$HOME/.gocode
-$HOME/.gem
-$HOME/.ipfs
+$HOME/.opam
+$HOME/.purple/icons
+$HOME/.QtWebEngineProcess
+$HOME/.steam
+$HOME/.Superposition
+$HOME/.thumbnails
 $HOME/.var
-# I keep nothing in .vim/
-$HOME/.vim/*
-$HOME/.gstreamer-*
-$HOME/.gcloud-sdk
+$HOME/.vegas
+$HOME/.vim
+$HOME/.waifu2x
+$HOME/.wallpapers
+$HOME/.wine*
+$HOME/.zplug
+
 $HOME/Downloads
-$HOME/.wallpapers/*
-$HOME/.local/share/flatpak
-$HOME/.local/share/Steam
-$HOME/.config/chromium
-$HOME/.cargo
 
 $THIRD_PARTY_SOURCE/
+$SOURCE_DIR/go/pkg
+$SOURCE_DIR/go/**/vendor
 
 /usr/local/etc/tcsd.conf
 /usr/local/etc/tcsd.conf.sample
@@ -56,7 +70,6 @@ $THIRD_PARTY_SOURCE/
 /etc/cups
 
 /etc/selinux/targeted/policy
-/etc/
 
 /storage/media/users/desuwa/**/upscale
 /storage/media/users/desuwa/**/hydrus

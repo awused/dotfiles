@@ -142,5 +142,15 @@ flatpak:
 #go-update:
 #	go get -u all
 
+
+# TODO -- Cargo updates once alactritty is available from cargo
+
 # update: gems pip npm opam flatpak
 
+vim-plug:
+	vim +PlugUpgrade +PlugUpdate +qall
+
+zplug:
+	zsh -c 'export PS1="a"; source ~/.zshrc; zplug update'
+
+plugins: vim-plug zplug

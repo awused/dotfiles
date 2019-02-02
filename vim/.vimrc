@@ -75,6 +75,7 @@ let mapleader = " "
 " <C-p> to just search current project for files
 " <C-q> search home for files
 " <C-s> search $SOURCE_DIR for files
+" <C-d> search nas home for files
 " :M or <leader>m search buffers
 " S uses a whitelist of extensions and excludes some directories
 
@@ -257,6 +258,7 @@ call SetupCommandAlias("M", "Buffers")
 nnoremap <C-p> :call GrepDir(ProjectRoot(), g:rgs_command, 0, 0)<cr>
 nnoremap <C-q> :call GrepDir($HOME, g:rgs_command, 0, 0)<cr>
 nnoremap <C-s> :call GrepDir($SOURCE_DIR, g:rgs_command, 0, 0)<cr>
+nnoremap <C-d> :call GrepDir($NASHOME, g:rgs_command, 0, 0)<cr>
 nnoremap <leader>m :Buffers<cr>
 nnoremap <leader>s :call PromptInput(":S")<cr>
 "}}}

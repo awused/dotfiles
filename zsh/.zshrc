@@ -28,6 +28,8 @@ precmd() {
 #}}}
 
 stty icrnl -ixoff -ixon
+# Ignore EOF in interactive sessions
+set -o ignoreeof
 
 PROMPT="%n@%m:%~ %# "
 
@@ -258,46 +260,66 @@ fi
 # CTRL-P - open in vim
 # CTRL-Q - open from home directory in vim
 # CTRL-S - open from source directory in vim
-# ALT-CPQS - CD into directory starting from wherever
-# CTRL-ALT-PQS - CTRL-T-alikes
+# CTRL-D - open from user directory on NAS in vim
+# ALT-CPQSD - CD into directory starting from wherever
+# CTRL-ALT-PQSD - CTRL-T-alikes
 # fkill {signal} - kill processes using signal, default 9
 #{{{ Overrides
 export FZF_DEFAULT_OPTS='--height 40% --reverse --border --ansi -m'
 #export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --color "always" -g "!**/{.git,node_modules,vendor,.sass-cache}/*" 2> /dev/null'
 #export FZF_DEFAULT_COMMAND='fd --no-ignore --type file --hidden --follow --color "always" --exclude "**/{.git,node_modules,vendor,.sass-cache}"'
-export FZF_EXCLUDES="-not \( -path '*/.git/*' -prune \) \
-  -not \( -path '*/node_modules' -prune \) \
-  -not \( -path '*/vendor' -prune \) \
-  -not \( -path '*/.sass-cache' -prune \) \
-  -not \( -path '*/.vim/*' -prune \) \
-  -not \( -path '*/go/pkg' -prune \) \
-  -not \( -path '*/.cache' -prune \) \
-  -not \( -path '*/.zplug' -prune \) \
-  -not \( -path '*/.jspm' -prune \) \
-  -not \( -path '*/.opam/*' -prune \) \
-  -not \( -path '*/.gcloud-sdk' -prune \) \
-  -not \( -path '*/.mozilla' -prune \) \
-  -not \( -path '*/.vegas' -prune \) \
-  -not \( -path '*/.TeamSpeak*' -prune \) \
-  -not \( -path '*/.ts3client*' -prune \) \
-  -not \( -path '*/.QtWebEngineProcess' -prune \) \
-  -not \( -path '*/.foobar2000' -prune \) \
-  -not \( -path '*/.wine*' -prune \) \
-  -not \( -path '*/winebin' -prune \) \
-  -not \( -path '*/.local' -prune \) \
-  -not \( -path '*/.cargo' -prune \) \
-  -not \( -path '*/.node-gyp' -prune \) \
-  -not \( -path '*/.gocode' -prune \) \
-  -not \( -path '*/.gem' -prune \) \
-  -not \( -path '*/.npm' -prune \) \
-  -not \( -path '*/.ipfs' -prune \) \
-  -not \( -path '*/env/*' -prune \) "
+export FZF_EXCLUDES=" \
+  -not \( -name '.cache' -prune \) \
+  -not \( -name '.cargo' -prune \) \
+  -not \( -path '*/.config/chromium' -prune \) \
+  -not \( -name '.dbus' -prune \) \
+  -not \( -name '.foobar2000' -prune \) \
+  -not \( -name '.gcloud-sdk' -prune \) \
+  -not \( -name '.gem' -prune \) \
+  -not \( -name '.git' -prune \) \
+  -not \( -name '.gnupg' -prune \) \
+  -not \( -name '.gocode' -prune \) \
+  -not \( -name '.gstreamer-*' -prune \) \
+  -not \( -name '.ipfs' -prune \) \
+  -not \( -name '.jspm' -prune \) \
+  -not \( -name '.kde' -prune \) \
+  -not \( -path '$HOME/.local' -prune \) \
+  -not \( -name '.mozc' -prune \) \
+  -not \( -name '.mozilla' -prune \) \
+  -not \( -name '.node-gyp' -prune \) \
+  -not \( -name '.npm' -prune \) \
+  -not \( -name '.nv' -prune \) \
+  -not \( -name '.opam' -prune \) \
+  -not \( -name '.password-store' -prune \) \
+  -not \( -path '*/.purple/icons' -prune \) \
+  -not \( -name '.QtWebEngineProcess' -prune \) \
+  -not \( -name '.renpy' -prune \) \
+  -not \( -name '.sass-cache' -prune \) \
+  -not \( -name '.steam' -prune \) \
+  -not \( -name '.Superposition' -prune \) \
+  -not \( -name '.TeamSpeak*' -prune \) \
+  -not \( -name '.thumbnails' -prune \) \
+  -not \( -name '.trackma' -prune \) \
+  -not \( -name '.Trash-*' -prune \) \
+  -not \( -name '.ts3client*' -prune \) \
+  -not \( -name '.var' -prune \) \
+  -not \( -name '.vegas' -prune \) \
+  -not \( -name '.vim' -prune \) \
+  -not \( -name '.waifu2x' -prune \) \
+  -not \( -name '.wine*' -prune \) \
+  -not \( -name '.zplug' -prune \) \
+  -not \( -name 'env' -prune \) \
+  -not \( -path '$SOURCE_DIR/go/pkg' -prune \) \
+  -not \( -name 'hydrus' -prune \) \
+  -not \( -name 'node_modules' -prune \) \
+  -not \( -name 'Unsorted Downloads' -prune \) \
+  -not \( -name 'vendor' -prune \) "
 
 export FZF_DEFAULT_COMMAND="bfs -color -L \
   $FZF_EXCLUDES \
   -type f"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="bfs -color -L -type d -nohidden $FZF_EXCLUDES"
+export FZF_ALT_C_COMMAND="bfs -color -L -type d $FZF_EXCLUDES"
 FZF_BOTH_COMMAND="bfs -color -L $FZF_EXCLUDES"
 export FZF_TMUX=1
 
@@ -375,6 +397,11 @@ fzf-editor-source() {
 }
 zle -N fzf-editor-source
 
+fzf-editor-nas() {
+  fzf-editor-dir $NASHOME
+}
+zle -N fzf-editor-nas
+
 fzf-cd-home() {
   fzf-cd-dir $HOME
 }
@@ -385,6 +412,11 @@ fzf-cd-source() {
 }
 zle -N fzf-cd-source
 
+fzf-cd-nas() {
+  fzf-cd-dir $NASHOME
+}
+zle -N fzf-cd-nas
+
 fzf-ctrlt-home() {
   fzf-ctrlt-dir $HOME
 }
@@ -394,18 +426,26 @@ fzf-ctrlt-source() {
   fzf-ctrlt-dir $SOURCE_DIR
 }
 zle -N fzf-ctrlt-source
+
+fzf-ctrlt-nas() {
+  fzf-ctrlt-dir $NASHOME
+}
+zle -N fzf-ctrlt-nas
 #}}}
 
 # TODO -- The P bindings would be nice if they were "project" level
 bindkey '^P' fzf-editor
 bindkey '^Q' fzf-editor-home
 bindkey '^S' fzf-editor-source
+bindkey '^D' fzf-editor-nas
 bindkey '^[p' fzf-cd-widget
 bindkey '^[q' fzf-cd-home
 bindkey '^[s' fzf-cd-source
+bindkey '^[d' fzf-cd-nas
 bindkey '^[^P' fzf-file-widget
 bindkey '^[^Q' fzf-ctrlt-home
 bindkey '^[^S' fzf-ctrlt-source
+bindkey '^[^D' fzf-ctrlt-nas
 
 # fkill - kill process
 # https://github.com/junegunn/fzf/wiki/examples#processes
