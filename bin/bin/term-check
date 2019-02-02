@@ -16,6 +16,10 @@ echo -e "\e[3mThe quick brown fox jumps over the lazy dog\x1b[0m"
 echo -e "\e[4mThe quick brown fox jumps over the lazy dog\x1b[0m"
 echo -e "\e[9mThe quick brown fox jumps over the lazy dog\x1b[0m"
 
+echo "ねこ 猫"
+
+echo "https://example.com/test?url=a&b=c#a/b/c/d"
+
 resetOutput()
 {
     echo -en "\x1b[0m\n"
@@ -41,7 +45,7 @@ setBackgroundColor()
 # $red $green and $blue are integers
 # ranging between 0 and 255 inclusive
 rainbowColor()
-{ 
+{
     let h=$1/43
     let f=$1-43*$h
     let t=$f*255/43
@@ -131,4 +135,4 @@ for i in `seq 255 -1 128`; do
 done
 resetOutput
 
-
+echo -e "Don't forget to test your IME"

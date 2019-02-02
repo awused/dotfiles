@@ -8,7 +8,7 @@ YearlyApplications = ['firefox', 'mcomix', 'mpv']
 
 # Will be ignored in favour of any available children
 # Note that gnome-terminal is uniquely incapable and doesn't set WINDOWID
-IgnoredParents = ['kitty', 'xfce4-terminal', 'zsh']
+IgnoredParents = ['kitty', 'xfce4-terminal', 'zsh', 'alacritty', 'bash']
 
 # Uncomment to check for WINDOWID if you're using a terminal that doesn't use
 # separate processes per window. Doesn't help with gnome-terminal.

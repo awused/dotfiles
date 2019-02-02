@@ -10,7 +10,6 @@
 # Skip all this for non-interactive shells
 [[ -z "$PS1" ]] && return
 
-
 #{{{ Auto-source
 # GNU stat by default
 __stat_format='-c %Y'
@@ -71,6 +70,10 @@ autoload -U zcalc
 # zmv -n '(*)' '${(Lc)1/ /-}'
 # AbC Def -> abc-def
 autoload -U zmv
+
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
 
 # Quote URLs automatically
 autoload -Uz bracketed-paste-magic
@@ -181,6 +184,16 @@ bindkey "\e[5D" backward-word
 bindkey "\eOd" emacs-backward-word
 bindkey "\ee[C" forward-word
 bindkey "\ee[D" backward-word
+
+# Override some vi keybinds with emacs keybinds
+bindkey "^H" backward-delete-char
+bindkey "^V" quoted-insert
+bindkey "^W" backward-kill-word
+bindkey "^[OC" forward-char
+bindkey "^[OD" backward-char
+bindkey "^[[C" forward-char
+bindkey "^[[D" backward-char
+bindkey "^?" backward-delete-char
 #}}}
 #{{{ Automation Passwords
 get-automation-password() {
@@ -272,6 +285,7 @@ export FZF_EXCLUDES="-not \( -path '*/.git/*' -prune \) \
   -not \( -path '*/.wine*' -prune \) \
   -not \( -path '*/winebin' -prune \) \
   -not \( -path '*/.local' -prune \) \
+  -not \( -path '*/.cargo' -prune \) \
   -not \( -path '*/.node-gyp' -prune \) \
   -not \( -path '*/.gocode' -prune \) \
   -not \( -path '*/.gem' -prune \) \

@@ -42,7 +42,9 @@ $HOME/.gcloud-sdk
 $HOME/Downloads
 $HOME/.wallpapers/*
 $HOME/.local/share/flatpak
+$HOME/.local/share/Steam
 $HOME/.config/chromium
+$HOME/.cargo
 
 $THIRD_PARTY_SOURCE/
 
