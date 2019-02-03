@@ -2,9 +2,9 @@
 Name=Zip Folders
 Comment=Create individual zip archives for folders
 
-Exec=<zip-folders.sh %P %F>
+Exec=<zip-folders.sh %F>
 
 Selection=notnone
 
 Extensions=dir
-EscapeSpaces=true
+Quote=double
