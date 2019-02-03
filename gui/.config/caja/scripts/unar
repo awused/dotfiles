@@ -1,0 +1,10 @@
+#! /usr/bin/env bash
+
+printf %s "$CAJA_SCRIPT_SELECTED_FILE_PATHS" | while IFS= read -r f; do
+  [ -f "$f" ] || continue
+
+  dir=$(dirname "$f")
+
+  unar -o "$dir" "$f" && notify-send done "$f"
+done
+

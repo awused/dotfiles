@@ -1,0 +1,5 @@
+#! /usr/bin/env bash
+
+f=${CAJA_SCRIPT_SELECTED_FILE_PATHS%%$'\n'*}
+
+[ -f "$f" ] && wallpapers preview "$f"

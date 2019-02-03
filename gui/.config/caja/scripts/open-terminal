@@ -1,0 +1,11 @@
+#! /usr/bin/env bash
+
+d=${CAJA_SCRIPT_SELECTED_FILE_PATHS%%$'\n'*}
+
+if [ ! -d "$d" ]; then
+  d=$(python -c 'import gio,sys; print(gio.File(sys.argv[1]).get_path())' \
+    $CAJA_SCRIPT_CURRENT_URI)
+fi
+
+[ -d "$d" ] && desu-terminal --working-directory "$d"
+

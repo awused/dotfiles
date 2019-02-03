@@ -125,9 +125,9 @@ for_window [class="Steam"] move container to workspace $wsst
 for_window [class="Steam"] floating enable
 workspace $wsst output $m_right
 
-set $wsnm "nemo"
-assign [class="Nemo"] $wsnm
-for_window [class="Nemo"] focus
+set $wsnm "caja"
+assign [class="Caja"] $wsnm
+for_window [class="Caja"] focus
 bindsym $mod+x workspace $wsnm
 workspace $wsnm output $m_left
 
