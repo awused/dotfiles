@@ -417,6 +417,11 @@ fzf-cd-nas() {
 }
 zle -N fzf-cd-nas
 
+fzf-ctrlt-current() {
+  fzf-ctrlt-dir .
+}
+zle -N fzf-ctrlt-current
+
 fzf-ctrlt-home() {
   fzf-ctrlt-dir $HOME
 }
@@ -442,7 +447,7 @@ bindkey '^[p' fzf-cd-widget
 bindkey '^[q' fzf-cd-home
 bindkey '^[s' fzf-cd-source
 bindkey '^[d' fzf-cd-nas
-bindkey '^[^P' fzf-file-widget
+bindkey '^[^P' fzf-ctrlt-current
 bindkey '^[^Q' fzf-ctrlt-home
 bindkey '^[^S' fzf-ctrlt-source
 bindkey '^[^D' fzf-ctrlt-nas

@@ -18,9 +18,9 @@ rm -f /tmp/screen_locked.bmp
 
 i3lock -n -i  /tmp/screen_locked.png -e
 
-xset dpms 7200 7200 7200
-# In handle the case where it gets unlocked within 30 seconds
-(sleep 30; xset dpms 7200 7200 7200) &
-
 rm -f /tmp/screen_locked.png
+
+wait
+
+xset dpms 7200 7200 7200
 

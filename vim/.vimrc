@@ -204,6 +204,7 @@ Plug 'vim-python/python-syntax'
 Plug 'tmhedberg/SimpylFold'
 let g:yapf_style = "google"
 Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
+" Plug 'rust-lang/rust.vim'
 
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
@@ -226,8 +227,20 @@ function! BuildYCM(info)
   " - name:   name of the plugin
   " - status: 'installed', 'updated', or 'unchanged'
   " - force:  set on PlugInstall! or PlugUpdate!
+  let l:options='--js-completer'
+  if executable('clang-format')
+    let l:options=l:options . ' --clang-completer'
+  endif
+  if executable('go')
+    let l:options=l:options . ' --go-completer'
+  endif
+  if executable('rustc')
+    let l:options=l:options . ' --rust-completer'
+  endif
+  echom l:options
   if a:info.status == 'installed' || a:info.status == 'updated' || a:info.force
-    !./install.py --clang-completer --go-completer --js-completer
+    " !./install.py --clang-completer --go-completer --js-completer
+    call system('./install.py ' . l:options)
   endif
 endfunction
 Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
@@ -236,7 +249,7 @@ Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 "{{{ FZF Searching
 let g:rgf_command = '
   \ rg --column --line-number --no-heading --fixed-strings --smart-case --no-ignore --hidden --follow --color "always" --max-count 10
-  \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf,ts,dart,toml,scss,css,sass,yaml,h}"
+  \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf,ts,dart,toml,scss,css,sass,yaml,h,rs}"
   \ -g "!**/{.git,node_modules,vendor,dist,.sass-cache,.vim}/*" '
 
 " Ripgrep in --files mode is still faster than find
