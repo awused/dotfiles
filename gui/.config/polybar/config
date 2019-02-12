@@ -236,12 +236,12 @@ ramp-foreground = ${colors.foreground-alt}
 [module/cputemp0]
 inherit = module/cputemp
 
-hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon0/temp1_input
+hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon1/temp1_input
 
 [module/cputemp1]
 inherit = module/cputemp
 
-hwmon-path = /sys/devices/pci0000:00/0000:00:19.3/hwmon/hwmon1/temp1_input
+hwmon-path = /sys/devices/pci0000:00/0000:00:19.3/hwmon/hwmon2/temp1_input
 
 [module/watertemp]
 inherit = module/cputemp
@@ -249,7 +249,7 @@ inherit = module/cputemp
 warn-temperature = 50
 format-underline = #0a6cf5
 
-hwmon-path = /sys/devices/platform/it87.656/hwmon/hwmon3/temp4_input
+hwmon-path = /sys/devices/platform/it87.656/hwmon/hwmon0/temp4_input
 
 [module/gputemp]
 type = custom/script

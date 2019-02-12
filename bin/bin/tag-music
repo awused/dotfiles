@@ -156,7 +156,8 @@ artist_map = {
     u"うっち－": u"Ucchii",
     u"小峠舞": u"Mai Kotohge",
     u"舞": u"Mai Kotohge",
-    u"夕月椿": u"Tsubaki Yuuzuki"
+    u"夕月椿": u"Tsubaki Yuuzuki",
+    u"tomoya/yukina/みぃ": u"Tomoya/Yukina/Mie"
 }
 # }}}
 
@@ -183,39 +184,43 @@ def titlesDiffer(title, fnametitle):
 def tagFile(fname):
     changed = False
     f = mutagen.File(fname)
+    x = ""
 
     match = fname_re.match(os.path.basename(fname))
     if match:
         oldt = f.get('title', [''])[0]
         newt = match.group(2)
         if oldt == '' or (args.force_title and titlesDiffer(oldt, newt)):
-            if not changed: print "\n" + fname
+            if not changed: x += "\n" + fname + "\n"
             changed = True
             f["title"] = newt
-            print "Title: " + oldt + " -> " + newt
+            x += "Title: " + oldt + " -> " + newt + "\n"
 
     a = f.get('artist', [''])[0]
     if a in artist_map:
-        if not changed: print "\n" + fname
+        if not changed: x += "\n" + fname + "\n"
         changed = True
         f["artist"] = artist_map[a]
-        print "Artist: " + a + " -> " + artist_map[a]
+        x += "Artist: " + a + " -> " + artist_map[a] + "\n"
 
     aa = f.get('albumartist', [''])[0]
     if aa in artist_map:
-        if not changed: print "\n" + fname
+        if not changed: x += "\n" + fname + "\n"
         changed = True
         f["albumartist"] = artist_map[aa]
-        print "Album Artist: " + aa + " -> " + artist_map[aa]
+        x += "Album Artist: " + aa + " -> " + artist_map[aa] + "\n"
 
     if match and args.set_album_artist and (
             aa == "" or
         (args.override_various_artists and
          (aa.lower() == 'various artists' or aa.lower() == 'various'))):
-        if not changed: print "\n" + fname
+        if not changed: x += "\n" + fname + "\n"
         changed = True
         f["albumartist"] = match.group(1)
-        print "Album Artist: " + aa + " -> " + match.group(1)
+        x += "Album Artist: " + aa + " -> " + match.group(1) + "\n"
+
+    if x != "":
+        sys.stdout.write(x + "\n")
 
     if changed and not args.dry_run:
         f.save()
@@ -228,15 +233,16 @@ def tagFile(fname):
 def tagID3File(fname):
     changed = False
     f = ""
+    x = ""
     try:
         f = ID3(fname)
     except Exception as e:
         if e.message.endswith("doesn't start with an ID3 tag"):
             tagAPEFile(fname)
         else:
-            print fname
-            print e
-            print
+            x += fname + "\n"
+            x += e + "\n"
+            sys.stdout.write(x + "\n")
         return
 
     match = fname_re.match(os.path.basename(fname))
@@ -244,37 +250,40 @@ def tagID3File(fname):
         oldt = f.get('TIT2', [''])[0]
         newt = match.group(2)
         if oldt == '' or (args.force_title and titlesDiffer(oldt, newt)):
-            if not changed: print "\n" + fname
+            if not changed: x += "\n" + fname + "\n"
             changed = True
             f.delall('TIT2')
             f.add(TIT2(encoding=3, text=newt))
-            print "Title: " + oldt + " -> " + newt
+            x += "Title: " + oldt + " -> " + newt + "\n"
 
     a = f.get('TPE1', [''])[0]
     if a in artist_map:
-        if not changed: print "\n" + fname
+        if not changed: x += "\n" + fname + "\n"
         changed = True
         f.delall('TPE1')
         f.add(TPE1(encoding=3, text=artist_map[a]))
-        print "Artist: " + a + " -> " + artist_map[a]
+        x += "Artist: " + a + " -> " + artist_map[a] + "\n"
 
     aa = f.get('TPE2', [''])[0]
     if aa in artist_map:
-        if not changed: print "\n" + fname
+        if not changed: x += "\n" + fname + "\n"
         changed = True
         f.delall('TPE2')
         f.add(TPE2(encoding=3, text=artist_map[aa]))
-        print "Album Artist: " + aa + " -> " + artist_map[aa]
+        x += "Album Artist: " + aa + " -> " + artist_map[aa] + "\n"
 
     if match and args.set_album_artist and (
             aa == "" or
         (args.override_various_artists and
          (aa.lower() == 'various artists' or aa.lower() == 'various'))):
-        if not changed: print "\n" + fname
+        if not changed: x += "\n" + fname + "\n"
         changed = True
         f.delall('TPE2')
         f.add(TPE2(encoding=3, text=match.group(1)))
-        print "Album Artist: " + aa + " -> " + match.group(1)
+        x += "Album Artist: " + aa + " -> " + match.group(1) + "\n"
+
+    if x != "":
+        sys.stdout.write(x + "\n")
 
     if changed and not args.dry_run:
         f.save()
@@ -286,39 +295,43 @@ def tagID3File(fname):
 def tagOggFile(fname):
     changed = False
     f = OggVorbis(fname)
+    x = ""
 
     match = fname_re.match(os.path.basename(fname))
     if match:
         oldt = f.get('title', [''])[0]
         newt = match.group(2)
         if oldt == '' or (args.force_title and titlesDiffer(oldt, newt)):
-            if not changed: print "\n" + fname
+            if not changed: x += "\n" + fname + "\n"
             changed = True
             f["title"] = newt
-            print "Title: " + oldt + " -> " + newt
+            x += "Title: " + oldt + " -> " + newt + "\n"
 
     a = f.get('artist', [''])[0]
     if a in artist_map:
-        if not changed: print "\n" + fname
+        if not changed: x += "\n" + fname + "\n"
         changed = True
         f["artist"] = artist_map[a]
-        print "Artist: " + a + " -> " + artist_map[a]
+        x += "Artist: " + a + " -> " + artist_map[a] + "\n"
 
     aa = f.get('albumartist', [''])[0]
     if aa in artist_map:
-        if not changed: print "\n" + fname
+        if not changed: x += "\n" + fname + "\n"
         changed = True
         f["albumartist"] = artist_map[aa]
-        print "Album Artist: " + aa + " -> " + artist_map[aa]
+        x += "Album Artist: " + aa + " -> " + artist_map[aa] + "\n"
 
     if match and args.set_album_artist and (
             aa == "" or
         (args.override_various_artists and
          (aa.lower() == 'various artists' or aa.lower() == 'various'))):
-        if not changed: print "\n" + fname
+        if not changed: x += "\n" + fname + "\n"
         changed = True
         f["albumartist"] = match.group(1)
-        print "Album Artist: " + aa + " -> " + match.group(1)
+        x += "Album Artist: " + aa + " -> " + match.group(1) + "\n"
+
+    if x != "":
+        sys.stdout.write(x + "\n")
 
     if changed and not args.dry_run:
         f.save()
@@ -330,39 +343,43 @@ def tagOggFile(fname):
 def tagM4AFile(fname):
     changed = False
     f = mutagen.File(fname)
+    x = ""
 
     match = fname_re.match(os.path.basename(fname))
     if match:
         oldt = f.get("\xa9nam", [''])[0]
         newt = match.group(2)
         if oldt == '' or (args.force_title and titlesDiffer(oldt, newt)):
-            if not changed: print "\n" + fname
+            if not changed: x += "\n" + fname + "\n"
             changed = True
             f["\xa9nam"] = newt
-            print "Title: " + oldt + " -> " + newt
+            x += "Title: " + oldt + " -> " + newt + "\n"
 
     a = f.get("\xa9ART", [''])[0]
     if a in artist_map:
-        if not changed: print "\n" + fname
+        if not changed: x += "\n" + fname + "\n"
         changed = True
         f["\xa9ART"] = artist_map[a]
-        print "Artist: " + a + " -> " + artist_map[a]
+        x += "Artist: " + a + " -> " + artist_map[a] + "\n"
 
     aa = f.get("aART", [''])[0]
     if aa in artist_map:
-        if not changed: print "\n" + fname
+        if not changed: x += "\n" + fname + "\n"
         changed = True
         f["aART"] = artist_map[aa]
-        print "Album Artist: " + aa + " -> " + artist_map[aa]
+        x += "Album Artist: " + aa + " -> " + artist_map[aa] + "\n"
 
     if match and args.set_album_artist and (
             aa == "" or
         (args.override_various_artists and
          (aa.lower() == 'various artists' or aa.lower() == 'various'))):
-        if not changed: print "\n" + fname
+        if not changed: x += "\n" + fname + "\n"
         changed = True
         f["aART"] = match.group(1)
-        print "Album Artist: " + aa + " -> " + match.group(1)
+        x += "Album Artist: " + aa + " -> " + match.group(1) + "\n"
+
+    if x != "":
+        sys.stdout.write(x + "\n")
 
     if changed and not args.dry_run:
         f.save()
@@ -374,6 +391,7 @@ def tagM4AFile(fname):
 def tagAPEFile(fname):
     changed = False
     f = None
+    x = ""
     try:
         f = APEv2(fname)
     except APENoHeaderError as e:
@@ -386,33 +404,36 @@ def tagAPEFile(fname):
         oldt = f.get('Title', [''])[0]
         newt = match.group(2)
         if oldt == '' or (args.force_title and titlesDiffer(oldt, newt)):
-            if not changed: print "\n" + fname
+            if not changed: x += "\n" + fname + "\n"
             changed = True
             f["Title"] = newt
-            print "Title: " + oldt + " -> " + newt
+            x += "Title: " + oldt + " -> " + newt + "\n"
 
     a = f.get('Artist', [''])[0]
     if a in artist_map:
-        if not changed: print "\n" + fname
+        if not changed: x += "\n" + fname + "\n"
         changed = True
         f["Artist"] = artist_map[a]
-        print "Artist: " + a + " -> " + artist_map[a]
+        x += "Artist: " + a + " -> " + artist_map[a] + "\n"
 
     aa = f.get('Album artist', [''])[0]
     if aa in artist_map:
-        if not changed: print "\n" + fname
+        if not changed: x += "\n" + fname + "\n"
         changed = True
         f["Album artist"] = artist_map[aa]
-        print "Album Artist: " + aa + " -> " + artist_map[aa]
+        x += "Album Artist: " + aa + " -> " + artist_map[aa] + "\n"
 
     if match and args.set_album_artist and (
             aa == "" or
         (args.override_various_artists and
          (aa.lower() == 'various artists' or aa.lower() == 'various'))):
-        if not changed: print "\n" + fname
+        if not changed: x += "\n" + fname + "\n"
         changed = True
         f["Album artist"] = match.group(1)
-        print "Album Artist: " + aa + " -> " + match.group(1)
+        x += "Album Artist: " + aa + " -> " + match.group(1) + "\n"
+
+    if x != "":
+        sys.stdout.write(x + "\n")
 
     if changed and not args.dry_run:
         f.save(fname)

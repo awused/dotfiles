@@ -137,6 +137,8 @@ bindsym Mod1+m workspace $wsmx
 #for_window [class="MComix" workspace="firefox"] move window to workspace $wsmx
 for_window [class="MComix"] move window to workspace $wsmx
 workspace $wsmx output $m_center
+bindsym Mod1+Shift+m move container to workspace $wsmx
+
 
 for_window [class="keepassxc"] floating enable border normal
 bindsym $mod+Shift+k exec --no-startup-id ~/.config/i3/exec-once keepassxc keepassxc keepassxc
@@ -280,6 +282,10 @@ mode "resize" {
         bindsym Down resize grow height 10 px or 10 ppt
         bindsym Up resize shrink height 10 px or 10 ppt
         bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Shift+Left resize shrink width 100 px or 100 ppt
+        bindsym Shift+Down resize grow height 100 px or 100 ppt
+        bindsym Shift+Up resize shrink height 100 px or 100 ppt
+        bindsym Shift+Right resize grow width 100 px or 100 ppt
 
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
