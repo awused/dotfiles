@@ -2,10 +2,6 @@
 Fallback = 'desktop'
 ScreenshotDir = '/storage/public/shots'
 
-# Any applications that get separate directories for each year.
-# This is checked after any applicable overrides.
-YearlyApplications = ['firefox', 'mcomix', 'mpv']
-
 # Will be ignored in favour of any available children
 # Note that gnome-terminal is uniquely incapable and doesn't set WINDOWID
 IgnoredParents = ['kitty', 'xfce4-terminal', 'zsh', 'alacritty', 'bash']
@@ -67,4 +63,20 @@ Compression = 5
   Name = "wine32-preloader"
   Regex = '^Game.exe'
   Format = "the-last-sovereign"
+
+[[Overrides]]
+  Name = "firefox"
+  Delegate = "/home/desuwa/.config/screenshotter/firefox-mangadex.sh"
+
+[[Overrides]]
+  Name = "firefox"
+  Yearly = true
+
+[[Overrides]]
+  Name = "mcomix"
+  Yearly = true
+
+[[Overrides]]
+  Name = "mpv"
+  Yearly = true
 

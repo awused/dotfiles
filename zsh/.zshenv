@@ -54,6 +54,9 @@ if [[ $(hostname) == 'desutop' ]]; then
   export MPD_HOST=$HOME/.config/mpd/socket
 
   mount | grep "/mnt/GoogleDrive" > /dev/null || google-drive-ocamlfuse "/mnt/GoogleDrive"
+
+  export JAVA_HOME=/usr/local/java/jdk1.8.0_201
+  export PATH=$PATH:$JAVA_HOME/bin
 fi
 #}}}
 
