@@ -69,6 +69,10 @@ Compression = 5
   Delegate = "/home/desuwa/.config/screenshotter/firefox-mangadex.sh"
 
 [[Overrides]]
+  Name = "mpv"
+  Delegate = "/home/desuwa/.config/screenshotter/mpv-anime.sh"
+
+[[Overrides]]
   Name = "firefox"
   Yearly = true
 
