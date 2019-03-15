@@ -28,23 +28,23 @@ tmux_options: -2
 # post: tmux -CC attach -t main
 
 windows:
-  - ~: weechat 
+  - ~: weechat
   - null:
   - NULL:
-      layout: main-vertical
+    # layout: main-vertical
       root: $GOPATH/src/github.com/awused/rss-aggregator
-      panes:
-          -
-          -
+      #     panes:
+      #     -
+      #    -
   - Null:
-      layout: 1f50,180x45,0,0[180x32,0,0{127x32,0,0,3,52x32,128,0,335},180x12,0,33{127x12,0,33,12,52x12,128,33,367}]
-      root: $GOPATH/src/github.com/awused/rss-aggregator
-      panes:
-          -
-          -
-          -
-          -
-  - NUll: sqlite3 ~/backed_up/rss-aggregator.db
+    #layout: 1f50,180x45,0,0[180x32,0,0{127x32,0,0,3,52x32,128,0,335},180x12,0,33{127x12,0,33,12,52x12,128,33,367}]
+      root: $GOPATH/src/github.com/awused/aw-rss
+      # panes:
+      #   -
+      #   -
+      #   -
+      #   -
+  - NUll: sqlite3 ~/.rss/aw-rss.db
   - NULl:
   - nUll:
   - nULl:

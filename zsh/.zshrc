@@ -120,6 +120,8 @@ alias 'cd..=cd ..'
 if [[ $(uname) == 'FreeBSD' ]]; then
   alias date='date +"%Y-%m-%d %H:%M:%S"'
   alias ls='ls -G -D "%Y-%m-%d %H:%M:%S"'
+  alias ngserve='ng serve --host 192.168.44.2 --aot --disable-host-check'
+  alias ngprod='npm run prod'
 
   __stat_format='-f %m'
 
