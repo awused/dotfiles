@@ -220,6 +220,17 @@ __print-subdomains() {
   echo -n "${(q)1}"
 }
 
+__print-subdomains-except() {
+  olditem=""
+  echo "$(get-automation-password subdomains)" 2>/dev/null | while read item; do
+    [[ -z "$item" ]] && continue
+    [[ "$1" == "$item" ]] && continue
+    [[ -n "$olditem" ]] && echo ""
+    echo -n "${(q)item}"
+    olditem=$item
+  done
+}
+
 # TODO -- could pull this from nginx config files
 add-subdomain() {
   [[ $#@ -eq 1 ]] || echo "Must supply exactly one new subdomain"
@@ -227,6 +238,13 @@ add-subdomain() {
   return $?
 }
 zle -N add-subdomain
+
+remove-subdomain() {
+  [[ $#@ -eq 1 ]] || echo "Must supply exactly one subdomain"
+  __print-subdomains-except $1 | pass insert -fm subdomains >/dev/null 2>&1
+  return $?
+}
+zle -N remove-subdomain
 
 alias weechat='WEECHAT_PASSPHRASE=$(get-automation-password weechat) weechat'
 alias slack-term='SLACK_TOKEN=$(get-automation-password slack-token) slack-term'
