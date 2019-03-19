@@ -51,9 +51,12 @@ $HOME/.thumbnails
 $HOME/.var
 $HOME/.vegas
 $HOME/.vim
+$HOME/.viminfo
 $HOME/.waifu2x
 $HOME/.wallpapers
 $HOME/.wine*
+$HOME/.xsession-errors
+$HOME/.xsession-errors.old
 $HOME/.zplug
 
 $HOME/Downloads

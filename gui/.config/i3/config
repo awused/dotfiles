@@ -207,7 +207,7 @@ bindsym $mod+Control+Up exec --no-startup-id "mpc volume +5; notify-send Volume 
 bindsym $mod+Control+Down exec --no-startup-id "mpc volume -5; notify-send Volume \\"$(mpc volume)\\" -t 1000 -i /usr/share/icons/Adwaita/32x32/status/audio-volume-high.png"
 # Rofi rendering ended up being very janky for some reason I haven't figured out
 # It should be a better option than spinning up a new terminal just to run mpd-fzf in a floating window
-for_window [title="^mpd-fzf$"] floating enable
+for_window [title="mpd-fzf-float"] floating enable
 bindsym $mod+Control+m exec ~/.config/i3/mpd-fzf
 bindsym $mod+Mod1+m exec mpd-rofi
 #}}}

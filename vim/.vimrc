@@ -396,6 +396,7 @@ augroup filetype_settings
   autocmd!
   autocmd FileType python setlocal softtabstop=4 shiftwidth=4
   autocmd FileType go setlocal noexpandtab nosmarttab tabstop=2
+  autocmd FileType go nnoremap <buffer> <Leader>l :GoLint<cr>
   autocmd BufRead,BufNewFile *.html,*.js,*.ts,*.xml call s:CompleteTags()
 augroup END
 "}}}
@@ -409,6 +410,10 @@ nnoremap <Leader>v :ls<CR>:b<Space>
 nnoremap <leader>c <C-w>c
 nnoremap . za
 nnoremap <leader>. za
+noremap <A-Right> <C-w><Right>
+noremap <A-Left> <C-w><Left>
+noremap <A-Down> <C-w><Down>
+noremap <A-Up> <C-w><Up>
 "}}}
 "{{{ Settings
 let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
