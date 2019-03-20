@@ -33,7 +33,7 @@ test -r $HOME/.gcloud-sdk/path.zsh.inc && . $HOME/.gcloud-sdk/path.zsh.inc > /de
 #{{{ OS/Computer specific settings
 if [[ $(uname) == 'Linux' ]]; then
   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
-  export PATH=$PATH:$HOME/.bin:$HOME/.local/bin:$HOME/.cargo/bin
+  export PATH=$HOME/.bin:$PATH:$HOME/.local/bin:$HOME/.cargo/bin
   export GTK_THEME=Arc-Dark
 fi
 

@@ -111,9 +111,9 @@ alias tm='tmux attach -d -t main'
 alias mmv='noglob zmv -W'
 
 # vim with X11 clipboard and a bunch of other bloat
-if [[ $(command -v vimx) != "" ]] {
-  alias vim='vimx'
-}
+#if [[ $(command -v vimx) != "" ]] {
+#  alias vim='vimx'
+#}
 
 # Typing errors...
 alias 'cd..=cd ..'
@@ -329,6 +329,7 @@ export FZF_EXCLUDES=" \
   -not \( -name '.waifu2x' -prune \) \
   -not \( -name '.wine*' -prune \) \
   -not \( -name '.zplug' -prune \) \
+  -not \( -name 'dist' -prune \) \
   -not \( -name 'env' -prune \) \
   -not \( -path '$SOURCE_DIR/go/pkg' -prune \) \
   -not \( -name 'hydrus' -prune \) \

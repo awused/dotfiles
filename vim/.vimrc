@@ -307,7 +307,7 @@ augroup autoformat_settings
   " autocmd FileType dart if s:ShouldFormat() | exe 'AutoFormatBuffer dartfmt' | endif
   " autocmd FileType gn if s:ShouldFormat() | exe 'AutoFormatBuffer gn' | endif
   autocmd FileType go if s:ShouldFormat() | exe 'AutoFormatBuffer gofmt' | endif
-  autocmd FileType html,css,json if s:ShouldFormat() | exe 'AutoFormatBuffer js-beautify' | endif
+  autocmd FileType html,css,scss,sass,less,json if s:ShouldFormat() | exe 'AutoFormatBuffer js-beautify' | endif
   " autocmd FileType java if s:ShouldFormat() | exe 'AutoFormatBuffer google-java-format' | endif
   autocmd FileType python if s:ShouldFormat() | exe 'AutoFormatBuffer yapf' | endif
   " Alternative: autocmd FileType python if s:ShouldFormat() | exe 'AutoFormatBuffer autopep8' | endif
