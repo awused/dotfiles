@@ -129,8 +129,8 @@ pip: sudo
 	   | sed 1,2d | tr '\n' ' ' | sed -r 's/ +/ /g' \
 	   | awk -v RS=" " '1==NR%4' | grep -v -E 'libvirt|wxPython' ) \
 	   --upgrade --user
-npm: sudo
-	sudo npm update -g
+npm:
+	npm update -g
 
 opam:
 	opam update

@@ -13,7 +13,8 @@ export LSCOLORS=ExGxdxdxCxDxDxBxBxegeg
 # Default on Fedora is much better than default on FreeBSD
 #export LS_COLORS='di=1;34:ln=1;36:so=33:pi=33:ex=1;32:bd=1;33:cd=1;33:su=1;31:sg=1;31:tw=34;46:ow=34;46'
 export GOBIN=$HOME/.gobin
-export PATH=$PATH:$GOBIN
+export NODE_PATH="$NODE_PATH:$HOME/.npm/lib/node_modules"
+export PATH=$PATH:$GOBIN:$HOME/.npm/bin
 export PYTHONIOENCODING=UTF-8
 
 export SOURCE_DIR=/storage/src
