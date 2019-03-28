@@ -3,4 +3,4 @@
 e=$(which webnovel-rss)
 [ $? ] || go install github.com/awused/webnovel-rss
 
-go run -race $GOPATH/src/github.com/awused/aw-rss -logtostderr=true -alsologtostderr=false -db $HOME/.rss/dev.db -addr localhost:9092 -static $GOPATH/src/github.com/awused/aw-rss/dist $@
+go run -race $GOPATH/src/github.com/awused/aw-rss -awconf $HOME/.config/aw-rss/dev.toml
