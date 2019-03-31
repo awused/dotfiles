@@ -9,7 +9,8 @@ steam-screenshots:
 	go install github.com/awused/steam-screenshots
 
 rss:
-	go install github.com/awused/webnovel-rss
+	go install github.com/awused/rss-scrapers/webnovel-rss
+	go install github.com/awused/rss-scrapers/gelbooru-rss
 	go install github.com/awused/aw-rss
 
 hydrus-mover:
