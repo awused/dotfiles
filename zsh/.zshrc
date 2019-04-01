@@ -331,7 +331,8 @@ export FZF_EXCLUDES=" \
   -not \( -name '.zplug' -prune \) \
   -not \( -name 'dist' -prune \) \
   -not \( -name 'env' -prune \) \
-  -not \( -path '$SOURCE_DIR/go/pkg' -prune \) \
+  -not \( -path '*/go/pkg' -prune \) \
+  -not \( -path '*/go/golang.org' -prune \) \
   -not \( -name 'hydrus' -prune \) \
   -not \( -name 'node_modules' -prune \) \
   -not \( -name 'Unsorted Downloads' -prune \) \

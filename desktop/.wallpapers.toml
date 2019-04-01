@@ -34,6 +34,9 @@ DatabaseDir = '/storage/media/users/desuwa/Pictures/Wallpapers/db'
 # It's recommended to use waifu2x-caffe on Windows if you have an nvidia GPU for better performance, but this should work on any system.
 Waifu2xCPP = 'waifu2x-converter-cpp'
 
+# Uncomment to force OpenCL with Waifu2xCPP if you can't get CUDA working
+# ForceOpenCL = true
+
 # Where to find waifu2x-converter-cpp's models_rgb directory
 # No trailing slash
 Waifu2xCPPModels = '/storage/src/third_party/waifu2x-converter-cpp/models_rgb'

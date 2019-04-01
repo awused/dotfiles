@@ -97,7 +97,8 @@ timg: sudo
 
 waifu2x: sudo
 	cd ${THIRD_PARTY_SOURCE}/waifu2x-converter-cpp; \
-	  rm -rf fedora/; mkdir -p fedora; cd fedora; cmake ..; \
+	  rm -rf fedora/; mkdir -p fedora; cd fedora; CC=cuda-gcc CPP=cuda-++ CXX=cuda-g++ LD=cuda-g++ cmake ..; \
+	  rg-replace '/usr/bin/nvcc -arch=sm_30' -r '/usr/bin/nvcc --compiler-bindir /usr/bin/cuda-gcc -arch=sm_30' **/* \
 	  $(MAKE); sudo $(MAKE) install
 
 polybar:

@@ -16,8 +16,8 @@ DatabaseDir = '/home/desuwa/.config/mpd-shuffler/db'
 # Default MPD timeout is 60 seconds, and this must be lower
 MPDTimeout = 50
 
-# Prefix that songs must have to be included in the rotation
-PathPrefix = 'Anime/'
+# Regex that songs must match to be included in the rotation
+PathRegex = '(Anime/|General/)'
 
 # How many previously played songs to keep on the playlist.
 # Doesn't impact the randomization
