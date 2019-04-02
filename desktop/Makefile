@@ -43,9 +43,14 @@ vmrpc:
 	  protoc --go_out=plugins=grpc:. *.proto
 	go install github.com/awused/vmrpc/vmrpc-server
 
+rss-scrapers:
+	go install github.com/awused/rss-scrapers/webnovel-rss
+	go install github.com/awused/rss-scrapers/gelbooru-rss
+	go install github.com/awused/rss-scrapers/panda-rss
+
 go: wallpapers dispatcher add-to-transmission \
   upscale-directory public-clipboard screenshotter madokami \
-  hydrus-mover mpd-fzf mpd-rofi mpd-shuffler vmrpc
+  hydrus-mover mpd-fzf mpd-rofi mpd-shuffler vmrpc rss-scrapers
 
 
 windows-wallpapers:

@@ -8,15 +8,18 @@ sudo:
 steam-screenshots:
 	go install github.com/awused/steam-screenshots
 
-rss:
+rss-scrapers:
 	go install github.com/awused/rss-scrapers/webnovel-rss
 	go install github.com/awused/rss-scrapers/gelbooru-rss
+	go install github.com/awused/rss-scrapers/panda-rss
+
+rss:
 	go install github.com/awused/aw-rss
 
 hydrus-mover:
 	go install github.com/awused/hydrus-mover
 
-go: steam-screenshots rss hydrus-mover
+go: steam-screenshots rss rss-scrapers hydrus-mover
 
 # Third party code
 bfs: sudo
