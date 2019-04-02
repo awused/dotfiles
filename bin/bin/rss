@@ -6,4 +6,7 @@ e=$(which webnovel-rss)
 e=$(which gelbooru-rss)
 [ $? = 0 ] || go install github.com/awused/rss-scrapers/gelbooru-rss
 
+e=$(which panda-rss)
+[ $? = 0 ] || go install github.com/awused/rss-scrapers/panda-rss
+
 go run -race $GOPATH/src/github.com/awused/aw-rss -awconf $HOME/.config/aw-rss/dev.toml
