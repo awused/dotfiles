@@ -23,6 +23,13 @@ Port = 9092
 # Trace, Debug, Info, Warning, Error, Fatal and Panic.
 LogLevel = "Info"
 
+# Whether items with identical URLs should be deduplicated or not, even in
+# different feeds.
+# When true, items with the same URLs in different feeds will be automatically
+# marked as "read" after the first one.
+# Whichever feed happens to go first is not deterministic.
+Dedupe = true
+
 # Whitelist of known cloudflare protected hosts that you trust enough to run
 # Javascript from.
 #
