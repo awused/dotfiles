@@ -12,6 +12,7 @@ rss-scrapers:
 	go install github.com/awused/rss-scrapers/webnovel-rss
 	go install github.com/awused/rss-scrapers/gelbooru-rss
 	go install github.com/awused/rss-scrapers/panda-rss
+	go install github.com/awused/rss-scrapers/vn-news-rss
 
 rss:
 	go install github.com/awused/aw-rss
@@ -26,23 +27,25 @@ bfs: sudo
 	cd ${THIRD_PARTY_SOURCE}/bfs; gmake clean; \
 	  gmake; sudo gmake install
 
-loudness-scanner: sudo
-	cd ${THIRD_PARTY_SOURCE}/loudness-scanner; \
-	  rm -rf build/; mkdir -p build; cd build; \
-	  cmake ..; $(MAKE); sudo $(MAKE) install
+# loudness-scanner: sudo
+# 	cd ${THIRD_PARTY_SOURCE}/loudness-scanner; \
+# 	  rm -rf build/; mkdir -p build; cd build; \
+# 	  cmake ..; $(MAKE); sudo $(MAKE) install
 
-split2flac: sudo
-	sudo mkdir -p /usr/local/bin ; \
-	  sudo install -m755 ${THIRD_PARTY_SOURCE}/split2flac/split2flac \
-	  /usr/local/bin/split2flac
+# split2flac: sudo
+# 	sudo mkdir -p /usr/local/bin ; \
+# 	  sudo install -m755 ${THIRD_PARTY_SOURCE}/split2flac/split2flac \
+# 	  /usr/local/bin/split2flac
 
 #timg: sudo
 #	cd ${THIRD_PARTY_SOURCE}/timg/src; $(MAKE) clean; \
 #	  git checkout im7; $(MAKE); sudo $(MAKE) install
 
+znc-clientbuffer: sudo
+	cd ${THIRD_PARTY_SOURCE}/znc-clientbuffer; \
+	  $(MAKE) clean; $(MAKE); sudo $(MAKE) install
 
-
-third-party: bfs loudness-scanner split2flac
+third-party: bfs znc-clientbuffer
 
 all-install: go third-party
 

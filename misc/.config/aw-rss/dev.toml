@@ -40,5 +40,6 @@ Dedupe = true
 # For cloudflare protected domains that aren't in the whitelist, aw-rss will
 # back off aggressively but will never run their javascript.
 CloudflareDomains = [
-  "mangadex.org"
+  "mangadex.org",
+  "konachan.com"
 ]
