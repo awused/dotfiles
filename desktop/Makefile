@@ -128,13 +128,13 @@ pip: sudo
 	python3 -m pip install \
 	 $$(pip3 list --format=columns --outdated \
 	   | sed 1,2d | tr '\n' ' ' | sed -r 's/ +/ /g' \
-	   | awk -v RS=" " '1==NR%4' | grep -v 'libvirt' ) \
+	   | awk -v RS=" " '1==NR%4' | grep -v -E 'libvirt|wxPython|bodhi' ) \
 	   --upgrade --user || true
 	sudo pip2 install pip --upgrade
 	pip2 install \
 	 $$(pip2 list --format=columns --outdated \
 	   | sed 1,2d | tr '\n' ' ' | sed -r 's/ +/ /g' \
-	   | awk -v RS=" " '1==NR%4' | grep -v -E 'libvirt|wxPython' ) \
+	   | awk -v RS=" " '1==NR%4' | grep -v -E 'libvirt|wxPython|bodhi' ) \
 	   --upgrade --user
 npm:
 	npm update -g

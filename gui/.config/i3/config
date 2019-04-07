@@ -22,7 +22,7 @@ mouse_warping none
 
 # Monitors
 set $m_center "DP-0"
-set $m_left "DP-5"
+set $m_left "DP-2"
 set $m_right "HDMI-0"
 set $m_top "DVI-D-0"
 
@@ -207,7 +207,7 @@ bindsym $mod+Control+Up exec --no-startup-id "mpc volume +5; notify-send Volume 
 bindsym $mod+Control+Down exec --no-startup-id "mpc volume -5; notify-send Volume \\"$(mpc volume)\\" -t 1000 -i /usr/share/icons/Adwaita/32x32/status/audio-volume-high.png"
 # Rofi rendering ended up being very janky for some reason I haven't figured out
 # It should be a better option than spinning up a new terminal just to run mpd-fzf in a floating window
-for_window [title="mpd-fzf-float"] floating enable
+for_window [title="aw-i3-forced-float"] floating enable
 bindsym $mod+Control+m exec ~/.config/i3/mpd-fzf
 bindsym $mod+Mod1+m exec mpd-rofi
 #}}}
@@ -310,18 +310,18 @@ exec_always --no-startup-id "killall xautolock; xautolock -time 110 -locker ~/.c
 #exec_always --no-startup-id "rm -f ~/.config/user-dirs.dirs; rm -f ~/.config/mimeapps.list; cd ~/dotfiles && stow xdg"
 # Screens turn off after 30 minutes
 # Setting s off breaks xautolock
-exec --no-startup-id xrandr \
-  --output DP-0 --pos 2880x1800 --primary \
-  --output DVI-D-0 --scale 1.5x1.5 --pos 3360x0 \
-  --output HDMI-0 --scale 1.5x1.5 --pos 6720x2160 \
-  --output DP-5 --scale 1.5x1.5 --pos 0x2160 \
-  && i3-msg restart # Restart at the end or rofi doesn't pick up the changes
+ exec --no-startup-id xrandr \
+   --output DP-0 --pos 2560x1800 --primary \
+   --output DVI-D-0 --scale 1.5x1.5 --pos 3040x0 \
+   --output HDMI-0 --scale 1.5x1.5 --pos 6400x2160 \
+   --output DP-2 --pos 0x2520 --mode 2560x1440 --rate 120 \
+   && i3-msg restart # Restart at the end or rofi doesn't pick up the changes
 
 exec_always --no-startup-id "dispwin -d 2 ~/.icc/right.icc; dispwin -d 3 ~/.icc/center.icc; dispwin -d 4 ~/.icc/left.icc"
 
 exec --no-startup-id xset s 7200 dpms 7200 7200 7200
 exec --no-startup-id "~/.fehbg || :"
-exec --no-startup-id "killall mpd; killall mpd-shuffler; mpd; mpd-shuffler &"
+exec_always --no-startup-id "killall mpd; killall mpd-shuffler; mpd; mpd-shuffler &"
 
 # Enable in sudoers with
 # desuwa ALL=(root) NOPASSWD:/usr/bin/nvidia-smi -i 0 -pl 375

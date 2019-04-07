@@ -1,0 +1,8 @@
+#! /bin/sh
+
+export FZF_DEFAULT_OPTS="--reverse --ansi -m"
+
+f=${CAJA_SCRIPT_SELECTED_FILE_PATHS%%$'\n'*}
+
+[ -f "$f" ] && alacritty -t aw-i3-forced-float -e wallpapers interactive "$f"
+
