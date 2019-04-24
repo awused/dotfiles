@@ -333,6 +333,7 @@ export FZF_EXCLUDES=" \
   -not \( -name 'env' -prune \) \
   -not \( -path '*/go/pkg' -prune \) \
   -not \( -path '*/go/golang.org' -prune \) \
+  -not \( -path '*/github.com/golangci' -prune \) \
   -not \( -name 'hydrus' -prune \) \
   -not \( -name 'node_modules' -prune \) \
   -not \( -name 'Unsorted Downloads' -prune \) \
