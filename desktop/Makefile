@@ -44,10 +44,11 @@ vmrpc:
 	go install github.com/awused/vmrpc/vmrpc-server
 
 rss-scrapers:
-	go install github.com/awused/rss-scrapers/webnovel-rss
 	go install github.com/awused/rss-scrapers/gelbooru-rss
+	go install github.com/awused/rss-scrapers/mangaplus-rss
 	go install github.com/awused/rss-scrapers/panda-rss
 	go install github.com/awused/rss-scrapers/vn-news-rss
+	go install github.com/awused/rss-scrapers/webnovel-rss
 
 go: wallpapers dispatcher add-to-transmission \
   upscale-directory public-clipboard screenshotter madokami \
