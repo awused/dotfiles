@@ -260,7 +260,7 @@ label = %output%°C
 format-underline = #a0a0ff
 
 [settings]
-screenchange-reload = true
+;screenchange-reload = true
 ;compositing-background = xor
 ;compositing-background = screen
 ;compositing-foreground = source

@@ -23,8 +23,14 @@ mouse_warping none
 # Monitors
 set $m_center "DP-0"
 set $m_left "DP-2"
-set $m_right "HDMI-0"
-set $m_top "DVI-D-0"
+set $m_right "DP-4"
+set $m_top "HDMI-2"
+
+# i3-gaps features
+smart_borders on
+smart_gaps on
+gaps inner 10
+
 
 #{{{ General Purpose Workspaces
 workspace_auto_back_and_forth yes
@@ -147,13 +153,14 @@ for_window [instance="foobar2000.exe"] floating enable
 bindsym $mod+Shift+f exec --no-startup-id ~/.config/i3/exec-once "foobar2000.exe" "foobar2000\.exe" "wine $HOME/.foobar2000/foobar2000.exe"
 
 for_window [instance="emuera-anchor.exe"] floating enable
+for_window [instance="emuera-anchor-sprite-blueberry.exe"] floating enable
 for_window [class="Displaycal"] floating enable border normal
 for_window [class="File-roller"] floating enable
 for_window [class="Yad"] floating enable
 #}}}
 #{{{ Launchers
 # start a terminal
-bindsym $mod+Return exec desu-terminal
+bindsym $mod+Return exec --no-startup-id desu-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -311,13 +318,13 @@ exec_always --no-startup-id "killall xautolock; xautolock -time 110 -locker ~/.c
 # Screens turn off after 30 minutes
 # Setting s off breaks xautolock
  exec --no-startup-id xrandr \
-   --output DP-0 --pos 2560x1800 --primary \
-   --output DVI-D-0 --scale 1.5x1.5 --pos 3040x0 \
-   --output HDMI-0 --scale 1.5x1.5 --pos 6400x2160 \
-   --output DP-2 --pos 0x2520 --mode 2560x1440 --rate 120 \
+   --output DP-0 --pos 2560x1440 --primary \
+   --output HDMI-2 --pos 3200x0 --rate 120 \
+   --output DP-4 --pos 6400x2160 --rate 120 \
+   --output DP-2 --pos 0x2160 --rate 120 \
    && i3-msg restart # Restart at the end or rofi doesn't pick up the changes
 
-exec_always --no-startup-id "dispwin -d 2 ~/.icc/right.icc; dispwin -d 3 ~/.icc/center.icc; dispwin -d 4 ~/.icc/left.icc"
+exec_always --no-startup-id "dispwin -d 1 ~/.icc/top.icc; dispwin -d 2 ~/.icc/center.icc; dispwin -d 3 ~/.icc/left.icc; dispwin -d 4 ~/.icc/right.icc"
 
 exec --no-startup-id xset s 7200 dpms 7200 7200 7200
 exec --no-startup-id "~/.fehbg || :"
