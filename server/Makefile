@@ -9,6 +9,7 @@ steam-screenshots:
 	go install github.com/awused/steam-screenshots
 
 rss-scrapers:
+	go install github.com/awused/rss-scrapers/amiami-rss
 	go install github.com/awused/rss-scrapers/gelbooru-rss
 	go install github.com/awused/rss-scrapers/mangaplus-rss
 	go install github.com/awused/rss-scrapers/panda-rss

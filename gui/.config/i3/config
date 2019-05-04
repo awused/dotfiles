@@ -154,6 +154,7 @@ bindsym $mod+Shift+f exec --no-startup-id ~/.config/i3/exec-once "foobar2000.exe
 
 for_window [instance="emuera-anchor.exe"] floating enable
 for_window [instance="emuera-anchor-sprite-blueberry.exe"] floating enable
+for_window [instance="game.exe"] floating enable
 for_window [class="Displaycal"] floating enable border normal
 for_window [class="File-roller"] floating enable
 for_window [class="Yad"] floating enable
@@ -215,7 +216,7 @@ bindsym $mod+Control+Down exec --no-startup-id "mpc volume -5; notify-send Volum
 # Rofi rendering ended up being very janky for some reason I haven't figured out
 # It should be a better option than spinning up a new terminal just to run mpd-fzf in a floating window
 for_window [title="aw-i3-forced-float"] floating enable
-bindsym $mod+Control+m exec ~/.config/i3/mpd-fzf
+bindsym $mod+Control+m exec --no-startup-id ~/.config/i3/mpd-fzf
 bindsym $mod+Mod1+m exec mpd-rofi
 #}}}
 #{{{ Movement and Layout
