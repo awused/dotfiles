@@ -22,7 +22,7 @@ PathRegex = '(Anime/|General/)'
 # How many previously played songs to keep on the playlist.
 # Doesn't impact the randomization
 # Negative values disable this behaviour
-KeepLast = 10
+KeepLast = 20
 
 # Automatically disable repeat mode
 # Repeat mode will effectively disable the shuffler
