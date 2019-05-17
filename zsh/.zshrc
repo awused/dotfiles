@@ -161,6 +161,11 @@ if [[ $(uname) == 'FreeBSD' ]]; then
     export TERM="screen-256color"
   }
 fi
+
+if [[ $(hostname) == 'desutop' ]]; then
+  alias rd="random-doujin"
+  alias ru="random-unsorted"
+fi
 #}}}
 #{{{ Fix Keybinds
 bindkey "${terminfo[khome]}" beginning-of-line

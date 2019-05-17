@@ -52,9 +52,14 @@ rss-scrapers:
 	go install github.com/awused/rss-scrapers/vn-news-rss
 	go install github.com/awused/rss-scrapers/webnovel-rss
 
+strpick:
+	go install github.com/awused/go-strpick/strpick
+
+
 go: wallpapers dispatcher add-to-transmission \
   upscale-directory public-clipboard screenshotter madokami \
-  hydrus-mover mpd-fzf mpd-rofi mpd-shuffler vmrpc rss-scrapers
+  hydrus-mover mpd-fzf mpd-rofi mpd-shuffler vmrpc rss-scrapers \
+  strpick
 
 
 windows-wallpapers:

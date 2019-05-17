@@ -130,7 +130,7 @@ label-urgent-padding = 2
 
 [module/mpd]
 type = internal/mpd
-format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+format-online = <label-song> <label-time> <icon-prev> <icon-stop> <toggle> <icon-next>
 
 host = /home/desuwa/.config/mpd/socket
 icon-prev = 
@@ -143,6 +143,7 @@ label-song-maxlen = 160
 label-song-ellipsis = true
 
 label-song = %artist% - %title%
+label-time = - %elapsed% / %total%
 
 [module/cpu]
 type = internal/cpu
