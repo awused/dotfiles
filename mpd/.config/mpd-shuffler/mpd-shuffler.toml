@@ -24,9 +24,16 @@ PathRegex = '(Anime/|General/)'
 # Negative values disable this behaviour
 KeepLast = 20
 
+# Whether or not to treat newly added songs as not having been played in a
+# long time. Set to true to make newly added songs very likely to be played.
+NewSongsTreatedAsOld = true
+
 # Automatically disable repeat mode
 # Repeat mode will effectively disable the shuffler
 DisableRepeat = true
+
+# Lock the volume to 100%
+LockVolume = true
 
 # Enable debugging output
 # Debug = true

@@ -318,12 +318,6 @@ exec_always --no-startup-id "killall xautolock; xautolock -time 110 -locker ~/.c
 #exec_always --no-startup-id "rm -f ~/.config/user-dirs.dirs; rm -f ~/.config/mimeapps.list; cd ~/dotfiles && stow xdg"
 # Screens turn off after 30 minutes
 # Setting s off breaks xautolock
- exec --no-startup-id xrandr \
-   --output DP-0 --pos 2560x1440 --primary \
-   --output HDMI-2 --pos 3200x0 --rate 120 \
-   --output DP-4 --pos 6400x2160 --rate 120 \
-   --output DP-2 --pos 0x2160 --rate 120 \
-   && i3-msg restart # Restart at the end or rofi doesn't pick up the changes
 
 exec_always --no-startup-id "dispwin -d 1 ~/.icc/top.icc; dispwin -d 2 ~/.icc/center.icc; dispwin -d 3 ~/.icc/left.icc; dispwin -d 4 ~/.icc/right.icc"
 

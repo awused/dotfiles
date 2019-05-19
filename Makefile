@@ -21,7 +21,10 @@ both:
 	stow youtube-dl
 	stow zsh
 
-desktop: both
+sudo:
+	sudo echo "Starting"
+
+desktop: sudo both
 	stow desktop
 	stow gui
 	stow mcomix
@@ -34,7 +37,8 @@ desktop: both
 	crontab desktop.user.crontab
 	sudo crontab desktop.root.crontab
 	stow xorg
-	sudo cp xorg.conf.d/* /etc/X11/xorg.conf.d/
+	sudo cp -u xorg.conf.d/* /etc/X11/xorg.conf.d/
+	sudo cp -u lightdm/lightdm.conf /etc/lightdm/
 
 
 server: both
