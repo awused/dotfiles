@@ -46,8 +46,13 @@ Compression = 5
 
 [[Overrides]]
   Name = "wine32-preloader"
-  Regex = '^.*/([^/ ]+)\.exe'
-  Format = "%[2]s"
+  Regex = 'TLS.*Game.exe$'
+  Format = "the-last-sovereign"
+
+[[Overrides]]
+  Name = "wine32-preloader"
+  Regex = '^.*(/|\\)([^/\ ]+)\.exe'
+  Format = "%[3]s"
 
 [[Overrides]]
   Name = "python2-7"
@@ -58,11 +63,6 @@ Compression = 5
   Name = "watch"
   Regex = '^watch ([^ ]*)?'
   Format = "%[2]s"
-
-[[Overrides]]
-  Name = "wine32-preloader"
-  Regex = '^Game.exe'
-  Format = "the-last-sovereign"
 
 [[Overrides]]
   Name = "firefox"

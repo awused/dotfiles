@@ -270,8 +270,9 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 #}}}
-#{{{ Resize Mode
+#{{{ Resizing
 bindsym $mod+r mode "resize"
+bindsym --release $mod+Shift+g exec dpi-scale
 
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode

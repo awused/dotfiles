@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+
+ratio=1.5
+
+eval $(xdotool selectwindow getwindowgeometry --shell)
+
+(( w = $WIDTH * ${ratio} ))
+(( h = $HEIGHT * ${ratio} ))
+
+xdotool windowsize $WINDOW $w $h
