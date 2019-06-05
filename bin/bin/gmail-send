@@ -1,15 +1,15 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import smtplib
 import subprocess
 from sys import stdin, argv
 
 
 def getAutomationPassword(name):
-    ps = subprocess.Popen(
-        ['get-automation-password', name], stdout=subprocess.PIPE)
+    ps = subprocess.Popen(['get-automation-password', name],
+                          stdout=subprocess.PIPE)
     (out, err) = ps.communicate()
     assert ps.returncode == 0
-    return out
+    return str(out, 'utf-8')
 
 
 def sendEmail(subject, body):
