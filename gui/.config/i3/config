@@ -129,7 +129,7 @@ set $wsst "steam"
 bindsym $mod+Mod1+t workspace $wsst
 for_window [class="Steam"] move container to workspace $wsst
 for_window [class="Steam"] floating enable
-workspace $wsst output $m_right
+workspace $wsst output $m_center
 
 set $wsnm "caja"
 assign [class="Caja"] $wsnm
@@ -272,7 +272,7 @@ bindsym $mod+a focus parent
 #}}}
 #{{{ Resizing
 bindsym $mod+r mode "resize"
-bindsym --release $mod+Shift+g exec dpi-scale
+bindsym --release $mod+Shift+g exec --no-startup-id dpi-scale
 
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode

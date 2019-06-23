@@ -104,6 +104,7 @@ alias sgrep='/usr/bin/lv -g -Is -'
 alias ng='npm run-script ng --'
 alias ngserve='ng serve --aot'
 alias ngprod='npm run prod'
+alias ydl='youtube-dl'
 
 alias mux='tmuxinator'
 alias tm='tmux attach -d -t main'

@@ -84,3 +84,7 @@ Compression = 5
   Name = "mpv"
   Yearly = true
 
+[[Overrides]]
+  Name = "wine-preloader"
+  Regex = 'noratoto1.exe$'
+  Format = "Nora to Oujo to Noraneko Heart"

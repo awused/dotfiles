@@ -49,6 +49,7 @@ rss-scrapers:
 	go install github.com/awused/rss-scrapers/gelbooru-rss
 	go install github.com/awused/rss-scrapers/mangaplus-rss
 	go install github.com/awused/rss-scrapers/panda-rss
+	go install github.com/awused/rss-scrapers/tfgames-rss
 	go install github.com/awused/rss-scrapers/vn-news-rss
 	go install github.com/awused/rss-scrapers/webnovel-rss
 
@@ -93,12 +94,20 @@ loudness-scanner: sudo
 	  rm -rf fedora/; mkdir -p fedora; cd fedora; \
 	  cmake ..; $(MAKE); sudo $(MAKE) install
 
+mpv: sudo
+	cd ${THIRD_PARTY_SOURCE}/mpv; \
+	  ./waf configure; ./waf; sudo ./waf install
+
 rofi: sudo
 	cd ${THIRD_PARTY_SOURCE}/rofi; \
 	  git submodule update; \
 	  autoreconf --force --install; \
 	  rm -rf build; mkdir -p build; cd build; \
 	  ../configure; $(MAKE); sudo $(MAKE) install
+
+scream:
+	cd ${THIRD_PARTY_SOURCE}/scream/Receivers/pulseaudio-ivshmem; \
+	  $(MAKE); mv scream-ivshmem-pulse ~/.bin/
 
 split2flac: sudo
 	sudo mkdir -p /usr/local/bin ; \
@@ -123,7 +132,7 @@ polybar:
 
 
 third-party: bfs i3-gaps loudness-scanner rofi split2flac timg waifu2x \
-  polybar
+  polybar scream mpv
 
 all-install: go third-party
 

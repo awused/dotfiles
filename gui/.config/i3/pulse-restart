@@ -1,6 +1,8 @@
 #! /bin/sh
 # Reliably kill and restart pulse
 
+killall scream-ivshmem-pulse
+
 pulseaudio --kill
 
 while true; do
@@ -13,3 +15,5 @@ while true; do
   pulseaudio --start
   sleep 1
 done
+
+nohup scream-ivshmem-pulse /dev/shm/scream-ivshmem > /dev/null 2>&1 &

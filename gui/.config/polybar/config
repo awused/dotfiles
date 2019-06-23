@@ -40,7 +40,8 @@ font-3 = unifont:fontformat=truetype:size=16:antialias=false;4
 
 modules-left = i3 xkeyboard
 modules-center = mpd
-modules-right = fs0 fs1 cpu gpu memory cputemp0 cputemp1 gputemp watertemp date
+;modules-right = fs0 fs1 cpu gpu memory cputemp0 cputemp1 gputemp watertemp date
+modules-right = fs0 fs1 cpu gpu memory cputemp0 cputemp1 gputemp date
 padding-right = 1
 
 ;tray-position = right
@@ -237,20 +238,21 @@ ramp-foreground = ${colors.foreground-alt}
 [module/cputemp0]
 inherit = module/cputemp
 
-hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon1/temp1_input
+hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon0/temp1_input
 
 [module/cputemp1]
 inherit = module/cputemp
 
-hwmon-path = /sys/devices/pci0000:00/0000:00:19.3/hwmon/hwmon2/temp1_input
+hwmon-path = /sys/devices/pci0000:00/0000:00:19.3/hwmon/hwmon1/temp1_input
 
-[module/watertemp]
-inherit = module/cputemp
-
-warn-temperature = 50
-format-underline = #0a6cf5
-
-hwmon-path = /sys/devices/platform/it87.656/hwmon/hwmon0/temp4_input
+; Broken with kernel 5.0
+;[module/watertemp]
+;inherit = module/cputemp
+;
+;warn-temperature = 50
+;format-underline = #0a6cf5
+;
+;hwmon-path = /sys/devices/platform/it87.656/hwmon/hwmon0/temp4_input
 
 [module/gputemp]
 type = custom/script
