@@ -139,7 +139,7 @@ try:
     import re
     import socket
     import string
-    import urllib
+    import urllib.parse
     import sys
 except ImportError as message:
     print('Missing package(s) for %s: %s' % (SCRIPT_NAME, message))
@@ -603,13 +603,13 @@ def urlserver_server_fd_cb(data, fd):
                                     conn, '200 OK', '',
                                     '<meta name="referrer" content="never">\n'
                                     '<meta http-equiv="refresh" content="0; '
-                                    'url=%s">' % urllib.quote(
+                                    'url=%s">' % urllib.parse.quote(
                                         urlserver['urls'][number][3], ':/?&='))
                             else:
                                 conn.sendall(
                                     'HTTP/1.1 302\r\n'
                                     'Location: {}\r\n\r\n'.format(
-                                        urllib.quote(
+                                        urllib.parse.quote(
                                             urlserver['urls'][number][3],
                                             ':/?&=')).encode('utf-8'))
                         else:
