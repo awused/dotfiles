@@ -11,5 +11,7 @@ sudo mount -o nfsv4acls /dev/zvol/storage/shadow.eli /storage/media/users/desuwa
 #sudo mount -o nfsv4acls,ro,bind -t nullfs /usr/home/desuwa/git/ /storage/media/users/desuwa-ro/git/
 #sudo mount -o nfsv4acls,ro,bind -t nullfs /usr/home/desuwa/go/src/github.com/awused/ /storage/media/users/desuwa-ro/go/src/github.com/awused/
 #sudo mount -o nfsv4acls,ro,bind -t nullfs /usr/home/desuwa/backed_up/ /storage/media/users/desuwa-ro/backed_up/
-sudo service mountd reload
+# restart instead of reload in case it failed to start or isn't running for some reason
+sudo service mountd restart
+#sudo service mountd reload
 
