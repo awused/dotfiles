@@ -290,7 +290,7 @@ fi
 # CTRL-D - open from user directory on NAS in vim
 # ALT-CPQSD - CD into directory starting from wherever
 # CTRL-ALT-PQSD - CTRL-T-alikes
-# fkill {signal} - kill processes using signal, default 9
+# fkill {signal} - kill processes using signal, default 15 (SIGTERM)
 #{{{ Overrides
 export FZF_DEFAULT_OPTS='--height 40% --reverse --border --ansi -m'
 #export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --color "always" -g "!**/{.git,node_modules,vendor,.sass-cache}/*" 2> /dev/null'
@@ -489,7 +489,7 @@ fkill() {
   pid=$(ps ax -O user | sed 1d | fzf-tmux -m | awk '{print $1}')
 
   if [[ -n "${pid// }" ]]; then
-    echo $pid | xargs kill -${1:-9}
+    echo $pid | xargs kill -${1:-15}
   fi
 }
 #}}}

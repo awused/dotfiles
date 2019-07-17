@@ -5,29 +5,23 @@ default:
 sudo:
 	sudo echo "Starting"
 
-wallpapers:
-	go install github.com/awused/wallpapers
 
-dispatcher:
-	go install github.com/awused/dispatcher
+# Go
 
 add-to-transmission:
 	go install github.com/awused/add-to-transmission
 
-upscale-directory:
-	go install github.com/awused/upscale-directory
+dispatcher:
+	go install github.com/awused/dispatcher
 
-public-clipboard:
-	go install github.com/awused/public-clipboard
-
-screenshotter:
-	go install github.com/awused/screenshotter
+hydrus-mover:
+	go install github.com/awused/hydrus-mover
 
 madokami:
 	go install github.com/awused/madokami
 
-hydrus-mover:
-	go install github.com/awused/hydrus-mover
+manga-upscaler:
+	go install github.com/awused/manga-upscaler
 
 mpd-fzf:
 	go install github.com/awused/mpd-fzf
@@ -38,10 +32,8 @@ mpd-rofi:
 mpd-shuffler:
 	go install github.com/awused/mpd-shuffler
 
-vmrpc:
-	cd ${GOPATH}/src/github.com/awused/vmrpc/clipboard; \
-	  protoc --go_out=plugins=grpc:. *.proto
-	go install github.com/awused/vmrpc/vmrpc-server
+public-clipboard:
+	go install github.com/awused/public-clipboard
 
 rss-scrapers:
 	go install github.com/awused/rss-scrapers/amiami-rss
@@ -53,14 +45,28 @@ rss-scrapers:
 	go install github.com/awused/rss-scrapers/vn-news-rss
 	go install github.com/awused/rss-scrapers/webnovel-rss
 
+screenshotter:
+	go install github.com/awused/screenshotter
+
 strpick:
 	go install github.com/awused/go-strpick/strpick
+
+upscale-directory:
+	go install github.com/awused/upscale-directory
+
+vmrpc:
+	cd ${GOPATH}/src/github.com/awused/vmrpc/clipboard; \
+	  protoc --go_out=plugins=grpc:. *.proto
+	go install github.com/awused/vmrpc/vmrpc-server
+
+wallpapers:
+	go install github.com/awused/wallpapers
 
 
 go: wallpapers dispatcher add-to-transmission \
   upscale-directory public-clipboard screenshotter madokami \
   hydrus-mover mpd-fzf mpd-rofi mpd-shuffler vmrpc rss-scrapers \
-  strpick
+  strpick manga-upscaler
 
 
 windows-wallpapers:
@@ -124,6 +130,22 @@ waifu2x: sudo
 	  rg-replace '/usr/bin/nvcc -arch=sm_30' -r '/usr/bin/nvcc --compiler-bindir /usr/bin/cuda-gcc -arch=sm_30' **/* \
 	  $(MAKE); sudo $(MAKE) install
 
+ncnn:
+	rm -rf "${THIRD_PARTY_SOURCE}/temp/ncnn"; cd ${THIRD_PARTY_SOURCE}/ncnn; \
+	  rm -rf build/; mkdir build; cd build; \
+	  cmake -DNCNN_VULKAN=ON \
+	        -DCMAKE_INSTALL_PREFIX="${THIRD_PARTY_SOURCE}/temp/ncnn" \
+		-DCMAKE_BUILD_TYPE=Release ..; \
+	  $(MAKE) install;
+
+waifu2x-vulkan: ncnn
+	  cd "${THIRD_PARTY_SOURCE}/waifu2x-ncnn-vulkan"; \
+	  rm -rf build/; mkdir build; cd build; \
+	  LDFLAGS="-L${THIRD_PARTY_SOURCE}/temp/ncnn/lib" cmake ..; \
+	  CPLUS_INCLUDE_PATH="${THIRD_PARTY_SOURCE}/temp/ncnn/include" $(MAKE); \
+	  mv waifu2x-ncnn-vulkan ~/.bin/
+
+
 polybar:
 	cd ${THIRD_PARTY_SOURCE}/polybar; \
 	  rm -rf build/; mkdir -p build; cd build; cmake ..; \
@@ -131,7 +153,7 @@ polybar:
 
 
 
-third-party: bfs i3-gaps loudness-scanner rofi split2flac timg waifu2x \
+third-party: bfs i3-gaps loudness-scanner rofi split2flac timg waifu2x waifu2x-vulkan \
   polybar scream mpv
 
 all-install: go third-party

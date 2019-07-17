@@ -23,6 +23,15 @@ DatabaseDir = '/storage/media/users/desuwa/Pictures/Wallpapers/db'
 # Directory to store temporary files, leave blank for the system default temp directory
 # TempDirectory = 'C:\temp'
 
+# Where to find waifu2x-ncnn-vulkan.
+# If uncommented this takes precedence over waifu2x-converter-cpp and waifu2x-caffe
+Waifu2xNCNNVulkan = 'waifu2x-ncnn-vulkan'
+
+# The path to the chosen model for waifu2x-ncnn-vulkan.
+# The CUNET model is recommended for quality.
+# Speed is of minimal importance since all wallpapers are cached.
+Waifu2xNCNNVulkanModels = '/storage/src/third_party/waifu2x-ncnn-vulkan/models-cunet'
+
 # Where to find waifu2x-caffe-cui.exe on Windows
 # If uncommented this takes precedence over waifu2x-converter-cpp
 # Only set this if you're using an nvidia GPU on Windows, otherwise leave it empty
@@ -32,7 +41,7 @@ DatabaseDir = '/storage/media/users/desuwa/Pictures/Wallpapers/db'
 # Does not need to be installed if waifu2x-caffe is used instead.
 # Only tested with https://github.com/DeadSix27/waifu2x-converter-cpp, other forks may or may not work.
 # It's recommended to use waifu2x-caffe on Windows if you have an nvidia GPU for better performance, but this should work on any system.
-Waifu2xCPP = 'waifu2x-converter-cpp'
+# Waifu2xCPP = 'waifu2x-converter-cpp'
 
 # Uncomment to force OpenCL with Waifu2xCPP if you can't get CUDA working
 # ForceOpenCL = true
