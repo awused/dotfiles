@@ -153,6 +153,16 @@ fun! GrepDir(dir, ...)
   exe 'lcd '.l:cwdb
 endfun
 
+fun! GrepDirAbs(dir, cmd, ...)
+  if !empty($FZF_CTRL_T_COMMAND)
+    let l:cmd = $FZF_CTRL_T_COMMAND . ' -not \( -path ''*/go/bin/*'' -prune \) ' . a:dir . ' | awk ''{print $0":1:1"}'''
+    call call("fzf#vim#grep", [l:cmd] + a:000)
+  elseif !empty($FZF_DEFAULT_COMMAND)
+    let l:cmd = $FZF_DEFAULT_COMMAND . ' -not \( -path ''*/go/bin/*'' -prune \) ' . a:dir . ' | awk ''{print $0":1:1"}'''
+    call call("fzf#vim#grep", [l:cmd] + a:000)
+  endif
+endfun
+
 fun! Sudoe()
   execute "SudoEdit"
   doautocmd filetypedetect BufReadPost
@@ -269,9 +279,9 @@ endif
 command! -bang -nargs=* S call GrepDir(ProjectRoot(), g:rgf_command .shellescape(<q-args>), 1, <bang>0)
 call SetupCommandAlias("M", "Buffers")
 nnoremap <C-p> :call GrepDir(ProjectRoot(), g:rgs_command, 0, 0)<cr>
-nnoremap <C-q> :call GrepDir($HOME, g:rgs_command, 0, 0)<cr>
-nnoremap <C-s> :call GrepDir($SOURCE_DIR, g:rgs_command, 0, 0)<cr>
-nnoremap <C-d> :call GrepDir($NASHOME, g:rgs_command, 0, 0)<cr>
+nnoremap <C-q> :call GrepDirAbs($HOME, 0, 0)<cr>
+nnoremap <C-s> :call GrepDirAbs($SOURCE_DIR, 0, 0)<cr>
+nnoremap <C-d> :call GrepDirAbs($NASHOME, 0, 0)<cr>
 nnoremap <leader>m :Buffers<cr>
 nnoremap <leader>s :call PromptInput(":S")<cr>
 "}}}

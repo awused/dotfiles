@@ -1,8 +1,14 @@
 # Port to listen on. You'll need to edit the userscript if you change this.
 Port = 8080
 
-# The number of upscaled images to save. Don't set this too large.
+# The number of upscaled images to save.
+# Don't set this too large as it will waste disk space or memory when using tmpfs.
 CacheLimit = 50
+
+# The maximum age of images in the cache.
+# Set this to free up memory when using tmpfs.
+# Minimum 10
+MaxAgeMinutes = 60
 
 # Directory to store temporary files, leave blank for the system default temp directory
 # TempDirectory = 'C:\temp'
