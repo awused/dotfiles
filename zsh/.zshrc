@@ -311,6 +311,7 @@ export FZF_EXCLUDES=" \
   -not \( -name '.jspm' -prune \) \
   -not \( -name '.kde' -prune \) \
   -not \( -path '$HOME/.local' -prune \) \
+  -not \( -name '.m2' -prune \) \
   -not \( -name '.mozc' -prune \) \
   -not \( -name '.mozilla' -prune \) \
   -not \( -name '.node-gyp' -prune \) \

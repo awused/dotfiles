@@ -1,0 +1,2 @@
+#! /bin/sh
+find . -type f | sed -n -E 's/^\.\/([^/]*)\/.*/\1/p' | sort | uniq -c | sort -b -n

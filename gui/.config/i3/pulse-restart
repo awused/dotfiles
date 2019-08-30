@@ -3,9 +3,8 @@
 
 killall scream-ivshmem-pulse
 
-pulseaudio --kill
-
 while true; do
+  pulseaudio --kill
   pulseaudio --check || break
   sleep 1
 done
