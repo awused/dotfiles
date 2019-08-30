@@ -56,7 +56,11 @@ Compression = 5
 
 [[Overrides]]
   Name = "python2-7"
-  Regex = '^/usr/bin/python.*/bin/([^/ ]+)( .*)?'
+  Delegate = "/home/desuwa/.config/screenshotter/mcomix-manga.sh"
+
+[[Overrides]]
+  Name = "python2-7"
+  Regex = ' /usr/bin/mcomix'
   Format = "%[2]s"
 
 [[Overrides]]
