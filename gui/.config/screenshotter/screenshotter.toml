@@ -56,11 +56,12 @@ Compression = 5
 
 [[Overrides]]
   Name = "python2-7"
+  Regex = 'mcomix'
   Delegate = "/home/desuwa/.config/screenshotter/mcomix-manga.sh"
 
 [[Overrides]]
   Name = "python2-7"
-  Regex = ' /usr/bin/mcomix'
+  Regex = '^/usr/bin/python.*/bin/([^/ ]+)( .*)?'
   Format = "%[2]s"
 
 [[Overrides]]
@@ -71,6 +72,10 @@ Compression = 5
 [[Overrides]]
   Name = "firefox"
   Delegate = "/home/desuwa/.config/screenshotter/firefox-mangadex.sh"
+
+[[Overrides]]
+  Name = "firefox"
+  Delegate = "/home/desuwa/.config/screenshotter/firefox-mangaplus.sh"
 
 [[Overrides]]
   Name = "mpv"

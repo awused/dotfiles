@@ -604,14 +604,15 @@ def urlserver_server_fd_cb(data, fd):
                                     '<meta name="referrer" content="never">\n'
                                     '<meta http-equiv="refresh" content="0; '
                                     'url=%s">' % urllib.parse.quote(
-                                        urlserver['urls'][number][3], ':/?&='))
+                                        urlserver['urls'][number][3],
+                                        ':/?&=#'))
                             else:
                                 conn.sendall(
                                     'HTTP/1.1 302\r\n'
                                     'Location: {}\r\n\r\n'.format(
                                         urllib.parse.quote(
                                             urlserver['urls'][number][3],
-                                            ':/?&=')).encode('utf-8'))
+                                            ':/?&=#')).encode('utf-8'))
                         else:
                             urlserver_server_reply_auth_required(conn)
                         replysent = True
