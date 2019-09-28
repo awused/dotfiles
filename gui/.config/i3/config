@@ -199,7 +199,9 @@ bindsym $mod+Mod1+d exec --no-startup-id ~/.config/i3/show-desktop false
 
 # Screenshots
 # Edit /etc/sysctl.d/99-sysctl.conf with kernel.sysrq = 0
-bindsym --release Print exec --no-startup-id screenshotter desktop
+# Change to allow full desktop screenshots. In practice I never take these
+bindsym --release Print exec --no-startup-id screenshotter window
+
 bindsym --release Shift+Print exec --no-startup-id screenshotter region
 # bindsym --release Mod1+Print exec --no-startup-id screenshotter window
 bindsym --release Mod1+Sys_Req exec --no-startup-id screenshotter window
