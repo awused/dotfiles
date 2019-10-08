@@ -58,7 +58,12 @@ upscale-directory:
 vmrpc:
 	cd ${GOPATH}/src/github.com/awused/vmrpc/clipboard; \
 	  protoc --go_out=plugins=grpc:. *.proto
+	cd ${GOPATH}/src/github.com/awused/vmrpc/mpd; \
+	  protoc --go_out=plugins=grpc:. *.proto
+	cd ${GOPATH}/src/github.com/awused/vmrpc/scream; \
+	  protoc --go_out=plugins=grpc:. *.proto
 	go install github.com/awused/vmrpc/vmrpc-server
+	go install github.com/awused/vmrpc/vmrpc-client
 
 wallpapers:
 	go install github.com/awused/wallpapers
@@ -79,11 +84,15 @@ windows-sharex: vmrpc
 	cd /storage/winshare/gobin; \
 	  GOOS=windows go build -ldflags -H=windowsgui github.com/awused/sharex-mover
 
+windows-vmrpc: vmrpc
+	cd /storage/winshare/gobin; \
+	  GOOS=windows go build -ldflags -H=windowsgui github.com/awused/vmrpc/vmrpc-client
+
 windows-clipboard:
 	cd /storage/winshare/gobin; \
 	  GOOS=windows go build -ldflags -H=windowsgui github.com/awused/public-clipboard
 
-windows-go: windows-wallpapers windows-sharex windows-clipboard
+windows-go: windows-wallpapers windows-sharex windows-vmrpc windows-clipboard
 
 # Third party code
 bfs: sudo
