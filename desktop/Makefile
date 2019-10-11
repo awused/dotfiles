@@ -37,6 +37,7 @@ public-clipboard:
 
 rss-scrapers:
 	go install github.com/awused/rss-scrapers/amiami-rss
+	go install github.com/awused/rss-scrapers/awkward-rss
 	go install github.com/awused/rss-scrapers/fiction-rss
 	go install github.com/awused/rss-scrapers/gelbooru-rss
 	go install github.com/awused/rss-scrapers/mangaplus-rss
