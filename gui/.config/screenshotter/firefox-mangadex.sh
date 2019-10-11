@@ -11,16 +11,11 @@ title=${title:($beginning + 3)}
 
 # Naively assume manga won't have hyphenated titles with hyphens surrounded by
 # spaces. This will be wrong at times but can be manually overridden
-end=$(echo $title | grep -b -o ' - ' | cut -d: -f1 | head -n1)
-
-title=${title:0:$end}
+title=${title%% - *}
+# For series pages
+title=${title%% (Title)*}
 
 [ -z "$title" ] && exit 1
-
-# For series pages
-end=$(echo $title | grep -b -o ' (Title)' | cut -d: -f1 | head -n1)
-
-[ -z "$end" ] || title=${title:0:$end}
 
 # Exclude a few pages I might actually use
 # Don't try to be exhaustive
