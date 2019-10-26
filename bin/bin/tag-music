@@ -197,14 +197,14 @@ def tagFile(fname):
             f["title"] = newt
             x += "Title: " + oldt + " -> " + newt + "\n"
 
-    a = f.get('artist', [''])[0]
+    a = f.get('artist', [''])[0].strip()
     if a in artist_map:
         if not changed: x += "\n" + fname + "\n"
         changed = True
         f["artist"] = artist_map[a]
         x += "Artist: " + a + " -> " + artist_map[a] + "\n"
 
-    aa = f.get('albumartist', [''])[0]
+    aa = f.get('albumartist', [''])[0].strip()
     if aa in artist_map:
         if not changed: x += "\n" + fname + "\n"
         changed = True
@@ -257,7 +257,7 @@ def tagID3File(fname):
             f.add(TIT2(encoding=3, text=newt))
             x += "Title: " + oldt + " -> " + newt + "\n"
 
-    a = f.get('TPE1', [''])[0]
+    a = f.get('TPE1', [''])[0].strip()
     if a in artist_map:
         if not changed: x += "\n" + fname + "\n"
         changed = True
@@ -265,7 +265,7 @@ def tagID3File(fname):
         f.add(TPE1(encoding=3, text=artist_map[a]))
         x += "Artist: " + a + " -> " + artist_map[a] + "\n"
 
-    aa = f.get('TPE2', [''])[0]
+    aa = f.get('TPE2', [''])[0].strip()
     if aa in artist_map:
         if not changed: x += "\n" + fname + "\n"
         changed = True
@@ -308,14 +308,14 @@ def tagOggFile(fname):
             f["title"] = newt
             x += "Title: " + oldt + " -> " + newt + "\n"
 
-    a = f.get('artist', [''])[0]
+    a = f.get('artist', [''])[0].strip()
     if a in artist_map:
         if not changed: x += "\n" + fname + "\n"
         changed = True
         f["artist"] = artist_map[a]
         x += "Artist: " + a + " -> " + artist_map[a] + "\n"
 
-    aa = f.get('albumartist', [''])[0]
+    aa = f.get('albumartist', [''])[0].strip()
     if aa in artist_map:
         if not changed: x += "\n" + fname + "\n"
         changed = True
@@ -356,14 +356,14 @@ def tagM4AFile(fname):
             f["\xa9nam"] = newt
             x += "Title: " + oldt + " -> " + newt + "\n"
 
-    a = f.get("\xa9ART", [''])[0]
+    a = f.get("\xa9ART", [''])[0].strip()
     if a in artist_map:
         if not changed: x += "\n" + fname + "\n"
         changed = True
         f["\xa9ART"] = artist_map[a]
         x += "Artist: " + a + " -> " + artist_map[a] + "\n"
 
-    aa = f.get("aART", [''])[0]
+    aa = f.get("aART", [''])[0].strip()
     if aa in artist_map:
         if not changed: x += "\n" + fname + "\n"
         changed = True
@@ -410,14 +410,14 @@ def tagAPEFile(fname):
             f["Title"] = newt
             x += "Title: " + oldt + " -> " + newt + "\n"
 
-    a = f.get('Artist', [''])[0]
+    a = f.get('Artist', [''])[0].strip()
     if a in artist_map:
         if not changed: x += "\n" + fname + "\n"
         changed = True
         f["Artist"] = artist_map[a]
         x += "Artist: " + a + " -> " + artist_map[a] + "\n"
 
-    aa = f.get('Album artist', [''])[0]
+    aa = f.get('Album artist', [''])[0].strip()
     if aa in artist_map:
         if not changed: x += "\n" + fname + "\n"
         changed = True
