@@ -55,14 +55,17 @@ Compression = 5
   Format = "%[3]s"
 
 [[Overrides]]
-  Name = "python2-7"
-  Regex = 'mcomix'
+  Regex = 'bin/mcomix '
   Delegate = "/home/desuwa/.config/screenshotter/mcomix-manga.sh"
 
 [[Overrides]]
-  Name = "python2-7"
-  Regex = '^/usr/bin/python.*/bin/([^/ ]+)( .*)?'
-  Format = "%[2]s"
+  Regex = 'bin/mcomix '
+  Format = "mcomix"
+  Yearly = true
+
+[[Overrides]]
+  Regex = '^/usr/bin/python(\d(.\d)?)? .*/\.?bin/([^/ ]+)( .*)?'
+  Format = "%[4]s"
 
 [[Overrides]]
   Name = "watch"
@@ -83,10 +86,6 @@ Compression = 5
 
 [[Overrides]]
   Name = "firefox"
-  Yearly = true
-
-[[Overrides]]
-  Name = "mcomix"
   Yearly = true
 
 [[Overrides]]
