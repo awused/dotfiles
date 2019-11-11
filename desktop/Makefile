@@ -149,9 +149,10 @@ ncnn:
 		-DCMAKE_BUILD_TYPE=Release ..; \
 	  $(MAKE) install;
 
-waifu2x-vulkan: ncnn
-	  cd "${THIRD_PARTY_SOURCE}/waifu2x-ncnn-vulkan"; \
+waifu2x-vulkan:
+	  cd "${THIRD_PARTY_SOURCE}/waifu2x-ncnn-vulkan/src"; \
 	  rm -rf build/; mkdir build; cd build; \
+	  ncnn_DIR="${THIRD_PARTY_SOURCE}/temp/ncnn/lib/cmake" \
 	  LDFLAGS="-L${THIRD_PARTY_SOURCE}/temp/ncnn/lib" cmake ..; \
 	  CPLUS_INCLUDE_PATH="${THIRD_PARTY_SOURCE}/temp/ncnn/include" $(MAKE); \
 	  mv waifu2x-ncnn-vulkan ~/.bin/

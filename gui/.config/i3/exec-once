@@ -5,9 +5,18 @@
 # Show program if it's hidden
 # Move all windows of a program to this workspace if it's only visible somewhere else
 # Hide all windows of a program if any are visible on this workspace
+
+# $1 - window class
+# $2 - executable name
+# $3 - startup command
+# $4 - optional: working directory
 set -e
 
 class=$1
+
+if [[ $4 != "" ]]; then
+  cd "$4"
+fi
 
 count=$(pgrep -u $USER -f -c $2)
 # Expect to match this shell script

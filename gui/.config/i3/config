@@ -30,6 +30,7 @@ set $m_top "HDMI-2"
 smart_borders on
 smart_gaps on
 gaps inner 10
+gaps bottom -7 # Workaround polybar and mainline i3-gaps not working together
 
 
 #{{{ General Purpose Workspaces
@@ -150,7 +151,7 @@ for_window [class="keepassxc"] floating enable border normal
 bindsym $mod+Shift+k exec --no-startup-id ~/.config/i3/exec-once keepassxc keepassxc keepassxc
 
 for_window [instance="foobar2000.exe"] floating enable
-bindsym $mod+Shift+f exec --no-startup-id ~/.config/i3/exec-once "foobar2000.exe" "foobar2000\.exe" "wine $HOME/.foobar2000/foobar2000.exe"
+bindsym $mod+Shift+f exec --no-startup-id ~/.config/i3/exec-once "foobar2000.exe" "foobar2000\.exe" "wine foobar2000.exe" "$HOME/.foobar2000"
 
 for_window [instance="emuera-anchor.exe"] floating enable
 for_window [instance="emuera-anchor-sprite-blueberry.exe"] floating enable

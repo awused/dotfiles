@@ -30,7 +30,7 @@ Waifu2xNCNNVulkan = 'waifu2x-ncnn-vulkan'
 # The path to the chosen model for waifu2x-ncnn-vulkan.
 # The CUNET model is recommended for quality.
 # Speed is of minimal importance since all wallpapers are cached.
-Waifu2xNCNNVulkanModels = '/storage/src/third_party/waifu2x-ncnn-vulkan/models-cunet'
+Waifu2xNCNNVulkanModels = '/storage/src/third_party/waifu2x-ncnn-vulkan/models/models-cunet'
 
 # Where to find waifu2x-caffe-cui.exe on Windows
 # If uncommented this takes precedence over waifu2x-converter-cpp
@@ -48,7 +48,7 @@ Waifu2xNCNNVulkanModels = '/storage/src/third_party/waifu2x-ncnn-vulkan/models-c
 
 # Where to find waifu2x-converter-cpp's models_rgb directory
 # No trailing slash
-Waifu2xCPPModels = '/storage/src/third_party/waifu2x-converter-cpp/models_rgb'
+# Waifu2xCPPModels = '/storage/src/third_party/waifu2x-converter-cpp/models_rgb'
 
 # Uncomment to do waifu2x scaling on the CPU.
 # Not recommended, even for background processing, unless you're very patient.
