@@ -113,6 +113,7 @@ loudness-scanner: sudo
 
 mpv: sudo
 	cd ${THIRD_PARTY_SOURCE}/mpv; \
+	  ./waf clean; \
 	  ./waf configure; ./waf; sudo ./waf install
 
 rofi: sudo

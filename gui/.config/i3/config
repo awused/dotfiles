@@ -109,6 +109,7 @@ workspace $wsyt output $m_center
 
 set $wstm "transmission"
 bindsym $mod+t workspace $wstm
+assign [class="Transmission-gtk"] $wstm
 assign [class="Transgui"] $wstm
 workspace $wstm output $m_top
 

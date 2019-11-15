@@ -13,7 +13,7 @@ export GOOGLE_PROJECT_ID="$(get-automation-password restic-google-project)"
 export GOOGLE_APPLICATION_CREDENTIALS=$usbdir/.restic-robot.json
 
 
-restic \
+sudo -E restic \
   -r "$(get-automation-password restic-bucket)" \
   "$@" \
   --cache-dir=$cacheroot/cache \
