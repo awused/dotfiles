@@ -51,8 +51,8 @@ Compression = 5
 
 [[Overrides]]
   Name = "wine32-preloader"
-  Regex = '^.*(/|\\)([^/\ ]+)\.exe'
-  Format = "%[3]s"
+  Regex = '^(.*(/|\\))?([^/\ ]+)\.exe'
+  Format = "%[4]s"
 
 [[Overrides]]
   Regex = 'bin/mcomix '
