@@ -1,12 +1,24 @@
 #!/bin/sh
 # ~/bin/restic-backup
 
-usbdir=/media/BACKUPS/google_cloud_storage
+#usbdir=/media/BACKUPS/google_cloud_storage
+usbdir=/root
 cacheroot=/cache/restic
 host=`hostname`
 
 if [ "`uname`" = "Linux" ]; then
   usbdir=/run/media/$USER/BACKUPS/google_cloud_storage
+elif [ "`uname`" = "FreeBSD" ]; then
+  tree 50 /storage/media/users/desuwa/Music > ~/.music-dir
+  tree 50 /storage/media/users/desuwa/Videos > ~/.videos-dir
+  # None of the following directories are backed up directly
+  tree 50 "/storage/media/users/desuwa/Unsorted Downloads" > ~/.unsorted-dir
+  tree 50 /storage/media/anime > ~/.anime-dir
+  tree 50 /storage/media/manga > ~/.manga-dir
+  tree 50 /storage/media/ebooks > ~/.ebooks-dir
+  tree 50 /storage/media/movies_tv > ~/.movies-dir
+  tree 50 /storage/media/music > ~/.music-library-dir
+  tree 50 /storage/media/torrents/completed > ~/.completed-dir
 fi
 
 export TMPDIR=$cacheroot/tmp
