@@ -107,7 +107,7 @@ if [ ${problems} -eq 0 ]; then
       scrubDate=$(date -j -f '%Y%b%e %H:%M:%S' "$scrubRawDate" +%s)
     else
       scrubRawDate=$(/sbin/zpool status $volume | grep scrub | awk '{print $14 " " $15 ", " $17 " " $16}')
-      scrubDate=$(date --date $scrubRawDate +%s)
+      scrubDate=$(date --date "$scrubRawDate" +%s)
     fi
 
     ### Ubuntu with GNU supported date format
