@@ -2,7 +2,7 @@
 
 set -e
 
-title=$(xprop -id $SCREENSHOTTER_WINDOWID WM_NAME)
+title=$(xprop -id $SCREENSHOTTER_WINDOWID _NET_WM_NAME)
 
 beginning=$(echo $title | grep -b -o '= "' | cut -d: -f1 | head -n1)
 title=${title:($beginning + 3)}

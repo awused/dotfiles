@@ -297,6 +297,7 @@ export FZF_DEFAULT_OPTS='--height 40% --reverse --border --ansi -m'
 #export FZF_DEFAULT_COMMAND='fd --no-ignore --type file --hidden --follow --color "always" --exclude "**/{.git,node_modules,vendor,.sass-cache}"'
 export FZF_EXCLUDES=" \
   -not \( -name '.cache' -prune \) \
+  -not \( -name '.ccache' -prune \) \
   -not \( -name '.cargo' -prune \) \
   -not \( -path '*/.config/chromium' -prune \) \
   -not \( -name '.dbus' -prune \) \
@@ -310,7 +311,7 @@ export FZF_EXCLUDES=" \
   -not \( -name '.ipfs' -prune \) \
   -not \( -name '.jspm' -prune \) \
   -not \( -name '.kde' -prune \) \
-  -not \( -path '$HOME/.local' -prune \) \
+  -not \( -name '.local' -prune \) \
   -not \( -name '.m2' -prune \) \
   -not \( -name '.mozc' -prune \) \
   -not \( -name '.mozilla' -prune \) \

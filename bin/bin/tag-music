@@ -171,10 +171,12 @@ artist_map = {
 # TODO -- Handle replacement characters positionally?
 title_re = re.compile(u"[/?^\\<>\"'|:／,_.*＊-]")
 spaces_re = re.compile(u" ( )+")
+youtube_re = re.compile(u"-[a-zA-Z0-9_-]{11}$")
 
 
 def titlesDiffer(title, fnametitle):
-    fn = title_re.sub(" ", fnametitle)
+    fn = youtube_re.sub(" ", fnametitle)
+    fn = title_re.sub(" ", fn)
     ti = title_re.sub(" ", title)
     fn = spaces_re.sub(" ", fn)
     ti = spaces_re.sub(" ", ti)

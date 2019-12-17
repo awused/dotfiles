@@ -160,6 +160,8 @@ for_window [instance="game.exe"] floating enable
 for_window [class="Displaycal"] floating enable border normal
 for_window [class="File-roller"] floating enable
 for_window [class="Yad"] floating enable
+for_window [title="manage tags"] floating enable
+for_window [title="review services"] floating enable
 #}}}
 #{{{ Launchers
 # start a terminal

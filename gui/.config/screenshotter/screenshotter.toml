@@ -96,3 +96,8 @@ Compression = 5
   Name = "wine-preloader"
   Regex = 'noratoto1.exe$'
   Format = "Nora to Oujo to Noraneko Heart"
+
+[[Overrides]]
+  Name = "ppssppqt"
+  Delegate = "/home/desuwa/.config/screenshotter/ppsspp.sh"
+  Callback = "/home/desuwa/.config/screenshotter/ppsspp-callback.sh"
