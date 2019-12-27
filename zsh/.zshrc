@@ -105,6 +105,8 @@ alias ng='npm run-script ng --'
 alias ngserve='ng serve --aot'
 alias ngprod='npm run prod'
 alias ydl='youtube-dl'
+alias ytv='youtube-to-videos'
+alias ya='youtube-audio'
 
 alias mux='tmuxinator'
 alias tm='tmux attach -d -t main'
