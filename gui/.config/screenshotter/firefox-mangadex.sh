@@ -7,11 +7,15 @@ title=$(xprop -id $SCREENSHOTTER_WINDOWID WM_NAME)
 echo $title | grep -E 'Manga(Dex|Cat) - Mozilla Firefox"$' > /dev/null
 
 beginning=$(echo $title | grep -b -o '= "' | cut -d: -f1 | head -n1)
-title=${title:($beginning + 3)}
+fulltitle=${title:($beginning + 3)}
 
 # Naively assume manga won't have hyphenated titles with hyphens surrounded by
 # spaces. This will be wrong at times but can be manually overridden
-title=${title%% - *}
+title=${fulltitle%% - *}
+if [ "$title" = "GIRLS und PANZER" ]; then
+  title=${fulltitle%% - Ch*}
+fi
+
 # For series pages
 title=${title%% (Title)*}
 

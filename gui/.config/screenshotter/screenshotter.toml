@@ -51,6 +51,16 @@ Compression = 5
 
 [[Overrides]]
   Name = "wine32-preloader"
+  Regex = '^(.*(/|\\))?([^/]+) \d\.?\d\.?\d[[:lower:]]?\\Game.exe'
+  Format = "%[4]s"
+
+[[Overrides]]
+  Name = "wine32-preloader"
+  Regex = '^(.*(/|\\))?([^/]+)\\Game.exe'
+  Format = "%[4]s"
+
+[[Overrides]]
+  Name = "wine32-preloader"
   Regex = '^(.*(/|\\))?([^/\ ]+)\.exe'
   Format = "%[4]s"
 
