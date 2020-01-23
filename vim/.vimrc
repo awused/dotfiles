@@ -307,7 +307,7 @@ Plug 'christoomey/vim-tmux-navigator'
 "{{{ Code Formatting
 
 fun! s:ShouldFormat() abort
-  return expand('%:p') !~# '\V'.$THIRD_PARTY_SOURCE
+  return expand('%:p') !~# '\V'.$THIRD_PARTY_SOURCE && expand('%:p') !~# '\V/usr/ports'
 endfun
 
 augroup autoformat_settings

@@ -19,6 +19,8 @@ elif [ "`uname`" = "FreeBSD" ]; then
   tree 50 /storage/media/movies_tv > ~/.movies-dir
   tree 50 /storage/media/music > ~/.music-library-dir
   tree 50 /storage/media/torrents/completed > ~/.completed-dir
+
+  read -p "Press enter" a
 fi
 
 export TMPDIR=$cacheroot/tmp
