@@ -14,7 +14,7 @@ export LSCOLORS=ExGxdxdxCxDxDxBxBxegeg
 #export LS_COLORS='di=1;34:ln=1;36:so=33:pi=33:ex=1;32:bd=1;33:cd=1;33:su=1;31:sg=1;31:tw=34;46:ow=34;46'
 export GOBIN=$HOME/.gobin
 export NODE_PATH="$NODE_PATH:$HOME/.npm/lib/node_modules"
-export PATH=$PATH:$GOBIN:$HOME/.npm/bin
+export PATH=$PATH:$GOBIN:$HOME/.npm/bin:$HOME/.local/bin
 export PYTHONIOENCODING=UTF-8
 
 export SOURCE_DIR=/storage/src
@@ -34,7 +34,7 @@ test -r $HOME/.gcloud-sdk/path.zsh.inc && . $HOME/.gcloud-sdk/path.zsh.inc > /de
 #{{{ OS/Computer specific settings
 if [[ $(uname) == 'Linux' ]]; then
   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
-  export PATH=$HOME/.bin:$PATH:$HOME/.local/bin:$HOME/.cargo/bin
+  export PATH=$HOME/.bin:$PATH:$HOME/.cargo/bin
   export GTK_THEME=Arc-Dark
 fi
 
