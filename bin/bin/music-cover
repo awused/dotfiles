@@ -1,0 +1,27 @@
+#!/bin/sh
+
+set -e
+
+image=''
+music=''
+
+if [ $(file -b --mime-type "$1" | grep image) ]; then
+  image=$1
+  music=$2
+elif [ $(file -b --mime-type "$2" | grep image) ]; then
+  image=$2
+  music=$1
+else
+  echo "No image provided"
+  exit 1
+fi
+
+musicType=$(file -b --mime-type "$music")
+
+if [ "$musicType" = "audio/flac" ]; then
+  metaflac --import-picture-from="$image" "$music"
+else
+  echo "Unknown music mimetype $musicType"
+  exit 1
+fi
+

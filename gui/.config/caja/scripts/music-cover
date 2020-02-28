@@ -1,0 +1,5 @@
+#! /usr/bin/env bash
+
+readarray -t fa <<< "$CAJA_SCRIPT_SELECTED_FILE_PATHS"
+
+notify-send $(music-cover "${fa[0]}" "${fa[1]}")
