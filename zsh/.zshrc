@@ -90,6 +90,7 @@ zle -N self-insert url-quote-magic
 # {{{ Aliases
 alias j='jobs -l'
 alias cp='cp -i'
+alias mv='mv -i'
 alias pd='popd'
 #alias ls='ls -G'
 alias la='ls -aF'

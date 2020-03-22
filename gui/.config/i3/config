@@ -148,7 +148,7 @@ workspace $wsmx output $m_center
 bindsym Mod1+Shift+m move container to workspace $wsmx
 
 
-for_window [class="keepassxc"] floating enable border normal
+for_window [class="KeePassXC"] floating enable border normal
 bindsym $mod+Shift+k exec --no-startup-id ~/.config/i3/exec-once keepassxc keepassxc keepassxc
 
 for_window [instance="foobar2000.exe"] floating enable
@@ -320,7 +320,7 @@ exec_always --no-startup-id "killall dunst; dunst &"
 exec_always --no-startup-id "killall vmrpc-server; vmrpc-server &"
 exec_always --no-startup-id "ibus-daemon -drx"
 # Lock after 10 minutes
-exec_always --no-startup-id "killall xautolock; xautolock -time 110 -locker ~/.config/i3/lock -secure &"
+exec_always --no-startup-id "killall xautolock; xautolock -time 120 -locker ~/.config/i3/lock -secure &"
 # Deal with files being overwritten
 #exec_always --no-startup-id "rm -f ~/.config/user-dirs.dirs; rm -f ~/.config/mimeapps.list; cd ~/dotfiles && stow xdg"
 # Screens turn off after 30 minutes

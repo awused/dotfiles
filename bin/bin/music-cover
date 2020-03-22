@@ -20,6 +20,8 @@ musicType=$(file -b --mime-type "$music")
 
 if [ "$musicType" = "audio/flac" ]; then
   metaflac --import-picture-from="$image" "$music"
+elif [ "$musicType" = "audio/mpeg" ]; then
+  eyeD3 --add-image="${image}:FRONT_COVER" "$music"
 else
   echo "Unknown music mimetype $musicType"
   exit 1

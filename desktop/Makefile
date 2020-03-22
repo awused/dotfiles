@@ -76,11 +76,13 @@ go: wallpapers dispatcher add-to-transmission \
   hydrus-mover mpd-fzf mpd-rofi mpd-shuffler vmrpc rss-scrapers \
   strpick manga-upscaler
 
-
-windows-wallpapers:
+windows-clipboard:
 	cd /storage/winshare/gobin; \
-	  GOOS=windows go build -ldflags -H=windowsgui github.com/awused/wallpapers; \
-	  GOOS=windows go build -o wallcon.exe github.com/awused/wallpapers
+	  GOOS=windows go build -ldflags -H=windowsgui github.com/awused/public-clipboard
+
+windows-quiet-cmd:
+	cd /storage/winshare/gobin; \
+	  GOOS=windows go build -ldflags -H=windowsgui github.com/awused/quiet-cmd
 
 windows-sharex: vmrpc
 	cd /storage/winshare/gobin; \
@@ -90,11 +92,12 @@ windows-vmrpc: vmrpc
 	cd /storage/winshare/gobin; \
 	  GOOS=windows go build -ldflags -H=windowsgui github.com/awused/vmrpc/vmrpc-client
 
-windows-clipboard:
+windows-wallpapers:
 	cd /storage/winshare/gobin; \
-	  GOOS=windows go build -ldflags -H=windowsgui github.com/awused/public-clipboard
+	  GOOS=windows go build -ldflags -H=windowsgui github.com/awused/wallpapers; \
+	  GOOS=windows go build -o wallcon.exe github.com/awused/wallpapers
 
-windows-go: windows-wallpapers windows-sharex windows-vmrpc windows-clipboard
+windows-go: windows-wallpapers windows-sharex windows-vmrpc windows-clipboard windows-quiet-cmd
 
 # Third party code
 bfs: sudo
@@ -112,17 +115,10 @@ loudness-scanner: sudo
 	  rm -rf fedora/; mkdir -p fedora; cd fedora; \
 	  cmake ..; $(MAKE); sudo $(MAKE) install
 
-mpv: sudo
-	cd ${THIRD_PARTY_SOURCE}/mpv; \
-	  ./waf clean; \
-	  ./waf configure; ./waf; sudo ./waf install
-
-rofi: sudo
-	cd ${THIRD_PARTY_SOURCE}/rofi; \
-	  git submodule update; \
-	  autoreconf --force --install; \
-	  rm -rf build; mkdir -p build; cd build; \
-	  ../configure; $(MAKE); sudo $(MAKE) install
+# mpv: sudo
+# 	cd ${THIRD_PARTY_SOURCE}/mpv; \
+# 	  ./waf clean; \
+# 	  ./waf configure; ./waf; sudo ./waf install
 
 scream:
 	cd ${THIRD_PARTY_SOURCE}/scream/Receivers/pulseaudio-ivshmem; \
@@ -137,11 +133,11 @@ timg: sudo
 	cd ${THIRD_PARTY_SOURCE}/timg/src; $(MAKE) clean; \
 	  git checkout master; $(MAKE); sudo $(MAKE) install
 
-waifu2x: sudo
-	cd ${THIRD_PARTY_SOURCE}/waifu2x-converter-cpp; \
-	  rm -rf fedora/; mkdir -p fedora; cd fedora; CC=cuda-gcc CPP=cuda-++ CXX=cuda-g++ LD=cuda-g++ cmake ..; \
-	  rg-replace '/usr/bin/nvcc -arch=sm_30' -r '/usr/bin/nvcc --compiler-bindir /usr/bin/cuda-gcc -arch=sm_30' **/* \
-	  $(MAKE); sudo $(MAKE) install
+# waifu2x: sudo
+# 	cd ${THIRD_PARTY_SOURCE}/waifu2x-converter-cpp; \
+# 	  rm -rf fedora/; mkdir -p fedora; cd fedora; CC=cuda-gcc CPP=cuda-++ CXX=cuda-g++ LD=cuda-g++ cmake ..; \
+# 	  rg-replace '/usr/bin/nvcc -arch=sm_30' -r '/usr/bin/nvcc --compiler-bindir /usr/bin/cuda-gcc -arch=sm_30' **/* \
+# 	  $(MAKE); sudo $(MAKE) install
 
 ncnn:
 	rm -rf "${THIRD_PARTY_SOURCE}/temp/ncnn"; cd ${THIRD_PARTY_SOURCE}/ncnn; \
@@ -160,15 +156,9 @@ waifu2x-vulkan: ncnn
 	  mv waifu2x-ncnn-vulkan ~/.bin/
 
 
-polybar:
-	cd ${THIRD_PARTY_SOURCE}/polybar; \
-	  rm -rf build/; mkdir -p build; cd build; cmake ..; \
-	  $(MAKE); sudo $(MAKE) install
-
-
-
-third-party: bfs i3-gaps loudness-scanner rofi split2flac timg waifu2x waifu2x-vulkan \
-  polybar scream mpv
+third-party: bfs i3-gaps loudness-scanner split2flac timg waifu2x-vulkan \
+  scream
+  # waifu2x mpv
 
 all-install: go third-party
 
@@ -179,16 +169,16 @@ gems: sudo
 pip: sudo
 	sudo pip3 install pip --upgrade
 	python3 -m pip install \
-	 $$(pip3 list --format=columns --outdated \
+	 $$(pip3 list --format=columns --outdated --user \
 	   | sed 1,2d | tr '\n' ' ' | sed -r 's/ +/ /g' \
-	   | awk -v RS=" " '1==NR%4' | grep -v -E 'libvirt|wxPython|bodhi' ) \
+	   | awk -v RS=" " '1==NR%4') \
 	   --upgrade --user || true
-	sudo pip2 install pip --upgrade
-	pip2 install \
-	 $$(pip2 list --format=columns --outdated \
-	   | sed 1,2d | tr '\n' ' ' | sed -r 's/ +/ /g' \
-	   | awk -v RS=" " '1==NR%4' | grep -v -E 'libvirt|wxPython|bodhi' ) \
-	   --upgrade --user
+	# sudo pip2 install pip --upgrade
+	# pip2 install \
+	#  $$(pip2 list --format=columns --outdated \
+	#    | sed 1,2d | tr '\n' ' ' | sed -r 's/ +/ /g' \
+	#    | awk -v RS=" " '1==NR%4' | grep -v -E 'libvirt|wxPython|bodhi' ) \
+	#    --upgrade --user
 npm:
 	npm update -g
 
