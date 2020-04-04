@@ -122,8 +122,8 @@ loudness-scanner: sudo
 # 	  ./waf configure; ./waf; sudo ./waf install
 
 scream:
-	cd ${THIRD_PARTY_SOURCE}/scream/Receivers/pulseaudio-ivshmem; \
-	  $(MAKE); mv scream-ivshmem-pulse ~/.bin/
+	cd ${THIRD_PARTY_SOURCE}/scream/Receivers/linux/pulseaudio; \
+	  $(MAKE); mv scream-pulse ~/.bin/
 
 split2flac: sudo
 	sudo mkdir -p /usr/local/bin ; \
