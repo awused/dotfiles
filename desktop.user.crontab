@@ -9,7 +9,7 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/home/desuwa/.
 # |  |  |  |  |
 # *  *  *  *  *  command to be executed
   0  0  *  *  * ~/.cron/zfs_health
-  */15  *  *  *  * wallpapers random --unlocked --no-fullscreen
+  */15  *  *  *  * wallpapers random --unlocked --no-fullscreen --no-mpv /tmp/mpvsocket
 # 0  7  *  *  *  upscale-directory
   0  8  *  *  sun  gio trash --empty
   0  8  *  *  sun ~/.cron/empty-nfs-trash

@@ -9,54 +9,43 @@ sudo:
 # Go
 
 add-to-transmission:
-	go install github.com/awused/add-to-transmission
+	cd ${GOPATH}/src/github.com/awused/add-to-transmission; go install
 
 dispatcher:
-	go install github.com/awused/dispatcher
+	cd ${GOPATH}/src/github.com/awused/dispatcher; go install
 
 hydrus-mover:
-	go install github.com/awused/hydrus-mover
+	cd ${GOPATH}/src/github.com/awused/hydrus-mover; go install
 
 madokami:
-	go install github.com/awused/madokami
+	cd ${GOPATH}/src/github.com/awused/madokami; go install
 
 manga-upscaler:
-	go install github.com/awused/manga-upscaler
+	cd ${GOPATH}/src/github.com/awused/manga-upscaler; go install
 
 mpd-fzf:
-	go install github.com/awused/mpd-fzf
+	cd ${GOPATH}/src/github.com/awused/mpd-fzf; go install
 
 mpd-rofi:
-	go install github.com/awused/mpd-rofi
+	cd ${GOPATH}/src/github.com/awused/mpd-rofi; go install
 
 mpd-shuffler:
-	go install github.com/awused/mpd-shuffler
+	cd ${GOPATH}/src/github.com/awused/mpd-shuffler; go install
 
 public-clipboard:
-	go install github.com/awused/public-clipboard
+	cd ${GOPATH}/src/github.com/awused/public-clipboard; go install
 
 rss-scrapers:
-	go install github.com/awused/rss-scrapers/amiami-rss
-	go install github.com/awused/rss-scrapers/awkward-rss
-	go install github.com/awused/rss-scrapers/fiction-rss
-	go install github.com/awused/rss-scrapers/gelbooru-rss
-	go install github.com/awused/rss-scrapers/jnovel-rss
-	go install github.com/awused/rss-scrapers/mangaplus-rss
-	go install github.com/awused/rss-scrapers/panda-rss
-	go install github.com/awused/rss-scrapers/royalroad-rss
-	go install github.com/awused/rss-scrapers/seasonal-anime-rss
-	go install github.com/awused/rss-scrapers/tfgames-rss
-	go install github.com/awused/rss-scrapers/vn-news-rss
-	go install github.com/awused/rss-scrapers/webnovel-rss
+	cd ${GOPATH}/src/github.com/awused/rss-scrapers; go install ./...
 
 screenshotter:
-	go install github.com/awused/screenshotter
+	cd ${GOPATH}/src/github.com/awused/screenshotter; go install
 
 strpick:
-	go install github.com/awused/go-strpick/strpick
+	cd ${GOPATH}/src/github.com/awused/go-strpick/strpick; go install
 
 upscale-directory:
-	go install github.com/awused/upscale-directory
+	cd ${GOPATH}/src/github.com/awused/upscale-directory; go install
 
 vmrpc:
 	cd ${GOPATH}/src/github.com/awused/vmrpc/clipboard; \
@@ -65,11 +54,11 @@ vmrpc:
 	  protoc --go_out=plugins=grpc:. *.proto
 	cd ${GOPATH}/src/github.com/awused/vmrpc/scream; \
 	  protoc --go_out=plugins=grpc:. *.proto
-	go install github.com/awused/vmrpc/vmrpc-server
-	go install github.com/awused/vmrpc/vmrpc-client
+	cd ${GOPATH}/src/github.com/awused/vmrpc/vmrpc-server; go install
+	cd ${GOPATH}/src/github.com/awused/vmrpc/vmrpc-client; go install
 
 wallpapers:
-	go install github.com/awused/wallpapers
+	cd ${GOPATH}/src/github.com/awused/wallpapers; go install
 
 
 go: wallpapers dispatcher add-to-transmission \
@@ -94,9 +83,10 @@ windows-vmrpc: vmrpc
 	  GOOS=windows go build -ldflags -H=windowsgui github.com/awused/vmrpc/vmrpc-client
 
 windows-wallpapers:
-	cd /storage/winshare/gobin; \
-	  GOOS=windows go build -ldflags -H=windowsgui github.com/awused/wallpapers; \
-	  GOOS=windows go build -o wallcon.exe github.com/awused/wallpapers
+	cd ${GOPATH}/src/github.com/awused/wallpapers; \
+	  GOOS=windows go build -ldflags -H=windowsgui; \
+	  GOOS=windows go build -o wallcon.exe; \
+	  mv wallpapers.exe wallcon.exe /storage/winshare/gobin/
 
 windows-go: windows-wallpapers windows-sharex windows-vmrpc windows-clipboard windows-quiet-cmd
 

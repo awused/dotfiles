@@ -6,27 +6,16 @@ sudo:
 	sudo echo "Starting"
 
 steam-screenshots:
-	go install github.com/awused/steam-screenshots
+	cd ${GOPATH}/src/github.com/awused/steam-screenshots; go install
 
 rss-scrapers:
-	go install github.com/awused/rss-scrapers/amiami-rss
-	go install github.com/awused/rss-scrapers/awkward-rss
-	go install github.com/awused/rss-scrapers/fiction-rss
-	go install github.com/awused/rss-scrapers/gelbooru-rss
-	go install github.com/awused/rss-scrapers/jnovel-rss
-	go install github.com/awused/rss-scrapers/mangaplus-rss
-	go install github.com/awused/rss-scrapers/panda-rss
-	go install github.com/awused/rss-scrapers/royalroad-rss
-	go install github.com/awused/rss-scrapers/seasonal-anime-rss
-	go install github.com/awused/rss-scrapers/tfgames-rss
-	go install github.com/awused/rss-scrapers/vn-news-rss
-	go install github.com/awused/rss-scrapers/webnovel-rss
+	cd ${GOPATH}/src/github.com/awused/rss-scrapers; go install ./...
 
 rss:
-	go install github.com/awused/aw-rss
+	cd ${GOPATH}/src/github.com/awused/aw-rss; go install
 
 hydrus-mover:
-	go install github.com/awused/hydrus-mover
+	cd ${GOPATH}/src/github.com/awused/hydrus-mover; go install
 
 go: steam-screenshots rss rss-scrapers hydrus-mover
 
