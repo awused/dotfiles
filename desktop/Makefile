@@ -95,6 +95,10 @@ bfs: sudo
 	cd ${THIRD_PARTY_SOURCE}/bfs; $(MAKE) clean; \
 	  $(MAKE); sudo $(MAKE) install
 
+ddcutil: sudo
+	cd ${THIRD_PARTY_SOURCE}/ddcutil; ./autogen.sh; \
+	  $(MAKE); sudo $(MAKE) install
+
 i3-gaps: sudo
 	cd ${THIRD_PARTY_SOURCE}/i3-gaps; \
 	  autoreconf --force --install; \
@@ -147,8 +151,8 @@ waifu2x-vulkan: ncnn
 	  mv waifu2x-ncnn-vulkan ~/.bin/
 
 
-third-party: bfs i3-gaps loudness-scanner split2flac timg waifu2x-vulkan \
-  scream
+third-party: bfs ddcutil i3-gaps loudness-scanner scream split2flac timg \
+	waifu2x-vulkan
   # waifu2x mpv
 
 all-install: go third-party

@@ -186,9 +186,9 @@ bindsym $mod+minus scratchpad show
 #}}}
 #{{{ Other Commands
 # reload the configuration file
-bindsym $mod+Shift+r reload
+bindsym $mod+Shift+o reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym Mod1+Shift+r restart
+bindsym Mod1+Shift+o restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 # Give pulseaudio its necessary kick
@@ -200,6 +200,10 @@ bindsym Ctrl+Mod1+l exec --no-startup-id "xset dpms 10 10 10; ~/.config/i3/lock"
 bindsym $mod+Shift+w exec --no-startup-id wallpapers random
 bindsym $mod+Shift+d exec --no-startup-id ~/.config/i3/show-desktop
 bindsym $mod+Mod1+d exec --no-startup-id ~/.config/i3/show-desktop false
+
+bindsym $mod+Shift+r exec --no-startup-id redshift-toggle
+bindsym Mod1+Shift+r exec --no-startup-id redshift-reset
+bindsym Mod1+Shift+t exec --no-startup-id toggle-monitors
 
 # Screenshots
 # Edit /etc/sysctl.d/99-sysctl.conf with kernel.sysrq = 0
@@ -326,7 +330,7 @@ exec_always --no-startup-id "killall xautolock; xautolock -time 120 -locker ~/.c
 # Screens turn off after 30 minutes
 # Setting s off breaks xautolock
 
-exec_always --no-startup-id "dispwin -d 1 ~/.icc/top.icc; dispwin -d 2 ~/.icc/center.icc; dispwin -d 3 ~/.icc/left.icc; dispwin -d 4 ~/.icc/right.icc"
+exec_always --no-startup-id "redshift-reset"
 
 exec --no-startup-id xset s 7200 dpms 7200 7200 7200
 exec --no-startup-id "~/.fehbg || :"

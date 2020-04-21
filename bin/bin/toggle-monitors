@@ -1,0 +1,23 @@
+#!/bin/sh
+# Toggles secondary monitors on and off.
+# Load i2c-dev and set these rules in /etc/udev/rules.d/45-ddcutil-i2c.rules
+# KERNEL=="i2c-[0-9]*", GROUP="desuwa", MODE="0660", PROGRAM="/usr/local/bin/ddcutil --bus=%n getvcp D6"
+# KERNEL=="i2c-[0-9]*", GROUP="desuwa", MODE="0660", PROGRAM="/usr/local/bin/ddcutil --bus=%n setvcp D6 0x%n"
+
+tempfile=/tmp/.monitors-disabled
+
+if [ ! -f "$tempfile" ]; then
+  touch "$tempfile"
+  ddcutil --bus 7 --nodetect setvcp D6 0x02 &
+  ddcutil --bus 9 --nodetect setvcp D6 0x02 &
+  ddcutil --bus 10 --nodetect setvcp D6 0x02 &
+else
+  rm "$tempfile"
+  # The monitors erroneously believe they're in on (0x01) state when they're
+  # in standby (0x02), so writing 0x01 won't help
+  # The displayport monitors completely lose their connection once they're
+  # powered off (0x04) and aren't responsive.
+  # DPMS has a global state, but the monitors are all in standby mode,
+  # and won't leave it unless the global state transisions back to on.
+  xset dpms force standby; xset dpms force on
+fi

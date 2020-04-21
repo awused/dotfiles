@@ -1,0 +1,9 @@
+#!/bin/sh
+
+killall -q -e redshift
+
+rm /tmp/.redshift-disabled
+
+dispwin -d 1 ~/.icc/top.icc; dispwin -d 2 ~/.icc/center.icc; dispwin -d 3 ~/.icc/left.icc; dispwin -d 4 ~/.icc/right.icc
+
+redshift
