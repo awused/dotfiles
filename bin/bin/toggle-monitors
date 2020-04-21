@@ -8,9 +8,16 @@ tempfile=/tmp/.monitors-disabled
 
 if [ ! -f "$tempfile" ]; then
   touch "$tempfile"
-  ddcutil --bus 7 --nodetect setvcp D6 0x02 &
-  ddcutil --bus 9 --nodetect setvcp D6 0x02 &
-  ddcutil --bus 10 --nodetect setvcp D6 0x02 &
+  # Only disable the left monitor if it's connected to this machine,
+  # but still do them all at the same time.
+  if ddcutil --bus 9 --nodetect getvcp 60 | grep -q 0x0f; then
+    ddcutil --bus 7 --nodetect setvcp D6 0x02 &
+    ddcutil --bus 9 --nodetect setvcp D6 0x02 &
+    ddcutil --bus 10 --nodetect setvcp D6 0x02 &
+  else
+    ddcutil --bus 7 --nodetect setvcp D6 0x02 &
+    ddcutil --bus 10 --nodetect setvcp D6 0x02 &
+  fi
 else
   rm "$tempfile"
   # The monitors erroneously believe they're in on (0x01) state when they're
