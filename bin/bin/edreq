@@ -3,7 +3,7 @@ set -e
 
 [ -e "$1" ] ||
 {
-	echo 'edreq.sh v1.0 - 2015/10/23, 21:04'
+        echo 'edreq.sh v1.1 - 2016/12/15, 18:23'
 	echo "Need a filename or directory name"
 	exit 1
 }
@@ -27,10 +27,14 @@ curl=$(which curl) || curl=''
 }
 
 echo -n "Uploading $1 ... "
+tp=$(($(date +%s%N)/1000000))
 
 [ $curl ] &&
 {
-	"$curl" -s -F "f[]"=@"$1" https://ocv.me/up/ | grep 'you upped' | sed 's/^[^<]*<h1>//'
+	"$curl" -s https://ocv.me/up1/?ts=$tp
+
+	tl=$(($(date +%s%N)/1000000))
+	"$curl" -s -F "f[]=@\"$1\"" -F "tp=$tp" -F "tl=$tl" https://ocv.me/up1/ | grep 'you upped' | sed 's/^[^<]*<h1>\([^<]*\).*/\1/'
 	exit 0
 }
 

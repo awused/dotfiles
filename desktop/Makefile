@@ -52,6 +52,8 @@ vmrpc:
 	  protoc --go_out=plugins=grpc:. *.proto
 	cd ${GOPATH}/src/github.com/awused/vmrpc/mpd; \
 	  protoc --go_out=plugins=grpc:. *.proto
+	cd ${GOPATH}/src/github.com/awused/vmrpc/monitors; \
+	  protoc --go_out=plugins=grpc:. *.proto
 	cd ${GOPATH}/src/github.com/awused/vmrpc/scream; \
 	  protoc --go_out=plugins=grpc:. *.proto
 	cd ${GOPATH}/src/github.com/awused/vmrpc/vmrpc-server; go install
@@ -67,20 +69,24 @@ go: wallpapers dispatcher add-to-transmission \
   strpick manga-upscaler
 
 windows-clipboard:
-	cd /storage/winshare/gobin; \
-	  GOOS=windows go build -ldflags -H=windowsgui github.com/awused/public-clipboard
+	cd ${GOPATH}/src/github.com/awused/public-clipboard; \
+	  GOOS=windows go build -ldflags -H=windowsgui; \
+	  mv *.exe /storage/winshare/gobin/
 
 windows-quiet-cmd:
-	cd /storage/winshare/gobin; \
-	  GOOS=windows go build -ldflags -H=windowsgui github.com/awused/quiet-cmd
+	cd ${GOPATH}/src/github.com/awused/quiet-cmd; \
+	  GOOS=windows go build -ldflags -H=windowsgui; \
+	  mv *.exe /storage/winshare/gobin/
 
 windows-sharex: vmrpc
-	cd /storage/winshare/gobin; \
-	  GOOS=windows go build -ldflags -H=windowsgui github.com/awused/sharex-mover
+	cd ${GOPATH}/src/github.com/awused/sharex-mover; \
+	  GOOS=windows go build -ldflags -H=windowsgui; \
+	  mv *.exe /storage/winshare/gobin/
 
 windows-vmrpc: vmrpc
-	cd /storage/winshare/gobin; \
-	  GOOS=windows go build -ldflags -H=windowsgui github.com/awused/vmrpc/vmrpc-client
+	cd ${GOPATH}/src/github.com/awused/vmrpc/vmrpc-client; \
+	  GOOS=windows go build -ldflags -H=windowsgui; \
+	  mv *.exe /storage/winshare/gobin/
 
 windows-wallpapers:
 	cd ${GOPATH}/src/github.com/awused/wallpapers; \

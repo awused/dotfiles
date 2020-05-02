@@ -102,7 +102,7 @@ set $wsmpv "mpv"
 bindsym $mod+m workspace $wsmpv
 set $wsyt "youtube"
 bindsym $mod+y workspace $wsyt
-for_window [class="mpv" workspace="^(?!firefox$)"] move window to workspace $wsmpv focus
+for_window [class="mpv" workspace="^(?!firefox$)"] floating enable move window to workspace $wsmpv focus
 for_window [class="mpv" workspace="firefox"] move window to workspace $wsyt
 workspace $wsmpv output $m_center
 workspace $wsyt output $m_center
@@ -203,6 +203,8 @@ bindsym $mod+Mod1+d exec --no-startup-id ~/.config/i3/show-desktop false
 
 bindsym $mod+Shift+r exec --no-startup-id redshift-toggle
 bindsym Mod1+Shift+r exec --no-startup-id redshift-reset
+
+bindsym $mod+Shift+t exec --no-startup-id swap-vm-monitors
 bindsym Mod1+Shift+t exec --no-startup-id toggle-monitors
 
 # Screenshots

@@ -1,0 +1,13 @@
+#!/bin/sh
+# Toggles secondary monitors on and off.
+# Load i2c-dev and set these rules in /etc/udev/rules.d/45-ddcutil-i2c.rules
+# KERNEL=="i2c-[0-9]*", GROUP="desuwa", MODE="0660", PROGRAM="/usr/local/bin/ddcutil --bus=%n getvcp D6"
+# KERNEL=="i2c-[0-9]*", GROUP="desuwa", MODE="0660", PROGRAM="/usr/local/bin/ddcutil --bus=%n setvcp D6 0x%n"
+
+# Can only do one of the two right now
+if ddcutil --bus 9 --nodetect getvcp 60 | grep -q 0x0f; then
+  ddcutil --bus 9 --nodetect setvcp 60 0x11 &
+else
+  ddcutil --bus 9 --nodetect setvcp 60 0x0f &
+fi
+
