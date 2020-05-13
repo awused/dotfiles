@@ -86,7 +86,10 @@ windows-sharex: vmrpc
 windows-vmrpc: vmrpc
 	cd ${GOPATH}/src/github.com/awused/vmrpc/vmrpc-client; \
 	  GOOS=windows go build -ldflags -H=windowsgui; \
-	  mv *.exe /storage/winshare/gobin/
+	  mv *.exe /storage/winshare/gobin/; \
+	cd ${GOPATH}/src/github.com/awused/vmrpc/vmrpc-client; \
+	  GOOS=windows go build; \
+	  mv vmrpc-client.exe /storage/winshare/gobin/vmrpc-client-debug.exe
 
 windows-wallpapers:
 	cd ${GOPATH}/src/github.com/awused/wallpapers; \
@@ -122,8 +125,9 @@ loudness-scanner: sudo
 # 	  ./waf configure; ./waf; sudo ./waf install
 
 scream:
-	cd ${THIRD_PARTY_SOURCE}/scream/Receivers/linux/pulseaudio; \
-	  $(MAKE); mv scream-pulse ~/.bin/
+	cd ${THIRD_PARTY_SOURCE}/scream/Receivers/unix; \
+	  rm -rf build/; mkdir build; cd build; \
+	  cmake ..; $(MAKE); mv scream ~/.bin/
 
 split2flac: sudo
 	sudo mkdir -p /usr/local/bin ; \
@@ -165,21 +169,14 @@ all-install: go third-party
 
 gems: sudo
 	gem update
-	sudo gem update
+	#sudo gem update
 
-pip: sudo
-	sudo pip3 install pip --upgrade
+pip:
 	python3 -m pip install \
 	 $$(pip3 list --format=columns --outdated --user \
 	   | sed 1,2d | tr '\n' ' ' | sed -r 's/ +/ /g' \
 	   | awk -v RS=" " '1==NR%4') \
 	   --upgrade --user || true
-	# sudo pip2 install pip --upgrade
-	# pip2 install \
-	#  $$(pip2 list --format=columns --outdated \
-	#    | sed 1,2d | tr '\n' ' ' | sed -r 's/ +/ /g' \
-	#    | awk -v RS=" " '1==NR%4' | grep -v -E 'libvirt|wxPython|bodhi' ) \
-	#    --upgrade --user
 npm:
 	npm update -g
 
@@ -189,6 +186,7 @@ opam:
 
 flatpak:
 	flatpak update --user
+	flatpak uninstall --unused
 
 #go-update:
 #	go get -u all

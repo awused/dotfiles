@@ -344,4 +344,7 @@ exec_always --no-startup-id "killall manga-upscaler; manga-upscaler > ~/.manga-u
 exec_always --no-startup-id "sudo /usr/bin/nvidia-smi -i 0 -pl 375"
 exec_always --no-startup-id "nvidia-settings -a '[gpu:0]/GPUGraphicsClockOffset[3]=60'"
 exec_always --no-startup-id "nvidia-settings -a '[gpu:0]/GPUMemoryTransferRateOffset[3]=200'"
+
+# udev rules are not consistently applied, give them a kick
+exec_always --no-startup-id "udevadm trigger"
 #}}}

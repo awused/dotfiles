@@ -1,0 +1,5 @@
+#!/bin/sh
+
+killall scream
+#nohup scream -o pulse -m /dev/shm/scream-ivshmem > /dev/null 2>&1 &
+nohup scream -o pulse -u -i anet0 > /dev/null 2>&1 &

@@ -37,6 +37,10 @@ Compression = 5
   Format = "vim"
 
 [[Overrides]]
+  Name = "gvim"
+  Format = "vim"
+
+[[Overrides]]
   Name = "i3"
   Format = "desktop"
 
@@ -51,7 +55,7 @@ Compression = 5
 
 [[Overrides]]
   Name = "wine32-preloader"
-  Regex = '^(.*(/|\\))?([^/]+) \d\.?\d\.?\d[[:lower:]]?\\Game.exe'
+  Regex = '^(.*(/|\\))?([^/]+) ?\d\.?\d\.?\d[[:lower:]]?\\Game.exe'
   Format = "%[4]s"
 
 [[Overrides]]
