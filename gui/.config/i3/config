@@ -207,6 +207,9 @@ bindsym Mod1+Shift+r exec --no-startup-id redshift-reset
 bindsym $mod+Shift+t exec --no-startup-id swap-vm-monitors
 bindsym Mod1+Shift+t exec --no-startup-id toggle-monitors
 
+bindcode Ctrl+105 exec --no-startup-id swap-vm-usb
+
+
 # Screenshots
 # Edit /etc/sysctl.d/99-sysctl.conf with kernel.sysrq = 0
 # Change to allow full desktop screenshots. In practice I never take these

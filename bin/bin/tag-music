@@ -56,8 +56,7 @@ parser.add_argument(
 parser.add_argument("directory",
                     help="The directory to be scanned, - for stdin",
                     nargs="?",
-                    default=u".",
-                    type=unicode)
+                    default=u".")
 parser.add_argument("-d",
                     "--depth",
                     help="The depth to be scanned, -1 for no limit",
@@ -500,9 +499,9 @@ pool.close()
 pool.join()
 
 if len(rgfiles) > 0:
-    print "EBU R128 Scanning"
+    print("EBU R128 Scanning")
     for files in [rgfiles[i:i + 128] for i in range(0, len(rgfiles), 128)]:
-        print files
+        print(files)
         rgargs = ['loudness', 'tag', '-t']
         rgargs.extend(files)
         if not args.dry_run:

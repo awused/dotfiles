@@ -1,0 +1,10 @@
+#!/bin/sh
+# Hotplugs the USB controller to and from the VM.
+
+virsh list --state-running | grep -q win10 || exit
+
+if virsh dumpxml win10 | grep -q ua-usb-controller; then
+  virsh detach-device win10 /home/desuwa/dotfiles/vm-definitions/usb-controller.xml --live
+else
+  virsh attach-device win10 /home/desuwa/dotfiles/vm-definitions/usb-controller.xml --live
+fi

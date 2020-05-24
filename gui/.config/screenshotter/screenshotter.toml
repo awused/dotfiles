@@ -19,6 +19,10 @@ Callback = 'public-clipboard'
 # 0 compresses too poorly to use and saves little time over 1
 Compression = 5
 
+# Additional shaders to use with slop.
+# See https://github.com/naelstrof/slop/tree/master/shaderexamples
+SlopShaders = ['boxzoom']
+
 # Overrides. The first one with a matching name and Regex is used.
 #
 # Name: The application name to match against. Multiple overrides can be
@@ -52,6 +56,12 @@ Compression = 5
   Name = "wine32-preloader"
   Regex = 'TLS.*Game.exe$'
   Format = "the-last-sovereign"
+
+[[Overrides]]
+  Name = "wine32-preloader"
+  Regex = '^(.*(/|\\))?([^/]+) \d\.\d\d\d[[:lower:]]?\\Game.exe'
+  Format = "%[4]s"
+
 
 [[Overrides]]
   Name = "wine32-preloader"
