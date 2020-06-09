@@ -162,6 +162,7 @@ for_window [class="File-roller"] floating enable
 for_window [class="Yad"] floating enable
 for_window [title="manage tags"] floating enable
 for_window [title="review services"] floating enable
+for_window [class="KADOKAWA/RPGMV"] floating enable
 #}}}
 #{{{ Launchers
 # start a terminal
@@ -201,7 +202,7 @@ bindsym $mod+Shift+w exec --no-startup-id wallpapers random
 bindsym $mod+Shift+d exec --no-startup-id ~/.config/i3/show-desktop
 bindsym $mod+Mod1+d exec --no-startup-id ~/.config/i3/show-desktop false
 
-bindsym $mod+Shift+r exec --no-startup-id redshift-toggle
+bindsym $mod+Shift+r exec --no-startup-id "redshift-toggle force"
 bindsym Mod1+Shift+r exec --no-startup-id redshift-reset
 
 bindsym $mod+Shift+t exec --no-startup-id swap-vm-monitors

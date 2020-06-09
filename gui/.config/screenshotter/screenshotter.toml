@@ -62,7 +62,6 @@ SlopShaders = ['boxzoom']
   Regex = '^(.*(/|\\))?([^/]+) \d\.\d\d\d[[:lower:]]?\\Game.exe'
   Format = "%[4]s"
 
-
 [[Overrides]]
   Name = "wine32-preloader"
   Regex = '^(.*(/|\\))?([^/]+) ?\d\.?\d\.?\d[[:lower:]]?\\Game.exe'
@@ -77,6 +76,11 @@ SlopShaders = ['boxzoom']
   Name = "wine32-preloader"
   Regex = '^(.*(/|\\))?([^/\ ]+)\.exe'
   Format = "%[4]s"
+
+[[Overrides]]
+  Name = "nw"
+  Regex = '^(.*(/))?([^/]+)/nw'
+  Format = "%[3]s"
 
 [[Overrides]]
   Regex = 'bin/mcomix '
