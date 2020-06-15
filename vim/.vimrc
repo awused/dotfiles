@@ -333,6 +333,26 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'roxma/vim-tmux-clipboard'
 " This needs to be loaded after vim-tmux-focus-events
 Plug 'ConradIrwin/vim-bracketed-paste'
+" Make pasting fast
+" https://github.com/liskin/dotfiles/blob/home/.vim/plugin/fastpaste.vim
+function! s:paste_toggled(new, old) abort
+  if a:new && !a:old
+    let b:saved_foldexpr = &foldexpr
+    let &l:foldexpr = ''
+    let b:saved_syntax = &syntax
+    let &l:syntax = 'off'
+  elseif !a:new && a:old && exists('b:saved_foldexpr')
+    let &l:foldexpr = b:saved_foldexpr
+    let &l:syntax = b:saved_syntax
+    unlet b:saved_foldexpr
+    unlet b:saved_syntax
+  endif
+endfunc
+
+augroup FastPaste
+  autocmd!
+  autocmd OptionSet paste call s:paste_toggled(v:option_new, v:option_old)
+augroup END
 "}}}
 
 nnoremap <F5> :UndotreeToggle<cr>

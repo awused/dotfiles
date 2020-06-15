@@ -79,6 +79,11 @@ SlopShaders = ['boxzoom']
 
 [[Overrides]]
   Name = "nw"
+  Regex = '^(.*(/))?([^/]+) V\.\d+\(:alpha:\) Linux/nw'
+  Format = "%[3]s"
+
+[[Overrides]]
+  Name = "nw"
   Regex = '^(.*(/))?([^/]+)/nw'
   Format = "%[3]s"
 
