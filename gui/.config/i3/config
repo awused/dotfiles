@@ -116,6 +116,7 @@ workspace $wstm output $m_top
 set $wscr "chromium"
 bindsym Mod1+z workspace $wscr
 assign [class="Chromium-browser"] $wscr
+assign [class="Chromium-freeworld"] $wscr
 workspace $wscr output $m_left
 #for_window [class="Chromium-browser"] floating enable
 #for_window [class="Chromium-browser" instance="chromium-browser"] floating disable border pixel 0
