@@ -19,11 +19,6 @@ hydrus-mover:
 
 go: steam-screenshots rss rss-scrapers hydrus-mover
 
-# Third party code
-bfs: sudo
-	cd ${THIRD_PARTY_SOURCE}/bfs; gmake clean; \
-	  gmake; sudo gmake install
-
 # loudness-scanner: sudo
 # 	cd ${THIRD_PARTY_SOURCE}/loudness-scanner; \
 # 	  rm -rf build/; mkdir -p build; cd build; \
@@ -40,9 +35,9 @@ bfs: sudo
 
 znc-clientbuffer: sudo
 	cd ${THIRD_PARTY_SOURCE}/znc-clientbuffer; \
-	  $(MAKE) clean; $(MAKE); sudo $(MAKE) install
+	  rm -f "clientbuffer.so"; $(MAKE); sudo $(MAKE) install
 
-third-party: bfs znc-clientbuffer
+third-party: znc-clientbuffer
 
 all-install: go third-party
 

@@ -24,7 +24,7 @@
 " --- REMINDER --- Also need to set Glaive
 let g:os = substitute(system('uname'), '\n', '', '')
 if g:os == "FreeBSD"
-  let $LD_LIBRARY_PATH .= ':/usr/local/llvm60/lib/'
+  let $LD_LIBRARY_PATH .= ':/usr/local/llvm80/lib/'
 endif
 
 let mapleader = " "
@@ -406,7 +406,7 @@ call SetupCommandAlias("RR", "YcmCompleter RefactorRename")
 call glaive#Install()
 Glaive codefmt plugin[mappings]
 if g:os == "FreeBSD"
-  Glaive codefmt clang_format_executable="clang-format60"
+  Glaive codefmt clang_format_executable="clang-format80"
 endif
 Glaive codefmt gofmt_executable="goimports"
 "{{{ Clang Format
