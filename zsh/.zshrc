@@ -108,6 +108,7 @@ alias ngprod='npm run prod'
 alias ydl='youtube-dl'
 alias ytv='youtube-to-videos'
 alias ya='youtube-audio'
+alias sqlite3='sqlite3-history'
 
 alias mux='tmuxinator'
 alias tm='tmux attach -d -t main'
@@ -304,6 +305,7 @@ export FZF_EXCLUDES=" \
   -not \( -name '.cargo' -prune \) \
   -not \( -path '*/.config/chromium' -prune \) \
   -not \( -name '.dbus' -prune \) \
+  -not \( -name '.duplicacy-repo' -prune \) \
   -not \( -name '.foobar2000' -prune \) \
   -not \( -name '.gcloud-sdk' -prune \) \
   -not \( -name '.gem' -prune \) \

@@ -1,0 +1,9 @@
+#! /bin/sh
+
+if [ -z "$1" ]; then
+  sqlite3
+else
+  mkdir -p $HOME/.sqlite_histories
+  SQLITE_HISTORY="$HOME/.sqlite_histories/$(realpath "$1" | tr / %)" sqlite3 $@
+fi
+

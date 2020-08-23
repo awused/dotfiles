@@ -7,6 +7,8 @@ umask 022
 export EDITOR='vim'
 export PAGER='less'
 export LANG=en_US.UTF-8
+# Closer to matching natural sorting, but not exactly
+export LC_COLLATE=C.UTF-8
 # https://geoff.greer.fm/lscolors/
 export LSCOLORS=ExGxdxdxCxDxDxBxBxegeg
 # Would need to set in zshrc or figure out why it's getting overridden
