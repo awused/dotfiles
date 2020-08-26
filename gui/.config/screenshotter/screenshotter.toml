@@ -53,6 +53,10 @@ SlopShaders = ['boxzoom']
   Format = "chromium"
 
 [[Overrides]]
+  Name = "chromium-freeworld"
+  Format = "chromium"
+
+[[Overrides]]
   Name = "wine32-preloader"
   Regex = 'TLS.*Game.exe$'
   Format = "the-last-sovereign"

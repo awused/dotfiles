@@ -17,6 +17,6 @@ sudo -E restic \
   -r "$(get-automation-password restic-bucket)" \
   "$@" \
   --cache-dir=$cacheroot/cache \
-  --limit-upload=500 \
+  --limit-upload=1500 \
   --password-file=$usbdir/.restic-password
 

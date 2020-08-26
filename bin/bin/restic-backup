@@ -33,7 +33,7 @@ sudo -E restic \
   --cache-dir=$cacheroot/cache \
   --hostname=$host \
   --tag=$host \
-  --limit-upload=500 \
+  --limit-upload=1500 \
   --password-file=$usbdir/.restic-password \
   --exclude='*.swp' \
   --exclude='.git' \

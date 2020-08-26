@@ -23,6 +23,7 @@ $HOME/.ccache
 $HOME/.cargo
 $HOME/.config/chromium
 $HOME/.dbus
+$HOME/.duplicacy-repo
 $HOME/.gcloud-sdk
 $HOME/.gem
 $HOME/.gocode
@@ -47,6 +48,9 @@ $HOME/.nv
 $HOME/.opam
 $HOME/.purple/icons
 $HOME/.QtWebEngineProcess
+$HOME/.runelite/screenshots
+$HOME/.runelite/repository2
+$HOME/.runelite/cache
 $HOME/.steam
 $HOME/.Superposition
 $HOME/.thumbnails
@@ -61,9 +65,6 @@ $HOME/.xsession-errors
 $HOME/.xsession-errors.old
 $HOME/.zplug
 $HOME/jagexcache
-$HOME/.runelite/screenshots
-$HOME/.runelite/repository2
-$HOME/.runelite/cache
 
 $HOME/Downloads
 
