@@ -116,6 +116,10 @@ i3-gaps: sudo
 	  rm -rf build/; mkdir build; cd build; \
 	  ../configure; $(MAKE); sudo $(MAKE) install
 
+maim: sudo
+	cd ${THIRD_PARTY_SOURCE}/maim; \
+	  cmake -DCMAKE_INSTALL_PREFIX=/usr/local .; $(MAKE); sudo $(MAKE) install
+
 loudness-scanner: sudo
 	cd ${THIRD_PARTY_SOURCE}/loudness-scanner; \
 	  rm -rf fedora/; mkdir -p fedora; cd fedora; \
@@ -163,7 +167,7 @@ waifu2x-vulkan: ncnn
 	  mv waifu2x-ncnn-vulkan ~/.bin/
 
 
-third-party: bfs ddcutil i3-gaps loudness-scanner scream split2flac timg \
+third-party: bfs ddcutil i3-gaps loudness-scanner maim scream split2flac timg \
 	waifu2x-vulkan
   # waifu2x mpv
 
