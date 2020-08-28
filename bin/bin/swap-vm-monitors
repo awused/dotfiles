@@ -5,9 +5,9 @@
 # KERNEL=="i2c-[0-9]*", GROUP="desuwa", MODE="0660", PROGRAM="/usr/local/bin/ddcutil --bus=%n setvcp D6 0x%n"
 
 # Can only do one of the two right now
-if ddcutil --bus 9 --nodetect getvcp 60 | grep -q 0x0f; then
-  ddcutil --bus 9 --nodetect setvcp 60 0x11 &
+if ddcutil --bus 10 --nodetect getvcp 60 | grep -q 0x0f; then
+  ddcutil --bus 10 --nodetect setvcp 60 0x11 &
 else
-  ddcutil --bus 9 --nodetect setvcp 60 0x0f &
+  ddcutil --bus 10 --nodetect setvcp 60 0x0f &
 fi
 

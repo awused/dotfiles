@@ -61,6 +61,8 @@ if [[ $(hostname) == 'desutop' ]]; then
 
   export JAVA_HOME=/usr/local/java/jdk1.8.0_201
   export PATH=$PATH:$JAVA_HOME/bin
+
+  export QT_SCALE_FACTOR=0.7
 fi
 #}}}
 
