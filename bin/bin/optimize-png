@@ -1,0 +1,23 @@
+#!/bin/sh
+# Does a quick, in place optimization run on a PNG file.
+# Plays it safe by using a temporary file instead of clobbering it in place.
+
+set -e
+
+infile="$1"
+tempfile="${1}-zopfli.png"
+
+[ -z "$infile" ] && exit 0
+
+if [ $(file -b --mime-type "$infile") != "image/png" ]; then
+  echo "Not a PNG"
+  exit 0
+fi
+
+if [ -e "$tempfile" ]; then
+  echo "Temporary file $tempfile already exists"
+  exit 0
+fi
+
+zopflipng -q "$infile" "$tempfile"
+mv "$tempfile" "$infile"
