@@ -5,7 +5,7 @@
 # The directory must already exist.
 # Existing files in the directory will not be touched but manually deleting
 # chapters will cause them to be redownloaded.
-OutputDirectory = "/tmp/manga-sync"
+OutputDirectory = "/storage/media/manga"
 
 # Directory to store temporary files, leave blank for the system default.
 TempDirectory = '/tmp'

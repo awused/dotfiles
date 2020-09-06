@@ -12,3 +12,4 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/usr/home/desu
   0  9  *  *  * ~/.cron/task-notify
   0  0,12  *  *  * ~/.cron/certbot-renew
   *  *  *  *  * steam-screenshots
+  37  5,11,17,23 * * * manga-syncer

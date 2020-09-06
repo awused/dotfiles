@@ -5,8 +5,11 @@ default:
 sudo:
 	sudo echo "Starting"
 
-steam-screenshots:
-	cd ${GOPATH}/src/github.com/awused/steam-screenshots; go install
+hydrus-mover:
+	cd ${GOPATH}/src/github.com/awused/hydrus-mover; go install
+
+manga-syncer:
+	cd ${GOPATH}/src/github.com/awused/manga-syncer; go install
 
 rss-scrapers:
 	cd ${GOPATH}/src/github.com/awused/rss-scrapers; go install ./...
@@ -14,10 +17,10 @@ rss-scrapers:
 rss:
 	cd ${GOPATH}/src/github.com/awused/aw-rss; go install
 
-hydrus-mover:
-	cd ${GOPATH}/src/github.com/awused/hydrus-mover; go install
+steam-screenshots:
+	cd ${GOPATH}/src/github.com/awused/steam-screenshots; go install
 
-go: steam-screenshots rss rss-scrapers hydrus-mover
+go: hydrus-mover manga-syncer rss rss-scrapers steam-screenshots
 
 # loudness-scanner: sudo
 # 	cd ${THIRD_PARTY_SOURCE}/loudness-scanner; \
