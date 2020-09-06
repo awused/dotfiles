@@ -56,6 +56,8 @@ vmrpc:
 	  protoc --go_out=plugins=grpc:. *.proto
 	cd ${GOPATH}/src/github.com/awused/vmrpc/scream; \
 	  protoc --go_out=plugins=grpc:. *.proto
+	cd ${GOPATH}/src/github.com/awused/vmrpc/sharex; \
+	  protoc --go_out=plugins=grpc:. *.proto
 	cd ${GOPATH}/src/github.com/awused/vmrpc/usb; \
 	  protoc --go_out=plugins=grpc:. *.proto
 	cd ${GOPATH}/src/github.com/awused/vmrpc/vmrpc-server; go install
