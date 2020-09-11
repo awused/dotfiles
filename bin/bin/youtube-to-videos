@@ -1,3 +1,6 @@
 #!/bin/sh
 
-youtube-dl --ignore-config --merge-output-format mkv --no-mtime --output '/storage/media/users/desuwa/Videos/%(title)s-%(id)s.%(ext)s' -- $@
+youtube-dl \
+  --no-mtime \
+  --output '/storage/media/users/desuwa/Videos/%(title)s-%(id)s.%(ext)s' \
+  -- $@

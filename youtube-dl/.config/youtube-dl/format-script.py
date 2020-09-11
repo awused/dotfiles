@@ -5,7 +5,16 @@
 # Earlier entries are prioritized over later entriess
 qualifiers = [
     # Resolution
-    ['[height>1440]', '[height>1080]', '[height=1080]', ''],
+    [
+        '[height>1440]',
+        '[height>1080]',
+        '[height>720]',
+        '[height>480]',
+        '[height>360]',
+        '[height>240]',
+        '[height=240]',
+        '',
+    ],
     # FPS
     ['[fps>30]', ''],
     # Codec
