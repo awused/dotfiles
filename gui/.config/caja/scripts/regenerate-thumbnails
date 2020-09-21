@@ -9,7 +9,9 @@ for f in "${uris[@]}"; do
   h=$(echo -n "$f" | md5sum | awk '{print $1}')
 
   rm -f "$HOME/.cache/thumbnails/large/$h.png"
+  rm -f "$HOME/.cache/thumbnails/fail/mate-thumbnail-factory/$h.png"
+  rm -f "$HOME/.cache/thumbnails/fail/gnome-thumbnail-factory/$h.png"
   # Seems like removing large thumbnails is enough to fix the stuck files
   # Uncomment this if that is ever found to not be the case
-  #rm -f "$HOME/.cache/thumbnails/normal/$h.png"
+  rm -f "$HOME/.cache/thumbnails/normal/$h.png"
 done

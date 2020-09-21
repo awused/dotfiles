@@ -1,0 +1,3 @@
+[Thumbnailer Entry]
+Exec=sh -c "kid3-cli -c 'get picture:%o' '%i' > /dev/null; convert %o -flatten -thumbnail %s PNG:%o"
+MimeType=audio/ogg;audio/x-opus+ogg;audio/x-vorbis+ogg;
