@@ -1,6 +1,0 @@
-#!/bin/sh
-
-youtube-dl \
-  --no-mtime \
-  --output '/storage/media/users/desuwa/Videos/%(title)s-%(id)s.%(ext)s' \
-  -- $@

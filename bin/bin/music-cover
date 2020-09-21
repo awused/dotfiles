@@ -17,13 +17,25 @@ else
 fi
 
 musicType=$(file -b --mime-type "$music")
+imageType=$(file -b --mime-type "$image")
+
+if [ "$imageType" = "image/webp" ]; then
+  # image/webp will often work but support is limited
+  convert "$image" -define png:compression-level=9 "${image}-$$.png"
+  image="${image}-$$.png"
+fi
 
 if [ "$musicType" = "audio/flac" ]; then
   metaflac --import-picture-from="$image" "$music"
 elif [ "$musicType" = "audio/mpeg" ]; then
   eyeD3 --add-image="${image}:FRONT_COVER" "$music"
+elif [ "$musicType" = "audio/ogg" ]; then
+  kid3-cli -c "set picture:'${image}' ''" "$music"
 else
   echo "Unknown music mimetype $musicType"
   exit 1
 fi
 
+if [ "$imageType" = "image/webp" ]; then
+  rm "$image"
+fi
