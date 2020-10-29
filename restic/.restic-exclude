@@ -36,6 +36,7 @@ $HOME/.local/bin
 $HOME/.local/etc
 $HOME/.local/include
 $HOME/.local/kitty.app
+$HOME/.local/MultiMC
 $HOME/.local/lib
 $HOME/.local/lib64
 $HOME/.local/TeamSpeak3-Client-linux_amd64

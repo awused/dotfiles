@@ -105,6 +105,11 @@ SlopShaders = ['boxzoom']
   Format = "%[4]s"
 
 [[Overrides]]
+  Name = 'java'
+  Regex = 'minecraft-[0-9.]*-client.jar'
+  Format = "minecraft"
+
+[[Overrides]]
   Name = "watch"
   Regex = '^watch ([^ ]*)?'
   Format = "%[2]s"

@@ -164,6 +164,8 @@ for_window [class="Yad"] floating enable
 for_window [title="manage tags"] floating enable
 for_window [title="review services"] floating enable
 for_window [class="KADOKAWA/RPGMV"] floating enable
+for_window [class="^Minecraft\*? .*"] floating enable
+for_window [class="MultiMC"] floating enable
 #}}}
 #{{{ Launchers
 # start a terminal
