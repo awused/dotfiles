@@ -44,6 +44,11 @@ parser.add_argument("--force_title",
                     "You really want to test this with -n first",
                     action="store_true")
 parser.add_argument(
+    "--set_artist",
+    help="Set the artist from the filename if it isn't present. " +
+    "You really want to test this with -n first",
+    action="store_true")
+parser.add_argument(
     "--set_album_artist",
     help="Set the album artist from the filename if it isn't present. " +
     "You really want to test this with -n first",
@@ -170,12 +175,11 @@ artist_map = {
 # TODO -- Handle replacement characters positionally?
 title_re = re.compile(u"[/?^\\<>\"'|:／,_.*＊-]")
 spaces_re = re.compile(u" ( )+")
-youtube_re = re.compile(u"-[a-zA-Z0-9_-]{11}$")
+youtube_re = re.compile(u"\-[a-zA-Z0-9_-]{11}$")
 
 
 def titlesDiffer(title, fnametitle):
-    fn = youtube_re.sub(" ", fnametitle)
-    fn = title_re.sub(" ", fn)
+    fn = title_re.sub(" ", fnametitle)
     ti = title_re.sub(" ", title)
     fn = spaces_re.sub(" ", fn)
     ti = spaces_re.sub(" ", ti)
@@ -194,6 +198,8 @@ def tagFile(fname):
     if match:
         oldt = f.get('title', [''])[0]
         newt = match.group(2)
+        newt = youtube_re.sub("", newt)
+        newt = newt.rstrip(" ")
         if oldt == '' or (args.force_title and titlesDiffer(oldt, newt)):
             if not changed: x += "\n" + fname + "\n"
             changed = True
@@ -213,6 +219,15 @@ def tagFile(fname):
         changed = True
         f["albumartist"] = artist_map[aa]
         x += "Album Artist: " + aa + " -> " + artist_map[aa] + "\n"
+
+    if match and args.set_artist and (
+            a == "" or
+        (args.override_various_artists and
+         (a.lower() == 'various artists' or a.lower() == 'various'))):
+        if not changed: x += "\n" + fname + "\n"
+        changed = True
+        f["artist"] = match.group(1)
+        x += "Artist: " + a + " -> " + match.group(1) + "\n"
 
     if match and args.set_album_artist and (
             aa == "" or
@@ -253,6 +268,8 @@ def tagID3File(fname):
     if match:
         oldt = f.get('TIT2', [''])[0]
         newt = match.group(2)
+        newt = youtube_re.sub("", newt)
+        newt = newt.rstrip(" ")
         if oldt == '' or (args.force_title and titlesDiffer(oldt, newt)):
             if not changed: x += "\n" + fname + "\n"
             changed = True
@@ -275,6 +292,16 @@ def tagID3File(fname):
         f.delall('TPE2')
         f.add(TPE2(encoding=3, text=artist_map[aa]))
         x += "Album Artist: " + aa + " -> " + artist_map[aa] + "\n"
+
+    if match and args.set_artist and (
+            a == "" or
+        (args.override_various_artists and
+         (a.lower() == 'various artists' or a.lower() == 'various'))):
+        if not changed: x += "\n" + fname + "\n"
+        changed = True
+        f.delall('TPE1')
+        f.add(TPE1(encoding=3, text=match.group(1)))
+        x += "Artist: " + a + " -> " + match.group(1) + "\n"
 
     if match and args.set_album_artist and (
             aa == "" or
@@ -305,6 +332,8 @@ def tagOggFile(fname):
     if match:
         oldt = f.get('title', [''])[0]
         newt = match.group(2)
+        newt = youtube_re.sub("", newt)
+        newt = newt.rstrip(" ")
         if oldt == '' or (args.force_title and titlesDiffer(oldt, newt)):
             if not changed: x += "\n" + fname + "\n"
             changed = True
@@ -324,6 +353,15 @@ def tagOggFile(fname):
         changed = True
         f["albumartist"] = artist_map[aa]
         x += "Album Artist: " + aa + " -> " + artist_map[aa] + "\n"
+
+    if match and args.set_artist and (
+            a == "" or
+        (args.override_various_artists and
+         (a.lower() == 'various artists' or a.lower() == 'various'))):
+        if not changed: x += "\n" + fname + "\n"
+        changed = True
+        f["artist"] = match.group(1)
+        x += "Artist: " + a + " -> " + match.group(1) + "\n"
 
     if match and args.set_album_artist and (
             aa == "" or
@@ -353,6 +391,8 @@ def tagM4AFile(fname):
     if match:
         oldt = f.get("\xa9nam", [''])[0]
         newt = match.group(2)
+        newt = youtube_re.sub("", newt)
+        newt = newt.rstrip(" ")
         if oldt == '' or (args.force_title and titlesDiffer(oldt, newt)):
             if not changed: x += "\n" + fname + "\n"
             changed = True
@@ -372,6 +412,15 @@ def tagM4AFile(fname):
         changed = True
         f["aART"] = artist_map[aa]
         x += "Album Artist: " + aa + " -> " + artist_map[aa] + "\n"
+
+    if match and args.set_artist and (
+            a == "" or
+        (args.override_various_artists and
+         (a.lower() == 'various artists' or a.lower() == 'various'))):
+        if not changed: x += "\n" + fname + "\n"
+        changed = True
+        f["\xa9ART"] = match.group(1)
+        x += "Artist: " + a + " -> " + match.group(1) + "\n"
 
     if match and args.set_album_artist and (
             aa == "" or
@@ -407,6 +456,8 @@ def tagAPEFile(fname):
     if match:
         oldt = f.get('Title', [''])[0]
         newt = match.group(2)
+        newt = youtube_re.sub("", newt)
+        newt = newt.rstrip(" ")
         if oldt == '' or (args.force_title and titlesDiffer(oldt, newt)):
             if not changed: x += "\n" + fname + "\n"
             changed = True
@@ -419,6 +470,15 @@ def tagAPEFile(fname):
         changed = True
         f["Artist"] = artist_map[a]
         x += "Artist: " + a + " -> " + artist_map[a] + "\n"
+
+    if match and args.set_artist and (
+            a == "" or
+        (args.override_various_artists and
+         (a.lower() == 'various artists' or a.lower() == 'various'))):
+        if not changed: x += "\n" + fname + "\n"
+        changed = True
+        f["artist"] = match.group(1)
+        x += "Artist: " + a + " -> " + match.group(1) + "\n"
 
     aa = f.get('Album artist', [''])[0].strip()
     if aa in artist_map:
