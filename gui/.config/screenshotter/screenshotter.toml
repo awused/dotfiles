@@ -144,6 +144,11 @@ SlopShaders = ['boxzoom']
 
 [[Overrides]]
   Name = "wine-preloader"
+  Regex = 'Among Us.exe$'
+  Format = "Among Us"
+
+[[Overrides]]
+  Name = "wine-preloader"
   Regex = 'noratoto1.exe$'
   Format = "Nora to Oujo to Noraneko Heart"
 

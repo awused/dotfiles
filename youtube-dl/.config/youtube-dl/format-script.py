@@ -3,7 +3,7 @@
 # Script to generate preferred video formats.
 
 # Earlier entries are prioritized over later entriess
-qualifiers = [
+vqualifiers = [
     # Resolution
     [
         '[height>1440]',
@@ -21,21 +21,31 @@ qualifiers = [
     ['[vcodec^=av01]', '[vcodec=vp9]', '']
 ]
 
+aqualifiers = [
+    # Format
+    [
+        '[acodec=opus]',
+        '',
+    ]
+]
 
-def buildSet(prefix, i):
+
+def buildSet(qualifiers, prefix, i):
     if i >= len(qualifiers):
         return [prefix]
 
     out = []
     for f in qualifiers[i]:
-        out.extend(buildSet(prefix + f, i + 1))
+        out.extend(buildSet(qualifiers, prefix + f, i + 1))
     return out
 
 
-formats = buildSet('', 0)
+vformats = buildSet(vqualifiers, '', 0)
+aformats = buildSet(aqualifiers, '', 0)
 
 print('--format \'', end='')
-for f in formats:
-    print('bestvideo{}+bestaudio/'.format(f), end='')
+for vf in vformats:
+    for af in aformats:
+        print('bestvideo{}+bestaudio{}/'.format(vf, af), end='')
 
 print('best\'', end='')
