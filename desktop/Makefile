@@ -114,9 +114,9 @@ ddcutil: sudo
 
 i3-gaps: sudo
 	cd ${THIRD_PARTY_SOURCE}/i3-gaps; \
-	  autoreconf --force --install; \
 	  rm -rf build/; mkdir build; cd build; \
-	  ../configure; $(MAKE); sudo $(MAKE) install
+	  meson ..; ninja; \
+	  meson install
 
 maim: sudo
 	cd ${THIRD_PARTY_SOURCE}/maim; \
@@ -152,20 +152,18 @@ timg: sudo
 # 	  rg-replace '/usr/bin/nvcc -arch=sm_30' -r '/usr/bin/nvcc --compiler-bindir /usr/bin/cuda-gcc -arch=sm_30' **/* \
 # 	  $(MAKE); sudo $(MAKE) install
 
-ncnn:
-	rm -rf "${THIRD_PARTY_SOURCE}/temp/ncnn"; cd ${THIRD_PARTY_SOURCE}/ncnn; \
-	  rm -rf build/; mkdir build; cd build; \
-	  cmake -DNCNN_VULKAN=ON \
-	        -DCMAKE_INSTALL_PREFIX="${THIRD_PARTY_SOURCE}/temp/ncnn" \
-		-DCMAKE_BUILD_TYPE=Release ..; \
-	  $(MAKE) install;
+# ncnn:
+# 	rm -rf "${THIRD_PARTY_SOURCE}/temp/ncnn"; cd ${THIRD_PARTY_SOURCE}/ncnn; \
+# 	  rm -rf build/; mkdir build; cd build; \
+# 	  cmake -DNCNN_VULKAN=ON \
+# 	        -DCMAKE_INSTALL_PREFIX="${THIRD_PARTY_SOURCE}/temp/ncnn" \
+# 		-DCMAKE_BUILD_TYPE=Release ..; \
+# 	  $(MAKE) install;
 
-waifu2x-vulkan: ncnn
-	  cd "${THIRD_PARTY_SOURCE}/waifu2x-ncnn-vulkan/src"; \
+waifu2x-vulkan:
+	  cd "${THIRD_PARTY_SOURCE}/waifu2x-ncnn-vulkan"; \
 	  rm -rf build/; mkdir build; cd build; \
-	  ncnn_DIR="${THIRD_PARTY_SOURCE}/temp/ncnn/lib/cmake" \
-	  LDFLAGS="-L${THIRD_PARTY_SOURCE}/temp/ncnn/lib" cmake ..; \
-	  CPLUS_INCLUDE_PATH="${THIRD_PARTY_SOURCE}/temp/ncnn/include" $(MAKE); \
+	  cmake ..; $(MAKE); \
 	  mv waifu2x-ncnn-vulkan ~/.bin/
 
 
