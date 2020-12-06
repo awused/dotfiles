@@ -118,9 +118,10 @@ i3-gaps: sudo
 	  meson ..; ninja; \
 	  meson install
 
-maim: sudo
+maim: sudo slop
 	cd ${THIRD_PARTY_SOURCE}/maim; \
-	  cmake -DCMAKE_INSTALL_PREFIX=/usr/local .; $(MAKE); sudo $(MAKE) install
+	  rm -rf build/; mkdir build; cd build; \
+	  cmake -DCMAKE_INSTALL_PREFIX=/usr/local ..; $(MAKE); sudo $(MAKE) install
 
 loudness-scanner: sudo
 	cd ${THIRD_PARTY_SOURCE}/loudness-scanner; \
@@ -136,6 +137,11 @@ scream:
 	cd ${THIRD_PARTY_SOURCE}/scream/Receivers/unix; \
 	  rm -rf build/; mkdir build; cd build; \
 	  cmake ..; $(MAKE); mv scream ~/.bin/
+
+slop: sudo
+	cd ${THIRD_PARTY_SOURCE}/slop; \
+	  rm -rf build/; mkdir build; cd build; \
+	  cmake -DCMAKE_INSTALL_PREFIX=/usr/local ..; $(MAKE); sudo $(MAKE) install
 
 split2flac: sudo
 	sudo mkdir -p /usr/local/bin ; \
