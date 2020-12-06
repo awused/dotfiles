@@ -328,7 +328,7 @@ mode "resize" {
 #}}}
 #{{{ Startup Programs
 exec_always --no-startup-id "~/.config/polybar/launch.sh"
-exec_always --no-startup-id "killall compton; compton -b"
+exec_always --no-startup-id "killall picom; picom -b"
 exec_always --no-startup-id "killall dunst; dunst &"
 exec_always --no-startup-id "killall vmrpc-server; vmrpc-server &"
 exec_always --no-startup-id "ibus-daemon -drx"
