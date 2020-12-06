@@ -4,7 +4,7 @@ set -e
 
 title=$(xprop -id $SCREENSHOTTER_WINDOWID WM_NAME)
 
-echo $title | grep -E 'Manga(Dex|Cat) - Mozilla Firefox"$' > /dev/null
+echo $title | grep -E 'Manga(Dex|Cat) (-|—) Mozilla Firefox"$' > /dev/null
 
 beginning=$(echo $title | grep -b -o '= "' | cut -d: -f1 | head -n1)
 fulltitle=${title:($beginning + 3)}

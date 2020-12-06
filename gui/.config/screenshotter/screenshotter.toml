@@ -23,6 +23,11 @@ Compression = 5
 # See https://github.com/naelstrof/slop/tree/master/shaderexamples
 SlopShaders = ['boxzoom']
 
+# Temporarily enable Mouse Keys during slop region selection.
+# This will enable and then disable mouse keys unless it is already enabled.
+# Requires a version of slop with Mouse Keys support
+MouseKeys = true
+
 # Overrides. The first one with a matching name and Regex is used.
 #
 # Name: The application name to match against. Multiple overrides can be

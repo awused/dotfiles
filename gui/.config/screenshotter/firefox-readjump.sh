@@ -4,7 +4,7 @@ set -e
 
 title=$(xprop -id $SCREENSHOTTER_WINDOWID WM_NAME)
 
-echo $title | grep -E ' - ReadJUMP - Mozilla Firefox"$' > /dev/null
+echo $title | grep -E ' - ReadJUMP (-|—) Mozilla Firefox"$' > /dev/null
 
 beginning=$(echo $title | grep -b -o ' of ' | cut -d: -f1 | head -n1)
 title=${title:($beginning + 4)}
