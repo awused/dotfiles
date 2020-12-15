@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+
+eval $(xdotool selectwindow getwindowgeometry --shell)
+
+w="1280"
+h="720"
+
+if [ "$WIDTH" = "1280" ]; then
+  w="1920"
+  h="1080"
+fi
+
+xdotool windowsize $WINDOW $w $h

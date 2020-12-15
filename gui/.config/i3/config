@@ -292,6 +292,7 @@ bindsym $mod+a focus parent
 #{{{ Resizing
 bindsym $mod+r mode "resize"
 bindsym --release $mod+Shift+g exec --no-startup-id dpi-scale
+bindsym --release Mod1+Shift+g exec --no-startup-id "720-1080-scale"
 
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
