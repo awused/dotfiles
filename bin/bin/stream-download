@@ -1,0 +1,26 @@
+#! /usr/bin/env bash
+
+set -e
+
+regex="(v=|be/|^)([a-zA-Z0-9_-]{11})"
+id=""
+
+if [[ $1 =~ $regex ]]; then
+  id="${BASH_REMATCH[2]}"
+else
+  echo "Could not identify video ID"
+fi
+
+url="https://www.youtube.com/watch?v=${id}"
+html=$(curl -s "$url")
+
+title=$(echo "$html" | grep -oE "<title>.*</title>" | sed 's/<title>//' | sed 's/<\/title>//' | sed 's/ - YouTube//i')
+channel=$(echo "$html" | grep -oE 'ownerChannelName":"[^"]*"' | sed 's/ownerChannelName":"//' | sed 's/"//')
+dir="/storage/media/youtube/${channel}"
+file="${dir}/${title}-${id}.mp4"
+
+mkdir -p "$dir"
+
+echo "Downloading $id to $file"
+
+streamlink --retry-streams 10 "$url" best -o "$file"

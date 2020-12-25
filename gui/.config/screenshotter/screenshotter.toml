@@ -4,7 +4,7 @@ ScreenshotDir = '/storage/public/shots'
 
 # Will be ignored in favour of any available children
 # Note that gnome-terminal is uniquely incapable and doesn't set WINDOWID
-IgnoredParents = ['kitty', 'xfce4-terminal', 'zsh', 'alacritty', 'bash']
+IgnoredParents = ['kitty', 'xfce4-terminal', 'zsh', 'alacritty', 'bash', 'kthreadadd']
 
 # Uncomment to check for WINDOWID if you're using a terminal that doesn't use
 # separate processes per window. Doesn't help with gnome-terminal.
@@ -161,3 +161,8 @@ MouseKeys = true
   Name = "ppssppqt"
   Delegate = "/home/desuwa/.config/screenshotter/ppsspp.sh"
   Callback = "/home/desuwa/.config/screenshotter/ppsspp-callback.sh"
+
+[[Overrides]]
+  Name = "kthreadd"
+  Delegate = "/home/desuwa/.config/screenshotter/kthreadd.sh"
+
