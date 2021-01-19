@@ -103,7 +103,7 @@ alias treel='exa -Tal --time-style=long-iso -L'
 alias caja='caja "$(pwd)"'
 alias sgrep='/usr/bin/lv -g -Is -'
 alias ng='npm run-script ng --'
-alias ngserve='ng serve --aot'
+alias ngserve='ng serve'
 alias ngprod='npm run prod'
 alias ydl='youtube-dl --write-thumbnail --write-description'
 alias ytv='youtube-dl --no-mtime --output "/storage/media/users/desuwa/Videos/%(title)s-%(id)s.%(ext)s" --'
@@ -128,7 +128,7 @@ alias 'cd..=cd ..'
 if [[ $(uname) == 'FreeBSD' ]]; then
   alias date='date +"%Y-%m-%d %H:%M:%S"'
   alias ls='ls -G -D "%Y-%m-%d %H:%M:%S"'
-  alias ngserve='ng serve --host 192.168.44.2 --aot --disable-host-check'
+  alias ngserve='ng serve --host 192.168.44.2 --disable-host-check'
 
   __stat_format='-f %m'
 

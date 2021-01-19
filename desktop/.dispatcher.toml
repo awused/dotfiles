@@ -14,7 +14,7 @@
 
 [[executables]]
 regex = '^(https?://)?(www\.)?youtube\.com/.*v=([A-Za-z0-9_-]{11})'
-path = "mpvquiet"
+path = "stream-play"
 
 [[executables]]
 regex = '^https://manga\.madokami\.al/'

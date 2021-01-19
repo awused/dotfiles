@@ -1,0 +1,4 @@
+#!/bin/sh
+
+streamlink "$1" best --player=mpv --player-no-close
+

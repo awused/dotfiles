@@ -100,12 +100,13 @@ workspace $wsff output $m_center
 
 set $wsmpv "mpv"
 bindsym $mod+m workspace $wsmpv
-set $wsyt "youtube"
-bindsym $mod+y workspace $wsyt
-for_window [class="mpv" workspace="^(?!firefox$)"] floating enable move window to workspace $wsmpv focus
-for_window [class="mpv" workspace="firefox"] move window to workspace $wsyt
+#set $wsyt "youtube"
+#bindsym $mod+y workspace $wsyt
+for_window [class="mpv"] floating enable move window to workspace $wsmpv focus
+#for_window [class="mpv" workspace="^(?!firefox$)"] floating enable move window to workspace $wsmpv focus
+#for_window [class="mpv" workspace="firefox"] move window to workspace $wsyt
 workspace $wsmpv output $m_center
-workspace $wsyt output $m_center
+#workspace $wsyt output $m_center
 
 set $wstm "transmission"
 bindsym $mod+t workspace $wstm
