@@ -108,6 +108,7 @@ alias ngprod='npm run prod'
 alias ydl='youtube-dl --write-thumbnail --write-description'
 alias ytv='youtube-dl --no-mtime --output "/storage/media/users/desuwa/Videos/%(title)s-%(id)s.%(ext)s" --'
 alias ytvt='youtube-dl --no-mtime --output "/storage/media/users/desuwa/Videos/Vtubers/%(title)s-%(id)s.%(ext)s" --'
+alias ytvts='youtube-dl --write-sub --no-mtime --output "/storage/media/users/desuwa/Videos/Vtubers/%(title)s-%(id)s.%(ext)s" --'
 alias ya='youtube-audio'
 alias sqlite3='sqlite3-history'
 
