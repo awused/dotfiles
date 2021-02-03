@@ -4,13 +4,15 @@ set -e
 
 regex="(v=|be/|^)([a-zA-Z0-9_-]{11})"
 id=""
-chatpid=""
+chat_type=""
 
 if [[ $1 =~ $regex ]]; then
   id="${BASH_REMATCH[2]}"
 else
   echo "Could not identify video ID"
 fi
+
+[ -n "$2" ] && chat_type=".$2"
 
 url="https://www.youtube.com/watch?v=${id}"
 html=$(curl -s "$url")
@@ -27,29 +29,18 @@ title=$(clean "$title")
 channel=$(clean "$channel")
 
 dir="/storage/media/youtube/${channel}"
-file="${dir}/${title}-${id}.mp4"
-fullchat="${dir}/${title}-${id}.full.json"
+chat="${dir}/${title}-${id}${chat_type}.json"
 
 mkdir -p "$dir"
 
-if [[ -e "$file" ]]; then
-  echo "File $file already exists"
+if [[ -e "$chat" ]]; then
+  echo "Chat file $chat already exists"
   exit 1
 fi
 
-echo "Downloading $id to $file"
+touch "$chat"
 
+echo "Downloading chat for $id to $chat"
 
-if [[ ! -e "$fullchat" ]]; then
-  echo "Downloading chat for $id to $fullchat"
-  touch "$fullchat"
-  chat_replay_downloader "$url" --message_groups all --output "$fullchat" > /dev/null &
-  chatpid=$!
-  trap 'kill %1' SIGINT SIGTERM
-else
-  echo "Chat file $fullchat already exists"
-fi
+chat_replay_downloader "$url" --message_groups all --output "$chat"
 
-streamlink --retry-streams 10 "$url" best -o "$file" || true
-
-[ -n "$chatpid" ] && wait "$chatpid"
