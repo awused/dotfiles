@@ -43,7 +43,7 @@ echo "Downloading $id to $file"
 if [[ ! -e "$fullchat" ]]; then
   echo "Downloading chat for $id to $fullchat"
   touch "$fullchat"
-  chat_replay_downloader "$url" --message_groups all --output "$fullchat" > /dev/null &
+  chat_downloader "$url" --message_groups all --output "$fullchat" > /dev/null &
   chatpid=$!
   trap 'kill %1' SIGINT SIGTERM
 else

@@ -42,5 +42,5 @@ touch "$chat"
 
 echo "Downloading chat for $id to $chat"
 
-chat_replay_downloader "$url" --message_groups all --output "$chat"
+chat_downloader "$url" --message_groups all --output "$chat"
 
