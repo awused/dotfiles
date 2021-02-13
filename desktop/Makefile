@@ -169,7 +169,7 @@ timg: sudo
 waifu2x-vulkan:
 	  cd "${THIRD_PARTY_SOURCE}/waifu2x-ncnn-vulkan"; \
 	  rm -rf build/; mkdir build; cd build; \
-	  cmake ..; $(MAKE); \
+	  cmake ../src; $(MAKE); \
 	  mv waifu2x-ncnn-vulkan ~/.bin/
 
 
