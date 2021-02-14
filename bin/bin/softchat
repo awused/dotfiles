@@ -1,0 +1,3 @@
+#! /bin/sh
+
+python3 /storage/src/third_party/softchat/softchat/__main__.py -m2 --emote_font --cleanup --emote_cache /storage/cache/youtube-emotes "$@"
