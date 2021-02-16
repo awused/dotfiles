@@ -1,3 +1,6 @@
 #! /bin/sh
 
-python3 /storage/src/third_party/softchat/softchat/__main__.py -m2 --emote_font --cleanup --emote_cache /storage/cache/youtube-emotes "$@"
+PYTHONPATH=$PYTHONPATH:/storage/src/third_party/softchat
+export PYTHONPATH
+
+python3 -m softchat -m2 --emote_font --cleanup --emote_cache /storage/cache/youtube-emotes "$@"
