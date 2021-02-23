@@ -1,0 +1,10 @@
+#! /bin/sh
+
+file="/storage/media/users/desuwa/.cookies.txt"
+
+cp /home/desuwa/.mozilla/firefox/tbtcdg9m.desuwa/cookies.sqlite /home/desuwa/.mozilla/firefox/tbtcdg9m.desuwa/cookies-ydl.sqlite
+
+
+echo "# Netscape HTTP Cookie File" > "$file"
+/usr/bin/sqlite3 /home/desuwa/.mozilla/firefox/tbtcdg9m.desuwa/cookies-ydl.sqlite 'SELECT host, "TRUE", path, isSecure, expiry, name, value FROM moz_cookies WHERE host=".youtube.com"' 2>/dev/null | sed 's/|0|/|FALSE|/' | sed 's/|1|/|TRUE|/' | sed 's/|/\t/g' >> "$file"
+
