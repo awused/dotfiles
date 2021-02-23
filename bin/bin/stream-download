@@ -5,6 +5,7 @@ set -e
 regex="(v=|be/|^)([a-zA-Z0-9_-]{11})"
 id=""
 chatpid=""
+cookies=/storage/media/users/desuwa/.cookies.txt
 
 if [[ $1 =~ $regex ]]; then
   id="${BASH_REMATCH[2]}"
@@ -13,7 +14,7 @@ else
 fi
 
 url="https://www.youtube.com/watch?v=${id}"
-html=$(curl -s "$url")
+html=$(curl -s -b "$cookies" "$url")
 
 # Attempt to match youtube-dl's escaping
 clean() {
@@ -44,7 +45,7 @@ echo "Downloading $id to $file"
 if [[ ! -e "$fullchat" ]]; then
   echo "Downloading chat for $id to $fullchat"
   touch "$fullchat"
-  chat_downloader "$url" --message_groups all --output "$fullchat" > /dev/null &
+  chat_downloader "$url" --cookies "$cookies" --message_groups all --output "$fullchat" > /dev/null &
   chatpid=$!
   trap 'kill %1' SIGINT SIGTERM
 else
