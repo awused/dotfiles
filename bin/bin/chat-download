@@ -6,6 +6,9 @@ regex="(v=|be/|^)([a-zA-Z0-9_-]{11})"
 id=""
 chat_type=""
 cookies=/storage/media/users/desuwa/.cookies.txt
+ydir="/storage/media/youtube"
+
+cd "$ydir"
 
 if [[ $1 =~ $regex ]]; then
   id="${BASH_REMATCH[2]}"
@@ -29,19 +32,21 @@ channel=$(echo "$html" | grep -oE 'ownerChannelName":"[^"]*"' | sed 's/ownerChan
 title=$(clean "$title")
 channel=$(clean "$channel")
 
-dir="/storage/media/youtube/${channel}"
+dir="${channel}"
 chat="${dir}/${title}-${id}${chat_type}.json"
 
 mkdir -p "$dir"
+mkdir -p "chat-dumps/$dir"
 
 if [[ -e "$chat" ]]; then
-  echo "Chat file $chat already exists"
+  echo "Chat file $ydir/$chat already exists"
   exit 1
 fi
 
 touch "$chat"
 
-echo "Downloading chat for $id to $chat"
+echo "Downloading chat for $id to $ydir/$chat"
 
 chat_downloader "$url" --cookies "$cookies" --message_groups all --output "$chat"
+zstd --long -19 "$chat" -f -o "chat-dumps/${chat}.zst"
 
