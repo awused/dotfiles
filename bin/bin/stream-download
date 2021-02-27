@@ -52,11 +52,13 @@ if [[ ! -e "$chat" ]]; then
   chat_downloader "$url" --cookies "$cookies" --message_groups all --output "$chat" > /dev/null &
   chatpid=$!
   trap 'kill %1' SIGINT SIGTERM
-  zstd --long -19 "$chat" -f -o "chat-dumps/${chat}.zst"
 else
   echo "Chat file $ydir/$chat already exists"
 fi
 
 streamlink --retry-streams 10 "$url" best -o "$file" || true
 
-[ -n "$chatpid" ] && wait "$chatpid"
+if [ -n "$chatpid" ]; then
+  wait "$chatpid"
+  zstd --long -19 "$chat" -f -o "chat-dumps/${chat}.zst"
+fi
