@@ -3,4 +3,9 @@
 PYTHONPATH=$PYTHONPATH:/storage/src/third_party/softchat
 export PYTHONPATH
 
-python3 -m softchat -m2 --emote_font --cleanup --emote_cache /storage/cache/youtube-emotes --emote_fill --emote_install --emote_install_dir /storage/cache/youtube-fonts "$@"
+if echo "$1" | grep -E -v "\.ass$"; then
+  python3 -m softchat -m2 --emote_font --cleanup --emote_cache /storage/cache/youtube-emotes --emote_fill --emote_install --emote_install_dir /storage/cache/youtube-fonts "$@"
+else
+  /storage/src/third_party/softchat/contrib/regenerate.sh "$1"
+fi
+
