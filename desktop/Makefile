@@ -126,7 +126,7 @@ maim: sudo slop
 loudness-scanner: sudo
 	cd ${THIRD_PARTY_SOURCE}/loudness-scanner; \
 	  rm -rf fedora/; mkdir -p fedora; cd fedora; \
-	  cmake ..; $(MAKE); sudo $(MAKE) install
+	  cmake .. -DDISABLE_SNDFILE=True; $(MAKE); sudo $(MAKE) install
 
 # mpv: sudo
 # 	cd ${THIRD_PARTY_SOURCE}/mpv; \
