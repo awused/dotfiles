@@ -566,5 +566,5 @@ if len(rgfiles) > 0:
         rgargs = ['loudness', 'tag', '-t']
         rgargs.extend(files)
         if not args.dry_run:
-            p = subprocess.Popen(rgargs, stdout=sys.stdout)
+            p = subprocess.Popen(rgargs, stdout=sys.stdout, stderr=sys.stderr)
             p.wait()

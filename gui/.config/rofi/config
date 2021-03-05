@@ -1,7 +1,7 @@
 rofi.matching: fuzzy
 rofi.monitor: -1
 rofi.ssh-client: ssh
-rofi.ssh-command: desu-terminal -e {ssh-client} {host}
+rofi.ssh-command: desu-ssh -e {ssh-client} {host}
 rofi.theme: /usr/share/rofi/themes/gruvbox-dark-hard.rasi
 rofi.terminal: desu-terminal
 rofi.sort: true
