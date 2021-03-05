@@ -463,6 +463,7 @@ set autoindent
 set number
 set relativenumber
 set mouse=a
+set ttymouse=sgr
 set hidden
 set foldmethod=syntax
 set foldlevelstart=20
