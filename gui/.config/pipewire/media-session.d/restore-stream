@@ -1,0 +1,15 @@
+{ 
+ "restore.stream.Output/Audio.media.role:Music": { "volume": 1.000000, "mute": false, "volumes": [ 1.000000, 1.000000 ], "channels": [ "FL", "FR" ] }
+ "restore.stream.Output/Audio.application.name:Chromium (Freeworld)": { "volume": 1.000000, "mute": false, "volumes": [ 1.000000, 1.000000 ], "channels": [ "FL", "FR" ] }
+ "restore.stream.Output/Audio.application.name:Firefox": { "volume": 1.000000, "mute": false, "volumes": [ 0.000000, 0.000000 ], "channels": [ "FL", "FR" ] }
+ "restore.stream.Output/Audio.application.name:foobar2000.exe": { "volume": 1.000000, "mute": false, "volumes": [ 1.000000, 1.000000 ], "channels": [ "FL", "FR" ] }
+ "restore.stream.Input/Audio.application.name:foobar2000.exe": { "volume": 1.000000, "mute": false, "volumes": [ 1.000000, 1.000000 ], "channels": [ "FL", "FR" ] }
+ "restore.stream.Output/Audio.application.name:foobar2000 Application": { "volume": 1.000000, "mute": false, "volumes": [ 1.000000, 1.000000 ], "channels": [ "FL", "FR" ] }
+ "restore.stream.Input/Audio.application.name:Chromium (Freeworld) input": { "volume": 1.000000, "mute": false, "volumes": [ 1.000000, 1.000000 ], "channels": [ "FL", "FR" ] }
+ "restore.stream.Output/Audio.application.name:Scream": { "volume": 1.000000, "mute": false, "volumes": [ 1.000000, 1.000000 ], "channels": [ "FL", "FR" ] }
+ "restore.stream.Output/Audio.application.name:win10": { "volume": 1.000000, "mute": false, "volumes": [ 1.000000, 1.000000 ], "channels": [ "FL", "FR" ] }
+ "restore.stream.Input/Audio.application.name:win10": { "volume": 1.000000, "mute": false, "volumes": [ 0.772693, 0.772693 ], "channels": [ "FL", "FR" ] }
+ "restore.stream.Input/Audio.application.name:PulseAudio Volume Control": { "volume": 1.000000, "mute": false, "volumes": [ 1.000000, 1.000000 ], "channels": [ "FL", "FR" ] }
+ "restore.stream.Output/Audio.media.role:Notification": { "volume": 1.000000, "mute": false, "volumes": [ 1.000000, 1.000000 ], "channels": [ "FL", "FR" ] }
+ "restore.stream.Output/Audio.application.name:mpv": { "volume": 1.000000, "mute": false, "volumes": [ 1.000000, 1.000000 ], "channels": [ "FL", "FR" ] }
+}

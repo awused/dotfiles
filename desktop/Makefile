@@ -116,7 +116,7 @@ i3-gaps: sudo
 	cd ${THIRD_PARTY_SOURCE}/i3-gaps; \
 	  rm -rf build/; mkdir build; cd build; \
 	  meson ..; ninja; \
-	  meson install
+	  sudo meson install
 
 maim: sudo slop
 	cd ${THIRD_PARTY_SOURCE}/maim; \

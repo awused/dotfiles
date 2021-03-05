@@ -197,9 +197,9 @@ bindsym Mod1+Shift+o restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 # Give pulseaudio its necessary kick
-bindsym $mod+Shift+p exec --no-startup-id pulseaudio -k
+#bindsym $mod+Shift+p exec --no-startup-id pulseaudio -k
 # Give pulseaudio its necessary kick
-bindsym Mod1+Shift+p exec --no-startup-id ~/.config/i3/pulse-restart
+#bindsym Mod1+Shift+p exec --no-startup-id ~/.config/i3/pulse-restart
 bindsym Ctrl+Mod1+l exec --no-startup-id "xset dpms 10 10 10; ~/.config/i3/lock"
 
 bindsym $mod+Shift+w exec --no-startup-id wallpapers random
