@@ -15,7 +15,7 @@ export GOOGLE_APPLICATION_CREDENTIALS=$usbdir/.restic-robot.json
 # Keep everything within 90 days due to google coldline making it pointless to
 # delete anything newer
 echo "Restic Forget"
-sudo -E restic \
+sudo -E HOME=$HOME restic \
   -r "$(get-automation-password restic-bucket)" \
   forget \
   --cache-dir=$cacheroot/cache \
