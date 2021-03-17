@@ -22,5 +22,5 @@ Language = "gb"
 # These are the numbers in the URLs for the Manga, not the individual chapters.
 # https://mangadex.org/title/36283/looking-up-to-magical-girls -> 36283
 Manga = [
-  36283
+  36283,
 ]
