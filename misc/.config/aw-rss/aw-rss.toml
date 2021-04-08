@@ -41,7 +41,7 @@ Dedupe = true
 # back off aggressively but will never run their javascript.
 CloudflareDomains = [
   "konachan.com",
-  "mangadex.org",
-  "www.royalroad.com"
+  "www.royalroad.com",
+  "www.novelupdates.com"
 ]
 
