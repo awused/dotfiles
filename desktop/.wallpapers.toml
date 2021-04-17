@@ -1,5 +1,5 @@
 # Where original wallpapers are located
-OriginalsDirectory = '/storage/media/users/desuwa/Pictures/Wallpapers/originals'
+OriginalsDirectory = '/storage/usr/desuwa/Pictures/Wallpapers/originals'
 
 # Directory to store the upscaled and cropped versions of each wallpaper for each monitor
 # This can get very large if you have high resolution monitors
@@ -18,7 +18,7 @@ CacheDirectory = '/storage/cache/wallpapers'
 # It's not safe to use this database from multiple processes at once.
 # It is safe for multiple processes or computers to use, with the same originals directory, if they don't access it at the same time.
 # This directory must be created manually.
-DatabaseDir = '/storage/media/users/desuwa/Pictures/Wallpapers/db'
+DatabaseDir = '/storage/usr/desuwa/Pictures/Wallpapers/db'
 
 # Directory to store temporary files, leave blank for the system default temp directory
 # TempDirectory = 'C:\temp'

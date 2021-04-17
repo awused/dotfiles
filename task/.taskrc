@@ -11,7 +11,7 @@
 # Use the command 'task show' to see all defaults and overrides
 
 # Files
-data.location=/storage/media/users/desuwa/.task
+data.location=/storage/usr/desuwa/.task
 
 # Color theme (uncomment one to use)
 include ~/.task-theme # Manually created symlink

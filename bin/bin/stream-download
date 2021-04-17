@@ -5,7 +5,7 @@ set -e
 regex="(v=|be/|^)([a-zA-Z0-9_-]{11})"
 id=""
 chatpid=""
-cookies=/storage/media/users/desuwa/.cookies.txt
+cookies=/storage/usr/desuwa/.cookies.txt
 ydir="/storage/media/youtube"
 
 cd "$ydir"

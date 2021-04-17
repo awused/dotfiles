@@ -5,4 +5,4 @@ youtube-dl --ignore-config \
   --no-mtime \
   --username "$(get-automation-password nico-email )" \
   --password "$(get-automation-password nico)" \
-  --output '/storage/media/users/desuwa/Videos/%(title)s-%(id)s.%(ext)s' -- $@
+  --output '/storage/usr/desuwa/Videos/%(title)s-%(id)s.%(ext)s' -- $@

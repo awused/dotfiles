@@ -9,10 +9,10 @@ host=`hostname`
 if [ "`uname`" = "Linux" ]; then
   usbdir=/run/media/$USER/BACKUPS/google_cloud_storage
 elif [ "`uname`" = "FreeBSD" ]; then
-  tree 50 /storage/media/users/desuwa/Music > ~/.music-dir
-  tree 50 /storage/media/users/desuwa/Videos > ~/.videos-dir
+  tree 50 /storage/usr/desuwa/Music > ~/.music-dir
+  tree 50 /storage/usr/desuwa/Videos > ~/.videos-dir
   # None of the following directories are backed up directly
-  tree 50 "/storage/media/users/desuwa/Unsorted Downloads" > ~/.unsorted-dir
+  tree 50 "/storage/usr/desuwa/Unsorted Downloads" > ~/.unsorted-dir
   tree 50 /storage/media/anime > ~/.anime-dir
   tree 50 /storage/media/manga > ~/.manga-dir
   tree 50 /storage/media/ebooks > ~/.ebooks-dir

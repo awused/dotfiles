@@ -1,6 +1,6 @@
 #! /bin/sh
 
-file="/storage/media/users/desuwa/.cookies.txt"
+file="/storage/usr/desuwa/.cookies.txt"
 
 cp /home/desuwa/.mozilla/firefox/tbtcdg9m.desuwa/cookies.sqlite /home/desuwa/.mozilla/firefox/tbtcdg9m.desuwa/cookies-ydl.sqlite
 

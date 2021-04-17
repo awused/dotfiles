@@ -82,10 +82,10 @@ $SOURCE_DIR/go/**/vendor
 
 /etc/selinux/targeted/policy
 
-/storage/media/users/desuwa/**/upscale
-/storage/media/users/desuwa/**/hydrus
+/storage/usr/desuwa/**/upscale
+/storage/usr/desuwa/**/hydrus
 # Should eventually include this
-/storage/media/users/desuwa/Unsorted Downloads
+/storage/usr/desuwa/Unsorted Downloads
 
 /storage/public/steam/*/*.jpg
 

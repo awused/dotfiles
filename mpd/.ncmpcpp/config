@@ -1,5 +1,5 @@
 mpd_host = ~/.config/mpd/socket
-mpd_music_dir = /storage/media/users/desuwa/Music
+mpd_music_dir = /storage/usr/desuwa/Music
 
 ## Note: Custom command that will be executed each time player state
 ## changes. The environment variable MPD_PLAYER_STATE is set to the current

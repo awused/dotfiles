@@ -1,7 +1,7 @@
 # ~/.restic-home-files
 /usr/home
 /usr/local/etc
-/storage/media/users
+/storage/usr
 /storage/public
 /storage/src
 /etc
