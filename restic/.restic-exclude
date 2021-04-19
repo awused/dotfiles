@@ -83,7 +83,7 @@ $SOURCE_DIR/go/**/vendor
 /etc/selinux/targeted/policy
 
 /storage/usr/desuwa/**/upscale
-/storage/usr/desuwa/**/hydrus
+/storage/usr/hydrus
 # Should eventually include this
 /storage/usr/desuwa/Unsorted Downloads
 
