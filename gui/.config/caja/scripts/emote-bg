@@ -1,6 +1,0 @@
-#! /usr/bin/env bash
-
-f=${CAJA_SCRIPT_SELECTED_FILE_PATHS%%$'\n'*}
-
-[ -f "$f" ] && [[ $f =~ ^/storage/cache/youtube-emotes/[^.]+$ ]] && touch "${f}.bg"
-
