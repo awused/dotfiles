@@ -45,22 +45,16 @@ third-party: znc-clientbuffer
 all-install: go third-party
 
 gems: sudo
-	gem update
 	sudo gem update
+	gem update
 
 pip: sudo
-	sudo pip3 install pip --upgrade
+	# sudo pip3 install pip --upgrade
 	python3 -m pip install \
 	 $$(pip3 list --format=columns --outdated \
 	   | sed 1,2d | tr '\n' ' ' | sed -r 's/ +/ /g' \
 	   | awk -v RS=" " '1==NR%4' | grep -v 'libvirt' ) \
 	   --upgrade --user || true
-	sudo pip2 install pip --upgrade
-	pip2 install \
-	 $$(pip2 list --format=columns --outdated \
-	   | sed 1,2d | tr '\n' ' ' | sed -r 's/ +/ /g' \
-	   | awk -v RS=" " '1==NR%4' | grep -v -E 'libvirt|wxPython' ) \
-	   --upgrade --user
 npm:
 	npm update -g
 

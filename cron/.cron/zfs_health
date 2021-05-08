@@ -103,7 +103,7 @@ if [ ${problems} -eq 0 ]; then
 
     ### FreeBSD with *nix supported date format
     if [[ $(uname) == 'FreeBSD' ]]; then
-      scrubRawDate=$(/sbin/zpool status $volume | grep scrub | awk '{print $17 $14 $15 " " $16}')
+      scrubRawDate=$(/sbin/zpool status $volume | grep scrub | awk '{print $15 $12 $13 " " $14}')
       scrubDate=$(date -j -f '%Y%b%e %H:%M:%S' "$scrubRawDate" +%s)
     else
       scrubRawDate=$(/sbin/zpool status $volume | grep scrub | awk '{print $14 " " $15 ", " $17 " " $16}')
