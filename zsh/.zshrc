@@ -328,6 +328,7 @@ export FZF_EXCLUDES=" \
   -not \( -name '.opam' -prune \) \
   -not \( -name '.password-store' -prune \) \
   -not \( -path '*/.purple/icons' -prune \) \
+  -not \( -name '__pycache__' -prune \) \
   -not \( -name '.QtWebEngineProcess' -prune \) \
   -not \( -name '.renpy' -prune \) \
   -not \( -name '.sass-cache' -prune \) \

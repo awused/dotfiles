@@ -38,7 +38,7 @@ if [ -z "$channel" ]; then
 fi
 
 dir="${channel}"
-file="${dir}/${title}-${id}.mp4"
+file="${dir}/${title}-${id}.mkv"
 chat="${dir}/${title}-${id}.full.json"
 
 mkdir -p "$dir"
@@ -62,7 +62,10 @@ else
   echo "Chat file $ydir/$chat already exists"
 fi
 
-streamlink --retry-streams 10 "$url" best -o "$file" || true
+/storage/src/third_party/ytarchive/ytarchive.py -w --threads 2 --write-thumbnail --vp9 --output "$file" "$url" best
+#streamlink --retry-streams 10 "$url" best -o "$file" || true
+
+get-start-time "$url" || true
 
 if [ -n "$chatpid" ]; then
   wait "$chatpid"
