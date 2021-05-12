@@ -97,12 +97,12 @@ MouseKeys = true
   Format = "%[3]s"
 
 [[Overrides]]
-  Regex = 'bin/mcomix '
-  Delegate = "/home/desuwa/.config/screenshotter/mcomix-manga.sh"
-
-[[Overrides]]
   Regex = 'bin/mcomix /storage/media/manga/'
   Delegate = "/home/desuwa/.config/screenshotter/mcomix-manga-dir.sh"
+
+[[Overrides]]
+  Regex = 'bin/mcomix '
+  Delegate = "/home/desuwa/.config/screenshotter/mcomix-manga.sh"
 
 [[Overrides]]
   Regex = 'bin/mcomix '
