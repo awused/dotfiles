@@ -140,6 +140,10 @@ MouseKeys = true
   Delegate = "/home/desuwa/.config/screenshotter/firefox-readjump.sh"
 
 [[Overrides]]
+  Name = "firefox"
+  Delegate = "/home/desuwa/.config/screenshotter/firefox-dynasty.sh"
+
+[[Overrides]]
   Name = "mpv"
   Delegate = "/home/desuwa/.config/screenshotter/mpv-anime.sh"
 
