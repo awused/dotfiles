@@ -43,11 +43,9 @@ if ext == ".zip" or ext == ".cbz":
                 imgb = zipf.read(f)
                 if testImage(imgb):
                     firstimg = imgb
-                    print(f)
                     break
-    except e:
+    except:
         # cbz is also often 7zip
-        print(e)
         pass
 
 elif ext == ".rar" or ext == ".cbr":
