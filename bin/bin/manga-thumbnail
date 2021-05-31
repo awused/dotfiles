@@ -7,6 +7,7 @@ import io
 import subprocess
 import py7zr
 import rarfile
+from PIL import Image
 
 [output, dimensions, archive] = sys.argv[1:4]
 
@@ -18,6 +19,18 @@ if not abspath.startswith("/storage/media/manga/") and not abspath.startswith(
 ext = os.path.splitext(archive)[1].lower()
 firstimg = None
 
+
+def testImage(b):
+    if imghdr.what("", h=b):
+        return True
+    with Image.open(io.BytesIO(b)) as i:
+        try:
+            i.verify()
+            return True
+        except:
+            pass
+
+
 if ext == ".zip" or ext == ".cbz":
     try:
         with zipfile.ZipFile(archive) as zipf:
@@ -25,13 +38,16 @@ if ext == ".zip" or ext == ".cbz":
             # Natural sorting should be unnecessary here
             flist.sort(key=lambda x: x.filename.lower())
             for f in flist:
+                print(f)
                 if f.is_dir(): continue
                 imgb = zipf.read(f)
-                if imghdr.what("", h=imgb):
+                if testImage(imgb):
                     firstimg = imgb
+                    print(f)
                     break
-    except:
+    except e:
         # cbz is also often 7zip
+        print(e)
         pass
 
 elif ext == ".rar" or ext == ".cbr":
@@ -42,7 +58,7 @@ elif ext == ".rar" or ext == ".cbr":
         for f in flist:
             if f.is_dir(): continue
             imgb = zipf.read(f)
-            if imghdr.what("", h=imgb):
+            if testImage(imgb):
                 firstimg = imgb
                 break
 
@@ -54,7 +70,7 @@ if ext == ".7z" or (not firstimg and ext == ".cbz"):
             if f.is_directory: continue
             zipf.reset()
             imgb = zipf.read([f.filename]).popitem()[1].read()
-            if imghdr.what("", h=imgb):
+            if testImage(imgb):
                 firstimg = imgb
                 break
 
