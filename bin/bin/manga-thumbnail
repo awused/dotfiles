@@ -1,0 +1,67 @@
+#! /usr/bin/env python
+import zipfile
+import sys
+import imghdr
+import os
+import io
+import subprocess
+import py7zr
+import rarfile
+
+[output, dimensions, archive] = sys.argv[1:4]
+
+abspath = os.path.abspath(archive)
+if not abspath.startswith("/storage/media/manga/") and not abspath.startswith(
+        "/storage/usr/desuwa/"):
+    sys.exit(1)
+
+ext = os.path.splitext(archive)[1].lower()
+firstimg = None
+
+if ext == ".zip" or ext == ".cbz":
+    try:
+        with zipfile.ZipFile(archive) as zipf:
+            flist = zipf.infolist()
+            # Natural sorting should be unnecessary here
+            flist.sort(key=lambda x: x.filename.lower())
+            for f in flist:
+                if f.is_dir(): continue
+                imgb = zipf.read(f)
+                if imghdr.what("", h=imgb):
+                    firstimg = imgb
+                    break
+    except:
+        # cbz is also often 7zip
+        pass
+
+elif ext == ".rar" or ext == ".cbr":
+    with rarfile.RarFile(archive) as zipf:
+        flist = zipf.infolist()
+        # Natural sorting should be unnecessary here
+        flist.sort(key=lambda x: x.filename.lower())
+        for f in flist:
+            if f.is_dir(): continue
+            imgb = zipf.read(f)
+            if imghdr.what("", h=imgb):
+                firstimg = imgb
+                break
+
+if ext == ".7z" or (not firstimg and ext == ".cbz"):
+    with py7zr.SevenZipFile(archive) as zipf:
+        flist = zipf.list()
+        flist.sort(key=lambda x: x.filename.lower())
+        for f in flist:
+            if f.is_directory: continue
+            zipf.reset()
+            imgb = zipf.read([f.filename]).popitem()[1].read()
+            if imghdr.what("", h=imgb):
+                firstimg = imgb
+                break
+
+if not firstimg:
+    sys.exit(1)
+
+completed = subprocess.run(
+    ["convert", "-", "-flatten", "-thumbnail", dimensions, "PNG:" + output],
+    input=firstimg,
+    check=True)
