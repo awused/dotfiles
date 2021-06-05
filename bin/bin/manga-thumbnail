@@ -23,12 +23,12 @@ firstimg = None
 def testImage(b):
     if imghdr.what("", h=b):
         return True
-    with Image.open(io.BytesIO(b)) as i:
-        try:
+    try:
+        with Image.open(io.BytesIO(b)) as i:
             i.verify()
             return True
-        except:
-            pass
+    except:
+        pass
 
 
 if ext == ".zip" or ext == ".cbz":
@@ -38,7 +38,7 @@ if ext == ".zip" or ext == ".cbz":
             # Natural sorting should be unnecessary here
             flist.sort(key=lambda x: x.filename.lower())
             for f in flist:
-                print(f)
+                # print(f)
                 if f.is_dir(): continue
                 imgb = zipf.read(f)
                 if testImage(imgb):
