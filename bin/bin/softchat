@@ -4,7 +4,7 @@ PYTHONPATH=$PYTHONPATH:/storage/src/third_party/softchat
 export PYTHONPATH
 
 if echo "$1" | grep -E -v "\.ass$"; then
-  python3 -m softchat -m2 --emote_font --cleanup --emote_cache /storage/cache/youtube-emotes --emote_fill --emote_install --emote_install_dir /storage/cache/youtube-fonts "$@"
+  python3 -m softchat -m2 --emote_font --cleanup --emote_cache /storage/cache/youtube-emotes --emote_fill --emote_install --emote_install_dir /storage/cache/youtube-fonts --badge_sz 0.8 "$@"
 else
   /storage/src/third_party/softchat/contrib/regenerate.sh "$1"
 fi
