@@ -6,19 +6,19 @@ sudo:
 	sudo echo "Starting"
 
 hydrus-mover:
-	cd ${GOPATH}/src/github.com/awused/hydrus-mover; go install
+	cd ${SOURCE_DIR}/hydrus-mover; go install
 
 manga-syncer:
-	cd ${GOPATH}/src/github.com/awused/manga-syncer; go install
+	cd ${SOURCE_DIR}/manga-syncer; go install
 
 rss-scrapers:
-	cd ${GOPATH}/src/github.com/awused/rss-scrapers; go install ./...
+	cd ${SOURCE_DIR}/rss-scrapers; go install ./...
 
 rss:
-	cd ${GOPATH}/src/github.com/awused/aw-rss; go install
+	cd ${SOURCE_DIR}/aw-rss; go install
 
 steam-screenshots:
-	cd ${GOPATH}/src/github.com/awused/steam-screenshots; go install
+	cd ${SOURCE_DIR}/steam-screenshots; go install
 
 go: hydrus-mover manga-syncer rss rss-scrapers steam-screenshots
 

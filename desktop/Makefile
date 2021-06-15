@@ -9,94 +9,97 @@ sudo:
 # Go
 
 add-to-transmission:
-	cd ${GOPATH}/src/github.com/awused/add-to-transmission; go install
+	cd ${SOURCE_DIR}/add-to-transmission; go install
 
 dispatcher:
-	cd ${GOPATH}/src/github.com/awused/dispatcher; go install
+	cd ${SOURCE_DIR}/dispatcher; go install
 
 hydrus-mover:
-	cd ${GOPATH}/src/github.com/awused/hydrus-mover; go install
+	cd ${SOURCE_DIR}/hydrus-mover; go install
 
 madokami:
-	cd ${GOPATH}/src/github.com/awused/madokami; go install
+	cd ${SOURCE_DIR}/madokami; go install
+
+manga-syncer:
+	cd ${SOURCE_DIR}/manga-syncer; go install
 
 manga-upscaler:
-	cd ${GOPATH}/src/github.com/awused/manga-upscaler; go install
+	cd ${SOURCE_DIR}/manga-upscaler; go install
 
 mpd-fzf:
-	cd ${GOPATH}/src/github.com/awused/mpd-fzf; go install
+	cd ${SOURCE_DIR}/mpd-fzf; go install
 
 mpd-rofi:
-	cd ${GOPATH}/src/github.com/awused/mpd-rofi; go install
+	cd ${SOURCE_DIR}/mpd-rofi; go install
 
 mpd-shuffler:
-	cd ${GOPATH}/src/github.com/awused/mpd-shuffler; go install
+	cd ${SOURCE_DIR}/mpd-shuffler; go install
 
 public-clipboard:
-	cd ${GOPATH}/src/github.com/awused/public-clipboard; go install
+	cd ${SOURCE_DIR}/public-clipboard; go install
 
 rss-scrapers:
-	cd ${GOPATH}/src/github.com/awused/rss-scrapers; go install ./...
+	cd ${SOURCE_DIR}/rss-scrapers; go install ./...
 
 screenshotter:
-	cd ${GOPATH}/src/github.com/awused/screenshotter; go install
+	cd ${SOURCE_DIR}/screenshotter; go install
 
 strpick:
-	cd ${GOPATH}/src/github.com/awused/go-strpick/strpick; go install
+	cd ${SOURCE_DIR}/go-strpick/strpick; go install
 
 upscale-directory:
-	cd ${GOPATH}/src/github.com/awused/upscale-directory; go install
+	cd ${SOURCE_DIR}/upscale-directory; go install
 
 vmrpc:
-	cd ${GOPATH}/src/github.com/awused/vmrpc/clipboard; \
+	cd ${SOURCE_DIR}/vmrpc/clipboard; \
 	  protoc --go_out=plugins=grpc:. *.proto
-	cd ${GOPATH}/src/github.com/awused/vmrpc/mpd; \
+	cd ${SOURCE_DIR}/vmrpc/mpd; \
 	  protoc --go_out=plugins=grpc:. *.proto
-	cd ${GOPATH}/src/github.com/awused/vmrpc/monitors; \
+	cd ${SOURCE_DIR}/vmrpc/monitors; \
 	  protoc --go_out=plugins=grpc:. *.proto
-	cd ${GOPATH}/src/github.com/awused/vmrpc/scream; \
+	cd ${SOURCE_DIR}/vmrpc/scream; \
 	  protoc --go_out=plugins=grpc:. *.proto
-	cd ${GOPATH}/src/github.com/awused/vmrpc/sharex; \
+	cd ${SOURCE_DIR}/vmrpc/sharex; \
 	  protoc --go_out=plugins=grpc:. *.proto
-	cd ${GOPATH}/src/github.com/awused/vmrpc/usb; \
+	cd ${SOURCE_DIR}/vmrpc/usb; \
 	  protoc --go_out=plugins=grpc:. *.proto
-	cd ${GOPATH}/src/github.com/awused/vmrpc/vmrpc-server; go install
-	cd ${GOPATH}/src/github.com/awused/vmrpc/vmrpc-client; go install
+	cd ${SOURCE_DIR}/vmrpc/vmrpc-server; go install
+	cd ${SOURCE_DIR}/vmrpc/vmrpc-client; go install
 
 wallpapers:
-	cd ${GOPATH}/src/github.com/awused/wallpapers; go install
+	cd ${SOURCE_DIR}/wallpapers; go install
 
 
 go: wallpapers dispatcher add-to-transmission \
   upscale-directory public-clipboard screenshotter madokami \
   hydrus-mover mpd-fzf mpd-rofi mpd-shuffler vmrpc rss-scrapers \
-  strpick manga-upscaler
+  strpick manga-upscaler manga-syncer
 
 windows-clipboard:
-	cd ${GOPATH}/src/github.com/awused/public-clipboard; \
+	cd ${SOURCE_DIR}/public-clipboard; \
 	  GOOS=windows go build -ldflags -H=windowsgui; \
 	  mv *.exe /storage/winshare/gobin/
 
 windows-quiet-cmd:
-	cd ${GOPATH}/src/github.com/awused/quiet-cmd; \
+	cd ${SOURCE_DIR}/quiet-cmd; \
 	  GOOS=windows go build -ldflags -H=windowsgui; \
 	  mv *.exe /storage/winshare/gobin/
 
 windows-sharex: vmrpc
-	cd ${GOPATH}/src/github.com/awused/sharex-mover; \
+	cd ${SOURCE_DIR}/sharex-mover; \
 	  GOOS=windows go build -ldflags -H=windowsgui; \
 	  mv *.exe /storage/winshare/gobin/
 
 windows-vmrpc: vmrpc
-	cd ${GOPATH}/src/github.com/awused/vmrpc/vmrpc-client; \
+	cd ${SOURCE_DIR}/vmrpc/vmrpc-client; \
 	  GOOS=windows go build -ldflags -H=windowsgui; \
 	  mv *.exe /storage/winshare/gobin/; \
-	cd ${GOPATH}/src/github.com/awused/vmrpc/vmrpc-client; \
+	cd ${SOURCE_DIR}/vmrpc/vmrpc-client; \
 	  GOOS=windows go build; \
 	  mv vmrpc-client.exe /storage/winshare/gobin/vmrpc-client-debug.exe
 
 windows-wallpapers:
-	cd ${GOPATH}/src/github.com/awused/wallpapers; \
+	cd ${SOURCE_DIR}/wallpapers; \
 	  GOOS=windows go build -ldflags -H=windowsgui; \
 	  GOOS=windows go build -o wallcon.exe; \
 	  mv wallpapers.exe wallcon.exe /storage/winshare/gobin/
