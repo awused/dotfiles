@@ -154,6 +154,7 @@ fun! GrepDir(dir, ...)
 endfun
 
 fun! GrepDirAbs(dir, cmd, ...)
+  set notermguicolors
   if !empty($FZF_CTRL_T_COMMAND)
     let l:cmd = $FZF_CTRL_T_COMMAND . ' -not \( -path ''*/go/bin/*'' -prune \) ' . a:dir . ' | awk ''{print $0":1:1"}'''
     call call("fzf#vim#grep", [l:cmd] + a:000)
@@ -161,6 +162,7 @@ fun! GrepDirAbs(dir, cmd, ...)
     let l:cmd = $FZF_DEFAULT_COMMAND . ' -not \( -path ''*/go/bin/*'' -prune \) ' . a:dir . ' | awk ''{print $0":1:1"}'''
     call call("fzf#vim#grep", [l:cmd] + a:000)
   endif
+  set termguicolors
 endfun
 
 fun! Sudoe()
@@ -369,6 +371,7 @@ endif
 Plug 'morhetz/gruvbox'
 
 "Plug 'tpope/vim-vividchalk'
+Plug 'agude/vim-eldar'
 call plug#end()
 "{{{ YouCompleteMe Settings
 " Disable preview entirely
@@ -463,7 +466,6 @@ set autoindent
 set number
 set relativenumber
 set mouse=a
-set ttymouse=sgr
 set hidden
 set foldmethod=syntax
 set foldlevelstart=20
@@ -474,6 +476,12 @@ set encoding=utf8
 set fillchars+=vert:│
 set fillchars+=fold:─
 set fileencodings=ucs-bom,utf-8,sjis
+
+if has('nvim')
+  set laststatus=0
+else
+  set ttymouse=sgr
+endif
 
 "set notimeout
 " Handle escape character timeouts
@@ -488,8 +496,8 @@ endif
 
 augroup window_settings
   autocmd!
-  " Highlight once past 80 characters. Works out well for two files side-by-side.
-  autocmd BufWinEnter * call matchadd('ColorColumn', '\%>79v.')
+  " Highlight once past 100 characters. Works out well for half of my monitors.
+  autocmd BufWinEnter * call matchadd('ColorColumn', '\%>99v.')
   autocmd BufWinEnter * highlight ExtraWhitespace ctermbg=red guibg=red
   "autocmd BufWinEnter * call matchadd('ExtraWhitespace', '\s\+$', 11)
   autocmd BufWinEnter * call matchadd('ExtraWhitespace', '\s\+\%#\@<!$')
@@ -519,6 +527,7 @@ set backupdir=$HOME/.vim/backups//
 " At least the ones that don't belong anywhere else
 if g:os == "Linux"
   if empty($FORCE_BG)
+    set background=dark
     " Make most backgrounds transparent
     call RemoveBG("BufTabLineActive")
     hi BufTabLineCurrent guibg=NONE ctermbg=NONE guifg=#c8b9a4 ctermfg=white
@@ -529,6 +538,28 @@ if g:os == "Linux"
     call RemoveBG("Normal")
     call RemoveBG("VertSplit")
     hi Normal guifg=white ctermfg=white
+    call RemoveBG("StatusLine")
+    if has('nvim')
+      unlet g:terminal_color_0
+      unlet g:terminal_color_1
+      unlet g:terminal_color_2
+      unlet g:terminal_color_3
+      unlet g:terminal_color_4
+      unlet g:terminal_color_5
+      unlet g:terminal_color_6
+      unlet g:terminal_color_7
+      unlet g:terminal_color_8
+      unlet g:terminal_color_9
+      unlet g:terminal_color_10
+      unlet g:terminal_color_11
+      unlet g:terminal_color_12
+      unlet g:terminal_color_13
+      unlet g:terminal_color_14
+      unlet g:terminal_color_15
+    endif
   endif
+endif
+if g:os == "FreeBSD"
+  colorscheme eldar
 endif
 "}}}

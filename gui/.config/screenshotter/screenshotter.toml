@@ -50,6 +50,10 @@ MouseKeys = true
   Format = "vim"
 
 [[Overrides]]
+  Name = "nvim"
+  Format = "vim"
+
+[[Overrides]]
   Name = "i3"
   Format = "desktop"
 

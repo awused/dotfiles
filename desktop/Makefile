@@ -173,7 +173,8 @@ waifu2x-vulkan:
 	  cd "${THIRD_PARTY_SOURCE}/waifu2x-ncnn-vulkan"; \
 	  rm -rf build/; mkdir build; cd build; \
 	  cmake ../src; $(MAKE); \
-	  mv waifu2x-ncnn-vulkan ~/.bin/
+	  mv waifu2x-ncnn-vulkan ~/.bin/; \
+	  ln -s "${THIRD_PARTY_SOURCE}/waifu2x-ncnn-vulkan/models/models-cunet" ~/.bin/
 
 
 third-party: bfs ddcutil i3-gaps loudness-scanner maim scream split2flac timg \

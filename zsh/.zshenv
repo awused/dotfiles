@@ -4,7 +4,7 @@
 
 umask 022
 
-export EDITOR='vim'
+export EDITOR='nvim'
 export PAGER='less'
 export LANG=en_US.UTF-8
 # Closer to matching natural sorting, but not exactly

@@ -43,7 +43,7 @@ font-3 = unifont:fontformat=truetype:size=16:antialias=false;4
 modules-left = i3 xkeyboard
 modules-center = mpd
 ;modules-right = fs0 fs1 cpu gpu memory cputemp0 cputemp1 gputemp watertemp date
-modules-right = fs0 fs1 cpu gpu memory cputemp0 cputemp1 gputemp date
+modules-right = fs0 fs1 cpu gpu memory gpumemory cputemp0 cputemp1 gputemp date
 padding-right = 1
 
 ;tray-position = right
@@ -133,7 +133,8 @@ label-urgent-padding = 2
 
 [module/mpd]
 type = internal/mpd
-format-online = <label-song> <label-time> <icon-prev> <icon-stop> <toggle> <icon-next>
+;format-online = <label-song> <label-time> <icon-prev> <icon-stop> <toggle> <icon-next>
+format-online = <label-song> <label-time>
 
 host = /home/desuwa/.config/mpd/socket
 icon-prev = 
@@ -169,7 +170,12 @@ ramp-load-7 = █
 type = custom/script
 exec = ~/.config/polybar/ramp-percent.sh $(~/.config/polybar/gpu-query.sh utilization.gpu)
 interval = 2
+format-underline = #a0a0ff
 
+[module/gpumemory]
+type = custom/script
+exec = ~/.config/polybar/gpu-memory.sh
+interval = 2
 format-underline = #a0a0ff
 
 [module/memory]
