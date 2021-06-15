@@ -116,7 +116,9 @@ alias mux='tmuxinator'
 alias tm='tmux attach -d -t main'
 
 alias mmv='noglob zmv -W'
-alias vim=nvim
+if (which nvim >/dev/null 2>&1) {
+  alias vim=nvim
+}
 
 # vim with X11 clipboard and a bunch of other bloat
 #if [[ $(command -v vimx) != "" ]] {

@@ -154,7 +154,6 @@ fun! GrepDir(dir, ...)
 endfun
 
 fun! GrepDirAbs(dir, cmd, ...)
-  set notermguicolors
   if !empty($FZF_CTRL_T_COMMAND)
     let l:cmd = $FZF_CTRL_T_COMMAND . ' -not \( -path ''*/go/bin/*'' -prune \) ' . a:dir . ' | awk ''{print $0":1:1"}'''
     call call("fzf#vim#grep", [l:cmd] + a:000)
@@ -162,7 +161,6 @@ fun! GrepDirAbs(dir, cmd, ...)
     let l:cmd = $FZF_DEFAULT_COMMAND . ' -not \( -path ''*/go/bin/*'' -prune \) ' . a:dir . ' | awk ''{print $0":1:1"}'''
     call call("fzf#vim#grep", [l:cmd] + a:000)
   endif
-  set termguicolors
 endfun
 
 fun! Sudoe()
@@ -332,7 +330,9 @@ Plug 'google/vim-glaive'
 "{{{ Copying and Pasting
 let g:highlightedyank_highlight_duration = 2000
 Plug 'machakann/vim-highlightedyank'
-Plug 'roxma/vim-tmux-clipboard'
+if !has('nvim')
+  Plug 'roxma/vim-tmux-clipboard'
+endif
 " This needs to be loaded after vim-tmux-focus-events
 Plug 'ConradIrwin/vim-bracketed-paste'
 " Make pasting fast
@@ -454,9 +454,14 @@ let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 let &t_ZH="\<Esc>[3m"
 let &t_ZR="\<Esc>[23m"
 
-set termguicolors
 set background=dark
-colorscheme gruvbox
+if g:os == "FreeBSD"
+  " Different to support older/less compatible terminals.
+  colorscheme eldar
+else
+  set termguicolors
+  colorscheme gruvbox
+endif
 set nohlsearch
 set expandtab
 set smarttab
@@ -544,7 +549,7 @@ if g:os == "Linux"
       unlet g:terminal_color_1
       unlet g:terminal_color_2
       unlet g:terminal_color_3
-      unlet g:terminal_color_4
+      let g:terminal_color_4 = "#00aaff"
       unlet g:terminal_color_5
       unlet g:terminal_color_6
       unlet g:terminal_color_7
@@ -558,8 +563,5 @@ if g:os == "Linux"
       unlet g:terminal_color_15
     endif
   endif
-endif
-if g:os == "FreeBSD"
-  colorscheme eldar
 endif
 "}}}

@@ -213,7 +213,7 @@ flatpak:
 # update: gems pip npm opam flatpak
 
 vim-plug:
-	vim +PlugUpgrade +PlugUpdate +qall
+	nvim +PlugUpgrade +PlugUpdate +qall
 
 zplug:
 	zsh -c 'export PS1="a"; source ~/.zshrc; zplug update'
