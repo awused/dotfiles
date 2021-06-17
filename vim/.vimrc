@@ -13,8 +13,9 @@
 " Be sure to set clang-format for Glaive for formatting
 "
 "
-" npm install -g typescript js-beautify
+" npm install -g typescript js-beautify yarn
 "
+" go get -u github.com/mattn/efm-langserver
 " install yapf for python
 "
 " Plug commands: PlugInstall, PlugUpdate, PlugClean, PlugUpgrade (vim-plug
@@ -206,6 +207,7 @@ nnoremap <leader>D :BUNDO<cr>:e<cr>
 Plug 'qpkorr/vim-bufkill'
 "}}}
 "{{{ Language Plugins
+" TODO -- nvim 0.6.0, consider treesitter
 Plug 'leafgarland/typescript-vim'
 Plug 'othree/yajs.vim'
 Plug 'othree/es.next.syntax.vim'
@@ -226,7 +228,7 @@ let g:go_highlight_build_constraints = 1
 let g:go_fmt_autosave = 0
 " Remember fold state after write
 " let g:go_fmt_experimental = 1
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 "}}}
 "{{{ Autocompletion
 Plug 'tomtom/tcomment_vim'
@@ -253,7 +255,21 @@ function! BuildYCM(info)
     call system('./install.py ' . l:options)
   endif
 endfunction
-Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+if has('nvim')
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'josa42/coc-sh', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'josa42/coc-go', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'fannheyward/coc-pyright', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'clangd/coc-clangd', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'fannheyward/coc-markdownlint', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+else
+  Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+endif
 "}}}
 "{{{ Navigation / Search
 "{{{ FZF Searching
@@ -375,34 +391,89 @@ Plug 'agude/vim-eldar'
 call plug#end()
 "{{{ YouCompleteMe Settings
 " Disable preview entirely
-set completeopt-=preview
-let g:ycm_global_ycm_extra_conf = $HOME.'/.ycm_extra_conf.py'
-let g:ycm_add_preview_to_completeopt=0
-" let g:ycm_autoclose_preview_window_after_completion=1
+if !has('nvim')
+  set completeopt-=preview
+  let g:ycm_global_ycm_extra_conf = $HOME.'/.ycm_extra_conf.py'
+  let g:ycm_add_preview_to_completeopt=0
+  " let g:ycm_autoclose_preview_window_after_completion=1
 
-let g:ycm_filetype_specific_completion_to_disable = {
-  \ 'vim' : 1,
-  \ 'help' : 1,
-  \ 'vimrc' : 1,
-  \ 'zsh' : 1,
-  \ 'xml' : 1,
-  \ 'html' : 1,
-  \ '' : 1,
-  \}
+  let g:ycm_filetype_specific_completion_to_disable = {
+    \ 'vim' : 1,
+    \ 'help' : 1,
+    \ 'vimrc' : 1,
+    \ 'zsh' : 1,
+    \ 'xml' : 1,
+    \ 'html' : 1,
+    \ '' : 1,
+    \}
 
-" The following is a hack to make the carriage return key function as the
-" 'accept' action when using YouCompleteMe plugin for autocompletion
-" See https://github.com/Valloric/YouCompleteMe/issues/232#issuecomment-299677328
-imap <expr> <CR> pumvisible() ? "\<c-y>" : "\<CR>"
+  " The following is a hack to make the carriage return key function as the
+  " 'accept' action when using YouCompleteMe plugin for autocompletion
+  " See https://github.com/Valloric/YouCompleteMe/issues/232#issuecomment-299677328
+  imap <expr> <CR> pumvisible() ? "\<c-y>" : "\<CR>"
 
-nnoremap <leader>g :YcmCompleter GoTo<cr>
-nnoremap <leader>r :YcmCompleter GoToReferences<cr>
-" Disabled in favour of googlefmt
-"nnoremap <leader>f :YcmCompleter Format<cr>
-nnoremap <leader>f :YcmCompleter FixIt<cr>
-nnoremap <leader>o :YcmCompleter OrganizeImports<cr>
-call SetupCommandAlias("RR", "YcmCompleter RefactorRename")
+  nnoremap <leader>g :YcmCompleter GoTo<cr>
+  nnoremap <leader>r :YcmCompleter GoToReferences<cr>
+  " Disabled in favour of googlefmt
+  "nnoremap <leader>f :YcmCompleter Format<cr>
+  nnoremap <leader>f :YcmCompleter FixIt<cr>
+  nnoremap <leader>o :YcmCompleter OrganizeImports<cr>
+  call SetupCommandAlias("RR", "YcmCompleter RefactorRename")
+endif
+"}}}
+"{{{ CoC.vim Settings
+if has('nvim')
+  inoremap <silent><expr> <TAB>
+        \ pumvisible() ? "\<C-y>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ coc#refresh()
+  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
+  function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+  endfunction
+
+  " Use <c-space> to trigger completion.
+  if has('nvim')
+    inoremap <silent><expr> <c-space> coc#refresh()
+  else
+    inoremap <silent><expr> <c-@> coc#refresh()
+  endif
+
+  " Make <CR> auto-select the first completion item and notify coc.nvim to
+  " format on enter, <cr> could be remapped by other vim plugin
+  inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                                \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+  " Use `[g` and `]g` to navigate diagnostics
+  " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+  nmap <silent> [g <Plug>(coc-diagnostic-prev)
+  nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+  " GoTo code navigation.
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
+
+  " Highlight the symbol and its references when holding the cursor.
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+
+  " Symbol renaming.
+  nmap <leader>rn <Plug>(coc-rename)
+  " Applying codeAction to the selected region.
+  " Example: `<leader>aap` for current paragraph
+  xmap <leader>a  <Plug>(coc-codeaction-selected)
+  nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+  " Remap keys for applying codeAction to the current buffer.
+  nmap <leader>ac  <Plug>(coc-codeaction)
+  " Apply AutoFix to problem on the current line.
+  nmap <leader>f  <Plug>(coc-fix-current)
+
+  set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+endif
 "}}}
 "}}}
 
@@ -488,6 +559,11 @@ else
   set ttymouse=sgr
 endif
 
+set updatetime=300
+if has('nvim-0.5.0')
+  set signcolumn=number
+endif
+
 "set notimeout
 " Handle escape character timeouts
 set timeout
@@ -544,6 +620,7 @@ if g:os == "Linux"
     call RemoveBG("VertSplit")
     hi Normal guifg=white ctermfg=white
     call RemoveBG("StatusLine")
+    hi CocHighlightText ctermfg=cyan guifg=cyan
     if has('nvim')
       unlet g:terminal_color_0
       unlet g:terminal_color_1

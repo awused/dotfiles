@@ -1,0 +1,10 @@
+{
+  "diagnostic.checkCurrentLine": true,
+  "languageserver": {
+    "efm": {
+      "command": "efm-langserver",
+      "args": [],
+      "filetypes": ["vim", "eruby", "markdown"]
+    }
+  }
+}
