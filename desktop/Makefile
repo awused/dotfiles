@@ -11,6 +11,9 @@ sudo:
 add-to-transmission:
 	cd ${SOURCE_DIR}/add-to-transmission; go install
 
+aw-man:
+	cd ${SOURCE_DIR}/aw-man; go install
+
 dispatcher:
 	cd ${SOURCE_DIR}/dispatcher; go install
 
@@ -70,7 +73,7 @@ wallpapers:
 	cd ${SOURCE_DIR}/wallpapers; go install
 
 
-go: wallpapers dispatcher add-to-transmission \
+go: wallpapers dispatcher add-to-transmission aw-man \
   upscale-directory public-clipboard screenshotter madokami \
   hydrus-mover mpd-fzf mpd-rofi mpd-shuffler vmrpc rss-scrapers \
   strpick manga-upscaler manga-syncer

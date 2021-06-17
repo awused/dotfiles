@@ -178,7 +178,3 @@ MouseKeys = true
   Name = "kthreadd"
   Delegate = "/home/desuwa/.config/screenshotter/kthreadd.sh"
 
-[[Overrides]]
-  Name = "desktop"
-  Delegate = "/home/desuwa/.config/screenshotter/steam.sh"
-

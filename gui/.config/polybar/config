@@ -51,8 +51,8 @@ tray-padding = 2
 ;tray-background = #0063ff
 
 
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
+scroll-up = i3-next
+scroll-down = i3-prev
 
 cursor-click = default
 
