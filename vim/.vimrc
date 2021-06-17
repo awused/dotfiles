@@ -207,28 +207,45 @@ nnoremap <leader>D :BUNDO<cr>:e<cr>
 Plug 'qpkorr/vim-bufkill'
 "}}}
 "{{{ Language Plugins
-" TODO -- nvim 0.6.0, consider treesitter
-Plug 'leafgarland/typescript-vim'
-Plug 'othree/yajs.vim'
-Plug 'othree/es.next.syntax.vim'
-let g:python_highlight_all = 1
-Plug 'vim-python/python-syntax'
-Plug 'tmhedberg/SimpylFold'
-let g:yapf_style = "google"
-Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
-" Plug 'rust-lang/rust.vim'
+if !has('nvim-0.5.0')
+  Plug 'leafgarland/typescript-vim'
+  Plug 'othree/yajs.vim'
+  Plug 'othree/es.next.syntax.vim'
+  let g:python_highlight_all = 1
+  Plug 'vim-python/python-syntax'
+  Plug 'tmhedberg/SimpylFold'
+  let g:yapf_style = "google"
+  Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
+  " Plug 'rust-lang/rust.vim'
 
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_types = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-" let g:go_fmt_command = "goimports"
-let g:go_fmt_autosave = 0
-" Remember fold state after write
-" let g:go_fmt_experimental = 1
-" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+  let g:go_highlight_functions = 1
+  let g:go_highlight_methods = 1
+  let g:go_highlight_fields = 1
+  let g:go_highlight_types = 1
+  let g:go_highlight_operators = 1
+  let g:go_highlight_build_constraints = 1
+  " let g:go_fmt_command = "goimports"
+  let g:go_fmt_autosave = 0
+  " Remember fold state after write
+  " let g:go_fmt_experimental = 1
+  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+endif
+
+function! BuildTreeSitter(info)
+  " info is a dictionary with 3 fields
+  " - name:   name of the plugin
+  " - status: 'installed', 'updated', or 'unchanged'
+  " - force:  set on PlugInstall! or PlugUpdate!
+  if a:info.status == 'installed' || a:info.force
+    :TSInstall go
+  endif
+  if a:info.status == 'updated' || a:info.force
+    :TSUpdate
+  endif
+endfunction
+if has('nvim-0.5.0')
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+endif
 "}}}
 "{{{ Autocompletion
 Plug 'tomtom/tcomment_vim'

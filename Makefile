@@ -8,8 +8,10 @@ unstow:
 	stow -D ${PACKAGES}
 
 both:
+	mkdir -p ~/.duplicacy-repo/.duplicacy
 	stow bin
 	stow cron
+	stow duplicacy
 	stow gnupg
 	stow misc
 	stow ocaml
@@ -30,15 +32,15 @@ desktop: sudo both
 	stow mcomix
 	stow mpd
 	stow mpv
-	stow nemo
 	stow pulse
-	stow xdg
+	# stow xdg -- constantly overwritten
 	stow slack
 	crontab desktop.user.crontab
 	sudo crontab desktop.root.crontab
 	stow xorg
 	sudo cp -u xorg.conf.d/* /etc/X11/xorg.conf.d/
 	sudo cp -u lightdm/lightdm.conf /etc/lightdm/
+	ln -s /home/ ~/.duplicacy-repo/ || true
 
 
 server: both
