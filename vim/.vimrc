@@ -207,7 +207,7 @@ nnoremap <leader>D :BUNDO<cr>:e<cr>
 Plug 'qpkorr/vim-bufkill'
 "}}}
 "{{{ Language Plugins
-if !has('nvim-0.5.0')
+if !has('nvim-0.5')
   Plug 'leafgarland/typescript-vim'
   Plug 'othree/yajs.vim'
   Plug 'othree/es.next.syntax.vim'
@@ -231,19 +231,7 @@ if !has('nvim-0.5.0')
   Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 endif
 
-function! BuildTreeSitter(info)
-  " info is a dictionary with 3 fields
-  " - name:   name of the plugin
-  " - status: 'installed', 'updated', or 'unchanged'
-  " - force:  set on PlugInstall! or PlugUpdate!
-  if a:info.status == 'installed' || a:info.force
-    :TSInstall go
-  endif
-  if a:info.status == 'updated' || a:info.force
-    :TSUpdate
-  endif
-endfunction
-if has('nvim-0.5.0')
+if has('nvim-0.5')
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 endif
 "}}}
@@ -408,7 +396,7 @@ Plug 'agude/vim-eldar'
 call plug#end()
 "{{{ YouCompleteMe Settings
 " Disable preview entirely
-if !has('nvim')
+if !has('nvim-0.5')
   set completeopt-=preview
   let g:ycm_global_ycm_extra_conf = $HOME.'/.ycm_extra_conf.py'
   let g:ycm_add_preview_to_completeopt=0
@@ -475,7 +463,12 @@ if has('nvim')
   nmap <silent> gr <Plug>(coc-references)
 
   " Highlight the symbol and its references when holding the cursor.
-  autocmd CursorHold * silent call CocActionAsync('highlight')
+  function! s:cursor_hold()
+    if exists('CocActionAsync')
+      CocActionAsync('highlight')
+    endif
+  endfunction
+  autocmd CursorHold * silent call s:cursor_hold()
 
   " Symbol renaming.
   nmap <leader>rn <Plug>(coc-rename)
@@ -577,7 +570,7 @@ else
 endif
 
 set updatetime=300
-if has('nvim-0.5.0')
+if has('nvim-0.5')
   set signcolumn=number
 endif
 
