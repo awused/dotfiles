@@ -17,7 +17,7 @@ floating_modifier $mod
 # Stop mouse from overriding focus
 focus_follows_mouse no
 
-# Mouse should not stay where I put it
+# Mouse should stay where I put it
 mouse_warping none
 
 # Monitors
@@ -30,11 +30,10 @@ set $m_top "HDMI-2"
 smart_borders on
 smart_gaps on
 gaps inner 10
-gaps bottom -7 # Workaround polybar and mainline i3-gaps not working together
 
 
 #{{{ General Purpose Workspaces
-workspace_auto_back_and_forth yes
+#workspace_auto_back_and_forth yes
 bindsym $mod+b workspace back_and_forth
 
 # Define names for default workspaces for which we configure key bindings later on.
@@ -83,6 +82,7 @@ bindsym Mod1+Shift+Right move workspace to output right
 
 #}}}
 #{{{ Visuals
+font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 font pango:DejaVu Sans Mono 10
 
 default_border pixel 1
@@ -94,8 +94,9 @@ bindsym $mod+z workspace $wsff
 bindsym $mod+Shift+z move container to workspace $wsff
 assign [class="Firefox"] $wsff
 for_window [class="Firefox"] floating enable
-for_window [class="Firefox" instance="Navigator"] floating disable border pixel 0
+for_window [class="Firefox" instance="Navigator" window_type="_NET_WM_WINDOW_TYPE_NORMAL"] floating disable border pixel 0
 for_window [class="Firefox" instance="Navigator" title="Torrents for .*"] floating enable border normal
+for_window [class="Firefox" instance="Navigator" title="Extension: \(Tree Style Tab\) - Close.*"] floating enable border normal
 workspace $wsff output $m_center
 
 set $wsmpv "mpv"

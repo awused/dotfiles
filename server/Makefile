@@ -58,6 +58,9 @@ pip: sudo
 npm:
 	npm update -g
 
+cargo:
+	cargo install gping
+
 #go-update:
 #	go get -u all
 

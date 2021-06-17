@@ -20,7 +20,7 @@ height = 30
 bottom = true
 ;offset-x = 1%
 ;offset-y = 1%
-radius = 10.0
+;radius = 10.0
 fixed-center = true
 
 background = ${colors.background}
@@ -29,7 +29,7 @@ foreground = ${colors.foreground}
 line-size = 4
 line-color = #f00
 
-border-size = 2
+border-size = 0
 border-color = #00000000
 
 module-margin-left = 1
