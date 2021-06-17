@@ -15,7 +15,6 @@
 "
 " npm install -g typescript js-beautify yarn
 "
-" go get -u github.com/mattn/efm-langserver
 " install yapf for python
 "
 " Plug commands: PlugInstall, PlugUpdate, PlugClean, PlugUpgrade (vim-plug
@@ -395,8 +394,8 @@ Plug 'morhetz/gruvbox'
 Plug 'agude/vim-eldar'
 call plug#end()
 "{{{ YouCompleteMe Settings
-" Disable preview entirely
-if !has('nvim-0.5')
+if !has('nvim')
+  " Disable preview entirely
   set completeopt-=preview
   let g:ycm_global_ycm_extra_conf = $HOME.'/.ycm_extra_conf.py'
   let g:ycm_add_preview_to_completeopt=0
@@ -464,8 +463,8 @@ if has('nvim')
 
   " Highlight the symbol and its references when holding the cursor.
   function! s:cursor_hold()
-    if exists('CocActionAsync')
-      CocActionAsync('highlight')
+    if exists('*CocActionAsync')
+      call CocActionAsync('highlight')
     endif
   endfunction
   autocmd CursorHold * silent call s:cursor_hold()
@@ -588,13 +587,13 @@ endif
 augroup window_settings
   autocmd!
   " Highlight once past 100 characters. Works out well for half of my monitors.
-  autocmd BufWinEnter * call matchadd('ColorColumn', '\%>99v.')
-  autocmd BufWinEnter * highlight ExtraWhitespace ctermbg=red guibg=red
+  autocmd BufWinEnter \.* call matchadd('ColorColumn', '\%>99v.')
+  autocmd BufWinEnter \.* highlight ExtraWhitespace ctermbg=red guibg=red
   "autocmd BufWinEnter * call matchadd('ExtraWhitespace', '\s\+$', 11)
-  autocmd BufWinEnter * call matchadd('ExtraWhitespace', '\s\+\%#\@<!$')
+  autocmd BufWinEnter \.* call matchadd('ExtraWhitespace', '\s\+\%#\@<!$')
   " Don't do sync syntax on large files
-  autocmd BufWinEnter * if line2byte(line("$") + 1) > 1000000 | syntax sync clear | endif
-  autocmd BufWinEnter * if line2byte(line("$") + 1) > 1000000 | set foldmethod=manual | endif
+  autocmd BufWinEnter \.* if line2byte(line("$") + 1) > 1000000 | syntax sync clear | endif
+  autocmd BufWinEnter \.* if line2byte(line("$") + 1) > 1000000 | set foldmethod=manual | endif
 augroup END
 
 " Use X clipboard if we can
