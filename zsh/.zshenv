@@ -26,7 +26,8 @@ export PYTHONIOENCODING=UTF-8
 
 export SOURCE_DIR=/storage/src
 export THIRD_PARTY_SOURCE=$SOURCE_DIR/third_party
-export GOPATH=$SOURCE_DIR/go
+export AWUSED_SOURCE=$SOURCE_DIR/awused
+export GOPATH=/storage/cache/go
 export NASHOME=/storage/usr/desuwa
 
 # Set TIME_STYLE for GNU coreutils

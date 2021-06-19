@@ -146,8 +146,8 @@ set $wsmx "mcomix"
 bindsym Mod1+m workspace $wsmx
 #for_window [class="MComix" workspace="^(?!firefox$)"] move window to workspace $wsmx focus
 #for_window [class="MComix" workspace="firefox"] move window to workspace $wsmx
-for_window [class="MComix"] move window to workspace $wsmx
-for_window [class="aw-man"] move window to workspace $wsmx
+for_window [class="MComix"] move window to workspace $wsmx layout tabbed
+for_window [class="aw-man"] move window to workspace $wsmx layout tabbed
 workspace $wsmx output $m_center
 bindsym Mod1+Shift+m move container to workspace $wsmx
 
@@ -193,7 +193,8 @@ bindsym $mod+minus scratchpad show
 #}}}
 #{{{ Other Commands
 # reload the configuration file
-bindsym $mod+Shift+o reload
+# TODO -- re-enable when i3 stop crashing on reload
+#bindsym $mod+Shift+o reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym Mod1+Shift+o restart
 # exit i3 (logs you out of your X session)

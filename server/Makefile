@@ -6,19 +6,19 @@ sudo:
 	sudo echo "Starting"
 
 hydrus-mover:
-	cd ${SOURCE_DIR}/hydrus-mover; go install
+	cd ${AWUSED_SOURCE}/hydrus-mover; go install
 
 manga-syncer:
-	cd ${SOURCE_DIR}/manga-syncer; go install
+	cd ${AWUSED_SOURCE}/manga-syncer; go install
 
 rss-scrapers:
-	cd ${SOURCE_DIR}/rss-scrapers; go install ./...
+	cd ${AWUSED_SOURCE}/rss-scrapers; go install ./...
 
 rss:
-	cd ${SOURCE_DIR}/aw-rss; go install
+	cd ${AWUSED_SOURCE}/aw-rss; go install
 
 steam-screenshots:
-	cd ${SOURCE_DIR}/steam-screenshots; go install
+	cd ${AWUSED_SOURCE}/steam-screenshots; go install
 
 go: hydrus-mover manga-syncer rss rss-scrapers steam-screenshots
 

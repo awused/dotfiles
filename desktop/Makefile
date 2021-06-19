@@ -9,68 +9,68 @@ sudo:
 # Go
 
 add-to-transmission:
-	cd ${SOURCE_DIR}/add-to-transmission; go install
+	cd ${AWUSED_SOURCE}/add-to-transmission; go install
 
 aw-man:
-	cd ${SOURCE_DIR}/aw-man; go install
+	cd ${AWUSED_SOURCE}/aw-man; go install
 
 dispatcher:
-	cd ${SOURCE_DIR}/dispatcher; go install
+	cd ${AWUSED_SOURCE}/dispatcher; go install
 
 hydrus-mover:
-	cd ${SOURCE_DIR}/hydrus-mover; go install
+	cd ${AWUSED_SOURCE}/hydrus-mover; go install
 
 madokami:
-	cd ${SOURCE_DIR}/madokami; go install
+	cd ${AWUSED_SOURCE}/madokami; go install
 
 manga-syncer:
-	cd ${SOURCE_DIR}/manga-syncer; go install
+	cd ${AWUSED_SOURCE}/manga-syncer; go install
 
 manga-upscaler:
-	cd ${SOURCE_DIR}/manga-upscaler; go install
+	cd ${AWUSED_SOURCE}/manga-upscaler; go install
 
 mpd-fzf:
-	cd ${SOURCE_DIR}/mpd-fzf; go install
+	cd ${AWUSED_SOURCE}/mpd-fzf; go install
 
 mpd-rofi:
-	cd ${SOURCE_DIR}/mpd-rofi; go install
+	cd ${AWUSED_SOURCE}/mpd-rofi; go install
 
 mpd-shuffler:
-	cd ${SOURCE_DIR}/mpd-shuffler; go install
+	cd ${AWUSED_SOURCE}/mpd-shuffler; go install
 
 public-clipboard:
-	cd ${SOURCE_DIR}/public-clipboard; go install
+	cd ${AWUSED_SOURCE}/public-clipboard; go install
 
 rss-scrapers:
-	cd ${SOURCE_DIR}/rss-scrapers; go install ./...
+	cd ${AWUSED_SOURCE}/rss-scrapers; go install ./...
 
 screenshotter:
-	cd ${SOURCE_DIR}/screenshotter; go install
+	cd ${AWUSED_SOURCE}/screenshotter; go install
 
 strpick:
-	cd ${SOURCE_DIR}/go-strpick/strpick; go install
+	cd ${AWUSED_SOURCE}/go-strpick/strpick; go install
 
 upscale-directory:
-	cd ${SOURCE_DIR}/upscale-directory; go install
+	cd ${AWUSED_SOURCE}/upscale-directory; go install
 
 vmrpc:
-	cd ${SOURCE_DIR}/vmrpc/clipboard; \
+	cd ${AWUSED_SOURCE}/vmrpc/clipboard; \
 	  protoc --go_out=plugins=grpc:. *.proto
-	cd ${SOURCE_DIR}/vmrpc/mpd; \
+	cd ${AWUSED_SOURCE}/vmrpc/mpd; \
 	  protoc --go_out=plugins=grpc:. *.proto
-	cd ${SOURCE_DIR}/vmrpc/monitors; \
+	cd ${AWUSED_SOURCE}/vmrpc/monitors; \
 	  protoc --go_out=plugins=grpc:. *.proto
-	cd ${SOURCE_DIR}/vmrpc/scream; \
+	cd ${AWUSED_SOURCE}/vmrpc/scream; \
 	  protoc --go_out=plugins=grpc:. *.proto
-	cd ${SOURCE_DIR}/vmrpc/sharex; \
+	cd ${AWUSED_SOURCE}/vmrpc/sharex; \
 	  protoc --go_out=plugins=grpc:. *.proto
-	cd ${SOURCE_DIR}/vmrpc/usb; \
+	cd ${AWUSED_SOURCE}/vmrpc/usb; \
 	  protoc --go_out=plugins=grpc:. *.proto
-	cd ${SOURCE_DIR}/vmrpc/vmrpc-server; go install
-	cd ${SOURCE_DIR}/vmrpc/vmrpc-client; go install
+	cd ${AWUSED_SOURCE}/vmrpc/vmrpc-server; go install
+	cd ${AWUSED_SOURCE}/vmrpc/vmrpc-client; go install
 
 wallpapers:
-	cd ${SOURCE_DIR}/wallpapers; go install
+	cd ${AWUSED_SOURCE}/wallpapers; go install
 
 
 go: wallpapers dispatcher add-to-transmission aw-man \
@@ -79,30 +79,30 @@ go: wallpapers dispatcher add-to-transmission aw-man \
   strpick manga-upscaler manga-syncer
 
 windows-clipboard:
-	cd ${SOURCE_DIR}/public-clipboard; \
+	cd ${AWUSED_SOURCE}/public-clipboard; \
 	  GOOS=windows go build -ldflags -H=windowsgui; \
 	  mv *.exe /storage/winshare/gobin/
 
 windows-quiet-cmd:
-	cd ${SOURCE_DIR}/quiet-cmd; \
+	cd ${AWUSED_SOURCE}/quiet-cmd; \
 	  GOOS=windows go build -ldflags -H=windowsgui; \
 	  mv *.exe /storage/winshare/gobin/
 
 windows-sharex: vmrpc
-	cd ${SOURCE_DIR}/sharex-mover; \
+	cd ${AWUSED_SOURCE}/sharex-mover; \
 	  GOOS=windows go build -ldflags -H=windowsgui; \
 	  mv *.exe /storage/winshare/gobin/
 
 windows-vmrpc: vmrpc
-	cd ${SOURCE_DIR}/vmrpc/vmrpc-client; \
+	cd ${AWUSED_SOURCE}/vmrpc/vmrpc-client; \
 	  GOOS=windows go build -ldflags -H=windowsgui; \
 	  mv *.exe /storage/winshare/gobin/; \
-	cd ${SOURCE_DIR}/vmrpc/vmrpc-client; \
+	cd ${AWUSED_SOURCE}/vmrpc/vmrpc-client; \
 	  GOOS=windows go build; \
 	  mv vmrpc-client.exe /storage/winshare/gobin/vmrpc-client-debug.exe
 
 windows-wallpapers:
-	cd ${SOURCE_DIR}/wallpapers; \
+	cd ${AWUSED_SOURCE}/wallpapers; \
 	  GOOS=windows go build -ldflags -H=windowsgui; \
 	  GOOS=windows go build -o wallcon.exe; \
 	  mv wallpapers.exe wallcon.exe /storage/winshare/gobin/

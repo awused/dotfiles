@@ -428,7 +428,7 @@ endif
 "{{{ CoC.vim Settings
 if has('nvim')
   inoremap <silent><expr> <TAB>
-        \ pumvisible() ? "\<C-y>" :
+        \ pumvisible() ? coc#_select_confirm() :
         \ <SID>check_back_space() ? "\<TAB>" :
         \ coc#refresh()
   inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
@@ -456,10 +456,10 @@ if has('nvim')
   nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
   " GoTo code navigation.
-  nmap <silent> gd <Plug>(coc-definition)
-  nmap <silent> gy <Plug>(coc-type-definition)
-  nmap <silent> gi <Plug>(coc-implementation)
-  nmap <silent> gr <Plug>(coc-references)
+  nmap <silent> <leader>g <Plug>(coc-definition)
+  nmap <silent> <leader>y <Plug>(coc-type-definition)
+  nmap <silent> <leader>i <Plug>(coc-implementation)
+  nmap <silent> <leader>r <Plug>(coc-references)
 
   " Highlight the symbol and its references when holding the cursor.
   function! s:cursor_hold()
@@ -470,7 +470,7 @@ if has('nvim')
   autocmd CursorHold * silent call s:cursor_hold()
 
   " Symbol renaming.
-  nmap <leader>rn <Plug>(coc-rename)
+  nmap <leader>n <Plug>(coc-rename)
   " Applying codeAction to the selected region.
   " Example: `<leader>aap` for current paragraph
   xmap <leader>a  <Plug>(coc-codeaction-selected)
