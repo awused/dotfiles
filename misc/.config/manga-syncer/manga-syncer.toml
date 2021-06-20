@@ -21,6 +21,7 @@ Language = "en"
 # Whether or not chapter archives should be renamed.
 # This can be relevant when volume numbering is revised later.
 RenameChapters = true
+RenameManga = true
 
 # Mangadex manga IDs.
 # These are the numbers in the URLs for the Manga, not the individual chapters.

@@ -227,8 +227,9 @@ if !has('nvim-0.5')
   let g:go_fmt_autosave = 0
   " Remember fold state after write
   " let g:go_fmt_experimental = 1
-  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 endif
+
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 if has('nvim-0.5')
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}

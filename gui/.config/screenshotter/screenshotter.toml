@@ -101,6 +101,14 @@ MouseKeys = true
   Format = "%[3]s"
 
 [[Overrides]]
+  Name = "aw-man"
+  Delegate = "/home/desuwa/.config/screenshotter/aw-man-manga-dir.sh"
+
+[[Overrides]]
+  Name = "aw-man"
+  Yearly = true
+
+[[Overrides]]
   Regex = 'bin/mcomix /storage/media/manga/'
   Delegate = "/home/desuwa/.config/screenshotter/mcomix-manga-dir.sh"
 
