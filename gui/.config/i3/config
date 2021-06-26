@@ -82,7 +82,6 @@ bindsym Mod1+Shift+Right move workspace to output right
 
 #}}}
 #{{{ Visuals
-font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 font pango:DejaVu Sans Mono 10
 
 default_border pixel 1
@@ -94,7 +93,7 @@ bindsym $mod+z workspace $wsff
 bindsym $mod+Shift+z move container to workspace $wsff
 assign [class="Firefox"] $wsff
 for_window [class="Firefox"] floating enable
-for_window [class="Firefox" instance="Navigator" window_type="_NET_WM_WINDOW_TYPE_NORMAL"] floating disable border pixel 0
+for_window [class="Firefox" instance="Navigator" window_type="normal"] floating disable border pixel 0
 for_window [class="Firefox" instance="Navigator" title="Torrents for .*"] floating enable border normal
 for_window [class="Firefox" instance="Navigator" title="Extension: \(Tree Style Tab\) - Close.*"] floating enable border normal
 workspace $wsff output $m_center
@@ -181,6 +180,9 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec "rofi -modi drun,run -show drun"
 bindsym Mod1+Tab exec "rofi -modi windowcd,window -show window"
 bindsym $mod+Shift+s exec "rofi -modi ssh -show ssh"
+bindsym $mod+Ctrl+a exec "rofi-files /storage/media/anime"
+bindsym $mod+Ctrl+c exec "rofi-files /storage/media/torrents/completed"
+bindsym $mod+Ctrl+n exec "rofi-files /storage/media/manga"
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -193,8 +195,8 @@ bindsym $mod+minus scratchpad show
 #}}}
 #{{{ Other Commands
 # reload the configuration file
-# TODO -- re-enable when i3 stop crashing on reload
-#bindsym $mod+Shift+o reload
+# TODO -- re-enable when i3 stops crashing on reload
+bindsym $mod+Shift+o reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym Mod1+Shift+o restart
 # exit i3 (logs you out of your X session)

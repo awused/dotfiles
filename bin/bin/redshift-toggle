@@ -3,18 +3,18 @@
 tempfile=/tmp/.redshift-disabled
 forcefile=/tmp/.redshift-force-disabled
 
-if [ "$1" == "force" ]; then
-  if [ "$2" == "true" ] || [ "$2" == "" ] && [ -f "$forcefile" ]; then
+if [ "$1" = "force" ]; then
+  if [ "$2" = "true" ] || [ "$2" = "" ] && [ -f "$forcefile" ]; then
     rm "$forcefile"
     [ ! -f "$tempfile" ] && pkill -x -USR1 redshift
-  elif [ "$2" == "false" ] || [ "$2" == "" ] && [ ! -f "$forcefile" ]; then
+  elif [ "$2" = "false" ] || [ "$2" = "" ] && [ ! -f "$forcefile" ]; then
     touch "$forcefile"
     [ ! -f "$tempfile" ] && pkill -x -USR1 redshift
   fi
-elif [ "$1" == "true" ] || [ "$1" == "" ] && [ -f "$tempfile" ]; then
+elif [ "$1" = "true" ] || [ "$1" = "" ] && [ -f "$tempfile" ]; then
   rm "$tempfile"
   [ ! -f "$forcefile" ] && pkill -x -USR1 redshift
-elif [ "$1" == "false" ] || [ "$1" == "" ] && [ ! -f "$tempfile" ]; then
+elif [ "$1" = "false" ] || [ "$1" = "" ] && [ ! -f "$tempfile" ]; then
   touch "$tempfile"
   [ ! -f "$forcefile" ] && pkill -x -USR1 redshift
 fi

@@ -1,3 +1,5 @@
 #! /bin/sh
 
-mount | grep '192.168.44.2' | sed -re "s/192\.168\.44\.2\:([^ ]+) .*/\1\/.Trash-${UID}/" | xargs -d '\n' rm -r
+uid="$(id -ru)"
+
+mount | grep '192.168.44.2' | sed -re "s/192\.168\.44\.2\:([^ ]+) .*/\1\/.Trash-${uid}/" | xargs -d '\n' rm -r

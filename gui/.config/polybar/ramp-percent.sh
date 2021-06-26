@@ -1,4 +1,4 @@
-#!/bin/sh
+#! /usr/bin/env bash
 
 ramp=(▂ ▃ ▄ ▅ ▆ ▇ █ █ █)
 index=$(expr $1 \* 8 / 100)

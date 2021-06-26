@@ -1,4 +1,4 @@
-#!/bin/sh
+#! /usr/bin/env bash
 # ~/bin/restic-backup
 
 #usbdir=/media/BACKUPS/google_cloud_storage

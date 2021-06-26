@@ -588,13 +588,13 @@ endif
 augroup window_settings
   autocmd!
   " Highlight once past 100 characters. Works out well for half of my monitors.
-  autocmd BufWinEnter \.* call matchadd('ColorColumn', '\%>99v.')
-  autocmd BufWinEnter \.* highlight ExtraWhitespace ctermbg=red guibg=red
+  autocmd BufWinEnter *\.* call matchadd('ColorColumn', '\%>99v.')
+  autocmd BufWinEnter *\.* highlight ExtraWhitespace ctermbg=red guibg=red
   "autocmd BufWinEnter * call matchadd('ExtraWhitespace', '\s\+$', 11)
-  autocmd BufWinEnter \.* call matchadd('ExtraWhitespace', '\s\+\%#\@<!$')
+  autocmd BufWinEnter *\.* call matchadd('ExtraWhitespace', '\s\+\%#\@<!$')
   " Don't do sync syntax on large files
-  autocmd BufWinEnter \.* if line2byte(line("$") + 1) > 1000000 | syntax sync clear | endif
-  autocmd BufWinEnter \.* if line2byte(line("$") + 1) > 1000000 | set foldmethod=manual | endif
+  autocmd BufWinEnter *\.* if line2byte(line("$") + 1) > 1000000 | syntax sync clear | endif
+  autocmd BufWinEnter *\.* if line2byte(line("$") + 1) > 1000000 | set foldmethod=manual | endif
 augroup END
 
 " Use X clipboard if we can

@@ -118,11 +118,16 @@ ddcutil: sudo
 	cd ${THIRD_PARTY_SOURCE}/ddcutil; ./autogen.sh; \
 	  $(MAKE); sudo $(MAKE) install
 
-i3-gaps: sudo
-	cd ${THIRD_PARTY_SOURCE}/i3-gaps; \
-	  rm -rf build/; mkdir build; cd build; \
-	  meson ..; ninja; \
-	  sudo meson install
+# i3-gaps: sudo
+# 	cd ${THIRD_PARTY_SOURCE}/i3-gaps; \
+# 	  rm -rf build/; mkdir build; cd build; \
+# 	  meson ..; ninja; \
+# 	  sudo meson install
+
+loudness-scanner: sudo
+	cd ${THIRD_PARTY_SOURCE}/loudness-scanner; \
+	  rm -rf fedora/; mkdir -p fedora; cd fedora; \
+	  cmake .. -DDISABLE_SNDFILE=True; $(MAKE); sudo $(MAKE) install
 
 maim: sudo slop
 	cd ${THIRD_PARTY_SOURCE}/maim; \
@@ -133,15 +138,16 @@ neovim: sudo
 	cd "${THIRD_PARTY_SOURCE}/neovim"; \
 	$(MAKE) clean; sudo $(MAKE) CMAKE_BUILD_TYPE=Release install
 
-loudness-scanner: sudo
-	cd ${THIRD_PARTY_SOURCE}/loudness-scanner; \
-	  rm -rf fedora/; mkdir -p fedora; cd fedora; \
-	  cmake .. -DDISABLE_SNDFILE=True; $(MAKE); sudo $(MAKE) install
-
 # mpv: sudo
 # 	cd ${THIRD_PARTY_SOURCE}/mpv; \
 # 	  ./waf clean; \
 # 	  ./waf configure; ./waf; sudo ./waf install
+
+rofi-files:
+	cd ${THIRD_PARTY_SOURCE}/rofi-file-browser-extended; \
+		rm -rf build/; mkdir build; cd build; \
+		mkdir -p ~/.local/lib/rofi-plugins; \
+		cmake ..; $(MAKE); mv filebrowser.so ~/.local/lib/rofi-plugins/filebrowser-extended.so
 
 scream:
 	cd ${THIRD_PARTY_SOURCE}/scream/Receivers/unix; \
@@ -183,7 +189,7 @@ waifu2x-vulkan:
 	  mv waifu2x-ncnn-vulkan ~/.bin/; \
 	  ln -s "${THIRD_PARTY_SOURCE}/waifu2x-ncnn-vulkan/models/models-cunet" ~/.bin/
 
-third-party: bfs ddcutil i3-gaps loudness-scanner maim neovim scream split2flac timg \
+third-party: bfs ddcutil loudness-scanner maim neovim rofi-files scream split2flac timg \
 	waifu2x-vulkan
   # waifu2x mpv
 

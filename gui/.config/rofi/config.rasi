@@ -1,0 +1,10 @@
+configuration {
+	terminal: "desu-terminal";
+	ssh-client: "ssh";
+	ssh-command: "desu-ssh -e {ssh-client} {host}";
+	sort: true;
+	sorting-method: "fzf";
+	matching: "fuzzy";
+	dpi: 1;
+	theme: "/usr/share/rofi/themes/gruvbox-dark-hard.rasi";
+}
