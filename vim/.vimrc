@@ -309,6 +309,8 @@ nnoremap <leader>s :call PromptInput(":S")<cr>
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'justinmk/vim-sneak'
+Plug 'unblevable/quick-scope'
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 nnoremap <F4> :NERDTreeToggle<cr>
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -562,6 +564,8 @@ set encoding=utf8
 set fillchars+=vert:│
 set fillchars+=fold:─
 set fileencodings=ucs-bom,utf-8,sjis
+set ignorecase
+set smartcase
 
 if has('nvim')
   set laststatus=0

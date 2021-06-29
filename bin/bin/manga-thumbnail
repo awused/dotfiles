@@ -8,6 +8,10 @@ import subprocess
 import py7zr
 import rarfile
 from PIL import Image
+import gi
+
+gi.require_version("GdkPixbuf", "2.0")
+from gi.repository import GdkPixbuf, GLib, Gio
 
 [output, dimensions, archive] = sys.argv[1:4]
 
@@ -29,6 +33,12 @@ def testImage(b):
             return True
     except:
         pass
+    try:
+        stream = Gio.MemoryInputStream.new_from_bytes(GLib.Bytes.new(imgb))
+        GdkPixbuf.Pixbuf.new_from_stream(stream)
+        return True
+    except:
+        pass
 
 
 if ext == ".zip" or ext == ".cbz":
@@ -39,7 +49,8 @@ if ext == ".zip" or ext == ".cbz":
             flist.sort(key=lambda x: x.filename.lower())
             for f in flist:
                 # print(f)
-                if f.is_dir(): continue
+                if f.is_dir():
+                    continue
                 imgb = zipf.read(f)
                 if testImage(imgb):
                     firstimg = imgb
@@ -54,18 +65,20 @@ elif ext == ".rar" or ext == ".cbr":
         # Natural sorting should be unnecessary here
         flist.sort(key=lambda x: x.filename.lower())
         for f in flist:
-            if f.is_dir(): continue
+            if f.is_dir():
+                continue
             imgb = zipf.read(f)
             if testImage(imgb):
                 firstimg = imgb
                 break
 
-if ext == ".7z" or (not firstimg and ext == ".cbz"):
+if ext == ".7z" or ext == ".cb7" or (not firstimg and ext == ".cbz"):
     with py7zr.SevenZipFile(archive) as zipf:
         flist = zipf.list()
         flist.sort(key=lambda x: x.filename.lower())
         for f in flist:
-            if f.is_directory: continue
+            if f.is_directory:
+                continue
             zipf.reset()
             imgb = zipf.read([f.filename]).popitem()[1].read()
             if testImage(imgb):
@@ -75,7 +88,42 @@ if ext == ".7z" or (not firstimg and ext == ".cbz"):
 if not firstimg:
     sys.exit(1)
 
+try:
+    completed = subprocess.run(
+        [
+            "convert",
+            "-",
+            "-flatten",
+            "-thumbnail",
+            dimensions,
+            "PNG:" + output,
+        ],
+        input=firstimg,
+        check=True,
+    )
+    completed.check_returncode()
+    sys.exit(0)
+except:
+    pass
+
+stream = Gio.MemoryInputStream.new_from_bytes(GLib.Bytes.new(firstimg))
+pb = GdkPixbuf.Pixbuf.new_from_stream(stream)
+pb.savev(
+    output,
+    "bmp",
+    [],
+    [],
+)
+
 completed = subprocess.run(
-    ["convert", "-", "-flatten", "-thumbnail", dimensions, "PNG:" + output],
-    input=firstimg,
-    check=True)
+    [
+        "convert",
+        "BMP:" + output,
+        "-flatten",
+        "-thumbnail",
+        dimensions,
+        "PNG:" + output,
+    ],
+    check=True,
+)
+completed.check_returncode()
