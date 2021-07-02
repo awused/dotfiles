@@ -8,7 +8,8 @@
 # Example: TargetResolution = '3840x2160'
 TargetResolution = '3840x2160'
 
-# Directory to store temporary files, leave blank for the system default temp directory.
+# Directory to store temporary files in, including extracting archives.
+# Leave blank for the system default temp directory.
 # It's fine to put this on relatively slow storage and it doesn't need to be in tmpfs.
 TempDirectory = '/storage/cache/temp'
 
@@ -19,7 +20,8 @@ PreloadAhead = 10
 
 # How many previous images to load into memory.
 # In manga mode this causes previous chapters to be extracted
-# and upscaled to reach this number, if available.
+# but not upscaled to reach this number, if available.
+# See UpscalePreviousChapters below.
 PreloadBehind = 10
 
 # How many threads will be used to load and resize images.
@@ -27,32 +29,42 @@ PreloadBehind = 10
 # Setting this higher than the number of CPU cores is not advised.
 # Setting it higher than PreloadAhead + PreloadBehind is pointless.
 # If it is not set it will use max(logical cpu cores / 2, 2)
+# NFS can be temperamental so setting this lower may help.
 LoadThreads = 16
+
+# The colour used for the background.
+# This is a 32bit hex RGBA value.
+# Transparency is allowed but depends on the display server for support.
+# You can toggle between this and the background colour from your GTK theme with the
+# ToggleBackground shortcut.
+# BackgroundColour = "000000be"
 
 # Shortcuts
 # All shortcuts must have a Key and and Action, and optionally one or more modifiers.
 # If the action is a recognized internal action, it will be performed, otherwise it will be treated
 # as the name of an executable and it will be run with several environment variables set.
-# See the readme or the example scripts for details on the environment variables.
-# All recognized internal actions are present as default bindings in the sample config.
+# See the readme or the example scripts for details on the commands and environment variables.
 # Valid modifiers are Control, Shift, Alt, Super, and Command.
-# For special key names see https://github.com/gioui/gio/blob/9b4b91fec0828f47c01992970b000dfbc21f3530/io/key/key.go#L120
+# See https://gitlab.gnome.org/GNOME/gtk/blob/master/gdk/gdkkeysyms.h for names of keys.
+# Use uppercase letters.
 # Example custom script for Control+Shift+S:
 # {Key = "S", Action = "/path/to/save-page.sh", Modifiers = "Control,Shift"}
 Shortcuts = [
-  {Key = "↓", Action = "NextPage"},
-  {Key = "⇟", Action = "NextPage"}, # PageDown
-  {Key = "↑", Action = "PreviousPage"},
-  {Key = "⇞", Action = "PreviousPage"}, # PageUp
-  {Key = "⇲", Action = "LastPage"}, # End
-  {Key = "⇱", Action = "FirstPage"}, # Home
-  {Key = "⎋", Action = "Quit"}, # Escape
+  {Key = "Down", Action = "NextPage"},
+  {Key = "Page_Down", Action = "NextPage"},
+  {Key = "Up", Action = "PreviousPage"},
+  {Key = "Page_Up", Action = "PreviousPage"},
+  {Key = "End", Action = "LastPage"},
+  {Key = "Home", Action = "FirstPage"},
+  {Key = "Escape", Action = "Quit"},
   {Key = "Q", Action = "Quit"},
-  {Key = "]", Action = "NextArchive"},
-  {Key = "[", Action = "PreviousArchive"},
+  {Key = "bracketright", Action = "NextArchive"}, # ]
+  {Key = "bracketleft", Action = "PreviousArchive"}, # [
   {Key = "U", Action = "ToggleUpscaling"},
-  {Key = "H", Action = "HideUI"},
-  {Key = "M", Action = "ManagaMode"},
+  {Key = "H", Action = "ToggleUI"},
+  {Key = "B", Action = "ToggleBackground"},
+  {Key = "F", Action = "ToggleFullscreen"},
+  {Key = "M", Action = "MangaMode"},
   {Key = "S", Action = "/home/desuwa/.config/aw-man/save-page.sh", Modifiers = "Control"},
 ]
 
@@ -64,7 +76,6 @@ Shortcuts = [
 # This will cause future chapters/archives to be extracted and upscaled even outside of manga mode.
 # Set this high enough so that it stays ahead of your reading speed, but not so high that the GPU
 # usage is annoying to you in other programs.
-# If not set, this will use the PreloadAhead value.
 #
 # The maximum number of images that will be actively upscaled at any one time,
 # taking up space or memory in the TempDirectory, is given by
@@ -96,7 +107,4 @@ Shortcuts = [
 # One socket will be created for each running instance of aw-man.
 # The sockets will be named "aw-man${PID}.sock" and will be listening for any requests.
 # It will respond to requests with UTF-8 encoded JSON.
-# Request | Response
-# ------------------------------------------------------------------------------------------------
-# status  | The same set of environment variables sent to shortcut executables.
 SocketDir = '/tmp/'
