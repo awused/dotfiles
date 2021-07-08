@@ -99,8 +99,7 @@ fixed-values = true
 type = internal/i3
 format = <label-state> <label-mode>
 index-sort = true
-wrapping-scroll = false
-reverse-scroll = false
+enable-scroll = false
 
 ; Only show workspaces on the same output as the bar
 pin-workspaces = true

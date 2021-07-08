@@ -1,4 +1,4 @@
 #!/bin/sh
 
-cd $GOPATH/src/github.com/awused/aw-rss
+cd /storage/src/awused/aw-rss
 go run -race . -awconf $HOME/.config/aw-rss/dev.toml

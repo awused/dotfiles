@@ -141,12 +141,10 @@ for_window [class="Caja"] focus
 bindsym $mod+x workspace $wsnm
 workspace $wsnm output $m_left
 
-set $wsmx "mcomix"
+set $wsmx "aw-man"
 bindsym Mod1+m workspace $wsmx
-#for_window [class="MComix" workspace="^(?!firefox$)"] move window to workspace $wsmx focus
-#for_window [class="MComix" workspace="firefox"] move window to workspace $wsmx
 for_window [class="MComix"] move window to workspace $wsmx layout tabbed
-for_window [class="aw-man"] move window to workspace $wsmx layout tabbed
+for_window [class="Aw-man"] move window to workspace $wsmx layout tabbed
 workspace $wsmx output $m_center
 bindsym Mod1+Shift+m move container to workspace $wsmx
 

@@ -19,8 +19,8 @@
 # /usr/home/desuwa/.vim/*
 
 $HOME/.cache
-$HOME/.ccache
 $HOME/.cargo
+$HOME/.ccache
 $HOME/.config/chromium
 $HOME/.dbus
 $HOME/.duplicacy-repo
