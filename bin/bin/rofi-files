@@ -1,0 +1,3 @@
+#! /bin/sh
+
+rofi -modi file-browser-extended -plugin-path ~/.local/lib/rofi-plugins -show file-browser-extended -file-browser-depth 5 -file-browser-only-files -file-browser-dir "$1"

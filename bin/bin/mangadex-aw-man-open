@@ -1,0 +1,26 @@
+#! /bin/sh
+
+cid=$(echo "$1" | sed -E 's/https:\/\/mangadex.org\/chapter\/([a-z0-9-]+)$/\1/')
+echo $cid
+
+h=$(python - "$cid" <<"END"
+
+from uuid import UUID
+from base64 import urlsafe_b64encode
+import sys
+
+print(urlsafe_b64encode(UUID(sys.argv[1]).bytes).rstrip(b'=').decode('ascii'))
+
+END
+)
+
+g="/storage/media/manga/*/*${h}.zip"
+for f in $g; do
+  if [ -e "$f" ]; then
+    GTK_THEME=Arc-Dark aw-man "$f" &
+    exit 0
+  fi
+done
+
+notify-send "No archive found for $cid"
+exit 1

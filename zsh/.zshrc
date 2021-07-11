@@ -354,6 +354,7 @@ export FZF_EXCLUDES=" \
   -not \( -path '*/github.com/golangci' -prune \) \
   -not \( -name 'hydrus' -prune \) \
   -not \( -name 'node_modules' -prune \) \
+  -not \( -name 'target' -prune \) \
   -not \( -path '*/third_party/*/*/*' -prune \) \
   -not \( -name 'Unsorted Downloads' -prune \) \
   -not \( -name 'vendor' -prune \) "

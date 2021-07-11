@@ -20,6 +20,10 @@ path = "stream-play"
 regex = '^https://manga\.madokami\.al/'
 path = "madokami"
 
+[[executables]]
+regex = '^https://mangadex.org/chapter/'
+path = "mangadex-aw-man-open"
+
 # Maybe this shouldn't be a catch-all?
 [[executables]]
 regex = '.+'

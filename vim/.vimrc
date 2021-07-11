@@ -215,7 +215,6 @@ if !has('nvim-0.5')
   Plug 'tmhedberg/SimpylFold'
   let g:yapf_style = "google"
   Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
-  " Plug 'rust-lang/rust.vim'
 
   let g:go_highlight_functions = 1
   let g:go_highlight_methods = 1
@@ -230,6 +229,8 @@ if !has('nvim-0.5')
 endif
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+let g:rustfmt_autosave = 1
+Plug 'rust-lang/rust.vim'
 
 if has('nvim-0.5')
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
