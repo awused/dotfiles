@@ -10,10 +10,9 @@ OutputDirectory = "/storage/media/manga"
 # Directory to store temporary files, leave blank for the system default.
 TempDirectory = '/tmp'
 
-# The number of threads to use for downloading chapters in parallel.
-# Don't set this too high to avoid excessive load on the servers for little
-# to no benefit.
-Threads = 2
+# The number of pages to download in parallel.
+# Don't set it too high.
+Threads = 16
 
 # Language code used by Mangadex. Must be set.
 Language = "en"

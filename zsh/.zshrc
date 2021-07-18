@@ -111,6 +111,10 @@ alias ytvt='youtube-dl --no-mtime --output "/storage/usr/desuwa/Videos/Vtubers/%
 alias ytvts='youtube-dl --write-sub --no-mtime --output "/storage/usr/desuwa/Videos/Vtubers/%(title)s-%(id)s.%(ext)s" --'
 alias ya='youtube-audio'
 alias sqlite3='sqlite3-history'
+# Only for debug mode
+alias cbuild='/storage/src/third_party/mold/mold -run cargo build'
+alias crun='/storage/src/third_party/mold/mold -run cargo run'
+alias ctest='RUST_BACKTRACE=1 /storage/src/third_party/mold/mold -run cargo test'
 
 alias mux='tmuxinator'
 alias tm='tmux attach -d -t main'

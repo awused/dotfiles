@@ -43,7 +43,13 @@ test -r $HOME/.gcloud-sdk/path.zsh.inc && . $HOME/.gcloud-sdk/path.zsh.inc > /de
 if [[ $(uname) == 'Linux' ]]; then
   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib64:/usr/local/lib
   export PATH=$HOME/.bin:$PATH:$HOME/.cargo/bin
-  export GTK_THEME=Arc-Dark
+  # This needs some modifications to not be really annoying.
+  # cd ~/.themes/; cp -r /usr/share/themes/Adwaita-dark .; cd Adwaita-dark/gtk-3.0;
+  # gresource extract /usr/lib64/libgtk-3.so /org/gtk/libgtk/theme/Adwaita/gtk-contained-dark.css > gtk.css
+  # rg-replace "backdrop " -r "backdropdisabled "
+  # rg-replace "backdrop:" -r "backdropdisabled:"
+  # rg-replace "backdrop," -r "backdropdisabled,"
+  export GTK_THEME=Adwaita-dark
 fi
 
 if [[ $(uname) == 'FreeBSD' ]]; then

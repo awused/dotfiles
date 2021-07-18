@@ -17,7 +17,19 @@ END
 g="/storage/media/manga/*/*${h}.zip"
 for f in $g; do
   if [ -e "$f" ]; then
-    GTK_THEME=Arc-Dark aw-man "$f" &
+    aw-man "$f" &
+    exit 0
+  fi
+done
+
+notify-send "Attempting to download $cid"
+# Download it now if we don't have it already.
+manga-syncer -chapter "$cid"
+
+g="/storage/media/manga/*/*${h}.zip"
+for f in $g; do
+  if [ -e "$f" ]; then
+    aw-man "$f" &
     exit 0
   fi
 done

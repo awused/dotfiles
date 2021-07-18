@@ -145,6 +145,7 @@ set $wsmx "aw-man"
 bindsym Mod1+m workspace $wsmx
 for_window [class="MComix"] move window to workspace $wsmx layout tabbed
 for_window [class="Aw-man"] move window to workspace $wsmx layout tabbed
+for_window [instance="aw-man"] move window to workspace $wsmx layout tabbed
 workspace $wsmx output $m_center
 bindsym Mod1+Shift+m move container to workspace $wsmx
 

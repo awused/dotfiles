@@ -512,6 +512,7 @@ endfunction
 augroup filetype_settings
   autocmd!
   autocmd FileType python setlocal softtabstop=4 shiftwidth=4
+  autocmd FileType rust setlocal softtabstop=4 shiftwidth=4
   autocmd FileType go setlocal noexpandtab nosmarttab tabstop=2
   autocmd FileType go nnoremap <buffer> <Leader>l :GoLint<cr>
   autocmd BufRead,BufNewFile *.html,*.js,*.ts,*.xml call s:CompleteTags()

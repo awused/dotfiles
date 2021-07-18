@@ -132,8 +132,8 @@ MouseKeys = true
 
 [[Overrides]]
   Name = "watch"
-  Regex = '^watch ([^ ]*)?'
-  Format = "%[2]s"
+  Regex = '^watch (\-n [^ ]+ )?([^ ]+)?'
+  Format = "%[3]s"
 
 [[Overrides]]
   Name = "firefox"
