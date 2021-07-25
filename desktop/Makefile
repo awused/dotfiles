@@ -134,10 +134,10 @@ maim: sudo slop
 	  rm -rf build/; mkdir build; cd build; \
 	  cmake -DCMAKE_INSTALL_PREFIX=/usr/local ..; $(MAKE); sudo $(MAKE) install
 
-neovim: sudo
-	cd "${THIRD_PARTY_SOURCE}/neovim"; \
-	$(MAKE) clean; sudo $(MAKE) CMAKE_BUILD_TYPE=Release install
-
+# neovim: sudo
+# 	cd "${THIRD_PARTY_SOURCE}/neovim"; \
+# 	$(MAKE) clean; sudo $(MAKE) CMAKE_BUILD_TYPE=Release install
+#
 # mpv: sudo
 # 	cd ${THIRD_PARTY_SOURCE}/mpv; \
 # 	  ./waf clean; \
@@ -189,7 +189,7 @@ waifu2x-vulkan:
 	  mv waifu2x-ncnn-vulkan ~/.bin/; \
 	  ln -s "${THIRD_PARTY_SOURCE}/waifu2x-ncnn-vulkan/models/models-cunet" ~/.bin/
 
-third-party: bfs ddcutil loudness-scanner maim neovim rofi-files scream split2flac timg \
+third-party: bfs ddcutil loudness-scanner maim rofi-files scream split2flac timg \
 	waifu2x-vulkan
   # waifu2x mpv
 
@@ -216,9 +216,13 @@ flatpak:
 	flatpak update --user
 	flatpak uninstall --unused
 
+rust:
+	rustup update
+
 cargo:
-	cargo install gping
-	cargo install alacritty
+	cargo install cargo-criterion
+	cargo install rusty-man
+	cargo install cargo-udeps
 
 #go-update:
 #	go get -u all

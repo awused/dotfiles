@@ -1,3 +1,14 @@
 {
-  "diagnostic.checkCurrentLine": true
+  "diagnostic.checkCurrentLine": true,
+  "rust-analyzer.assist.importGranularity": "module",
+  "rust-analyzer.checkOnSave.command": "clippy",
+  "rust-analyzer.checkOnSave.extraArgs": ["--", "-Wclippy::nursery",
+    "-Aclippy::future_not_send", "-Wclippy::match_same_arms",
+    "-Wclippy::redundant_closure_for_method_calls",
+    "-Wclippy::let_unit_value", "-Wclippy::map_unwrap_or",
+    "-Wclippy::let_underscore_drop", "-Wclippy::unused_self",
+    "-Wclippy::single_match_else", "-Wclippy::trivially_copy_pass_by_ref",
+    "-Wclippy::redundant_else", "-Wclippy::module_name_repetitions",
+    "-Wclippy::unreadable_literal"
+  ]
 }

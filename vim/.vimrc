@@ -230,6 +230,11 @@ endif
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 let g:rustfmt_autosave = 1
+let g:rust_fold = 1
+" clippy will compile things if they're new, and we want to stick with mold
+" for debug mode.
+let $MOLD_PATH = "/storage/src/third_party/mold/mold"
+let $LD_PRELOAD = "/storage/src/third_party/mold/mold-wrapper.so"
 Plug 'rust-lang/rust.vim'
 
 if has('nvim-0.5')
@@ -262,6 +267,11 @@ function! BuildYCM(info)
   endif
 endfunction
 if has('nvim')
+  let g:ale_linters = {'rust': ['rustc', 'rls']}
+  let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
+  let g:ale_disable_lsp = 1
+  " Plug 'dense-analysis/ale'
+
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
   Plug 'josa42/coc-sh', {'do': 'yarn install --frozen-lockfile'}
@@ -331,7 +341,7 @@ Plug 'christoomey/vim-tmux-navigator'
 "{{{ Code Formatting
 
 fun! s:ShouldFormat() abort
-  return wordcount().bytes < 5000000 && expand('%:p') !~# '\V'.$THIRD_PARTY_SOURCE && expand('%:p') !~# '\V/usr/ports'
+  return wordcount().bytes < 5000000 && expand('%:p') !~# '\V'.$THIRD_PARTY_SOURCE && expand('%:p') !~# '\V/usr/ports' && expand('%:p') !~# '\V'.$HOME.'/.vim/plugged'
 endfun
 
 augroup autoformat_settings
@@ -480,8 +490,9 @@ if has('nvim')
   xmap <leader>a  <Plug>(coc-codeaction-selected)
   nmap <leader>a  <Plug>(coc-codeaction-selected)
 
-  " Remap keys for applying codeAction to the current buffer.
-  nmap <leader>ac  <Plug>(coc-codeaction)
+  " Remap keys for applying codeAction to the current cursor.
+  nmap <leader>ac  <Plug>(coc-codeaction-cursor)
+  nmap <leader>al  <Plug>(coc-codeaction-line)
   " Apply AutoFix to problem on the current line.
   nmap <leader>f  <Plug>(coc-fix-current)
 
@@ -512,7 +523,7 @@ endfunction
 augroup filetype_settings
   autocmd!
   autocmd FileType python setlocal softtabstop=4 shiftwidth=4
-  autocmd FileType rust setlocal softtabstop=4 shiftwidth=4
+  autocmd FileType rust setlocal softtabstop=4 shiftwidth=4 kp=rusty-man
   autocmd FileType go setlocal noexpandtab nosmarttab tabstop=2
   autocmd FileType go nnoremap <buffer> <Leader>l :GoLint<cr>
   autocmd BufRead,BufNewFile *.html,*.js,*.ts,*.xml call s:CompleteTags()

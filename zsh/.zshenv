@@ -49,6 +49,7 @@ if [[ $(uname) == 'Linux' ]]; then
   # rg-replace "backdrop " -r "backdropdisabled "
   # rg-replace "backdrop:" -r "backdropdisabled:"
   # rg-replace "backdrop," -r "backdropdisabled,"
+  # echo "* { caret-color: #222222; }" >> gtk.css
   export GTK_THEME=Adwaita-dark
 fi
 
