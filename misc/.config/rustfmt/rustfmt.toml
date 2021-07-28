@@ -1,0 +1,16 @@
+blank_lines_upper_bound = 2
+comment_width = 100
+condense_wildcard_suffixes = true
+edition = "2018"
+format_strings = true
+group_imports = "StdExternalCrate"
+imports_granularity = "Module"
+newline_style = "Unix"
+reorder_impl_items = true
+reorder_imports = true
+# trailing_comma = "Always"
+use_field_init_shorthand = true
+use_try_shorthand = true
+version = "Two"
+wrap_comments = true
+

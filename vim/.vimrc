@@ -231,10 +231,15 @@ endif
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 let g:rustfmt_autosave = 1
 let g:rust_fold = 1
+if executable('rustup')
+  let g:rustfmt_command = "rustfmt +nightly "
+endif
 " clippy will compile things if they're new, and we want to stick with mold
 " for debug mode.
-let $MOLD_PATH = "/storage/src/third_party/mold/mold"
-let $LD_PRELOAD = "/storage/src/third_party/mold/mold-wrapper.so"
+if g:os == "Linux"
+  let $MOLD_PATH = "/storage/src/third_party/mold/mold"
+  let $LD_PRELOAD = "/storage/src/third_party/mold/mold-wrapper.so"
+endif
 Plug 'rust-lang/rust.vim'
 
 if has('nvim-0.5')
