@@ -59,6 +59,7 @@ if [[ $(uname) == 'FreeBSD' ]]; then
   if [[ $TERM == 'xterm-kitty' ]]; then
     export TERM='xterm-256color'
   fi
+  export PATH=$PATH:$HOME/.cargo/bin
 fi
 
 if [[ $(hostname) == 'desutop' ]]; then
