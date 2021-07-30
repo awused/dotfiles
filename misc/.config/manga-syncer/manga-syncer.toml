@@ -22,6 +22,14 @@ Language = "en"
 RenameChapters = true
 RenameManga = true
 
+# Whether to allow question marks in file names or not.
+# Most operating systems allow question marks in file names.
+# Windows does not, files cannot be created or read if their names contain question marks.
+#
+# DO NOT ENABLE THIS ON WINDOWS
+AllowQuestionMarks = true
+
+
 # Mangadex manga IDs.
 # These are the numbers in the URLs for the Manga, not the individual chapters.
 # https://mangadex.org/title/36283/looking-up-to-magical-girls -> 36283

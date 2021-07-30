@@ -220,9 +220,7 @@ rust:
 	rustup update
 
 cargo:
-	cargo install cargo-criterion
-	cargo install rusty-man
-	cargo install cargo-udeps
+	cargo install cargo-criterion cargo-udeps rusty-man
 
 #go-update:
 #	go get -u all

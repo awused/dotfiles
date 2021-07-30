@@ -23,6 +23,7 @@ export GO111MODULE=on
 export NODE_PATH="$NODE_PATH:$HOME/.npm/lib/node_modules"
 export PATH=$PATH:$GOBIN:$HOME/.npm/bin:$HOME/.local/bin
 export PYTHONIOENCODING=UTF-8
+export RUSTFLAGS='-C target-cpu=native'
 
 export SOURCE_DIR=/storage/src
 export THIRD_PARTY_SOURCE=$SOURCE_DIR/third_party

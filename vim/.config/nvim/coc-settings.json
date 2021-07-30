@@ -10,5 +10,6 @@
     "-Wclippy::single_match_else", "-Wclippy::trivially_copy_pass_by_ref",
     "-Wclippy::redundant_else", "-Wclippy::module_name_repetitions",
     "-Wclippy::unreadable_literal"
-  ]
+  ],
+  "rust-analyzer.procMacro.enable": true
 }
