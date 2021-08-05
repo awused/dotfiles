@@ -314,6 +314,7 @@ export FZF_EXCLUDES=" \
   -not \( -path '*/.config/chromium' -prune \) \
   -not \( -name '.dbus' -prune \) \
   -not \( -name '.duplicacy-repo' -prune \) \
+  -not \( -name '.fonts' -prune \) \
   -not \( -name '.foobar2000' -prune \) \
   -not \( -name '.gcloud-sdk' -prune \) \
   -not \( -name '.gem' -prune \) \
@@ -337,6 +338,8 @@ export FZF_EXCLUDES=" \
   -not \( -name '__pycache__' -prune \) \
   -not \( -name '.QtWebEngineProcess' -prune \) \
   -not \( -name '.renpy' -prune \) \
+  -not \( -name '.runelite' -prune \) \
+  -not \( -name '.rustup' -prune \) \
   -not \( -name '.sass-cache' -prune \) \
   -not \( -name '.steam' -prune \) \
   -not \( -name '.Superposition' -prune \) \
@@ -348,6 +351,7 @@ export FZF_EXCLUDES=" \
   -not \( -name '.var' -prune \) \
   -not \( -name '.vegas' -prune \) \
   -not \( -name '.vim' -prune \) \
+  -not \( -name 'vivaldi' -prune \) \
   -not \( -name '.waifu2x' -prune \) \
   -not \( -name '.wine*' -prune \) \
   -not \( -name '.zplug' -prune \) \

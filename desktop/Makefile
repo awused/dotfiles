@@ -11,8 +11,8 @@ sudo:
 add-to-transmission:
 	cd ${AWUSED_SOURCE}/add-to-transmission; go install
 
-aw-man:
-	cd ${AWUSED_SOURCE}/aw-man; go install
+# aw-man:
+# 	cd ${AWUSED_SOURCE}/aw-man; go install
 
 dispatcher:
 	cd ${AWUSED_SOURCE}/dispatcher; go install
@@ -73,7 +73,7 @@ wallpapers:
 	cd ${AWUSED_SOURCE}/wallpapers; go install
 
 
-go: wallpapers dispatcher add-to-transmission aw-man \
+go: wallpapers dispatcher add-to-transmission \
   upscale-directory public-clipboard screenshotter madokami \
   hydrus-mover mpd-fzf mpd-rofi mpd-shuffler vmrpc rss-scrapers \
   strpick manga-upscaler manga-syncer
@@ -221,6 +221,9 @@ rust:
 
 cargo:
 	cargo install cargo-criterion cargo-udeps rusty-man
+
+aw-man:
+	cargo install --path "${AWUSED_SOURCE}/aw-man"
 
 #go-update:
 #	go get -u all
