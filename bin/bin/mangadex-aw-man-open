@@ -1,7 +1,6 @@
 #! /bin/sh
 
 cid=$(echo "$1" | sed -E 's/https:\/\/mangadex.org\/chapter\/([a-z0-9-]+)(\/[0-9]+)?$/\1/')
-echo $cid
 
 h=$(python - "$cid" <<"END"
 
@@ -14,25 +13,21 @@ print(urlsafe_b64encode(UUID(sys.argv[1]).bytes).rstrip(b'=').decode('ascii'))
 END
 )
 
-g="/storage/media/manga/*/*${h}.zip"
-for f in $g; do
-  if [ -e "$f" ]; then
-    aw-man "$f" &
-    exit 0
-  fi
-done
+f=$(find /storage/media/manga/ -name "*${h}.zip" -print -quit)
+if [ -n "$f" ]; then
+  aw-man --manga "$f" &
+  exit 0
+fi
 
 notify-send "Attempting to download $cid"
 # Download it now if we don't have it already.
 manga-syncer -chapter "$cid"
 
-g="/storage/media/manga/*/*${h}.zip"
-for f in $g; do
-  if [ -e "$f" ]; then
-    aw-man "$f" &
-    exit 0
-  fi
-done
+f=$(find /storage/media/manga/ -name "*${h}.zip" -print -quit)
+if [ -n "$f" ]; then
+  aw-man --manga "$f" &
+  exit 0
+fi
 
 notify-send "No archive found for $cid"
 exit 1
