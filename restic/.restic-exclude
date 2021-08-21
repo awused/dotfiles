@@ -43,6 +43,7 @@ $HOME/.local/TeamSpeak3-Client-linux_amd64
 $HOME/.local/share/flatpak
 $HOME/.local/share/Steam
 $HOME/.manga-upscaler.log
+$HOME/.nimble
 $HOME/.node-gyp
 $HOME/.npm
 $HOME/.nv

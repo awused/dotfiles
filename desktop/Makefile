@@ -220,10 +220,16 @@ rust:
 	rustup update
 
 cargo:
-	cargo install cargo-criterion cargo-udeps rusty-man
+	cargo install cargo-audit cargo-criterion cargo-udeps rusty-man
 
 aw-man:
 	cargo install --path "${AWUSED_SOURCE}/aw-man"
+
+windows-upscale:
+	cd "${AWUSED_SOURCE}/aw-upscale/server"; \
+	  cargo build --target x86_64-pc-windows-gnu --release; \
+	  strip target/x86_64-pc-windows-gnu/release/aw-upscale-server.exe; \
+	  cp target/x86_64-pc-windows-gnu/release/aw-upscale-server.exe /storage/winshare/gobin/
 
 #go-update:
 #	go get -u all
