@@ -18,7 +18,7 @@ target_resolution = '3840x2160'
 # When this is set the image will be upscaled enough to satisfy both this and target_resolution.
 # This setting upscales images at least as much as the equivalent target_resolution.
 # This will be ignored if target_resolution is '0x0'.
-minimum_resolution = '2000x1500'
+minimum_resolution = '1500x1500'
 
 # Directory to store temporary files in, including extracting archives.
 # Leave blank for the system default temp directory.

@@ -37,3 +37,8 @@ Manga = [
   "feff4eaf-01df-4a05-83f4-68bb5cdf4fad",
   #36283,
 ]
+
+# Groups to block, for low quality or otherwise.
+BlockedGroups = [
+  "4fdaf04f-b965-4f82-801d-8bfc00693773",
+]
