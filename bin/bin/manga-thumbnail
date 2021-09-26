@@ -55,7 +55,7 @@ if ext == ".zip" or ext == ".cbz":
                 if testImage(imgb):
                     firstimg = imgb
                     break
-    except:
+    except Exception as e:
         # cbz is also often 7zip
         pass
 

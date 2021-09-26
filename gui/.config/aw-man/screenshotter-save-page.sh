@@ -25,6 +25,8 @@ if [ -f "$dst" ]; then
   exit 1
 fi
 
+mkdir -p "$(dirname "$dst")" -m 0775
+
 mime=$(file -b --mime-type "$src")
 if [ "$mime" = "image/png" ]; then
   cp "$src" "$dst"
