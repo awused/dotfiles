@@ -31,6 +31,8 @@ elif [ "$musicType" = "audio/mpeg" ]; then
   eyeD3 --add-image="${image}:FRONT_COVER" "$music"
 elif [ "$musicType" = "audio/ogg" ]; then
   kid3-cli -c "set picture:\"${image}\" ''" "$music"
+elif [ "$musicType" = "audio/x-m4a" ]; then
+  mp4art --add "${image}" "$music"
 else
   echo "Unknown music mimetype $musicType"
   exit 1

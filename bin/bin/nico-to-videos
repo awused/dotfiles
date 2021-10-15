@@ -1,6 +1,6 @@
 #!/bin/sh
 
-youtube-dl --ignore-config \
+yt-dlp --ignore-config \
   --merge-output-format mkv \
   --no-mtime \
   --username "$(get-automation-password nico-email )" \
