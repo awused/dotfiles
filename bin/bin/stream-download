@@ -62,7 +62,7 @@ else
   echo "Chat file $ydir/$chat already exists"
 fi
 
-/storage/src/third_party/ytarchive/ytarchive.py -w --threads 5 --write-thumbnail --vp9 --output "$file" "$url" best
+ytarchive -w --debug --threads 10 --write-thumbnail --vp9 --output "$file" "$url" best
 #streamlink --retry-streams 10 "$url" best -o "$file" || true
 
 get-start-time "$url" || true
