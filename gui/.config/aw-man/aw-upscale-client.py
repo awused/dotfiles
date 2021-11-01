@@ -13,7 +13,8 @@ address = r'192.168.122.238:9091'
 # The fallback upscaler if the remote upscaler is not available.
 # This should probably be the default waifu2x-upscale.py.
 # Leave it empty to disable local upscaling.
-fallback = r'/storage/src/awused/aw-upscale/waifu2x-upscale.py'
+# fallback = r'/storage/src/awused/aw-upscale/waifu2x-upscale.py'
+fallback = r''
 
 # Keep this very low if you're on a LAN, so that an unavailable server
 # doesn't slow your upscaling to a crawl. 100 is the minimum value.
@@ -41,7 +42,8 @@ tx = int(os.getenv('UPSCALE_TARGET_WIDTH') or 0)
 ty = int(os.getenv('UPSCALE_TARGET_HEIGHT') or 0)
 mx = int(os.getenv('UPSCALE_MIN_WIDTH') or 0)
 my = int(os.getenv('UPSCALE_MIN_HEIGHT') or 0)
-denoise = bool(os.getenv('UPSCALE_DENOISE'))
+denoise = int(os.getenv('UPSCALE_DENOISE')
+              or 0) if os.getenv('UPSCALE_DENOISE') is not None else None
 
 if not bool(src) or not bool(dst):
     raise Exception('Source and destination must be present')
@@ -82,6 +84,9 @@ try:
         else:
             kwargs = {'scale': scale}
 
+        if denoise is not None:
+            kwargs['denoise'] = denoise
+
         req = upscale_pb2.UpscaleRequest(
             original_ext=os.path.splitext(src)[1],
             original_file=contents,
@@ -96,8 +101,6 @@ try:
 
         print(f'{resp.res.width}x{resp.res.height}')
 except Exception as e:
-    with open("/home/desuwa/upout", "a") as f:
-        f.write(f"{e}")
     if len(fallback) != 0:
         startupinfo = None
         # Never spawn console windows on Windows

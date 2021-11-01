@@ -47,9 +47,6 @@ rss-scrapers:
 screenshotter:
 	cd ${AWUSED_SOURCE}/screenshotter; go install
 
-strpick:
-	cd ${AWUSED_SOURCE}/go-strpick/strpick; go install
-
 upscale-directory:
 	cd ${AWUSED_SOURCE}/upscale-directory; go install
 
@@ -69,14 +66,11 @@ vmrpc:
 	cd ${AWUSED_SOURCE}/vmrpc/vmrpc-server; go install
 	cd ${AWUSED_SOURCE}/vmrpc/vmrpc-client; go install
 
-wallpapers:
-	cd ${AWUSED_SOURCE}/wallpapers; go install
 
-
-go: wallpapers dispatcher add-to-transmission \
+go: dispatcher add-to-transmission \
   upscale-directory public-clipboard screenshotter madokami \
   hydrus-mover mpd-fzf mpd-rofi mpd-shuffler vmrpc rss-scrapers \
-  strpick manga-upscaler manga-syncer
+  manga-upscaler manga-syncer
 
 windows-clipboard:
 	cd ${AWUSED_SOURCE}/public-clipboard; \
@@ -101,13 +95,8 @@ windows-vmrpc: vmrpc
 	  GOOS=windows go build; \
 	  mv vmrpc-client.exe /storage/winshare/gobin/vmrpc-client-debug.exe
 
-windows-wallpapers:
-	cd ${AWUSED_SOURCE}/wallpapers; \
-	  GOOS=windows go build -ldflags -H=windowsgui; \
-	  GOOS=windows go build -o wallcon.exe; \
-	  mv wallpapers.exe wallcon.exe /storage/winshare/gobin/
 
-windows-go: windows-wallpapers windows-sharex windows-vmrpc windows-clipboard windows-quiet-cmd
+windows-go: windows-sharex windows-vmrpc windows-clipboard windows-quiet-cmd
 
 # Third party code
 bfs: sudo
@@ -216,20 +205,38 @@ flatpak:
 	flatpak update --user
 	flatpak uninstall --unused
 
-rust:
+rustup:
 	rustup update
-
-cargo:
-	cargo install cargo-audit cargo-criterion cargo-udeps rusty-man
+	cargo install cargo-audit cargo-criterion cargo-udeps
 
 aw-man:
 	cargo install --path "${AWUSED_SOURCE}/aw-man"
+
+strpick:
+	cargo install --path "${AWUSED_SOURCE}/go-strpick/strpick"
+
+wallpapers:
+	cargo install --path "${AWUSED_SOURCE}/wallpapers"
 
 windows-upscale:
 	cd "${AWUSED_SOURCE}/aw-upscale/server"; \
 	  cargo build --target x86_64-pc-windows-gnu --release; \
 	  strip target/x86_64-pc-windows-gnu/release/aw-upscale-server.exe; \
 	  cp target/x86_64-pc-windows-gnu/release/aw-upscale-server.exe /storage/winshare/gobin/
+
+windows-wallpapers:
+	cd "${AWUSED_SOURCE}/wallpapers"; \
+	  cargo build --target x86_64-pc-windows-gnu --release --features windows-quiet; \
+	  strip target/x86_64-pc-windows-gnu/release/wallpapers.exe; \
+	  cp target/x86_64-pc-windows-gnu/release/wallpapers.exe /storage/winshare/gobin/ ; \
+	  cargo build --target x86_64-pc-windows-gnu --release; \
+	  strip target/x86_64-pc-windows-gnu/release/wallpapers.exe; \
+	  cp target/x86_64-pc-windows-gnu/release/wallpapers.exe /storage/winshare/gobin/wallcon.exe
+	cp /usr/x86_64-w64-mingw32/sys-root/mingw/bin/libstdc++-6.dll /storage/winshare/gobin/
+	cp /usr/x86_64-w64-mingw32/sys-root/mingw/bin/libwinpthread-1.dll /storage/winshare/gobin/
+	cp /usr/x86_64-w64-mingw32/sys-root/mingw/bin/libgcc_s_seh-1.dll /storage/winshare/gobin/
+
+rust: aw-man strpick wallpapers windows-upscale windows-wallpapers
 
 #go-update:
 #	go get -u all

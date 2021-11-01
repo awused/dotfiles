@@ -1,0 +1,29 @@
+# Where original wallpapers are located
+originals_directory = '/storage/usr/desuwa/Pictures/Wallpapers/originals'
+
+# Directory to store the upscaled and cropped versions of each wallpaper for each monitor
+# This can get very large if you have high resolution monitors
+# This directory will be created if it doesn't exist, but parent directories won't be.
+cache_directory = '/storage/cache/wallpapers'
+
+# The directory used for the database of recently used wallpapers.
+# It's not safe to use this database from multiple processes at once.
+# It is safe for multiple processes or computers to use, with the same originals directory,
+# if they don't access it at the same time.
+# This directory will be created if it doesn't exist, but parent directories won't be.
+database = '/storage/usr/desuwa/Pictures/Wallpapers/db'
+
+# Directory to store temporary files, leave blank for the system default temp directory
+# temp_directory = ''
+
+# Use a different upscaler instead of the default waifu2x-ncnn-vulkan implementation.
+# The upscaler needs to be compatible with https://github.com/awused/aw-upscale
+alternate_upscaler = '/home/desuwa/.config/aw-man/aw-upscale-client.py'
+
+# Control how many upscaling jobs can be dispatched at once.
+# Upscaling is primarily limited by GPU throughput and VRAM with the default waifu2x-ncnn-vulkan
+# configuration.
+# Each instance uses about 1.2GB of VRAM.
+# Using two threads will slightly increase throughput but greatly increase latency.
+# default 1; values higher than 2 are not advised without switching to a cheaper upscaler.
+upscaling_jobs = 4
