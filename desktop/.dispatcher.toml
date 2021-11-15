@@ -24,6 +24,10 @@ path = "madokami"
 regex = '^https://mangadex.org/chapter/'
 path = "mangadex-aw-man-open"
 
+[[executables]]
+regex = '^https://gelbooru.com/index.php'
+path = "gdl"
+
 # Maybe this shouldn't be a catch-all?
 [[executables]]
 regex = '.+'

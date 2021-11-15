@@ -11,7 +11,7 @@ mpv_glob='/tmp/mpv-sockets/*'
 
 #############
 
-[ $(pidof "$lockname") ] && exit 0
+pidof "$lockname" > /dev/null && exit 0
 
 if [ -S "$mpvsocket" ]; then
   paused=$(echo '{ "command": ["get_property", "pause"] }' | nc -U "$mpvsocket" 2>/dev/null | jq '.data')

@@ -171,7 +171,7 @@ if [[ $(uname) == 'FreeBSD' ]]; then
   export MPD_HOST=/storage/mpd/.mpd/socket
 
   if [[ $TERM = "tmux-256color" ]] {
-    # Work around FreeBSD's ancient base system ncurses
+    # Work around FreeBSD\'s ancient base system ncurses
     export TERM="screen-256color"
   }
 fi
@@ -179,6 +179,24 @@ fi
 if [[ $(hostname) == 'desutop' ]]; then
   alias rd="random-doujin"
   alias ru="random-unsorted"
+
+  function _accept-line-with-url {
+    if  [[ $BUFFER =~ ^https://gelbooru.com/ ]]
+    then
+        # echo $BUFFER >> $HISTFILE
+        fc -R
+
+        BUFFERz="gdl $BUFFER"
+        zle .kill-whole-line
+        BUFFER=$BUFFERz
+        zle .accept-line
+        # zle reset-prompt
+    else
+        zle .accept-line
+    fi
+  }
+
+ zle -N accept-line _accept-line-with-url
 fi
 #}}}
 #{{{ Fix Keybinds

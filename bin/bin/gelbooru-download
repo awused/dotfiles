@@ -1,0 +1,98 @@
+#! /usr/bin/env bash
+# Takes a directory and a series of gelbooru urls and downloads them
+# Assumes all images are connected, and uses the hash of the first image.
+# If the first image's hash is abcd the images will be named abcd01, abcd02, abcd03, etc.
+# Skips any images that already exist but will continue to download those that don't
+# Doesn't add numbering for single images.
+
+declare -A tagdirs
+tagdirs[touhou]="Touhou"
+tagdirs[kantai_collection]="Kantai Collection"
+tagdirs[strike_witches]="Strike Witches"
+tagdirs['neptune_\(series\)']="neptunia"
+tagdirs[pokemon]="pokemon"
+tagdirs[idolmaster]="im@s"
+
+set -e
+
+directory="$1"
+counter=1
+
+if [[ ! -d $directory ]]; then
+  echo "Directory $directory does not exist"
+  exit 1
+fi
+
+shift
+
+
+id=$(echo "$1" | grep -Eo 'id\\?=([0-9]+)' | sed -rn 's/.*=([0-9]+).*/\1/p')
+if [[ -z $id ]]; then
+  echo "No valid gelbooru url found"
+  notify-send -u critical "No valid gelbooru url found"
+  exit 1
+fi
+shift
+
+api="https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&id="
+download="https://img1.gelbooru.com/images/"
+
+# If there is no second image, just download this one without a suffix.
+
+response=$(curl -s "$api$id")
+
+tags=$(echo "$response" | jq -r '.[0].tags')
+
+for tag in "${!tagdirs[@]}"; do
+  if [[ $tags =~ ( |^)${tag}( |$) ]]; then
+    directory="${directory}/${tagdirs[$tag]}" 
+    break
+  fi
+done
+
+if [[ ! -d $directory ]]; then
+  echo "Creating sub-directory $directory"
+  mkdir -p "$directory"
+fi
+
+hash=$(echo "$response" | jq -r '.[0].hash')
+image_directory=$(echo "$response" | jq -r '.[0].directory')
+image=$(echo "$response" | jq -r '.[0].image')
+ext=$(echo "$image" | sed "s/$hash\.//")
+filename="$directory/${hash}$(printf '%02d' $counter).$ext"
+
+if [[ -z $1 ]]; then
+  filename="$directory/$hash.$ext"
+fi
+
+if [[ -f $filename ]]; then
+  echo "File already exists: $filename"
+else
+  echo "Downloading $filename from $download${image_directory}/$image"
+  curl -s -o "$filename" "$download${image_directory}/$image" || notify-send -u critical "Download failed for $filename"
+fi
+
+while [[ -n $1 ]]; do
+  id=$(echo "$1" | grep -Eo 'id\\?=([0-9]+)' | sed -rn 's/.*=([0-9]+).*/\1/p')
+  if [ -z "$id" ]; then
+    echo "Invalid URL $1"
+    notify-send -u critical "Invalid URL $1"
+  fi
+  shift
+
+  let counter++
+
+
+  response=$(curl -s "$api$id")
+  image_directory=$(echo "$response" | jq -r '.[0].directory')
+  image=$(echo "$response" | jq -r '.[0].image')
+  ext=$(echo "$image" | sed "s/.*\.//")
+  filename="$directory/${hash}$(printf '%02d' $counter).$ext"
+
+  if [[ -f $filename ]]; then
+    echo "File already exists: $filename"
+  else
+    echo "Downloading $filename from $download${image_directory}/$image"
+    curl -s -o "$filename" "$download${image_directory}/$image" || notify-send -u critical "Download failed for $filename"
+  fi
+done

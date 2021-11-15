@@ -610,7 +610,7 @@ endif
 augroup window_settings
   autocmd!
   " Highlight once past 100 characters. Works out well for half of my monitors.
-  autocmd BufWinEnter *\.* call matchadd('ColorColumn', '\%>99v.')
+  autocmd BufWinEnter *\.* call matchadd('ColorColumn', '\%>100v.')
   autocmd BufWinEnter *\.* highlight ExtraWhitespace ctermbg=red guibg=red
   "autocmd BufWinEnter * call matchadd('ExtraWhitespace', '\s\+$', 11)
   autocmd BufWinEnter *\.* call matchadd('ExtraWhitespace', '\s\+\%#\@<!$')
