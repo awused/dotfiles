@@ -12,7 +12,7 @@ TempDirectory = '/tmp'
 
 # The number of pages to download in parallel.
 # Don't set it too high.
-Threads = 16
+Threads = 8
 
 # Language code used by Mangadex. Must be set.
 Language = "en"

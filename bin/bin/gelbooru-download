@@ -26,7 +26,8 @@ fi
 shift
 
 
-id=$(echo "$1" | grep -Eo 'id\\?=([0-9]+)' | sed -rn 's/.*=([0-9]+).*/\1/p')
+url=$1
+id=$(echo "$url" | grep -Eo 'id\\?=([0-9]+)' | sed -rn 's/.*=([0-9]+).*/\1/p')
 if [[ -z $id ]]; then
   echo "No valid gelbooru url found"
   notify-send -u critical "No valid gelbooru url found"
@@ -42,9 +43,18 @@ download="https://img1.gelbooru.com/images/"
 response=$(curl -s "$api$id")
 
 tags=$(echo "$response" | jq -r '.[0].tags')
+if [[ $tags == "null" ]]; then
+  page=$(curl -s "$url")
+
+  tags=$(echo "$page" | \
+    xmllint --html --xpath "//ul[@id='tag-list']//a[contains(@href, '&tags=')]/@href" - 2>/dev/null | \
+    sed -E 's/^.*tags=(.*)"$/\1/' | \
+    python -c "import sys, urllib.parse as parse; print(parse.unquote(sys.stdin.read()))" | \
+    tr '\n' ' ')
+fi
 
 for tag in "${!tagdirs[@]}"; do
-  if [[ $tags =~ ( |^)${tag}( |$) ]]; then
+  if [[ $tags =~ ( |^|\n)${tag}( |$|\n) ]]; then
     directory="${directory}/${tagdirs[$tag]}" 
     break
   fi
@@ -58,6 +68,17 @@ fi
 hash=$(echo "$response" | jq -r '.[0].hash')
 image_directory=$(echo "$response" | jq -r '.[0].directory')
 image=$(echo "$response" | jq -r '.[0].image')
+
+if [[ $hash == "null" ]]; then
+  fileurl=$(echo "$page" | xmllint --html --xpath "//a[text() = 'Original image']/@href" - 2>/dev/null)
+  fileurl="${fileurl#*\"}"
+  fileurl="${fileurl::-1}"
+
+  image=$(echo "$fileurl" | grep -Eo "[^/]*$")
+  hash=$(echo "$image" | grep -Eo "^[^.]+")
+  image_directory=$(echo "$fileurl" | grep -Eo "images/[^/]+/[^/]+" | grep -Eo "[^/]+/[^/]+$")
+fi
+
 ext=$(echo "$image" | sed "s/$hash\.//")
 filename="$directory/${hash}$(printf '%02d' $counter).$ext"
 
@@ -73,7 +94,8 @@ else
 fi
 
 while [[ -n $1 ]]; do
-  id=$(echo "$1" | grep -Eo 'id\\?=([0-9]+)' | sed -rn 's/.*=([0-9]+).*/\1/p')
+  url=$1
+  id=$(echo "$url" | grep -Eo 'id\\?=([0-9]+)' | sed -rn 's/.*=([0-9]+).*/\1/p')
   if [ -z "$id" ]; then
     echo "Invalid URL $1"
     notify-send -u critical "Invalid URL $1"
@@ -86,6 +108,17 @@ while [[ -n $1 ]]; do
   response=$(curl -s "$api$id")
   image_directory=$(echo "$response" | jq -r '.[0].directory')
   image=$(echo "$response" | jq -r '.[0].image')
+
+  if [[ $image == "null" ]]; then
+    page=$(curl -s "$url")
+    fileurl=$(echo "$page" | xmllint --html --xpath "//a[text() = 'Original image']/@href" - 2>/dev/null)
+    fileurl="${fileurl#*\"}"
+    fileurl="${fileurl::-1}"
+
+    image=$(echo "$fileurl" | grep -Eo "[^/]*$")
+    image_directory=$(echo "$fileurl" | grep -Eo "images/[^/]+/[^/]+" | grep -Eo "[^/]+/[^/]+$")
+  fi
+
   ext=$(echo "$image" | sed "s/.*\.//")
   filename="$directory/${hash}$(printf '%02d' $counter).$ext"
 

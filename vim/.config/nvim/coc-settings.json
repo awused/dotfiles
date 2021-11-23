@@ -14,7 +14,8 @@
     "-Wclippy::unnested_or_patterns", "-Wclippy::must_use_candidate",
     "-Wclippy::use_self", "-Wclippy::missing_const_for_fn",
     "-Wclippy::type_repetition_in_bounds", "-Aclippy::branches_sharing_code",
-    "-Aclippy::module-name-repetitions", "-Aclippy::needless_collect"
+    "-Aclippy::module-name-repetitions", "-Aclippy::needless_collect",
+    "-Wclippy::map_flatten"
   ],
   "rust-analyzer.procMacro.enable": true,
   "rust-analyzer.cargo.allFeatures": true
