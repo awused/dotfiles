@@ -13,8 +13,8 @@ address = r'192.168.122.238:9091'
 # The fallback upscaler if the remote upscaler is not available.
 # This should probably be the default waifu2x-upscale.py.
 # Leave it empty to disable local upscaling.
-# fallback = r'/storage/src/awused/aw-upscale/waifu2x-upscale.py'
-fallback = r''
+fallback = r'/storage/src/awused/aw-upscale/waifu2x-upscale.py'
+# fallback = r''
 
 # Keep this very low if you're on a LAN, so that an unavailable server
 # doesn't slow your upscaling to a crawl. 100 is the minimum value.
@@ -115,7 +115,7 @@ except Exception as e:
             'encoding': 'utf-8',
         }
         cp = subprocess.run([fallback], **kwargs)
-        cp.check_returncode()
         print(cp.stdout.strip())
+        cp.check_returncode()
     else:
         raise e

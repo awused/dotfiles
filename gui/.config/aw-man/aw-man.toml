@@ -94,6 +94,16 @@ shortcuts = [
   {key = "Page_Up", modifiers = "Shift", action = "Jump -10"},
 ]
 
+# Context Menu
+# All context menu items need a name and an action.
+# Context menu entries are placed in the context menu in order.
+# The set of allowable actions is the same as those for shortcuts.
+# Example:
+# {name = "Save Page", action = "Execute /path/to/save-page.sh"},
+context_menu = [
+  {name = "Mangadex Link", action = "Execute /home/desuwa/.config/aw-man/mangadex-url-clipboard.sh"},
+]
+
 # Allow use of "unrar" binary, if available, for rar files.
 # Some rar files are supported by libarchive but many are not.
 # This is recommended but disabled by default.
@@ -128,7 +138,7 @@ use_sofware_renderer = true
 # Each instance uses about 1.2GB of VRAM.
 # Using two threads will slightly increase throughput but greatly increase latency.
 # default 1; values higher than 2 are not advised without switching to a cheaper upscaler.
-upscaling_threads = 4
+upscaling_threads = 3
 
 # Downscaling can be cpu intensive.
 # If you're noticing images "pop-in" after a second when downscaling, it's because aw-man downscales

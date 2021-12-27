@@ -2,7 +2,7 @@
  "default.route.alsa_card.usb-C-Media_Electronics_Inc._USB_Advanced_Audio_Device-00:profile:output:analog-stereo+input:analog-stereo": [ ]
  "default.route.alsa_card.usb-www.hirestech.com_2010_REV_1.5_Music_Streamer_II+-00:profile:output:analog-stereo": [ ]
  "default.route.alsa_card.usb-C-Media_Electronics_Inc._USB_Advanced_Audio_Device-00:input:analog-input-mic": { "mute": false, "volumes": [ 1.000000, 1.000000 ], "channels": [ "FL", "FR" ] }
- "default.route.alsa_card.usb-C-Media_Electronics_Inc._USB_Advanced_Audio_Device-00:output:analog-output": { "mute": false, "volumes": [ 0.999817, 0.999817 ], "channels": [ "FL", "FR" ] }
+ "default.route.alsa_card.usb-C-Media_Electronics_Inc._USB_Advanced_Audio_Device-00:output:analog-output": { "mute": false, "volumes": [ 1.0, 1.0 ], "channels": [ "FL", "FR" ] }
  "default.route.alsa_card.usb-www.hirestech.com_2010_REV_1.5_Music_Streamer_II+-00:output:analog-output": { "mute": false, "volumes": [ 1.000000, 1.000000 ], "channels": [ "FL", "FR" ] }
  "default.route.alsa_card.usb-C-Media_Electronics_Inc._USB_Advanced_Audio_Device-00.2:profile:output:analog-stereo+input:analog-stereo": [ ]
  "default.route.alsa_card.usb-C-Media_Electronics_Inc._USB_Advanced_Audio_Device-00.2:input:analog-input-mic": { "mute": false, "volumes": [ 1.000000, 1.000000 ], "channels": [ "FL", "FR" ] }
@@ -12,6 +12,6 @@
  "default.route.alsa_card.usb-C-Media_Electronics_Inc._USB_Advanced_Audio_Device-00:profile:off": [ ]
  "default.route.alsa_card.usb-www.hirestech.com_2010_REV_1.5_Music_Streamer_II_-00:profile:off": [ ]
  "default.route.alsa_card.usb-C-Media_Electronics_Inc._USB_Advanced_Audio_Device-00.2:profile:off": [ ]
- "default.route.alsa_card.usb-C-Media_Electronics_Inc._USB_Advanced_Audio_Device-00:output:analog-output-speaker": { "mute": false, "volumes": [ 0.399992, 0.399992 ], "channels": [ "FL", "FR" ] }
- "default.route.alsa_card.usb-C-Media_Electronics_Inc._USB_Advanced_Audio_Device-00.2:output:analog-output": { "mute": false, "volumes": [ 0.399992, 0.399992 ], "channels": [ "FL", "FR" ] }
+ "default.route.alsa_card.usb-C-Media_Electronics_Inc._USB_Advanced_Audio_Device-00:output:analog-output-speaker": { "mute": false, "volumes": [ 1.0, 1.0 ], "channels": [ "FL", "FR" ] }
+ "default.route.alsa_card.usb-C-Media_Electronics_Inc._USB_Advanced_Audio_Device-00.2:output:analog-output": { "mute": false, "volumes": [ 1.0, 1.0 ], "channels": [ "FL", "FR" ] }
 }

@@ -6,5 +6,5 @@ configuration {
 	sorting-method: "fzf";
 	matching: "fuzzy";
 	dpi: 1;
-	theme: "/usr/share/rofi/themes/gruvbox-dark-hard.rasi";
 }
+@theme "/usr/share/rofi/themes/gruvbox-dark-hard.rasi"

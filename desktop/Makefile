@@ -26,17 +26,11 @@ madokami:
 manga-syncer:
 	cd ${AWUSED_SOURCE}/manga-syncer; go install
 
-manga-upscaler:
-	cd ${AWUSED_SOURCE}/manga-upscaler; go install
-
 mpd-fzf:
 	cd ${AWUSED_SOURCE}/mpd-fzf; go install
 
 mpd-rofi:
 	cd ${AWUSED_SOURCE}/mpd-rofi; go install
-
-mpd-shuffler:
-	cd ${AWUSED_SOURCE}/mpd-shuffler; go install
 
 public-clipboard:
 	cd ${AWUSED_SOURCE}/public-clipboard; go install
@@ -69,8 +63,8 @@ vmrpc:
 
 go: dispatcher add-to-transmission \
   upscale-directory public-clipboard screenshotter madokami \
-  hydrus-mover mpd-fzf mpd-rofi mpd-shuffler vmrpc rss-scrapers \
-  manga-upscaler manga-syncer
+  hydrus-mover mpd-fzf mpd-rofi vmrpc rss-scrapers \
+  manga-syncer
 
 windows-clipboard:
 	cd ${AWUSED_SOURCE}/public-clipboard; \
@@ -176,7 +170,7 @@ waifu2x-vulkan:
 	  rm -rf build/; mkdir build; cd build; \
 	  cmake ../src; $(MAKE); \
 	  mv waifu2x-ncnn-vulkan ~/.bin/; \
-	  ln -s "${THIRD_PARTY_SOURCE}/waifu2x-ncnn-vulkan/models/models-cunet" ~/.bin/
+	  ln -s "${THIRD_PARTY_SOURCE}/waifu2x-ncnn-vulkan/models/models-cunet" ~/.bin/ && true
 
 third-party: bfs ddcutil loudness-scanner maim rofi-files scream split2flac timg \
 	waifu2x-vulkan
@@ -207,16 +201,19 @@ flatpak:
 
 rustup:
 	rustup update
-	cargo install cargo-audit cargo-criterion cargo-udeps
+	cargo install cargo-audit cargo-criterion cargo-udeps cargo-expand cargo-edit
 
 aw-man:
-	cargo install --path "${AWUSED_SOURCE}/aw-man"
+	cargo install --path "${AWUSED_SOURCE}/aw-man" --locked
+
+mpd-shuffler:
+	cargo install --path "${AWUSED_SOURCE}/mpd-shuffler" --locked
 
 strpick:
-	cargo install --path "${AWUSED_SOURCE}/go-strpick/strpick"
+	cargo install --path "${AWUSED_SOURCE}/aw-shuffle/strpick" --locked
 
 wallpapers:
-	cargo install --path "${AWUSED_SOURCE}/wallpapers"
+	cargo install --path "${AWUSED_SOURCE}/wallpapers" --locked
 
 windows-upscale:
 	cd "${AWUSED_SOURCE}/aw-upscale/server"; \
@@ -236,7 +233,9 @@ windows-wallpapers:
 	cp /usr/x86_64-w64-mingw32/sys-root/mingw/bin/libwinpthread-1.dll /storage/winshare/gobin/
 	cp /usr/x86_64-w64-mingw32/sys-root/mingw/bin/libgcc_s_seh-1.dll /storage/winshare/gobin/
 
-rust: aw-man strpick wallpapers windows-upscale windows-wallpapers
+rust: aw-man mpd-shuffler strpick wallpapers
+
+windows-rust: windows-upscale windows-wallpapers
 
 #go-update:
 #	go get -u all
