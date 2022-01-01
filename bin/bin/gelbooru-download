@@ -95,12 +95,13 @@ fi
 
 while [[ -n $1 ]]; do
   url=$1
+  shift
   id=$(echo "$url" | grep -Eo 'id\\?=([0-9]+)' | sed -rn 's/.*=([0-9]+).*/\1/p')
   if [ -z "$id" ]; then
-    echo "Invalid URL $1"
-    notify-send -u critical "Invalid URL $1"
+    echo "Invalid URL $url"
+    notify-send -u critical "Invalid URL $url"
+    continue
   fi
-  shift
 
   let counter++
 

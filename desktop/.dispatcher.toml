@@ -28,6 +28,10 @@ path = "mangadex-aw-man-open"
 regex = '^https://gelbooru.com/index.php'
 path = "gdl"
 
+[[executables]]
+regex = '^https://yande.re/post/show/'
+path = "yandl"
+
 # Maybe this shouldn't be a catch-all?
 [[executables]]
 regex = '.+'

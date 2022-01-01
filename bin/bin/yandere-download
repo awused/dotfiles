@@ -1,0 +1,111 @@
+#! /usr/bin/env bash
+# Takes a directory and a series of yandere urls and downloads them
+# Assumes all images are connected, and uses the hash of the first image.
+# If the first image's hash is abcd the images will be named abcd01, abcd02, abcd03, etc.
+# Skips any images that already exist but will continue to download those that don't
+# Doesn't add numbering for single images.
+
+declare -A tagdirs
+tagdirs[touhou]="Touhou"
+tagdirs[kantai_collection]="Kantai Collection"
+tagdirs[strike_witches]="Strike Witches"
+tagdirs[choujigen_game_neptune]="neptunia"
+tagdirs[pokemon]="pokemon"
+tagdirs[the_idolm@ster]="im@s"
+
+set -e
+
+directory="$1"
+counter=1
+
+if [[ ! -d $directory ]]; then
+  echo "Directory $directory does not exist"
+  exit 1
+fi
+
+shift
+
+
+url=$1
+shift
+if [[ ! $(echo "$url" | grep -E "^https://yande\.re/post/show/[0-9]+") ]]; then
+  echo "No valid yandere url found"
+  notify-send -u critical "No valid yandere url found"
+  exit 1
+fi
+
+page=$(curl -s "$url")
+
+tags=$(echo "$page" | \
+  xmllint --html --xpath "//ul[@id='tag-sidebar']//a[contains(@href, '?tags=')]/@href" - 2>/dev/null | \
+  sed -E 's/^.*tags=(.*)"$/\1/' | \
+  python -c "import sys, urllib.parse as parse; print(parse.unquote(sys.stdin.read()))" | \
+  tr '\n' ' ')
+
+for tag in "${!tagdirs[@]}"; do
+  if [[ $tags =~ ( |^|\n)${tag}( |$|\n) ]]; then
+    directory="${directory}/${tagdirs[$tag]}" 
+    break
+  fi
+done
+
+if [[ ! -d $directory ]]; then
+  echo "Creating sub-directory $directory"
+  mkdir -p "$directory"
+fi
+
+fileurl=$(echo "$page" | \
+  xmllint --html --xpath "//div[@class='sidebar']//a[contains(@href, 'https://files.yande.re/image/')]/@href" - 2>/dev/null | \
+  head -n1 | \
+  sed -E 's/^.*href="(.*)"$/\1/')
+
+hash=$(echo "$fileurl" | sed -E 's/^.*image\/([^/]+)\/.*$/\1/')
+
+if [[ $hash == "" ]]; then
+  echo "Couldn't find image URL or hash"
+  notify-send -u critical "Couldn't find image URL or hash for $url"
+  exit 1
+fi
+
+ext=$(echo "$fileurl" | sed -E "s/^.*\.//")
+filename="$directory/${hash}$(printf '%02d' $counter).$ext"
+
+if [[ -z $1 ]]; then
+  filename="$directory/$hash.$ext"
+fi
+
+if [[ -f $filename ]]; then
+  echo "File already exists: $filename"
+else
+  echo "Downloading $filename from $fileurl"
+  curl -s -o "$filename" "$fileurl" || notify-send -u critical "Download failed for $filename"
+fi
+
+while [[ -n $1 ]]; do
+  url=$1
+  shift
+  if [[ ! $(echo "$url" | grep -E "^https://yande\.re/post/show/[0-9]+") ]]; then
+    echo "Invalid URL $url"
+    notify-send -u critical "Invalid URL $url"
+    continue
+  fi
+
+  let counter++
+
+  page=$(curl -s "$url")
+
+  fileurl=$(echo "$page" | \
+    xmllint --html --xpath "//div[@class='sidebar']//a[contains(@href, 'https://files.yande.re/image/')]/@href" - 2>/dev/null | \
+    head -n1 | \
+    sed -E 's/^.*href="(.*)"$/\1/')
+
+  ext=$(echo "$fileurl" | sed -E "s/^.*\.//")
+  filename="$directory/${hash}$(printf '%02d' $counter).$ext"
+
+  if [[ -f $filename ]]; then
+    echo "File already exists: $filename"
+  else
+    echo "Downloading $filename from $fileurl"
+    curl -s -o "$filename" "$fileurl" || notify-send -u critical "Download failed for $filename"
+  fi
+done

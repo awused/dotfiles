@@ -183,18 +183,24 @@ if [[ $(hostname) == 'desutop' ]]; then
   alias ru="random-unsorted"
 
   function _accept-line-with-url {
-    if  [[ $BUFFER =~ ^https://gelbooru.com/ ]]
-    then
-        # echo $BUFFER >> $HISTFILE
-        fc -R
+    if [[ $BUFFER =~ ^https://gelbooru.com/ ]]; then
+      # echo $BUFFER >> $HISTFILE
+      fc -R
 
-        BUFFERz="gdl $BUFFER"
-        zle .kill-whole-line
-        BUFFER=$BUFFERz
-        zle .accept-line
-        # zle reset-prompt
+      BUFFERz=" gdl $BUFFER"
+      zle .kill-whole-line
+      BUFFER=$BUFFERz
+      zle .accept-line
+      # zle reset-prompt
+    elif [[ $BUFFER =~ ^https://yande.re/ ]]; then
+      fc -R
+
+      BUFFERz=" yandl $BUFFER"
+      zle .kill-whole-line
+      BUFFER=$BUFFERz
+      zle .accept-line
     else
-        zle .accept-line
+      zle .accept-line
     fi
   }
 
