@@ -62,6 +62,15 @@ fileurl=$(echo "$page" | \
 hash=$(echo "$fileurl" | sed -E 's/^.*image\/([^/]+)\/.*$/\1/')
 
 if [[ $hash == "" ]]; then
+  # Image is low res
+  fileurl=$(echo "$page" | \
+    xmllint --html --xpath "//div[@class='sidebar']//a[contains(@href, 'https://files.yande.re/sample/')]/@href" - 2>/dev/null | \
+    head -n1 | \
+    sed -E 's/^.*href="(.*)"$/\1/')
+  hash=$(echo "$fileurl" | sed -E 's/^.*sample\/([^/]+)\/.*$/\1/')
+fi
+
+if [[ $hash == "" ]]; then
   echo "Couldn't find image URL or hash"
   notify-send -u critical "Couldn't find image URL or hash for $url"
   exit 1
@@ -98,6 +107,19 @@ while [[ -n $1 ]]; do
     xmllint --html --xpath "//div[@class='sidebar']//a[contains(@href, 'https://files.yande.re/image/')]/@href" - 2>/dev/null | \
     head -n1 | \
     sed -E 's/^.*href="(.*)"$/\1/')
+
+  if [[ $fileurl == "" ]]; then
+    fileurl=$(echo "$page" | \
+      xmllint --html --xpath "//div[@class='sidebar']//a[contains(@href, 'https://files.yande.re/sample/')]/@href" - 2>/dev/null | \
+      head -n1 | \
+      sed -E 's/^.*href="(.*)"$/\1/')
+  fi
+
+  if [[ $fileurl == "" ]]; then
+    echo "Couldn't find image URL or hash for $url"
+    notify-send -u critical "Couldn't find image URL or hash for $url"
+    continue
+  fi
 
   ext=$(echo "$fileurl" | sed -E "s/^.*\.//")
   filename="$directory/${hash}$(printf '%02d' $counter).$ext"

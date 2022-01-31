@@ -1,0 +1,12 @@
+#! /bin/sh
+set -e
+
+size=$(stat -c%s "$3")
+
+if [ "$size" -gt "100000000" ]; then
+  echo "File too large, could be a video"
+  exit 1
+fi
+
+ffmpeg -i "$3" -map v -vcodec copy -f rawvideo -y "$1"
+convert "$1" -flatten -thumbnail "$2" "PNG:$1"

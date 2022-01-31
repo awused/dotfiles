@@ -1,6 +1,8 @@
 default:
 	@grep '^[^#[:space:]].*:' Makefile
 
+.NOTPARALLEL:
+
 # Get permissions early so it's not prompting during multi-threaded builds
 sudo:
 	sudo echo "Starting"
@@ -41,9 +43,6 @@ rss-scrapers:
 screenshotter:
 	cd ${AWUSED_SOURCE}/screenshotter; go install
 
-upscale-directory:
-	cd ${AWUSED_SOURCE}/upscale-directory; go install
-
 vmrpc:
 	cd ${AWUSED_SOURCE}/vmrpc/clipboard; \
 	  protoc --go_out=plugins=grpc:. *.proto
@@ -62,7 +61,7 @@ vmrpc:
 
 
 go: dispatcher add-to-transmission \
-  upscale-directory public-clipboard screenshotter madokami \
+  public-clipboard screenshotter madokami \
   hydrus-mover mpd-fzf mpd-rofi vmrpc rss-scrapers \
   manga-syncer
 

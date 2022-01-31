@@ -1,0 +1,3 @@
+[Thumbnailer Entry]
+Exec=m4a-thumbnail "%o" "%s" "%i"
+MimeType=audio/x-m4a;audio/m4a;audio/mp4;

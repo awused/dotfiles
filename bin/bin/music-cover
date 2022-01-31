@@ -32,7 +32,8 @@ elif [ "$musicType" = "audio/mpeg" ]; then
 elif [ "$musicType" = "audio/ogg" ]; then
   kid3-cli -c "set picture:\"${image}\" ''" "$music"
 elif [ "$musicType" = "audio/x-m4a" ]; then
-  mp4art --add "${image}" "$music"
+  mp4art --remove "$music"
+  mp4art --optimize --add "${image}" "$music"
 else
   echo "Unknown music mimetype $musicType"
   exit 1

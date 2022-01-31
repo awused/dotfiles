@@ -41,8 +41,7 @@ download="https://img1.gelbooru.com/images/"
 # If there is no second image, just download this one without a suffix.
 
 response=$(curl -s "$api$id")
-
-tags=$(echo "$response" | jq -r '.[0].tags')
+tags=$(echo "$response" | jq -r '.post[0].tags')
 if [[ $tags == "null" ]]; then
   page=$(curl -s "$url")
 
@@ -65,9 +64,9 @@ if [[ ! -d $directory ]]; then
   mkdir -p "$directory"
 fi
 
-hash=$(echo "$response" | jq -r '.[0].hash')
-image_directory=$(echo "$response" | jq -r '.[0].directory')
-image=$(echo "$response" | jq -r '.[0].image')
+hash=$(echo "$response" | jq -r '.post[0].md5')
+image_directory=$(echo "$response" | jq -r '.post[0].directory')
+image=$(echo "$response" | jq -r '.post[0].image')
 
 if [[ $hash == "null" ]]; then
   fileurl=$(echo "$page" | xmllint --html --xpath "//a[text() = 'Original image']/@href" - 2>/dev/null)
@@ -107,8 +106,8 @@ while [[ -n $1 ]]; do
 
 
   response=$(curl -s "$api$id")
-  image_directory=$(echo "$response" | jq -r '.[0].directory')
-  image=$(echo "$response" | jq -r '.[0].image')
+  image_directory=$(echo "$response" | jq -r '.post[0].directory')
+  image=$(echo "$response" | jq -r '.post[0].image')
 
   if [[ $image == "null" ]]; then
     page=$(curl -s "$url")

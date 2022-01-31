@@ -346,7 +346,7 @@ Plug 'christoomey/vim-tmux-navigator'
 "{{{ Code Formatting
 
 fun! s:ShouldFormat() abort
-  return wordcount().bytes < 5000000 && expand('%:p') !~# '\V'.$THIRD_PARTY_SOURCE && expand('%:p') !~# '\V/usr/ports' && expand('%:p') !~# '\V'.$HOME.'/.vim/plugged'
+  return wordcount().bytes < 2000000 && expand('%:p') !~# '\V'.$THIRD_PARTY_SOURCE && expand('%:p') !~# '\V/usr/ports' && expand('%:p') !~# '\V'.$HOME.'/.vim/plugged'
 endfun
 
 augroup autoformat_settings

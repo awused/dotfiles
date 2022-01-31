@@ -1,6 +1,8 @@
 default:
 	@grep '^[^#[:space:]].*:' Makefile
 
+.NOTPARALLEL:
+
 # Get permissions early so it's not prompting during multi-threaded builds
 sudo:
 	sudo echo "Starting"
