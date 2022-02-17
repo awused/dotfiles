@@ -53,6 +53,7 @@ touch "$chat"
 
 echo "Downloading chat for $id to $ydir/$chat"
 
-chat_downloader "$url" --cookies "$cookies" --message_groups all --output "$chat"
+# chat_downloader "$url" --cookies "$cookies" --message_groups all --output "$chat"
+chat_downloader "$url" --message_groups all --output "$chat"
 zstd --long -19 "$chat" -f -o "chat-dumps/${chat}.zst"
 
