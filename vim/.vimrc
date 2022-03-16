@@ -230,7 +230,6 @@ endif
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 let g:rustfmt_autosave = 1
-let g:rust_fold = 1
 if executable('rustup')
   let g:rustfmt_command = "rustfmt +nightly "
 endif
@@ -573,7 +572,6 @@ set number
 set relativenumber
 set mouse=a
 set hidden
-set foldmethod=syntax
 set foldlevelstart=20
 set backspace=indent,eol,start
 set modeline
@@ -586,8 +584,11 @@ set ignorecase
 set smartcase
 
 if has('nvim')
+  set foldexpr=nvim_treesitter#foldexpr()
+  set foldmethod=expr
   set laststatus=0
 else
+  set foldmethod=syntax
   set ttymouse=sgr
 endif
 

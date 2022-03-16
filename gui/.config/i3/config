@@ -91,11 +91,12 @@ default_floating_border normal
 set $wsff "firefox"
 bindsym $mod+z workspace $wsff
 bindsym $mod+Shift+z move container to workspace $wsff
-assign [class="Firefox"] $wsff
-for_window [class="Firefox"] floating enable
-for_window [class="Firefox" instance="Navigator" window_type="normal"] floating disable border pixel 0
-for_window [class="Firefox" instance="Navigator" title="Torrents for .*"] floating enable border normal
-for_window [class="Firefox" instance="Navigator" title="Extension: \(Tree Style Tab\) - Close.*"] floating enable border normal
+assign [class="firefox"] $wsff
+for_window [class="firefox"] floating enable
+for_window [class="firefox" instance="Navigator" window_type="normal"] floating disable border pixel 0
+for_window [class="firefox" instance="Navigator" title="Torrents for .*"] floating enable border normal
+for_window [class="firefox" instance="Navigator" title="Extension: \(Tree Style Tab\) - Close.*"] floating enable border normal
+for_window [class="firefox" instance="Places"] floating enable border normal
 workspace $wsff output $m_center
 
 set $wsmpv "mpv"
@@ -167,6 +168,8 @@ for_window [title="review services"] floating enable
 for_window [class="KADOKAWA/RPGMV"] floating enable
 for_window [class="^Minecraft\*? .*"] floating enable
 for_window [class="MultiMC"] floating enable
+for_window [class="Desmume"] floating enable border normal
+for_window [class="melonDS"] floating enable border normal
 #}}}
 #{{{ Launchers
 # start a terminal

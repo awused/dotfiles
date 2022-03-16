@@ -17,20 +17,24 @@ fallback = r'/storage/src/awused/aw-upscale/waifu2x-upscale.py'
 # fallback = r''
 
 # Keep this very low if you're on a LAN, so that an unavailable server
-# doesn't slow your upscaling to a crawl. 100 is the minimum value.
-timeout_ms = 100
+# doesn't slow your upscaling to a crawl.
+# 100 is the minimum value.
+grpc_timeout_ms = 100
 
 # -------------------------------------------------------------------------------
 # If you are not looking to implement your own upscaler you can stop reading now.
 # -------------------------------------------------------------------------------
 
 import grpc
+import math
 import os
 import subprocess
 import sys
 
 import upscale_pb2
 import upscale_pb2_grpc
+
+from google.protobuf import duration_pb2
 
 if len(address) == 0:
     raise Exception('No valid address')
@@ -44,6 +48,7 @@ mx = int(os.getenv('UPSCALE_MIN_WIDTH') or 0)
 my = int(os.getenv('UPSCALE_MIN_HEIGHT') or 0)
 denoise = int(os.getenv('UPSCALE_DENOISE')
               or 0) if os.getenv('UPSCALE_DENOISE') is not None else None
+timeout = float(os.getenv('UPSCALE_TIMEOUT') or 0) or None
 
 if not bool(src) or not bool(dst):
     raise Exception('Source and destination must be present')
@@ -58,6 +63,10 @@ if scale > 0 and (tx > 0 or ty > 0 or mx > 0 or my > 0):
     raise Exception(
         'Cannot specify scaling factor alongside widths or heights.')
 
+# This script gives the full timeout to waifu2x, even though it really won't have that long to run.
+if timeout is not None and (timeout < 0 or not math.isfinite(timeout)):
+    raise Exception('Cannot specify negative or infinite timeout')
+
 with open(src, "rb") as f:
     contents = f.read()
 
@@ -65,11 +74,11 @@ try:
     with grpc.insecure_channel(
             address,
             options=[
-                ('grpc.server_handshake_timeout_ms', timeout_ms),
+                ('grpc.server_handshake_timeout_ms', grpc_timeout_ms),
                 ('grpc.enable_retries', 0),
-                ('grpc.initial_reconnect_backoff_ms', timeout_ms),
-                ('grpc.min_reconnect_backoff_ms', timeout_ms),
-                ('grpc.max_reconnect_backoff_ms', timeout_ms),
+                ('grpc.initial_reconnect_backoff_ms', grpc_timeout_ms),
+                ('grpc.min_reconnect_backoff_ms', grpc_timeout_ms),
+                ('grpc.max_reconnect_backoff_ms', grpc_timeout_ms),
                 ('grpc.max_send_message_length', 500 * 1024 * 1024),
                 ('grpc.max_receive_message_length', 500 * 1024 * 1024),
             ]) as channel:
@@ -87,6 +96,12 @@ try:
         if denoise is not None:
             kwargs['denoise'] = denoise
 
+        if timeout is not None:
+            (nanos, secs) = math.modf(timeout)
+            nanos *= 1_000_000_000
+            kwargs['timeout'] = duration_pb2.Duration(seconds=int(secs),
+                                                      nanos=int(nanos))
+
         req = upscale_pb2.UpscaleRequest(
             original_ext=os.path.splitext(src)[1],
             original_file=contents,
@@ -94,7 +109,10 @@ try:
         )
 
         stub = upscale_pb2_grpc.AwUpscaleStub(channel)
-        resp = stub.Upscale(req)
+        resp = stub.Upscale(
+            req,
+            timeout=timeout,
+        )
 
         with open(dst, "wb") as f:
             f.write(resp.upscaled)
@@ -115,7 +133,7 @@ except Exception as e:
             'encoding': 'utf-8',
         }
         cp = subprocess.run([fallback], **kwargs)
-        print(cp.stdout.strip())
         cp.check_returncode()
+        print(cp.stdout.strip())
     else:
         raise e

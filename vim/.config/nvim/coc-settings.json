@@ -16,7 +16,9 @@
     "-Wclippy::type_repetition_in_bounds", "-Aclippy::branches_sharing_code",
     "-Aclippy::module-name-repetitions", "-Aclippy::needless_collect",
     "-Wclippy::map_flatten", "-Aclippy::option_if_let_else",
-    "-Wunsafe_op_in_unsafe_fn", "-Wclippy::fn_to_numeric_cast_any"
+    "-Wunsafe_op_in_unsafe_fn", "-Wclippy::fn_to_numeric_cast_any",
+    "-Wclippy::unnecessary_to_owned",
+    "-Wclippy::needless_late_init", "-Wclippy::return_self_not_must_use"
   ],
   "rust-analyzer.procMacro.enable": true,
   "rust-analyzer.cargo.allFeatures": true
