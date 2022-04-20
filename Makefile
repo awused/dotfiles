@@ -40,6 +40,7 @@ desktop: sudo both
 	stow xorg
 	sudo cp -u xorg.conf.d/* /etc/X11/xorg.conf.d/
 	sudo cp -u lightdm/lightdm.conf /etc/lightdm/
+	sudo cp -u lightdm/display-setup.sh /etc/lightdm/
 	#ln -s /home/ ~/.duplicacy-repo/ || true
 
 
