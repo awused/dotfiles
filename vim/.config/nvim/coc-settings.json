@@ -21,5 +21,7 @@
     "-Wclippy::needless_late_init", "-Wclippy::return_self_not_must_use"
   ],
   "rust-analyzer.procMacro.enable": true,
-  "rust-analyzer.cargo.allFeatures": true
+  "rust-analyzer.cargo.allFeatures": true,
+  "rust-analyzer.cargo.loadOutDirsFromCheck": true,
+  "rust-analyzer.cargo.runBuildScripts": true
 }

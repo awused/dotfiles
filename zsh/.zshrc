@@ -107,10 +107,13 @@ alias ngserve='ng serve'
 alias ngprod='npm run prod'
 alias ydl='yt-dlp --write-thumbnail --write-description'
 alias ydls='yt-dlp --write-sub --write-thumbnail --write-description'
-alias ytv='yt-dlp --no-mtime --output "/storage/usr/desuwa/Videos/%(title)s-%(id)s.%(ext)s" --'
-alias ytvs='yt-dlp --write-sub --no-mtime --output "/storage/usr/desuwa/Videos/%(title)s-%(id)s.%(ext)s" --'
-alias ytvt='yt-dlp --no-mtime --output "/storage/media/youtube/vtubers/%(title)s-%(id)s.%(ext)s" --'
-alias ytvts='yt-dlp --write-sub --no-mtime --output "/storage/media/youtube/vtubers/%(title)s-%(id)s.%(ext)s" --'
+
+_YT_FORMAT="%(title).230B-%(id)s.%(ext)s"
+
+alias ytv='yt-dlp --no-mtime --output "/storage/usr/desuwa/Videos/${_YT_FORMAT}" --'
+alias ytvs='yt-dlp --write-sub --no-mtime --output "/storage/usr/desuwa/Videos/${_YT_FORMAT}" --'
+alias ytvt='yt-dlp --no-mtime --output "/storage/media/youtube/vtubers/${_YT_FORMAT}" --'
+alias ytvts='yt-dlp --write-sub --no-mtime --output "/storage/media/youtube/vtubers/${_YT_FORMAT}" --'
 alias ya='youtube-audio'
 alias sqlite3='sqlite3-history'
 # Only for debug mode
