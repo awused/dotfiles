@@ -238,6 +238,9 @@ bindkey "\eOd" emacs-backward-word
 bindkey "\ee[C" forward-word
 bindkey "\ee[D" backward-word
 
+bindkey "^[[1;5D" backward-word
+bindkey "^[[1;5C" forward-word
+
 # Override some vi keybinds with emacs keybinds
 bindkey "^H" backward-delete-char
 bindkey "^V" quoted-insert

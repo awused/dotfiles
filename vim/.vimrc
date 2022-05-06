@@ -271,7 +271,7 @@ function! BuildYCM(info)
   endif
 endfunction
 if has('nvim')
-  let g:ale_linters = {'rust': ['rustc', 'rls']}
+  let g:ale_linters = {'rust': ['rustc', 'rust-analyzer']}
   let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
   let g:ale_disable_lsp = 1
   " Plug 'dense-analysis/ale'
