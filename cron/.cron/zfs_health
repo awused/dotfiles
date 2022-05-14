@@ -131,10 +131,10 @@ fi
 # + Update Nagios, Cacti, Zabbix, Munin or even BigBrother
 
 if [ "$problems" -ne 0 ]; then
-  echo -e "`/sbin/zpool list` \n\n\n `/sbin/zpool status`" | gmail-send "$emailSubject"
+  echo -e "`/sbin/zpool list` \n\n\n `/sbin/zpool status`" | email-send "$emailSubject"
   logger $emailSubject
 else
-  echo -e $emailSubject | gmail-send "$(hostname) ZFS OK"
+  echo -e $emailSubject | email-send "$(hostname) ZFS OK"
 fi
 
 ### EOF ###

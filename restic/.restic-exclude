@@ -22,6 +22,8 @@ $HOME/.cache
 $HOME/.cargo
 $HOME/.ccache
 $HOME/.config/chromium
+$HOME/.config/coc/extensions
+$HOME/.config/unity3d
 $HOME/.dbus
 $HOME/.duplicacy-repo
 $HOME/.gcloud-sdk

@@ -20,12 +20,11 @@ def sendEmail(subject, body):
     username = fromaddr
     password = getAutomationPassword('gmail-from-password')
 
-    msg = """\From: %s\nTo: %s\nSubject: %s\n\n%s""" % (
+    msg = """From: %s\nTo: %s\nSubject: %s\n\n%s""" % (
         fromaddr, ", ".join(toaddrs), subject, body)
 
     # The actual mail send
-    server = smtplib.SMTP('smtp.gmail.com:587')
-    server.starttls()
+    server = smtplib.SMTP_SSL('smtp.migadu.com')
     server.login(username, password)
     server.sendmail(fromaddr, toaddrs, msg)
     server.quit()

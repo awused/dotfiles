@@ -7,7 +7,7 @@
 
 from datetime import datetime, timedelta
 from tasklib import TaskWarrior
-from gmail_send import sendEmail
+from email_send import sendEmail
 import pytz
 
 
