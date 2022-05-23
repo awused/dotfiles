@@ -18,7 +18,12 @@
     "-Wclippy::map_flatten", "-Aclippy::option_if_let_else",
     "-Wunsafe_op_in_unsafe_fn", "-Wclippy::fn_to_numeric_cast_any",
     "-Wclippy::unnecessary_to_owned",
-    "-Wclippy::needless_late_init", "-Wclippy::return_self_not_must_use"
+    "-Wclippy::needless_late_init", "-Wclippy::return_self_not_must_use",
+    "-Aclippy::await_holding_refcell_ref", "-Wclippy::manual_assert",
+    "-Wclippy::explicit_iter_loop", "-Wclippy::explicit_into_iter_loop",
+    "-Wclippy::implicit_clone", "-Wclippy::needless_collect",
+    "-Wclippy::match_wildcard_for_single_variants",
+    "-Wclippy::borrow_as_ptr", "-Wclippy::cloned_instead_of_copied",
   ],
   "rust-analyzer.procMacro.enable": true,
   "rust-analyzer.cargo.allFeatures": true,

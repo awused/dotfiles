@@ -173,7 +173,8 @@ for_window [class="melonDS"] floating enable border normal
 #}}}
 #{{{ Launchers
 # start a terminal
-bindsym $mod+Return exec --no-startup-id desu-terminal
+bindsym $mod+Return exec --no-startup-id /home/desuwa/bin/desu-terminal
+bindsym $mod+Shift+Return exec --no-startup-id gnome-terminal || xfce4-terminal || urxvt || i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill

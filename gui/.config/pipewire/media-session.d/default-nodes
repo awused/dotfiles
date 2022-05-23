@@ -1,4 +1,0 @@
-{ 
- "default.configured.audio.sink": { "name": "alsa_output.usb-www.hirestech.com_2010_REV_1.5_Music_Streamer_II_-00.analog-stereo" }
- "default.configured.audio.source": { "name": "alsa_input.usb-C-Media_Electronics_Inc._USB_Advanced_Audio_Device-00.2.analog-stereo" }
-}

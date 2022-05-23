@@ -579,8 +579,11 @@ if len(rgfiles) > 0:
     print("EBU R128 Scanning")
     for files in [rgfiles[i:i + 128] for i in range(0, len(rgfiles), 128)]:
         print(files)
-        rgargs = ['loudness', 'tag', '-t']
+        rgargs = ['loudgain', '--tagmode', 'i', '-L', '--track']
+        # rgargs = ['loudness', 'tag', '-t']
         rgargs.extend(files)
         if not args.dry_run:
             p = subprocess.Popen(rgargs, stdout=sys.stdout, stderr=sys.stderr)
             p.wait()
+        else:
+            print("Would run ", " ".join(rgargs))

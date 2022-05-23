@@ -99,7 +99,7 @@ shortcuts = [
   {key = "S", modifiers = "Control, Shift", action = "Execute /home/desuwa/.config/aw-man/screenshotter-save-page.sh"},
   {key = "M", modifiers = "Control", action = "Execute /home/desuwa/.config/aw-man/mangadex-url-clipboard.sh"},
   {key = "P", modifiers = "Control", action = "Execute /home/desuwa/.config/aw-man/public-clipboard.sh"},
-  {key = "C", modifiers = "Control", action = "Execute /home/desuwa/.config/aw-man/clipboard.sh"},
+  {key = "C", modifiers = "Control, Shift", action = "Execute /home/desuwa/.config/aw-man/clipboard.sh"},
 
   {key = "Page_Down", modifiers = "Shift", action = "Jump +10"},
   {key = "Page_Up", modifiers = "Shift", action = "Jump -10"},

@@ -106,10 +106,10 @@ ddcutil: sudo
 # 	  meson ..; ninja; \
 # 	  sudo meson install
 
-loudness-scanner: sudo
-	cd ${THIRD_PARTY_SOURCE}/loudness-scanner; \
-	  rm -rf fedora/; mkdir -p fedora; cd fedora; \
-	  cmake .. -DDISABLE_SNDFILE=True; $(MAKE); sudo $(MAKE) install
+# loudness-scanner: sudo
+# 	cd ${THIRD_PARTY_SOURCE}/loudness-scanner; \
+# 	  rm -rf fedora/; mkdir -p fedora; cd fedora; \
+# 	  cmake .. -DDISABLE_SNDFILE=True; $(MAKE); sudo $(MAKE) install
 
 maim: sudo slop
 	cd ${THIRD_PARTY_SOURCE}/maim; \
@@ -171,8 +171,7 @@ waifu2x-vulkan:
 	  mv waifu2x-ncnn-vulkan ~/.bin/; \
 	  ln -s "${THIRD_PARTY_SOURCE}/waifu2x-ncnn-vulkan/models/models-cunet" ~/.bin/ && true
 
-third-party: bfs ddcutil loudness-scanner maim rofi-files scream split2flac timg \
-	waifu2x-vulkan
+third-party: bfs ddcutil maim rofi-files scream split2flac timg waifu2x-vulkan
   # waifu2x mpv
 
 all-install: go third-party
@@ -200,7 +199,7 @@ flatpak:
 
 rustup:
 	rustup update
-	cargo install cargo-audit cargo-criterion cargo-udeps cargo-expand cargo-edit
+	cargo install cargo-audit cargo-criterion cargo-udeps cargo-expand cargo-edit cargo-geiger
 
 aw-man:
 	cargo install --path "${AWUSED_SOURCE}/aw-man" --locked
