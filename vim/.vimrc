@@ -244,6 +244,8 @@ Plug 'rust-lang/rust.vim'
 if has('nvim-0.5')
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 endif
+
+Plug 'petRUShka/vim-opencl'
 "}}}
 "{{{ Autocompletion
 Plug 'tomtom/tcomment_vim'

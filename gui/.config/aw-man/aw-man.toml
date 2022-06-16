@@ -103,6 +103,8 @@ shortcuts = [
 
   {key = "Page_Down", modifiers = "Shift", action = "Jump +10"},
   {key = "Page_Up", modifiers = "Shift", action = "Jump -10"},
+
+  {key = "space", action = "TogglePlaying"},
 ]
 
 # Context Menu
@@ -114,6 +116,13 @@ shortcuts = [
 context_menu = [
   {name = "Mangadex Link", action = "Execute /home/desuwa/.config/aw-man/mangadex-url-clipboard.sh"},
 ]
+
+# VRAM available for GPU acceleration
+# Processing, namely downscaling, on the GPU is much faster and less disruptive than on the CPU, but
+# vram is usually more limited than system ram.
+# This number does not affect the VRAM used to display images.
+# Specify a whole number of gigabytes. Set to 0 to disable.
+gpu_vram_limit_gb = 4
 
 # Allow use of "unrar" binary, if available, for rar files.
 # Some rar files are supported by libarchive but many are not.
@@ -146,7 +155,7 @@ use_sofware_renderer = true
 # loading_threads = 16
 
 # Upscaling is primarily limited by GPU throughput and VRAM with the default waifu2x-ncnn-vulkan.
-# Each instance uses about 1.2GB of VRAM.
+# Each instance uses about 1.2GB of VRAM, not included in `gpu_vram_limit_gb` above.
 # Using two threads will slightly increase throughput but greatly increase latency.
 # default 1; values higher than 2 are not advised without switching to a cheaper upscaler.
 upscaling_threads = 3

@@ -74,18 +74,10 @@ scrolling:
 # Font configuration (changes require restart)
 font:
   # Normal (roman) font face
-  #normal:
-    # Font family
-    #
-    # Default:
-    #   - (macOS) Menlo
-    #   - (Linux) monospace
-    #   - (Windows) Consolas
-    #family: monospace
-
-    # The `style` can be specified to pick a specific face.
-    #style: Regular
-
+  # normal:
+    # family: DejaVu Sans Mono
+    # style: Regular
+#
   # Bold font face
   #bold:
     # Font family
