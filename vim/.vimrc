@@ -21,6 +21,9 @@
 " itself)
 " Set g:plug_timeout to large value if necessary
 
+" Manually apply https://github.com/rust-lang/rust.vim/pull/448/commits/ce431a00633d924bd4781cdff493226d6eb65d1f
+" Line ~160 goes from 'call setline(1, l:content)' to 'call nvim_buf_set_lines(0, 0, -1, v:true, l:content)'
+
 " --- REMINDER --- Also need to set Glaive
 let g:os = substitute(system('uname'), '\n', '', '')
 if g:os == "FreeBSD"
@@ -235,9 +238,9 @@ if executable('rustup')
 endif
 " clippy will compile things if they're new, and we want to stick with mold
 " for debug mode.
-if g:os == "Linux"
-  let $MOLD_PATH = "/storage/src/third_party/mold/mold"
-  let $LD_PRELOAD = "/storage/src/third_party/mold/mold-wrapper.so"
+if g:os == "Linux" && executable('mold')
+  let $MOLD_PATH = "mold"
+  let $LD_PRELOAD = "/usr/lib64/mold/mold-wrapper.so"
 endif
 Plug 'rust-lang/rust.vim'
 
@@ -529,7 +532,7 @@ endfunction
 augroup filetype_settings
   autocmd!
   autocmd FileType python setlocal softtabstop=4 shiftwidth=4
-  autocmd FileType rust setlocal softtabstop=4 shiftwidth=4 kp=rusty-man
+  autocmd FileType rust setlocal softtabstop=4 shiftwidth=4
   autocmd FileType go setlocal noexpandtab nosmarttab tabstop=2
   autocmd FileType go nnoremap <buffer> <Leader>l :GoLint<cr>
   autocmd BufRead,BufNewFile *.html,*.js,*.ts,*.xml call s:CompleteTags()

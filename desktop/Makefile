@@ -199,7 +199,7 @@ flatpak:
 
 rustup:
 	rustup update
-	cargo install cargo-audit cargo-criterion cargo-udeps cargo-expand cargo-edit cargo-geiger
+	cargo install --locked cargo-audit cargo-bloat cargo-criterion cargo-udeps cargo-expand cargo-edit cargo-geiger tokio-console
 
 aw-man:
 	cargo install --path "${AWUSED_SOURCE}/aw-man" --locked
@@ -216,17 +216,17 @@ wallpapers:
 windows-upscale:
 	cd "${AWUSED_SOURCE}/aw-upscale/server"; \
 	  cargo build --target x86_64-pc-windows-gnu --release; \
-	  strip target/x86_64-pc-windows-gnu/release/aw-upscale-server.exe; \
-	  cp target/x86_64-pc-windows-gnu/release/aw-upscale-server.exe /storage/winshare/gobin/
+	  strip "${CARGO_TARGET_DIR}/x86_64-pc-windows-gnu/release/aw-upscale-server.exe"; \
+	  cp "${CARGO_TARGET_DIR}/x86_64-pc-windows-gnu/release/aw-upscale-server.exe" /storage/winshare/gobin/
 
 windows-wallpapers:
 	cd "${AWUSED_SOURCE}/wallpapers"; \
 	  cargo build --target x86_64-pc-windows-gnu --release --features windows-quiet; \
-	  strip target/x86_64-pc-windows-gnu/release/wallpapers.exe; \
-	  cp target/x86_64-pc-windows-gnu/release/wallpapers.exe /storage/winshare/gobin/ ; \
+	  strip "${CARGO_TARGET_DIR}/x86_64-pc-windows-gnu/release/wallpapers.exe"; \
+	  cp "${CARGO_TARGET_DIR}/x86_64-pc-windows-gnu/release/wallpapers.exe" /storage/winshare/gobin/ ; \
 	  cargo build --target x86_64-pc-windows-gnu --release; \
-	  strip target/x86_64-pc-windows-gnu/release/wallpapers.exe; \
-	  cp target/x86_64-pc-windows-gnu/release/wallpapers.exe /storage/winshare/gobin/wallcon.exe
+	  strip "${CARGO_TARGET_DIR}/x86_64-pc-windows-gnu/release/wallpapers.exe"; \
+	  cp "${CARGO_TARGET_DIR}/x86_64-pc-windows-gnu/release/wallpapers.exe" /storage/winshare/gobin/wallcon.exe
 	cp /usr/x86_64-w64-mingw32/sys-root/mingw/bin/libstdc++-6.dll /storage/winshare/gobin/
 	cp /usr/x86_64-w64-mingw32/sys-root/mingw/bin/libwinpthread-1.dll /storage/winshare/gobin/
 	cp /usr/x86_64-w64-mingw32/sys-root/mingw/bin/libgcc_s_seh-1.dll /storage/winshare/gobin/

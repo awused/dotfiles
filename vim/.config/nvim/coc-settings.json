@@ -24,6 +24,7 @@
     "-Wclippy::implicit_clone", "-Wclippy::needless_collect",
     "-Wclippy::match_wildcard_for_single_variants",
     "-Wclippy::borrow_as_ptr", "-Wclippy::cloned_instead_of_copied",
+    "-Wclippy::is_digit_ascii_radix", "-Wclippy::trim_split_whitespace"
   ],
   "rust-analyzer.procMacro.enable": true,
   "rust-analyzer.cargo.allFeatures": true,

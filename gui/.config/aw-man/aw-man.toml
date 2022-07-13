@@ -28,21 +28,25 @@ temp_directory = '/storage/cache/temp'
 # How many future images to load into memory.
 # In manga mode this causes future chapters to be extracted
 # to reach this number, if available.
+# If this number is too low, altenate display modes like vertical strip may not work as expected.
 preload_ahead = 10
 
 # How many previous images to load into memory.
 # In manga mode this causes previous chapters to be extracted
 # but not upscaled to reach this number, if available.
+# If this number is too low, altenate display modes like vertical strip may not work as expected.
 preload_behind = 5
 
 # The colour used for the background.
 # This is any string understood by GDK, such as "black", "magenta", or "#55667788"
 # Transparency is allowed but depends on the display server for support.
 background_colour = '#000000be'
+# background_colour = '#ffffffbe'
 
 # The amount by which scrolling happens for discrete events.
 # This applies to most mouse wheels and for "Scroll" actions.
 scroll_amount = 300
+# scroll_amount = 3000
 
 # The timeout, in seconds, for upscaling tasks.
 # This should be set generously since it's only really intended to avoid blocking on hung processes.
@@ -95,6 +99,9 @@ shortcuts = [
   {key = "W", modifiers = "Alt", action = "FitToWidth" },
   {key = "H", modifiers = "Alt", action = "FitToHeight" },
 
+  {key = "S", modifiers = "Alt", action = "SinglePage"},
+  {key = "V", modifiers = "Alt", action = "VerticalStrip"},
+
   {key = "S", modifiers = "Control", action = "Execute /home/desuwa/.config/aw-man/save-page.sh"},
   {key = "S", modifiers = "Control, Shift", action = "Execute /home/desuwa/.config/aw-man/screenshotter-save-page.sh"},
   {key = "M", modifiers = "Control", action = "Execute /home/desuwa/.config/aw-man/mangadex-url-clipboard.sh"},
@@ -111,10 +118,26 @@ shortcuts = [
 # All context menu items need a name and an action.
 # Context menu entries are placed in the context menu in order.
 # The set of allowable actions is the same as those for shortcuts.
+#
+# Sub-menus and sections can be specified by name.
+# All commands sharing the same named sub-menu or section will be grouped together in order.
+#
 # Example:
 # {name = "Save Page", action = "Execute /path/to/save-page.sh"},
+# {name = "Container", submenu = "Fit", action = "FitToContainer"},
+# {name = "Width", submenu = "Fit", action = "FitToWidth"},
+# {name = "Height", submenu = "Fit", action = "FitToHeight"},
+# {name = "Full", submenu = "Fit", action = "FullSize"},
+# {name = "Single Page", section = "display", action = "SinglePage"},
+# {name = "Vertical Strip", section = "display", action = "VerticalStrip"},
 context_menu = [
   {name = "Mangadex Link", action = "Execute /home/desuwa/.config/aw-man/mangadex-url-clipboard.sh"},
+  {name = "Container", submenu = "Fit", action = "FitToContainer"},
+  {name = "Width", submenu = "Fit", action = "FitToWidth"},
+  {name = "Height", submenu = "Fit", action = "FitToHeight"},
+  {name = "Full", submenu = "Fit", action = "FullSize"},
+  {name = "Single Page", section = "display", action = "SinglePage"},
+  {name = "Vertical Strip", section = "display", action = "VerticalStrip"},
 ]
 
 # VRAM available for GPU acceleration

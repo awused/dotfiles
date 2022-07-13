@@ -112,14 +112,17 @@ _YT_FORMAT="%(title).225B-%(id)s.%(ext)s"
 
 alias ytv='yt-dlp --no-mtime --output "/storage/usr/desuwa/Videos/${_YT_FORMAT}" --'
 alias ytvs='yt-dlp --write-sub --no-mtime --output "/storage/usr/desuwa/Videos/${_YT_FORMAT}" --'
-alias ytvt='yt-dlp --no-mtime --output "/storage/media/youtube/vtubers/${_YT_FORMAT}" --'
-alias ytvts='yt-dlp --write-sub --no-mtime --output "/storage/media/youtube/vtubers/${_YT_FORMAT}" --'
+alias vt='yt-dlp --no-mtime --output "/storage/media/youtube/vtubers/${_YT_FORMAT}" --'
+alias vts='yt-dlp --write-sub --no-mtime --output "/storage/media/youtube/vtubers/${_YT_FORMAT}" --'
 alias ya='youtube-audio'
 alias sqlite3='sqlite3-history'
 # Only for debug mode
-alias cbuild='/storage/src/third_party/mold/mold -run cargo build'
-alias crun='/storage/src/third_party/mold/mold -run cargo run'
-alias ctest='RUST_BACKTRACE=1 /storage/src/third_party/mold/mold -run cargo test'
+alias cbuild='mold -run cargo build'
+alias crun='mold -run cargo run'
+alias ctest='RUST_BACKTRACE=1 mold -run cargo test'
+alias cnbuild='mold -run cargo +nightly build'
+alias cnrun='mold -run cargo +nightly run'
+alias cntest='RUST_BACKTRACE=1 mold -run cargo +nightly test'
 
 alias mux='tmuxinator'
 alias tm='tmux attach -d -t main'
