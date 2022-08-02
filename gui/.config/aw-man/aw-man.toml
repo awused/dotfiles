@@ -41,16 +41,14 @@ preload_behind = 5
 # This is any string understood by GDK, such as "black", "magenta", or "#55667788"
 # Transparency is allowed but depends on the display server for support.
 background_colour = '#000000be'
-# background_colour = '#ffffffbe'
 
 # The amount by which scrolling happens for discrete events.
 # This applies to most mouse wheels and for "Scroll" actions.
 scroll_amount = 300
-# scroll_amount = 3000
 
 # The timeout, in seconds, for upscaling tasks.
 # This should be set generously since it's only really intended to avoid blocking on hung processes.
-# Comment out or set to 0 to disable.
+# Comment out or set to 0 to disable, not recommended.
 upscale_timeout = 60
 
 # The timeout, in seconds, for detecting idleness.
@@ -79,6 +77,11 @@ shortcuts = [
   {key = "Right", action = "ScrollRight"},
   {key = "Left", action = "ScrollLeft"},
 
+  {key = "Down", modifiers = "Shift", action = "SnapBottom"},
+  {key = "Up", modifiers = "Shift", action = "SnapTop"},
+  {key = "Right", modifiers = "Shift", action = "SnapRight"},
+  {key = "Left", modifiers = "Shift", action = "SnapLeft"},
+
   {key = "Page_Down", action = "NextPage"},
   {key = "Page_Up", action = "PreviousPage"},
   {key = "End", action = "LastPage"},
@@ -101,6 +104,9 @@ shortcuts = [
 
   {key = "S", modifiers = "Alt", action = "SinglePage"},
   {key = "V", modifiers = "Alt", action = "VerticalStrip"},
+  {key = "O", modifiers = "Alt", action = "HorizontalStrip"},
+  {key = "D", modifiers = "Alt", action = "DualPage"},
+  {key = "R", modifiers = "Alt", action = "DualPageReversed"},
 
   {key = "S", modifiers = "Control", action = "Execute /home/desuwa/.config/aw-man/save-page.sh"},
   {key = "S", modifiers = "Control, Shift", action = "Execute /home/desuwa/.config/aw-man/screenshotter-save-page.sh"},
@@ -136,15 +142,19 @@ context_menu = [
   {name = "Width", submenu = "Fit", action = "FitToWidth"},
   {name = "Height", submenu = "Fit", action = "FitToHeight"},
   {name = "Full", submenu = "Fit", action = "FullSize"},
-  {name = "Single Page", section = "display", action = "SinglePage"},
-  {name = "Vertical Strip", section = "display", action = "VerticalStrip"},
+  {name = "Single Page", submenu = "Display", action = "SinglePage"},
+  {name = "Vertical Strip", submenu = "Display", action = "VerticalStrip"},
+  {name = "Horizontal Strip", submenu = "Display", action = "HorizontalStrip"},
+  {name = "Dual Page", submenu = "Display", action = "DualPage"},
+  {name = "Dual Page (Reversed)", submenu = "Display", action = "DualPageReversed"},
 ]
 
 # VRAM available for GPU acceleration
 # Processing, namely downscaling, on the GPU is much faster and less disruptive than on the CPU, but
 # vram is usually more limited than system ram.
-# This number does not affect the VRAM used to display images.
-# Specify a whole number of gigabytes. Set to 0 to disable.
+# This can increase the baseline memory usage of aw-man.
+# This number does not affect the VRAM used to display images or used by the upscaler.
+# Specify a whole number of gigabytes. Comment out or set to 0 to disable some gpu acceleration.
 gpu_vram_limit_gb = 4
 
 # Allow use of "unrar" binary, if available, for rar files.
@@ -162,7 +172,35 @@ use_sofware_renderer = true
 # More advanced configuration options below. They probably do not need to be changed.
 # ------------------------------------------------------------------------------------------------
 
-# Threads ----------------------------------------------------------------------------------------
+# Use a different upscaler instead of the default waifu2x-ncnn-vulkan implementation.
+# The upscaler needs to be compatible with https://github.com/awused/aw-upscale
+alternate_upscaler = '/home/desuwa/.config/aw-man/aw-upscale-client.py'
+
+# Whether to force the use of RGBA images, which are faster but consume more memory.
+# By default aw-man prefers to save on memory by using RGB or greyscale formats when possible, but
+# this results in much slower data uploads to the GPU than RGBA.
+# The default is still very fast and should be unnoticeable, but RGBA can be forced for performance.
+# force_rgba = true
+
+# How many future images to upscale in advance.
+# This will cause future chapters/archives to be extracted and upscaled even outside of manga mode.
+# Set this high enough so that it stays ahead of your reading speed, but not so high that the GPU
+# usage is annoying to you in other programs.
+#
+# The maximum number of images that will be actively upscaled at any one time,
+# taking up space or memory in the temp_directory, is given by
+# max(preload_ahead, prescale) + preload_behind + 1.
+prescale = 20
+
+
+# If set, create unix sockets in this directory for very simple IPC.
+# One socket will be created for each running instance of aw-man.
+# The sockets will be named "aw-man${PID}.sock" and will be listening for any requests.
+# It will respond to requests with UTF-8 encoded JSON.
+socket_dir = '/tmp/'
+
+
+# Thread Settings --------------------------------------------------------------------------------
 
 # Files are extracted, then scanned, then possibly upscaled, then loaded into memory.
 
@@ -194,30 +232,3 @@ upscaling_threads = 3
 
 # ------------------------------------------------------------------------------------------------
 
-# How many future images to upscale in advance.
-# This will cause future chapters/archives to be extracted and upscaled even outside of manga mode.
-# Set this high enough so that it stays ahead of your reading speed, but not so high that the GPU
-# usage is annoying to you in other programs.
-#
-# The maximum number of images that will be actively upscaled at any one time,
-# taking up space or memory in the temp_directory, is given by
-# max(preload_ahead, prescale) + preload_behind + 1.
-prescale = 20
-
-# The maximum number of images to keep upscaled at any one time.
-# Upscaling is expensive both in terms of time and memory/disk space for storing the results.
-#
-# Set this as high as you can and consider putting TempDirectory on a disk.
-# If this is not set it will use max(preload_ahead, prescale) + preload_behind + 1.
-# Values lower than that will be ignored.
-# maximum_upscaled = 100
-
-# Use a different upscaler instead of the default waifu2x-ncnn-vulkan implementation.
-# The upscaler needs to be compatible with https://github.com/awused/aw-upscale
-alternate_upscaler = '/home/desuwa/.config/aw-man/aw-upscale-client.py'
-
-# If set, create unix sockets in this directory for very simple IPC.
-# One socket will be created for each running instance of aw-man.
-# The sockets will be named "aw-man${PID}.sock" and will be listening for any requests.
-# It will respond to requests with UTF-8 encoded JSON.
-socket_dir = '/tmp/'

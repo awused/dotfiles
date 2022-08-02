@@ -221,10 +221,10 @@ windows-upscale:
 
 windows-wallpapers:
 	cd "${AWUSED_SOURCE}/wallpapers"; \
-	  cargo build --target x86_64-pc-windows-gnu --release --features windows-quiet; \
+	  cargo build --target x86_64-pc-windows-gnu --release --no-default-features --features windows-quiet; \
 	  strip "${CARGO_TARGET_DIR}/x86_64-pc-windows-gnu/release/wallpapers.exe"; \
 	  cp "${CARGO_TARGET_DIR}/x86_64-pc-windows-gnu/release/wallpapers.exe" /storage/winshare/gobin/ ; \
-	  cargo build --target x86_64-pc-windows-gnu --release; \
+	  cargo build --target x86_64-pc-windows-gnu --release --no-default-features; \
 	  strip "${CARGO_TARGET_DIR}/x86_64-pc-windows-gnu/release/wallpapers.exe"; \
 	  cp "${CARGO_TARGET_DIR}/x86_64-pc-windows-gnu/release/wallpapers.exe" /storage/winshare/gobin/wallcon.exe
 	cp /usr/x86_64-w64-mingw32/sys-root/mingw/bin/libstdc++-6.dll /storage/winshare/gobin/

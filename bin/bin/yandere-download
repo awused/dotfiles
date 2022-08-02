@@ -15,6 +15,17 @@ tagdirs[the_idolm@ster]="im@s"
 
 set -e
 
+function download_attempts() {
+  for attempt in {1..3}; do
+    if curl -s -o "$1" "$2"; then
+      return 0;
+    fi
+    echo "Failure $attempt, trying again."
+  done
+  echo "Failed, not trying again."
+  notify-send -u critical "Download failed for $1" && rm -f "$1"
+}
+
 directory="$1"
 counter=1
 
@@ -87,7 +98,8 @@ if [[ -f $filename ]]; then
   echo "File already exists: $filename"
 else
   echo "Downloading $filename from $fileurl"
-  curl -s -o "$filename" "$fileurl" || notify-send -u critical "Download failed for $filename"
+  download_attempts "$filename" "$fileurl"
+  # curl -s -o "$filename" "$fileurl" || (notify-send -u critical "Download failed for $filename" && rm -f "$filename")
 fi
 
 while [[ -n $1 ]]; do
@@ -128,6 +140,7 @@ while [[ -n $1 ]]; do
     echo "File already exists: $filename"
   else
     echo "Downloading $filename from $fileurl"
-    curl -s -o "$filename" "$fileurl" || notify-send -u critical "Download failed for $filename"
+    download_attempts "$filename" "$fileurl"
+    # curl -s -o "$filename" "$fileurl" || (notify-send -u critical "Download failed for $filename" && rm -f "$filename")
   fi
 done

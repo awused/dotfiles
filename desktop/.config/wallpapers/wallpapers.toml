@@ -19,6 +19,7 @@ database = '/storage/usr/desuwa/Pictures/Wallpapers/db'
 # Use a different upscaler instead of the default waifu2x-ncnn-vulkan implementation.
 # The upscaler needs to be compatible with https://github.com/awused/aw-upscale
 alternate_upscaler = '/home/desuwa/.config/aw-man/aw-upscale-client.py'
+# alternate_upscaler = '/storage/src/awused/aw-upscale/fastscale.py'
 
 # Control how many upscaling jobs can be dispatched at once.
 # Upscaling is primarily limited by GPU throughput and VRAM with the default waifu2x-ncnn-vulkan
@@ -26,4 +27,4 @@ alternate_upscaler = '/home/desuwa/.config/aw-man/aw-upscale-client.py'
 # Each instance uses about 1.2GB of VRAM.
 # Using two threads will slightly increase throughput but greatly increase latency.
 # default 1; values higher than 2 are not advised without switching to a cheaper upscaler.
-upscaling_jobs = 4
+upscaling_jobs = 3

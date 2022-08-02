@@ -1,6 +1,6 @@
 {
   "diagnostic.checkCurrentLine": true,
-  "rust-analyzer.assist.importGranularity": "module",
+  "rust-analyzer.imports.granularity.group": "module",
   "rust-analyzer.checkOnSave.command": "clippy",
   "rust-analyzer.checkOnSave.extraArgs": ["--", "-Wclippy::nursery",
     "-Aclippy::future_not_send", "-Wclippy::match_same_arms",
@@ -24,10 +24,11 @@
     "-Wclippy::implicit_clone", "-Wclippy::needless_collect",
     "-Wclippy::match_wildcard_for_single_variants",
     "-Wclippy::borrow_as_ptr", "-Wclippy::cloned_instead_of_copied",
-    "-Wclippy::is_digit_ascii_radix", "-Wclippy::trim_split_whitespace"
+    "-Wclippy::is_digit_ascii_radix", "-Wclippy::trim_split_whitespace",
+    "-Aclippy::missing_const_for_fn"
   ],
   "rust-analyzer.procMacro.enable": true,
-  "rust-analyzer.cargo.allFeatures": true,
+  "rust-analyzer.cargo.features": [],
   "rust-analyzer.cargo.loadOutDirsFromCheck": true,
-  "rust-analyzer.cargo.runBuildScripts": true
+  "rust-analyzer.cargo.buildScripts.enable": true
 }

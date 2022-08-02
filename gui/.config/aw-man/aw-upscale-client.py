@@ -14,6 +14,7 @@ address = r'192.168.122.238:9091'
 # This should probably be the default waifu2x-upscale.py.
 # Leave it empty to disable local upscaling.
 fallback = r'/storage/src/awused/aw-upscale/waifu2x-upscale.py'
+# fallback = r'/storage/src/awused/aw-upscale/fastscale.py'
 # fallback = r''
 
 # Keep this very low if you're on a LAN, so that an unavailable server

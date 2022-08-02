@@ -328,12 +328,12 @@ nnoremap <leader>s :call PromptInput(":S")<cr>
 "}}}
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'justinmk/vim-sneak'
+" Plug 'justinmk/vim-sneak'
 Plug 'unblevable/quick-scope'
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
-nnoremap <F4> :NERDTreeToggle<cr>
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+" nnoremap <F4> :NERDTreeToggle<cr>
+" Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 "}}}
 "{{{ Tmux
 if !exists("g:loaded_bracketed_paste")
@@ -413,8 +413,15 @@ if g:os == "Linux"
 endif
 Plug 'morhetz/gruvbox'
 
+" Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+" Plug 'rebelot/kanagawa.nvim'
+" Plug 'lifepillar/vim-solarized8'
+" Plug 'altercation/vim-colors-solarized'
 "Plug 'tpope/vim-vividchalk'
-Plug 'agude/vim-eldar'
+" Plug 'agude/vim-eldar'
+if has('nvim')
+  Plug 'NvChad/nvim-colorizer.lua'
+endif
 call plug#end()
 "{{{ YouCompleteMe Settings
 if !has('nvim')
@@ -504,6 +511,50 @@ if has('nvim')
   nmap <leader>al  <Plug>(coc-codeaction-line)
   " Apply AutoFix to problem on the current line.
   nmap <leader>f  <Plug>(coc-fix-current)
+
+  function! s:coc_float_scroll(amount) abort
+    let float = coc#util#get_float()
+    if !float | return '' | endif
+    let buf = nvim_win_get_buf(float)
+    let buf_height = nvim_buf_line_count(buf)
+    let win_height = nvim_win_get_height(float)
+    if buf_height < win_height | return '' | endif
+    let pos = nvim_win_get_cursor(float)
+    try
+      let last_amount = nvim_win_get_var(float, 'coc_float_scroll_last_amount')
+    catch
+      let last_amount = 0
+    endtry
+    if a:amount > 0
+      if pos[0] == 1
+        let pos[0] += a:amount + win_height - 2
+      elseif last_amount > 0
+        let pos[0] += a:amount
+      else
+        let pos[0] += a:amount + win_height - 3
+      endif
+      let pos[0] = pos[0] < buf_height ? pos[0] : buf_height
+    elseif a:amount < 0
+      if pos[0] == buf_height
+        let pos[0] += a:amount - win_height + 2
+      elseif last_amount < 0
+        let pos[0] += a:amount
+      else
+        let pos[0] += a:amount - win_height + 3
+      endif
+      let pos[0] = pos[0] > 1 ? pos[0] : 1
+    endif
+    call nvim_win_set_var(float, 'coc_float_scroll_last_amount', a:amount)
+    call nvim_win_set_cursor(float, pos)
+    return ''
+  endfunction
+
+  let g:coc_snippet_next = '<c-l>'
+  let g:coc_snippet_prev = '<c-h>'
+  inoremap <silent><expr> <c-down> coc#float#has_scroll() ? coc#float#scroll(1) : "\<c-down>"
+  inoremap <silent><expr> <c-up> coc#float#has_scroll() ? coc#float#scroll(0) : "\<c-up>"
+  " vnoremap <silent><expr> <c-j> coc#util#has_float() ? <SID>coc_float_scroll(1) : "\<c-j>"
+  " vnoremap <silent><expr> <c-k> coc#util#has_float() ? <SID>coc_float_scroll(-1) : "\<c-k>"
 
   set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 endif

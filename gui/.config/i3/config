@@ -352,7 +352,9 @@ exec_always --no-startup-id "killall xautolock; xautolock -time 120 -locker ~/.c
 exec_always --no-startup-id "redshift-reset"
 
 exec --no-startup-id xset s 7200 dpms 7200 7200 7200
-exec --no-startup-id "~/.fehbg || :"
+# exec --no-startup-id "~/.fehbg || :"
+# Will make wallpapers restore soon
+exec --no-startup-id "wallpapers random"
 exec_always --no-startup-id "killall mpd; killall mpd-shuffler; mpd; mpd-shuffler &"
 # exec_always --no-startup-id "killall manga-upscaler; manga-upscaler > ~/.manga-upscaler.log"
 
