@@ -22,8 +22,8 @@ dispatcher:
 hydrus-mover:
 	cd ${AWUSED_SOURCE}/hydrus-mover; go install
 
-madokami:
-	cd ${AWUSED_SOURCE}/madokami; go install
+# madokami:
+# 	cd ${AWUSED_SOURCE}/madokami; go install
 
 manga-syncer:
 	cd ${AWUSED_SOURCE}/manga-syncer; go install
@@ -31,8 +31,8 @@ manga-syncer:
 mpd-fzf:
 	cd ${AWUSED_SOURCE}/mpd-fzf; go install
 
-mpd-rofi:
-	cd ${AWUSED_SOURCE}/mpd-rofi; go install
+# mpd-rofi:
+# 	cd ${AWUSED_SOURCE}/mpd-rofi; go install
 
 public-clipboard:
 	cd ${AWUSED_SOURCE}/public-clipboard; go install
@@ -61,8 +61,8 @@ vmrpc:
 
 
 go: dispatcher add-to-transmission \
-  public-clipboard screenshotter madokami \
-  hydrus-mover mpd-fzf mpd-rofi vmrpc rss-scrapers \
+  public-clipboard screenshotter \
+  hydrus-mover mpd-fzf vmrpc rss-scrapers \
   manga-syncer
 
 windows-clipboard:
@@ -245,6 +245,7 @@ windows-rust: windows-upscale windows-wallpapers
 
 vim-plug:
 	nvim +PlugUpgrade +PlugUpdate +qall
+	nvim +TSUpdate +qall
 
 zplug:
 	zsh -c 'export PS1="a"; source ~/.zshrc; zplug update'
