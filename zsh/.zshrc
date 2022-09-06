@@ -108,7 +108,7 @@ alias ngprod='npm run prod'
 alias ydl='yt-dlp --write-thumbnail --write-description'
 alias ydls='yt-dlp --write-sub --write-thumbnail --write-description'
 
-_YT_FORMAT="%(title).225B-%(id)s.%(ext)s"
+_YT_FORMAT="%(title).220B-%(id)s.%(ext)s"
 
 alias ytv='yt-dlp --no-mtime --output "/storage/usr/desuwa/Videos/${_YT_FORMAT}" --'
 alias ytvs='yt-dlp --write-sub --no-mtime --output "/storage/usr/desuwa/Videos/${_YT_FORMAT}" --'
@@ -343,6 +343,7 @@ export FZF_DEFAULT_OPTS='--height 40% --reverse --border --ansi -m'
 #export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --color "always" -g "!**/{.git,node_modules,vendor,.sass-cache}/*" 2> /dev/null'
 #export FZF_DEFAULT_COMMAND='fd --no-ignore --type file --hidden --follow --color "always" --exclude "**/{.git,node_modules,vendor,.sass-cache}"'
 export FZF_EXCLUDES=" \
+  -not \( -name '.angular' -prune \) \
   -not \( -name '.cache' -prune \) \
   -not \( -name '.ccache' -prune \) \
   -not \( -name '.cargo' -prune \) \
@@ -589,6 +590,10 @@ zstyle :compinstall filename '$HOME/.zshrc'
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
+#
+__git_files () {
+    _wanted files expl 'local files' _files
+}
 #}}}
 #{{{ Plugins
 if [[ ! -d ~/.zplug ]];then

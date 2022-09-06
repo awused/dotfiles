@@ -53,6 +53,9 @@ if [[ $(uname) == 'Linux' ]]; then
   # rg-replace "backdrop," -r "backdropdisabled,"
   # echo "* { caret-color: #222222; }" >> gtk.css
   export GTK_THEME=Adwaita-dark
+  # Install xdg-desktop-portal-kde and kio-extras (plus other thumbnailer support)
+  # export GTK_USE_PORTAL=1
+  # export QT_STYLE_OVERRIDE=Breeze-dark
 fi
 
 if [[ $(uname) == 'FreeBSD' ]]; then

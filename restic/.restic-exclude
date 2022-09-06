@@ -77,6 +77,8 @@ $THIRD_PARTY_SOURCE/
 $SOURCE_DIR/go/pkg
 $SOURCE_DIR/go/**/vendor
 $SOURCE_DIR/**/target
+$SOURCE_DIR/**/.angular
+$SOURCE_DIR/**/node_modules
 
 /usr/local/etc/tcsd.conf
 /usr/local/etc/tcsd.conf.sample

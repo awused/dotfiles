@@ -1,4 +1,4 @@
 #!/bin/sh
 
-cd /storage/src/awused/aw-rss
-go run -race . -awconf $HOME/.config/aw-rss/dev.toml
+cd /storage/src/awused/aw-rss || exit
+go run -race . -awconf "$HOME"/.config/aw-rss/dev.toml
