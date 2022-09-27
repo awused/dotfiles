@@ -16,7 +16,6 @@ def sendNotifications():
     tasks = tw.tasks.filter('(status:pending or status:waiting)',
                             'due.before:now+1w')
 
-    tasks = [task for task in tasks if task['due'] is not None]
     tasks = sorted(tasks, key=lambda x: x['due'])
     section = 0
     overDue = []
