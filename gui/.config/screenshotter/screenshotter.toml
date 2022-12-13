@@ -111,6 +111,11 @@ MouseKeys = true
   Format = "%[4]s"
 
 [[Overrides]]
+  Name = "wine-preloader"
+  Regex = '^(.*(/|\\))?([^/\ ]+)\.exe'
+  Format = "%[4]s"
+
+[[Overrides]]
   Name = "nw"
   Regex = '^(.*(/))?([^/]+) V\.\d+\(:alpha:\) Linux/nw'
   Format = "%[3]s"

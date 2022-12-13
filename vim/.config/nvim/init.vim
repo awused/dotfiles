@@ -30,16 +30,20 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
-require 'colorizer'.setup({
-  '*';
-  rust = {
+require 'colorizer'.setup{
+  filetypes = {
+    '*';
+    rust = {
+      names = false,
+    },
+  },
+  user_default_options = {
     names = false,
-  }
-}, {
-  RRGGBBAA = true,
-  rgb_fn = true,
-  hsl_fn = true,
-})
+    RRGGBBAA = true,
+    rgb_fn = true,
+    hsl_fn = true,
+  },
+}
 
 EOF
 endif

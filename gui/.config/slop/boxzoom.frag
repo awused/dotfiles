@@ -48,7 +48,7 @@ void main()
         // Then change the color to the desktop color to draw, then add on our rectangle on top.
         vec4 rectColor = texture2D( texture, zoomedUV );
         //color = mix( texture2D( desktop, zoomedUVFlipped ), rectColor, rectColor.a );
-        color = mix( texture2D( desktop, zoomedUVFlipped ), rectColor, 0.02 );
+        color = mix( texture2D( desktop, zoomedUVFlipped ), rectColor, 0.01 );
       }
     // Then check if we're in our border size.
     } else if( uvCoord.x <= mpos.x+boxOffset.x+boxSize.x+borderSize.x &&

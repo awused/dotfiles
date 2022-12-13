@@ -28,6 +28,7 @@
     "-Wclippy::module_name_repetitions",
     "-Wclippy::must_use_candidate",
     "-Wclippy::needless_late_init",
+    "-Wclippy::obfuscated_if_else",
     "-Wclippy::ptr_as_ptr",
     "-Wclippy::redundant_closure_for_method_calls",
     "-Wclippy::redundant_else",
@@ -47,7 +48,7 @@
 
     "-Aclippy::await_holding_refcell_ref",
     "-Aclippy::future_not_send",
-    "-Aclippy::missing_const_for_fn",
+    "-Aclippy::iter_on_empty_collections",
     "-Aclippy::module-name-repetitions",
     "-Aclippy::needless_collect",
     "-Aclippy::option_if_let_else",

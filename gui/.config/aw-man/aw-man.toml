@@ -114,7 +114,10 @@ shortcuts = [
   {key = "S", modifiers = "Control, Shift", action = "Execute /home/desuwa/.config/aw-man/screenshotter-save-page.sh"},
   {key = "M", modifiers = "Control", action = "Execute /home/desuwa/.config/aw-man/mangadex-url-clipboard.sh"},
   {key = "P", modifiers = "Control", action = "Execute /home/desuwa/.config/aw-man/public-clipboard.sh"},
-  {key = "C", modifiers = "Control, Shift", action = "Execute /home/desuwa/.config/aw-man/clipboard.sh"},
+  {key = "C", modifiers = "Control", action = "Execute /home/desuwa/.config/aw-man/clipboard.sh"},
+
+  {key = "Page_Down", modifiers = "Control", action = "NextPage current"},
+  {key = "Page_Up", modifiers = "Control", action = "PreviousPage current"},
 
   {key = "Page_Down", modifiers = "Shift", action = "Jump +10"},
   {key = "Page_Up", modifiers = "Shift", action = "Jump -10"},
@@ -140,6 +143,7 @@ shortcuts = [
 # {name = "Vertical Strip", section = "display", action = "VerticalStrip"},
 context_menu = [
   {name = "Mangadex Link", action = "Execute /home/desuwa/.config/aw-man/mangadex-url-clipboard.sh"},
+  {name = "Public Link", action = "Execute /home/desuwa/.config/aw-man/public-clipboard.sh"},
   {name = "Container", submenu = "Fit", action = "FitToContainer"},
   {name = "Width", submenu = "Fit", action = "FitToWidth"},
   {name = "Height", submenu = "Fit", action = "FitToHeight"},

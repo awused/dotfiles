@@ -26,6 +26,7 @@ $HOME/.config/coc/extensions
 $HOME/.config/unity3d
 $HOME/.dbus
 $HOME/.duplicacy-repo
+$HOME/.fonts/noto-hinted
 $HOME/.gcloud-sdk
 $HOME/.gem
 $HOME/.gocode

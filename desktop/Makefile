@@ -244,8 +244,7 @@ windows-rust: windows-upscale windows-wallpapers
 # update: gems pip npm opam flatpak
 
 vim-plug:
-	nvim +PlugUpgrade +PlugUpdate +qall
-	nvim +TSUpdate +qall
+	nvim +PlugUpgrade +PlugUpdate +TSUpdate +qall
 
 zplug:
 	zsh -c 'export PS1="a"; source ~/.zshrc; zplug update'

@@ -187,7 +187,8 @@ artist_map = {
     u"獅白ぼたん": u"Shishiro Botan",
     u"白上フブキ": u"Shirakami Fubuki",
     u"ラプラス・ダークネス": u"Laplus Darkness",
-    u"窓辺ななみ": u"Mizuki Nana"
+    u"窓辺ななみ": u"Mizuki Nana",
+    u"雪花ラミィ": u"Yukihana Lamy"
 }
 # }}}
 
@@ -585,7 +586,7 @@ if len(rgfiles) > 0:
     print("EBU R128 Scanning")
     for files in [rgfiles[i:i + 128] for i in range(0, len(rgfiles), 128)]:
         print(files)
-        rgargs = ['loudgain', '--tagmode', 'i', '-L', '--track']
+        rgargs = ['loudgain', '--tagmode', 'i', '-L', '--track', '--noclip']
         # rgargs = ['loudness', 'tag', '-t']
         rgargs.extend(files)
         if not args.dry_run:

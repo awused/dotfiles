@@ -7,7 +7,8 @@ cacheroot=/cache/restic
 host=`hostname`
 
 if [ "`uname`" = "Linux" ]; then
-  usbdir=/run/media/$USER/BACKUPS/google_cloud_storage
+  # usbdir=/run/media/$USER/BACKUPS/google_cloud_storage
+  true
 elif [ "`uname`" = "FreeBSD" ]; then
   tree 50 /storage/usr/desuwa/Music > ~/.music-dir
   tree 50 /storage/usr/desuwa/Videos > ~/.videos-dir
