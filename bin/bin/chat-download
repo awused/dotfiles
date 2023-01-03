@@ -25,11 +25,11 @@ html=$(curl -s -b "$cookies" "$url")
 # Attempt to match youtube-dl's escaping
 clean() {
     echo "$1" | python3 -c 'import html, sys; [print(html.unescape(l), end="") for l in sys.stdin]' | \
-      sed -E 's/\//⧸/g' | sed -E 's/\/|\\|\|/_/g' | sed -E 's/:/ -/g' | sed -E 's/\?//g'
+      sed -E 's/\//⧸/g' | sed -E 's/\|/｜/g' | sed -E 's/\/|\\/_/g' | sed -E 's/:/ -/g' | sed -E 's/\?//g'
 }
 
 title=$(echo "$html" | grep -oE "<title>.*</title>" | sed 's/<title>//' | sed 's/<\/title>//' | sed 's/ - YouTube//i')
-channel=$(echo "$html" | grep -oE 'ownerChannelName":"[^"]*"' | sed 's/ownerChannelName":"//' | sed 's/"//')
+channel=$(echo "$html" | grep -oE 'ownerChannelName":"[^"]*"' | sed 's/ownerChannelName":"//' | sed 's/"//' | head -n 1)
 title=$(clean "$title")
 channel=$(clean "$channel")
 
