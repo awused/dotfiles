@@ -171,6 +171,8 @@ for_window [class="^Minecraft\*? .*"] floating enable
 for_window [class="MultiMC"] floating enable
 for_window [class="Desmume"] floating enable border normal
 for_window [class="melonDS"] floating enable border normal
+for_window [class="retroarch"] floating enable
+for_window [window_role="pop-up"] floating enable
 #}}}
 #{{{ Launchers
 # start a terminal

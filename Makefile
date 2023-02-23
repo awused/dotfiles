@@ -22,6 +22,7 @@ both:
 	stow vim
 	stow youtube-dl
 	stow zsh
+	git config --global core.hooksPath ~/.config/git-hooks
 
 sudo:
 	sudo echo "Starting"

@@ -28,7 +28,7 @@ oggfiletypes = ['.ogg']
 rgfiles = []
 
 # My format
-fname_re = re.compile(u"^(.+) - x?[0-9]+ - (.+)\.[^.]+$")
+fname_re = re.compile(r"^(.+) - x?[0-9]+ - (.+)\.[^.]+$")
 
 parser = argparse.ArgumentParser(
     description=
@@ -188,7 +188,8 @@ artist_map = {
     u"白上フブキ": u"Shirakami Fubuki",
     u"ラプラス・ダークネス": u"Laplus Darkness",
     u"窓辺ななみ": u"Mizuki Nana",
-    u"雪花ラミィ": u"Yukihana Lamy"
+    u"雪花ラミィ": u"Yukihana Lamy",
+    u"大神ミオ": u"Ookami Mio"
 }
 # }}}
 

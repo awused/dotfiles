@@ -348,6 +348,7 @@ export FZF_EXCLUDES=" \
   -not \( -name '.ccache' -prune \) \
   -not \( -name '.cargo' -prune \) \
   -not \( -path '*/.config/chromium' -prune \) \
+  -not \( -path '*/.config/unity3d' -prune \) \
   -not \( -name '.dbus' -prune \) \
   -not \( -name '.duplicacy-repo' -prune \) \
   -not \( -name '.fonts' -prune \) \
