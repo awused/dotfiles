@@ -57,6 +57,7 @@
     "-Aclippy::suspicious_operation_groupings"
   ],
   "rust-analyzer.procMacro.enable": true,
+  "rust-analyzer.procMacro.attributes.enable": true,
   "rust-analyzer.cargo.features": [],
   "rust-analyzer.cargo.loadOutDirsFromCheck": true,
   "rust-analyzer.cargo.buildScripts.enable": true

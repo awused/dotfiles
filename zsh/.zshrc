@@ -14,7 +14,7 @@
 # GNU stat by default
 __stat_format='-c %Y'
 stat-rc() {
- echo -n $(stat $__stat_format $(readlink -f ~/.zshrc))
+ echo -n $(stat $__stat_format $(readlink -f ~/.zshrc)) || '0'
 }
 zle -N stat-rc
 
