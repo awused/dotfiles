@@ -125,12 +125,6 @@ maim: sudo slop
 # 	  ./waf clean; \
 # 	  ./waf configure; ./waf; sudo ./waf install
 
-rofi-files:
-	cd ${THIRD_PARTY_SOURCE}/rofi-file-browser-extended; \
-		rm -rf build/; mkdir build; cd build; \
-		mkdir -p ~/.local/lib/rofi-plugins; \
-		cmake ..; $(MAKE); mv filebrowser.so ~/.local/lib/rofi-plugins/filebrowser-extended.so
-
 scream:
 	cd ${THIRD_PARTY_SOURCE}/scream/Receivers/unix; \
 	  rm -rf build/; mkdir build; cd build; \
@@ -171,7 +165,7 @@ waifu2x-vulkan:
 	  mv waifu2x-ncnn-vulkan ~/.bin/; \
 	  ln -s "${THIRD_PARTY_SOURCE}/waifu2x-ncnn-vulkan/models/models-cunet" ~/.bin/ && true
 
-third-party: bfs ddcutil maim rofi-files scream split2flac timg waifu2x-vulkan
+third-party: bfs ddcutil maim scream split2flac timg waifu2x-vulkan
   # waifu2x mpv
 
 all-install: go third-party

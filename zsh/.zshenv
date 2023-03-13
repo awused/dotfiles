@@ -35,9 +35,13 @@ export NASHOME=/storage/usr/desuwa
 # Set TIME_STYLE for GNU coreutils
 export TIME_STYLE="long-iso"
 
-test -r $HOME/.opam/opam-init/init.zsh && . $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+if [[ -z $_INIT_SCRIPTS_RUN ]]; then
+  export _INIT_SCRIPTS_RUN=1
 
-test -r $HOME/.gcloud-sdk/path.zsh.inc && . $HOME/.gcloud-sdk/path.zsh.inc > /dev/null 2> /dev/null || true
+  test -r $HOME/.opam/opam-init/init.zsh && . $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+  test -r $HOME/.gcloud-sdk/path.zsh.inc && . $HOME/.gcloud-sdk/path.zsh.inc > /dev/null 2> /dev/null || true
+fi
 
 
 
