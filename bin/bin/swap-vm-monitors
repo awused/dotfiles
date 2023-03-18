@@ -7,16 +7,16 @@
 swap_primary=$([ -z "$1" ] || [ "$1" = "primary" ] && echo "true")
 swap_secondary=$([ -z "$1" ] || [ "$1" = "secondary" ] && echo "true")
 
-# This is set up for the type C port on the host and the DP port on the guest for the primary monitor.
-# Keep monitors in sync and base changes off of the primary monitor when both are switching
+# This is set up for the type C port on the guest and the DP port on the host for the primary monitor.
+# Keep monitors in sync and base changes off of the primary monitor when both are switching.
 if [ -n "$swap_primary" ]; then
-    if ddcutil --bus 9 --nodetect getvcp 60 | grep -q 0x10; then
-      ddcutil --bus 9 --nodetect setvcp 60 0x0f &
+    if ddcutil --bus 9 --nodetect getvcp 60 | grep -q 0x0f; then
+      ddcutil --bus 9 --nodetect setvcp 60 0x10 &
       if [ -n "$swap_secondary" ]; then
         ddcutil --bus 10 --nodetect setvcp 60 0x11 &
       fi
     else
-      ddcutil --bus 9 --nodetect setvcp 60 0x10 &
+      ddcutil --bus 9 --nodetect setvcp 60 0x0f &
       if [ -n "$swap_secondary" ]; then
         ddcutil --bus 10 --nodetect setvcp 60 0x0f &
       fi
