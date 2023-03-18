@@ -218,8 +218,8 @@ bindsym $mod+Shift+r exec --no-startup-id "redshift-toggle force"
 bindsym Mod1+Shift+r exec --no-startup-id redshift-reset
 
 bindsym $mod+Shift+t exec --no-startup-id swap-vm-monitors secondary
-bindsym $mod+Ctrl+t exec --no-startup-id swap-vm-monitors
-bindsym Mod1+Ctrl+t exec --no-startup-id swap-vm-monitors primary
+#bindsym $mod+Ctrl+t exec --no-startup-id swap-vm-monitors
+#bindsym Mod1+Ctrl+t exec --no-startup-id swap-vm-monitors primary
 bindsym Mod1+Shift+t exec --no-startup-id toggle-monitors
 
 # bindcode Ctrl+105 exec --no-startup-id swap-vm-usb
