@@ -61,5 +61,8 @@
   "rust-analyzer.procMacro.attributes.enable": true,
   "rust-analyzer.cargo.features": [],
   "rust-analyzer.cargo.loadOutDirsFromCheck": true,
-  "rust-analyzer.cargo.buildScripts.enable": true
+  "rust-analyzer.cargo.buildScripts.enable": true,
+  "rust-analyzer.diagnostics.disabled": [
+    "unresolved-proc-macro"
+  ]
 }
