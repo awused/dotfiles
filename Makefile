@@ -35,7 +35,6 @@ desktop: sudo both
 	stow mpv
 	stow pulse
 	# stow xdg -- constantly overwritten
-	stow slack
 	crontab desktop.user.crontab
 	sudo crontab desktop.root.crontab
 	stow xorg
