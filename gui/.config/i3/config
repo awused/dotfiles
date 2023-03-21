@@ -226,7 +226,7 @@ bindsym Mod1+Shift+t exec --no-startup-id toggle-monitors
 
 
 # Screenshots
-# Edit /etc/sysctl.d/99-sysctl.conf with kernel.sysrq = 0
+# Edit /etc/sysctl.d/98-sysrq.conf with kernel.sysrq = 0
 # Change to allow full desktop screenshots. In practice I never take these
 bindsym --release Print exec --no-startup-id screenshotter window
 

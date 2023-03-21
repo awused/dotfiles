@@ -1,6 +1,8 @@
 default:
 	@echo specify desktop or server
 
+.NOTPARALLEL:
+
 PACKAGES = $(wildcard */)
 
 
@@ -23,6 +25,8 @@ both:
 	stow youtube-dl
 	stow zsh
 	git config --global core.hooksPath ~/.config/git-hooks
+	git config --global core.filemode true
+	git config --global pull.ff only
 
 sudo:
 	sudo echo "Starting"
@@ -38,10 +42,11 @@ desktop: sudo both
 	crontab desktop.user.crontab
 	sudo crontab desktop.root.crontab
 	stow xorg
-	sudo cp -u xorg.conf.d/* /etc/X11/xorg.conf.d/
-	sudo cp -u lightdm/lightdm.conf /etc/lightdm/
-	sudo cp -u lightdm/display-setup.sh /etc/lightdm/
-	sudo cp -u --no-preserve=ownership root-scripts/desktop/* /root/
+	# sudo cp -u xorg.conf.d/* /etc/X11/xorg.conf.d/
+	# sudo cp -u lightdm/lightdm.conf /etc/lightdm/
+	# sudo cp -u lightdm/display-setup.sh /etc/lightdm/
+	sudo cp -uv --no-preserve=ownership root-scripts/desktop/* /root/
+	sudo cp -uvr --no-preserve=ownership etc/desktop/* /etc/
 	#ln -s /home/ ~/.duplicacy-repo/ || true
 
 

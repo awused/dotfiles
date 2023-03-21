@@ -98,7 +98,7 @@ bfs: sudo
 
 ddcutil: sudo
 	cd ${THIRD_PARTY_SOURCE}/ddcutil; ./autogen.sh; \
-	  $(MAKE); sudo $(MAKE) install
+	  $(MAKE) clean; $(MAKE); sudo $(MAKE) install
 
 # i3-gaps: sudo
 # 	cd ${THIRD_PARTY_SOURCE}/i3-gaps; \
@@ -125,24 +125,24 @@ maim: sudo slop
 # 	  ./waf clean; \
 # 	  ./waf configure; ./waf; sudo ./waf install
 
-scream:
-	cd ${THIRD_PARTY_SOURCE}/scream/Receivers/unix; \
-	  rm -rf build/; mkdir build; cd build; \
-	  cmake ..; $(MAKE); mv scream ~/.bin/
+#scream:
+#	cd ${THIRD_PARTY_SOURCE}/scream/Receivers/unix; \
+#	  rm -rf build/; mkdir build; cd build; \
+#	  cmake ..; $(MAKE); mv scream ~/.bin/
 
 slop: sudo
 	cd ${THIRD_PARTY_SOURCE}/slop; \
 	  rm -rf build/; mkdir build; cd build; \
 	  cmake -DCMAKE_INSTALL_PREFIX=/usr/local ..; $(MAKE); sudo $(MAKE) install
 
-split2flac: sudo
-	sudo mkdir -p /usr/local/bin ; \
-	  sudo install -m755 ${THIRD_PARTY_SOURCE}/split2flac/split2flac \
-	  /usr/local/bin/split2flac
+# split2flac: sudo
+# 	sudo mkdir -p /usr/local/bin ; \
+# 	  sudo install -m755 ${THIRD_PARTY_SOURCE}/split2flac/split2flac \
+# 	  /usr/local/bin/split2flac
 
-timg: sudo
-	cd ${THIRD_PARTY_SOURCE}/timg/src; $(MAKE) clean; \
-	  git checkout master; $(MAKE); sudo $(MAKE) install
+# timg: sudo
+# 	cd ${THIRD_PARTY_SOURCE}/timg/src; $(MAKE) clean; \
+# 	  git checkout master; $(MAKE); sudo $(MAKE) install
 
 # waifu2x: sudo
 # 	cd ${THIRD_PARTY_SOURCE}/waifu2x-converter-cpp; \
@@ -165,8 +165,8 @@ waifu2x-vulkan:
 	  mv waifu2x-ncnn-vulkan ~/.bin/; \
 	  ln -s "${THIRD_PARTY_SOURCE}/waifu2x-ncnn-vulkan/models/models-cunet" ~/.bin/ && true
 
-third-party: bfs ddcutil maim scream split2flac timg waifu2x-vulkan
-  # waifu2x mpv
+third-party: bfs ddcutil maim waifu2x-vulkan
+  # waifu2x mpv scream split2flac timg
 
 all-install: go third-party
 
