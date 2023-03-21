@@ -41,6 +41,7 @@ desktop: sudo both
 	sudo cp -u xorg.conf.d/* /etc/X11/xorg.conf.d/
 	sudo cp -u lightdm/lightdm.conf /etc/lightdm/
 	sudo cp -u lightdm/display-setup.sh /etc/lightdm/
+	sudo cp -u --no-preserve=ownership root-scripts/desktop/* /root/
 	#ln -s /home/ ~/.duplicacy-repo/ || true
 
 
