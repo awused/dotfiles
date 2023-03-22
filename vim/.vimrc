@@ -641,8 +641,9 @@ set ignorecase
 set smartcase
 
 if has('nvim')
-  set foldexpr=nvim_treesitter#foldexpr()
-  set foldmethod=expr
+  " https://github.com/neoclide/coc.nvim/issues/4511
+  " set foldexpr=nvim_treesitter#foldexpr()
+  " set foldmethod=expr
   set laststatus=0
 else
   set foldmethod=syntax

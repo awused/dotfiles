@@ -161,18 +161,17 @@ context_menu = [
 # This can increase the baseline memory usage of aw-man.
 # This number does not affect the VRAM used to display images or used by the upscaler.
 # Specify a whole number of gigabytes. Comment out or set to 0 to disable some gpu acceleration.
-gpu_vram_limit_gb = 4
+gpu_vram_limit_gb = 8
+
+# Only consider GPUs with names matching this prefix for acceleration.
+# See the output of --show-gpus.
+# Case sensitive. Leave empty or blank to pick the first GPU found.
+gpu_prefix = "NVIDIA"
 
 # Allow use of "unrar" binary, if available, for rar files.
 # Some rar files are supported by libarchive but many are not.
 # This is recommended but disabled by default.
 allow_external_extractors = true
-
-# If unset or false, use the default GTK4 GPU renderer.
-# The software renderer is significantly lighter on resources and faster to start up.
-# Setting this to true overrides the GSK_RENDERER environment variable.
-# This is recommended but disabled by default.
-use_sofware_renderer = true
 
 # ------------------------------------------------------------------------------------------------
 # More advanced configuration options below. They probably do not need to be changed.
@@ -180,7 +179,7 @@ use_sofware_renderer = true
 
 # Use a different upscaler instead of the default waifu2x-ncnn-vulkan implementation.
 # The upscaler needs to be compatible with https://github.com/awused/aw-upscale
-alternate_upscaler = '/home/desuwa/.config/aw-man/aw-upscale-client.py'
+# alternate_upscaler = '/home/desuwa/.config/aw-man/aw-upscale-client.py'
 
 # Whether to force the use of RGBA images, which are faster but consume more memory.
 # By default aw-man prefers to save on memory by using RGB or greyscale formats when possible, but

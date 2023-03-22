@@ -45,17 +45,17 @@ screenshotter:
 
 vmrpc:
 	cd ${AWUSED_SOURCE}/vmrpc/clipboard; \
-	  protoc --go_out=plugins=grpc:. *.proto
+	  protoc --go_out=. --go-grpc_out=. *.proto
 	cd ${AWUSED_SOURCE}/vmrpc/mpd; \
-	  protoc --go_out=plugins=grpc:. *.proto
+	  protoc --go_out=. --go-grpc_out=. *.proto
 	cd ${AWUSED_SOURCE}/vmrpc/monitors; \
-	  protoc --go_out=plugins=grpc:. *.proto
+	  protoc --go_out=. --go-grpc_out=. *.proto
 	cd ${AWUSED_SOURCE}/vmrpc/scream; \
-	  protoc --go_out=plugins=grpc:. *.proto
+	  protoc --go_out=. --go-grpc_out=. *.proto
 	cd ${AWUSED_SOURCE}/vmrpc/sharex; \
-	  protoc --go_out=plugins=grpc:. *.proto
+	  protoc --go_out=. --go-grpc_out=. *.proto
 	cd ${AWUSED_SOURCE}/vmrpc/usb; \
-	  protoc --go_out=plugins=grpc:. *.proto
+	  protoc --go_out=. --go-grpc_out=. *.proto
 	cd ${AWUSED_SOURCE}/vmrpc/vmrpc-server; go install
 	cd ${AWUSED_SOURCE}/vmrpc/vmrpc-client; go install
 
