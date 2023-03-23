@@ -95,6 +95,7 @@ assign [class="firefox"] $wsff
 for_window [class="firefox"] floating enable
 for_window [class="firefox" instance="Navigator" window_type="normal"] floating disable border pixel 0
 for_window [class="firefox" instance="Navigator" title="Torrents for .*"] floating enable border normal
+for_window [class="firefox" instance="Navigator" title="Torrents for .*"] move position center
 for_window [class="firefox" instance="Navigator" title="Extension: \(Tree Style Tab\) - Close.*"] floating enable border normal
 for_window [class="firefox" instance="Places"] floating enable border normal
 workspace $wsff output $m_center
@@ -158,6 +159,9 @@ bindsym $mod+Shift+k exec --no-startup-id ~/.config/i3/exec-once keepassxc keepa
 for_window [instance="foobar2000.exe"] floating enable
 bindsym $mod+Shift+f exec --no-startup-id ~/.config/i3/exec-once "foobar2000.exe" "foobar2000\.exe" "wine foobar2000.exe" "$HOME/.foobar2000"
 
+for_window [class="Xarchiver"] floating enable resize set 1920 1080
+for_window [class="Xarchiver"] move position center
+
 for_window [instance="emuera-anchor.exe"] floating enable
 for_window [instance="emuera-anchor-sprite-blueberry.exe"] floating enable
 for_window [instance="game.exe"] floating enable
@@ -198,16 +202,11 @@ bindsym $mod+minus scratchpad show
 #}}}
 #{{{ Other Commands
 # reload the configuration file
-# TODO -- re-enable when i3 stops crashing on reload
 bindsym $mod+Shift+o reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym Mod1+Shift+o restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-# Give pulseaudio its necessary kick
-#bindsym $mod+Shift+p exec --no-startup-id pulseaudio -k
-# Give pulseaudio its necessary kick
-#bindsym Mod1+Shift+p exec --no-startup-id ~/.config/i3/pulse-restart
 bindsym Ctrl+Mod1+l exec --no-startup-id "xset dpms 10 10 10; ~/.config/i3/lock"
 
 bindsym $mod+Shift+w exec --no-startup-id wallpapers random
@@ -333,11 +332,6 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 #}}}
-#{{{ Status bar
-# bar {
-#         status_command i3status
-# }
-#}}}
 #{{{ Startup Programs
 exec_always --no-startup-id "~/.config/polybar/launch.sh"
 exec_always --no-startup-id "killall picom; picom -b"
@@ -363,8 +357,8 @@ exec_always --no-startup-id "killall mpd; killall mpd-shuffler; mpd; mpd-shuffle
 # Enable in sudoers with
 # desuwa ALL=(root) NOPASSWD:/usr/bin/nvidia-smi -i 0 -pl 375
 exec_always --no-startup-id "sudo /usr/bin/nvidia-smi -i 0 -pl 375"
-exec_always --no-startup-id "nvidia-settings -a '[gpu:0]/GPUGraphicsClockOffset[3]=60'"
-exec_always --no-startup-id "nvidia-settings -a '[gpu:0]/GPUMemoryTransferRateOffset[3]=200'"
+# exec_always --no-startup-id "nvidia-settings -a '[gpu:0]/GPUGraphicsClockOffset[3]=60'"
+# exec_always --no-startup-id "nvidia-settings -a '[gpu:0]/GPUMemoryTransferRateOffset[3]=200'"
 
 # udev rules are not consistently applied, give them a kick
 exec_always --no-startup-id "udevadm trigger"

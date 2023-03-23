@@ -1,0 +1,2 @@
+KERNEL=="i2c-[0-9]*", GROUP="desuwa", MODE="0660", PROGRAM="/usr/local/bin/ddcutil --bus=%n getvcp D6"
+KERNEL=="i2c-[0-9]*", GROUP="desuwa", MODE="0660", PROGRAM="/usr/local/bin/ddcutil --bus=%n setvcp D6 0x%n"

@@ -92,25 +92,6 @@ windows-vmrpc: vmrpc
 windows-go: windows-sharex windows-vmrpc windows-clipboard windows-quiet-cmd
 
 # Third party code
-bfs: sudo
-	cd ${THIRD_PARTY_SOURCE}/bfs; $(MAKE) clean; \
-	  $(MAKE); sudo $(MAKE) install
-
-ddcutil: sudo
-	cd ${THIRD_PARTY_SOURCE}/ddcutil; ./autogen.sh; \
-	  $(MAKE) clean; $(MAKE); sudo $(MAKE) install
-
-# i3-gaps: sudo
-# 	cd ${THIRD_PARTY_SOURCE}/i3-gaps; \
-# 	  rm -rf build/; mkdir build; cd build; \
-# 	  meson ..; ninja; \
-# 	  sudo meson install
-
-# loudness-scanner: sudo
-# 	cd ${THIRD_PARTY_SOURCE}/loudness-scanner; \
-# 	  rm -rf fedora/; mkdir -p fedora; cd fedora; \
-# 	  cmake .. -DDISABLE_SNDFILE=True; $(MAKE); sudo $(MAKE) install
-
 maim: sudo slop
 	cd ${THIRD_PARTY_SOURCE}/maim; \
 	  rm -rf build/; mkdir build; cd build; \
@@ -119,44 +100,16 @@ maim: sudo slop
 # neovim: sudo
 # 	cd "${THIRD_PARTY_SOURCE}/neovim"; \
 # 	$(MAKE) clean; sudo $(MAKE) CMAKE_BUILD_TYPE=Release install
-#
+
 # mpv: sudo
 # 	cd ${THIRD_PARTY_SOURCE}/mpv; \
 # 	  ./waf clean; \
 # 	  ./waf configure; ./waf; sudo ./waf install
 
-#scream:
-#	cd ${THIRD_PARTY_SOURCE}/scream/Receivers/unix; \
-#	  rm -rf build/; mkdir build; cd build; \
-#	  cmake ..; $(MAKE); mv scream ~/.bin/
-
 slop: sudo
 	cd ${THIRD_PARTY_SOURCE}/slop; \
 	  rm -rf build/; mkdir build; cd build; \
 	  cmake -DCMAKE_INSTALL_PREFIX=/usr/local ..; $(MAKE); sudo $(MAKE) install
-
-# split2flac: sudo
-# 	sudo mkdir -p /usr/local/bin ; \
-# 	  sudo install -m755 ${THIRD_PARTY_SOURCE}/split2flac/split2flac \
-# 	  /usr/local/bin/split2flac
-
-# timg: sudo
-# 	cd ${THIRD_PARTY_SOURCE}/timg/src; $(MAKE) clean; \
-# 	  git checkout master; $(MAKE); sudo $(MAKE) install
-
-# waifu2x: sudo
-# 	cd ${THIRD_PARTY_SOURCE}/waifu2x-converter-cpp; \
-# 	  rm -rf fedora/; mkdir -p fedora; cd fedora; CC=cuda-gcc CPP=cuda-++ CXX=cuda-g++ LD=cuda-g++ cmake ..; \
-# 	  rg-replace '/usr/bin/nvcc -arch=sm_30' -r '/usr/bin/nvcc --compiler-bindir /usr/bin/cuda-gcc -arch=sm_30' **/* \
-# 	  $(MAKE); sudo $(MAKE) install
-
-# ncnn:
-# 	rm -rf "${THIRD_PARTY_SOURCE}/temp/ncnn"; cd ${THIRD_PARTY_SOURCE}/ncnn; \
-# 	  rm -rf build/; mkdir build; cd build; \
-# 	  cmake -DNCNN_VULKAN=ON \
-# 	        -DCMAKE_INSTALL_PREFIX="${THIRD_PARTY_SOURCE}/temp/ncnn" \
-# 		-DCMAKE_BUILD_TYPE=Release ..; \
-# 	  $(MAKE) install;
 
 waifu2x-vulkan:
 	  cd "${THIRD_PARTY_SOURCE}/waifu2x-ncnn-vulkan"; \
@@ -165,8 +118,7 @@ waifu2x-vulkan:
 	  mv waifu2x-ncnn-vulkan ~/.bin/; \
 	  ln -s "${THIRD_PARTY_SOURCE}/waifu2x-ncnn-vulkan/models/models-cunet" ~/.bin/ && true
 
-third-party: bfs ddcutil maim waifu2x-vulkan
-  # waifu2x mpv scream split2flac timg
+third-party: maim waifu2x-vulkan
 
 all-install: go third-party
 
@@ -228,12 +180,6 @@ windows-wallpapers:
 rust: aw-man mpd-shuffler strpick wallpapers
 
 windows-rust: windows-upscale windows-wallpapers
-
-#go-update:
-#	go get -u all
-
-
-# TODO -- Cargo updates once alactritty is available from cargo
 
 # update: gems pip npm opam flatpak
 

@@ -35,23 +35,42 @@ export NASHOME=/storage/usr/desuwa
 # Set TIME_STYLE for GNU coreutils
 export TIME_STYLE="long-iso"
 
+# Things that should only run once
 if [[ -z $_INIT_SCRIPTS_RUN ]]; then
   export _INIT_SCRIPTS_RUN=1
 
   test -r $HOME/.opam/opam-init/init.zsh && . $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
   test -r $HOME/.gcloud-sdk/path.zsh.inc && . $HOME/.gcloud-sdk/path.zsh.inc > /dev/null 2> /dev/null || true
+
+  if [[ $(uname) == 'Linux' ]]; then
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib64:/usr/local/lib
+    export PATH=$HOME/.bin:$PATH:$HOME/.cargo/bin
+  fi
+
+  if [[ $(hostname) == 'desutop' ]]; then
+    # apps_script_format=json
+    # cache_directory=/cache/gdfuse
+    # document_format=odt
+    # drawing_format=png
+    # form_format=zip
+    # max_cache_size_mb=16384
+    # oauth2_loopback=true
+    # oauth2_loopback_port=9095
+    # presentation_format=pdf
+    # spreadsheet_format=ods
+    # umask=0o022
+    google-drive-ocamlfuse "/mnt/GoogleDrive"
+  fi
 fi
 
 
 
 #{{{ OS/Computer specific settings
 if [[ $(uname) == 'Linux' ]]; then
-  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib64:/usr/local/lib
-  export PATH=$HOME/.bin:$PATH:$HOME/.cargo/bin
   # This needs some modifications to not be really annoying.
-  # cd ~/.themes/; cp -r /usr/share/themes/Adwaita-dark .; cd Adwaita-dark/gtk-3.0;
-  # gresource extract /usr/lib64/libgtk-3.so /org/gtk/libgtk/theme/Adwaita/gtk-contained-dark.css > gtk.css
+  # mkdir -p ~/.themes; cd ~/.themes/; cp -r /usr/share/themes/Adwaita-dark .; cd Adwaita-dark/gtk-3.0;
+  # gresource extract /usr/lib64/libgtk-3.so.0 /org/gtk/libgtk/theme/Adwaita/gtk-contained-dark.css > gtk.css
   # rg-replace "backdrop " -r "backdropdisabled "
   # rg-replace "backdrop:" -r "backdropdisabled:"
   # rg-replace "backdrop," -r "backdropdisabled,"
@@ -79,10 +98,6 @@ if [[ $(hostname) == 'desutop' ]]; then
 
   export MPD_HOST=$HOME/.config/mpd/socket
 
-  mount | grep "/mnt/GoogleDrive" > /dev/null || google-drive-ocamlfuse "/mnt/GoogleDrive"
-
-  export JAVA_HOME=/usr/local/java/jdk1.8.0_201
-  export PATH=$PATH:$JAVA_HOME/bin
 fi
 #}}}
 

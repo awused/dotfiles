@@ -1,0 +1,5 @@
+GRUB_PRELOAD_MODULES=zfs
+GRUB_CMDLINE_LINUX="iommu=1 amd_iommu=on split_lock_detect=off preempt=full default_hugepagesz=1G hugepagesz=1G hugepages=16 rd.driver.blacklist=nouveau modprobe.blacklist=nouveau nvidia-drm.modeset=1 initcall_blacklist=simpledrm_platform_driver_init rd.driver.pre=vfio-pci"
+GRUB_DISABLE_OS_PROBER=true
+GRUB_DISABLE_SUBMENU=true
+GRUB_ENABLE_BLSCFG=false
