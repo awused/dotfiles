@@ -2,11 +2,35 @@
 # Toggles secondary monitors on and off.
 # Load i2c-dev and set these rules in /etc/udev/rules.d/45-ddcutil-i2c.rules
 
-# Can only do one of the two right now
-if ddcutil --bus 10 --nodetect getvcp 60 | grep -q 0x0f; then
-  ddcutil --bus 10 --nodetect setvcp 60 0x11 &
-else
-  ddcutil --bus 10 --nodetect setvcp 60 0x0f &
+swap_primary=$([ -z "$1" ] || [ "$1" = "primary" ] && echo "true")
+swap_secondary=$([ -z "$1" ] || [ "$1" = "secondary" ] && echo "true")
+
+# This is set up for the DP port on the host and the primary HDMI port on the guest.
+center_bus=6
+center_host=0x0f
+center_guest=0x11
+
+left_bus=8
+left_host=0x0f
+left_guest=0x11
+
+# Keep monitors in sync and base changes off of the primary monitor when both are switching.
+if [ -n "$swap_primary" ]; then
+    if ddcutil --bus $center_bus getvcp 60 | grep -q $center_host; then
+      ddcutil --bus $center_bus setvcp 60 $center_guest &
+      if [ -n "$swap_secondary" ]; then
+        ddcutil --bus $left_bus setvcp 60 $left_guest &
+      fi
+    else
+      ddcutil --bus $center_bus setvcp 60 $center_host &
+      if [ -n "$swap_secondary" ]; then
+        ddcutil --bus $left_bus setvcp 60 $left_host &
+      fi
+    fi
+elif [ -n "$swap_secondary" ]; then
+  if ddcutil --bus $left_bus getvcp 60 | grep -q $left_host; then
+    ddcutil --bus $left_bus setvcp 60 $left_guest &
+  else
+    ddcutil --bus $left_bus setvcp 60 $left_host &
+  fi
 fi
-
-

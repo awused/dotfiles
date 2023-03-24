@@ -3,6 +3,11 @@
 # Only works with chapters downloaded by manga-syncer.
 # Only tested on x11.
 
+# It's important to set the clipboard to something to avoid the case where the user reflexively
+# pastes it after assuming something overwrote the clipboard's contents.
+# This avoids pasting anything sensitive.
+echo "error" | xsel --input --clipboard
+
 hashed=$(echo "$AWMAN_ARCHIVE" | sed -E 's/.* - ([^ ]+).zip/\1/')
 
 # Reverse the hash that manga-syncer uses on manadex IDs.
@@ -19,9 +24,4 @@ END
 if [ -n "$mid" ]; then
   echo "https://mangadex.org/chapter/$mid/$AWMAN_PAGE_NUMBER" | xsel --input --clipboard
   exit 0
-else
-  # It's important to set the clipboard to something to avoid the case where the user reflexively
-  # pastes it after assuming something overwrote the clipboard's contents.
-  # This avoids pasting anything sensitive.
-  echo "error" | xsel --input --clipboard
 fi

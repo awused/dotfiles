@@ -43,7 +43,7 @@ font-3 = unifont:fontformat=truetype:size=16:antialias=false;4
 modules-left = i3 xkeyboard
 modules-center = mpd
 ;modules-right = fs0 fs1 cpu gpu memory cputemp0 cputemp1 gputemp watertemp date
-modules-right = fs0 fs1 cpu gpu memory gpumemory cputemp0 cputemp1 gputemp date
+modules-right = fs0 fs1 cpu gpu memory gpumemory cputemp0 gputemp date
 ; modules-right = fs0 fs1 cpu memory cputemp0 cputemp1 date
 padding-right = 1
 
@@ -85,6 +85,7 @@ interval = 30
 
 mount-0 = /
 
+fixed-values = true
 label-mounted = %free%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
@@ -230,7 +231,7 @@ label = %date% %time%
 [module/cputemp]
 type = internal/temperature
 thermal-zone = 0
-warn-temperature = 67
+warn-temperature = 90
 
 format = <label>
 format-underline = #f50a4d
@@ -246,7 +247,8 @@ ramp-foreground = ${colors.foreground-alt}
 [module/cputemp0]
 inherit = module/cputemp
 
-hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon3/temp2_input
+; Tctl, each ccd gets its own temp though
+hwmon-path = /sys/class/hwmon/hwmon2/temp1_input
 
 [module/cputemp1]
 inherit = module/cputemp

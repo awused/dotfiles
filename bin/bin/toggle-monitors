@@ -6,17 +6,22 @@
 
 tempfile=/tmp/.monitors-disabled
 
+center_bus=6
+left_bus=8
+right_bus=7
+top_bus=5
+
 if [ ! -f "$tempfile" ]; then
   touch "$tempfile"
   # Only disable the left monitor if it's connected to this machine,
   # but still do them all at the same time.
-  if ddcutil --bus 10 --nodetect getvcp 60 | grep -q 0x0f; then
-    ddcutil --bus 8 --nodetect setvcp D6 0x02 &
-    ddcutil --bus 10 --nodetect setvcp D6 0x02 &
-    ddcutil --bus 11 --nodetect setvcp D6 0x02 &
+  if ddcutil --bus $left_bus getvcp 60 | grep -q 0x0f; then
+    ddcutil --bus $left_bus setvcp D6 0x02 &
+    ddcutil --bus $top_bus setvcp D6 0x02 &
+    ddcutil --bus $right_bus setvcp D6 0x02 &
   else
-    ddcutil --bus 8 --nodetect setvcp D6 0x02 &
-    ddcutil --bus 11 --nodetect setvcp D6 0x02 &
+    ddcutil --bus $top_bus setvcp D6 0x02 &
+    ddcutil --bus $right_bus setvcp D6 0x02 &
   fi
 else
   rm "$tempfile"

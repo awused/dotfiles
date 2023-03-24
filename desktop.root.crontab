@@ -8,6 +8,7 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
 # |  |  |  |  |
 # *  *  *  *  *  command to be executed
   0  3  *  *  mon zpool scrub rpool
+  0  3  *  *  mon zpool scrub bpool
   */5 *  *  *  * zfs-auto-snapshot 5min 36
   0  *  *  *  * zfs-auto-snapshot hourly 25
   0  7  *  *  * zfs-auto-snapshot daily 8

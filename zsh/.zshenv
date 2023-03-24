@@ -60,7 +60,7 @@ if [[ -z $_INIT_SCRIPTS_RUN ]]; then
     # presentation_format=pdf
     # spreadsheet_format=ods
     # umask=0o022
-    google-drive-ocamlfuse "/mnt/GoogleDrive"
+    mount | grep "/mnt/GoogleDrive" > /dev/null || google-drive-ocamlfuse "/mnt/GoogleDrive"
   fi
 fi
 

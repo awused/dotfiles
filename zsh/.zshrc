@@ -108,7 +108,7 @@ alias ngprod='npm run prod'
 alias ydl='yt-dlp --write-thumbnail --write-description'
 alias ydls='yt-dlp --write-sub --write-thumbnail --write-description'
 
-_YT_FORMAT="%(title).216B-%(id)s.%(ext)s"
+_YT_FORMAT="%(title).210B-%(id)s.%(ext)s"
 
 alias ytv='yt-dlp --no-mtime --output "/storage/usr/desuwa/Videos/${_YT_FORMAT}" --'
 alias ytvs='yt-dlp --write-sub --no-mtime --output "/storage/usr/desuwa/Videos/${_YT_FORMAT}" --'
@@ -144,7 +144,7 @@ alias 'cd..=cd ..'
 if [[ $(uname) == 'FreeBSD' ]]; then
   alias date='date +"%Y-%m-%d %H:%M:%S"'
   alias ls='ls -G -D "%Y-%m-%d %H:%M:%S"'
-  alias ngserve='ng serve --host 192.168.44.2 --disable-host-check'
+  # alias ngserve='ng serve --host 192.168.44.2 --disable-host-check'
 
   __stat_format='-f %m'
 

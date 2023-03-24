@@ -2,4 +2,4 @@
 
 uid="$(id -ru)"
 
-mount | grep '192.168.44.2' | sed -re "s/192\.168\.44\.2\:([^ ]+) .*/\1\/.Trash-${uid}/" | xargs -d '\n' rm -r
+mount | grep '192.168.241.2' | sed -re "s/192\.168\.241\.2\:([^ ]+) .*/\1\/.Trash-${uid}/" | xargs -d '\n' rm -r
