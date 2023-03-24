@@ -36,9 +36,6 @@ if [ -z "$channel" ]; then
   exit 1
 fi
 
-echo $channel
-exit 0
-
 dir="${channel}"
 file="${dir}/${title}-${id}.mp4"
 chat="${dir}/${title}-${id}.full.json"

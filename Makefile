@@ -27,6 +27,8 @@ both:
 	git config --global core.hooksPath ~/.config/git-hooks
 	git config --global core.filemode true
 	git config --global pull.ff only
+	git config --global credential.helper store
+	git config --global credential.'https://source.developers.google.com'.helper gcloud.sh
 
 sudo:
 	sudo echo "Starting"
@@ -55,3 +57,5 @@ server: both
 	stow weechat
 	crontab server.user.crontab
 	sudo crontab server.root.crontab
+	sudo cp -uv --no-preserve=ownership root-scripts/server/* /root/
+	sudo cp -uvr --no-preserve=ownership etc/server/* /etc/

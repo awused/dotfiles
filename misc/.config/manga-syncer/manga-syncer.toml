@@ -41,4 +41,5 @@ Manga = [
 # Groups to block, for low quality or otherwise.
 BlockedGroups = [
   "4fdaf04f-b965-4f82-801d-8bfc00693773",
+  "9dcf0896-a184-4cbc-8070-751bb71c5f2e",
 ]
