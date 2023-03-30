@@ -1,0 +1,1 @@
+SUBSYSTEM=="usb", ATTR{idVendor}=="0971", ATTR{idProduct}=="2007", GROUP="desuwa", MODE="0660"

@@ -14,13 +14,13 @@ mpv_glob='/tmp/mpv-sockets/*'
 pidof "$lockname" > /dev/null && exit 0
 
 if [ -S "$mpvsocket" ]; then
-  paused=$(echo '{ "command": ["get_property", "pause"] }' | nc -U "$mpvsocket" 2>/dev/null | jq '.data')
+  paused=$(echo '{ "command": ["get_property", "pause"] }' | nc -UN "$mpvsocket" 2>/dev/null | jq '.data')
   [ "$paused" = "false" ] && exit 0
 fi
 
 for sock in $mpv_glob; do
   if [ -S "$sock" ]; then
-    paused=$(echo '{ "command": ["get_property", "pause"] }' | nc -U "$sock" 2>/dev/null | jq '.data')
+    paused=$(echo '{ "command": ["get_property", "pause"] }' | nc -UN "$sock" 2>/dev/null | jq '.data')
     [ "$paused" = "false" ] && exit 0
   fi
 done

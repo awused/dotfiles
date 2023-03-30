@@ -79,6 +79,9 @@ if [[ $(uname) == 'Linux' ]]; then
   # Install xdg-desktop-portal-kde and kio-extras (plus other thumbnailer support)
   # export GTK_USE_PORTAL=1
   # export QT_STYLE_OVERRIDE=Breeze-dark
+
+  # Other machines don't compile enough rust for this to be a huge benefit
+  export CARGO_TARGET_DIR=/cache/rust
 fi
 
 if [[ $(uname) == 'FreeBSD' ]]; then
@@ -97,7 +100,6 @@ if [[ $(hostname) == 'desutop' ]]; then
   export LIBVIRT_DEFAULT_URI="qemu:///system"
 
   export MPD_HOST=$HOME/.config/mpd/socket
-
 fi
 #}}}
 

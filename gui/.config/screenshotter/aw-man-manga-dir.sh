@@ -2,7 +2,7 @@
 
 set -e
 
-status=$(echo "Status" | nc -U "/tmp/aw-man${SCREENSHOTTER_PID}.sock")
+status=$(echo "Status" | nc -UN "/tmp/aw-man${SCREENSHOTTER_PID}.sock")
 path=$(echo "$status" | jq ".AWMAN_ARCHIVE" | grep -E '"/storage/media/manga/[^/]+($|/[^/]+\.[a-z]{3})"')
 dir=$(echo "$path" | sed -E 's/^.*\/manga\/([^/]+)($|\/[^/]+\.[a-z]{3}"$)/\1/' | sed -E 's/ - [a-zA-Z0-9_-]+$//')
 
