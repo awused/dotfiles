@@ -21,6 +21,7 @@
 $HOME/.cache
 $HOME/.cargo
 $HOME/.ccache
+$HOME/.conda
 $HOME/.config/chromium
 $HOME/.config/coc/extensions
 $HOME/.config/unity3d

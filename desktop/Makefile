@@ -97,6 +97,12 @@ maim: sudo slop
 	  rm -rf build/; mkdir build; cd build; \
 	  cmake -DCMAKE_INSTALL_PREFIX=/usr/local ..; $(MAKE); sudo $(MAKE) install
 
+melonds:
+	cd ${THIRD_PARTY_SOURCE}/melonDS; \
+		rm -rf build/; mkdir build; cd build; \
+		cmake -DCMAKE_INSTALL_PREFIX=~/.local ..; \
+		$(MAKE); $(MAKE) install
+
 # neovim: sudo
 # 	cd "${THIRD_PARTY_SOURCE}/neovim"; \
 # 	$(MAKE) clean; sudo $(MAKE) CMAKE_BUILD_TYPE=Release install
@@ -118,7 +124,7 @@ waifu2x-vulkan:
 	  mv waifu2x-ncnn-vulkan ~/.bin/; \
 	  ln -s "${THIRD_PARTY_SOURCE}/waifu2x-ncnn-vulkan/models/models-cunet" ~/.bin/ && true
 
-third-party: maim waifu2x-vulkan
+third-party: maim melonds waifu2x-vulkan
 
 all-install: go third-party
 
@@ -145,7 +151,7 @@ flatpak:
 
 rustup:
 	rustup update
-	cargo install --locked cargo-audit cargo-bloat cargo-criterion cargo-udeps cargo-expand cargo-edit cargo-geiger tokio-console
+	cargo install --locked cargo-audit cargo-bloat cargo-criterion cargo-udeps cargo-expand cargo-edit tokio-console
 
 aw-man:
 	cargo install --path "${AWUSED_SOURCE}/aw-man" --locked

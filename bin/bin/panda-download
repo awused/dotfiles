@@ -1,0 +1,140 @@
+#! /usr/bin/env bash
+
+# ~/.config/panda-cookie of the form
+#MemberID="1234"
+#PassHash="abcdef"
+
+#export PANDA_COOKIE="ipb_pass_hash=$PassHash; ipb_member_id=$MemberID";
+
+set -e
+
+source ~/.config/panda-cookie
+
+directory="$1"
+counter=1
+
+if [[ ! -d $directory ]]; then
+  echo "Directory $directory does not exist"
+  exit 1
+fi
+
+shift
+
+url=$1
+id=$(echo "$url" | grep -Eo '/s/[a-zA-Z0-9]+/[a-zA-Z0-9]+-[0-9]+' | sed -rn 's/.*\/s\/.*\/([a-zA-Z0-9]+-[0-9]+)/\1/p')
+if [[ -z $id ]]; then
+  echo "No valid panda url found"
+  notify-send -u critical "No valid panda url found"
+  exit 1
+fi
+shift
+
+response=$(curl -s "$url" --cookie "$PANDA_COOKIE")
+if [[ -z "$response" ]]; then
+  echo "Empty panda response, check cookies"
+  notify-send -u critical "Empty panda response, check cookies"
+  exit 1
+fi
+
+# echo $response > ~/pandxmlstarleta-resp
+# TODO -- needs to handle lower res images
+error509=$(echo "$response" | grep -o -F "https://exhentai.org/img/509.gif" || echo "")
+if [[ -n "$error509" ]]; then
+  echo "Error 509, bandwidth limit exceeded"
+  notify-send -u critical "Error 509, bandwidth limit exceeded"
+  exit 1
+fi
+
+fullimg=$(echo "$response" | xmllint --html --xpath "//a[contains(text(), 'Download original')]/@href" - 2>/dev/null | \
+  sed 's/.*href="//' | sed 's/".*$//' | python3 -c "import html, sys; print(html.unescape(sys.stdin.read()));")
+if [[ -z "$fullimg" ]]; then
+  echo "No full resolution original image"
+  notify-send -u critical "No full resolution original image"
+  exit 1
+fi
+
+location=$(curl -I -s "$fullimg" --cookie "$PANDA_COOKIE" | grep "^Location" | sed "s/Location: //")
+if [[ -z "$location" ]]; then
+  echo "No location for $fullimg"
+  notify-send -u critical "No location for full resolution image"
+  exit 1
+fi
+
+tmpfile=$(mktemp)
+wget --quiet "$location" -O "$tmpfile"
+hash=$(sha256sum "$tmpfile" | sed 's/ .*//')
+
+if [[ ! -d $directory ]]; then
+  echo "Creating sub-directory $directory"
+  mkdir -p "$directory"
+fi
+
+ext=$(echo "$location" | sed -r 's/.*\.([a-zA-Z]+).*/\1/')
+filename="$directory/${hash}$(printf '%02d' $counter).$ext"
+
+if [[ -z $1 ]]; then
+  filename="$directory/$hash.$ext"
+fi
+
+if [[ -f $filename ]]; then
+  echo "File already exists: $filename"
+else
+  echo "Downloaded $filename from $location"
+  cp "$tmpfile" "$filename"
+fi
+
+rm "$tmpfile"
+
+while [[ -n $1 ]]; do
+  sleep 60
+  url=$1
+  shift
+
+  id=$(echo "$url" | grep -Eo '/s/[a-zA-Z0-9]+/[a-zA-Z0-9]+-[0-9]+' | sed -rn 's/.*\/s\/.*\/([a-zA-Z0-9]+-[0-9]+)/\1/p')
+  if [ -z "$id" ]; then
+    echo "Invalid URL $url"
+    notify-send -u critical "Invalid URL $url"
+    continue
+  fi
+
+  let counter++
+
+  response=$(curl -s "$url" --cookie "$PANDA_COOKIE")
+  if [[ -z "$response" ]]; then
+    echo "Empty panda response, check cookies"
+    notify-send -u critical "Empty panda response, check cookies"
+    exit 1
+  fi
+
+  error509=$(echo "$response" | grep -o -F "https://exhentai.org/img/509.gif" || echo "")
+  if [[ -n "$error509" ]]; then
+    echo "Error 509, bandwidth limit exceeded"
+    notify-send -u critical "Error 509, bandwidth limit exceeded"
+    exit 1
+  fi
+
+  fullimg=$(echo "$response" | xmllint --html --xpath "//a[contains(text(), 'Download original')]/@href" - 2>/dev/null | \
+    sed 's/.*href="//' | sed 's/".*$//' | python3 -c "import html, sys; print(html.unescape(sys.stdin.read()));")
+  if [[ -z "$fullimg" ]]; then
+    echo "No full resolution original image"
+    notify-send -u critical "No full resolution original image"
+    exit 1
+  fi
+
+  location=$(curl -I -s "$fullimg" --cookie "$PANDA_COOKIE" | grep "^Location" | sed "s/Location: //")
+  if [[ -z "$location" ]]; then
+    echo "No location for $fullimg"
+    notify-send -u critical "No location for full resolution image"
+    exit 1
+  fi
+
+  ext=$(echo "$location" | sed -r 's/.*\.([a-zA-Z]+).*/\1/')
+  filename="$directory/${hash}$(printf '%02d' $counter).$ext"
+
+  if [[ -f $filename ]]; then
+    echo "File already exists: $filename"
+  else
+    echo "Downloading $filename from $location"
+    wget --quiet "$location" -O "$filename"
+  fi
+done

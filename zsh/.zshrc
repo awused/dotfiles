@@ -205,6 +205,13 @@ if [[ $(hostname) == 'desutop' ]]; then
       zle .kill-whole-line
       BUFFER=$BUFFERz
       zle .accept-line
+    elif [[ $BUFFER =~ ^https://exhentai.org/ ]]; then
+      fc -R
+
+      BUFFERz=" pdl $BUFFER"
+      zle .kill-whole-line
+      BUFFER=$BUFFERz
+      zle .accept-line
     else
       zle .accept-line
     fi
@@ -347,6 +354,7 @@ export FZF_EXCLUDES=" \
   -not \( -name '.cache' -prune \) \
   -not \( -name '.ccache' -prune \) \
   -not \( -name '.cargo' -prune \) \
+  -not \( -name '.conda' -prune \) \
   -not \( -path '*/.config/chromium' -prune \) \
   -not \( -path '*/.config/unity3d' -prune \) \
   -not \( -name '.dbus' -prune \) \
@@ -618,6 +626,21 @@ ZSH_HIGHLIGHT_STYLES[globbing]=fg=blue,bold
 
 # Record mtime for auto-sourcing on change
 __zshrc_sourced=$(stat-rc)
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/usr/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/usr/etc/profile.d/conda.sh" ]; then
+        . "/usr/etc/profile.d/conda.sh"
+    else
+        export PATH="/usr/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
 
 # Enforce unique PATH, unsets $PATH for the rest of the script
 typeset -U path

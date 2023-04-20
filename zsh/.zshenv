@@ -24,6 +24,9 @@ export NODE_PATH="$NODE_PATH:$HOME/.npm/lib/node_modules"
 export PATH=$PATH:$GOBIN:$HOME/bin:$HOME/.npm/bin:$HOME/.local/bin
 export PYTHONIOENCODING=UTF-8
 export RUSTFLAGS='-C target-cpu=native'
+export CFLAGS="-march=native"
+export CXXFLAGS="-march=native"
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=gasp'
 
 export SOURCE_DIR=/storage/src
 export THIRD_PARTY_SOURCE=$SOURCE_DIR/third_party

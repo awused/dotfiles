@@ -32,6 +32,10 @@ path = "gdl"
 regex = '^https://yande.re/post/show/'
 path = "yandl"
 
+[[executables]]
+regex = '^https://exhentai.org/s/'
+path = "pdl"
+
 # Maybe this shouldn't be a catch-all?
 [[executables]]
 regex = '.+'
