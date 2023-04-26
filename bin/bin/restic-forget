@@ -1,6 +1,7 @@
 #! /bin/sh
 
-usbdir=/media/BACKUPS/google_cloud_storage
+#usbdir=/media/BACKUPS/google_cloud_storage
+usbdir=/root
 cacheroot=/cache/restic
 
 if [ "`uname`" = "Linux" ]; then
@@ -15,21 +16,21 @@ export GOOGLE_APPLICATION_CREDENTIALS=$usbdir/.restic-robot.json
 # Keep everything within 90 days due to google coldline making it pointless to
 # delete anything newer
 echo "Restic Forget"
-sudo -E HOME=$HOME restic \
-  -r "$(get-automation-password restic-bucket)" \
-  forget \
-  --cache-dir=$cacheroot/cache \
-  --limit-upload=1500 \
-  --password-file=$usbdir/.restic-password \
-  --group-by host \
-  --keep-within 90d \
-  --keep-daily 10 \
-  --keep-weekly 10 \
-  --keep-monthly 10 \
-  --prune
-
+# sudo -E HOME=$HOME restic \
+#   -r "$(get-automation-password restic-bucket)" \
+#   forget \
+#   --cache-dir=$cacheroot/cache \
+#   --limit-upload=1500 \
+#   --password-file=$usbdir/.restic-password \
+#   --group-by host \
+#   --keep-within 90d \
+#   --keep-daily 10 \
+#   --keep-weekly 10 \
+#   --keep-monthly 10 \
+#   --prune
+#
 echo "Restic Check"
-restic \
+sudo -E HOME=$HOME restic \
   -r "$(get-automation-password restic-bucket)" \
   check \
   --cache-dir=$cacheroot/cache \
