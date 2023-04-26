@@ -35,6 +35,7 @@
     "-Wclippy::redundant_else",
     "-Wclippy::return_self_not_must_use",
     "-Wclippy::semicolon_inside_block",
+    "-Wclippy::significant_drop_tightening",
     "-Wclippy::single_match_else",
     "-Wclippy::string_to_string",
     "-Wclippy::trim_split_whitespace",

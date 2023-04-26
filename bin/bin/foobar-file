@@ -2,4 +2,4 @@
 f=$(realpath "$1")
 
 cd ~/.foobar2000
-wine foobar2000.exe "z:$f"
+wine144 foobar2000.exe "z:$f"

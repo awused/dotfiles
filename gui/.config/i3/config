@@ -157,7 +157,7 @@ for_window [class="KeePassXC"] floating enable border normal
 bindsym $mod+Shift+k exec --no-startup-id ~/.config/i3/exec-once keepassxc keepassxc keepassxc
 
 for_window [instance="foobar2000.exe"] floating enable
-bindsym $mod+Shift+f exec --no-startup-id ~/.config/i3/exec-once "foobar2000.exe" "foobar2000\.exe" "wine foobar2000.exe" "$HOME/.foobar2000"
+bindsym $mod+Shift+f exec --no-startup-id ~/.config/i3/exec-once "foobar2000.exe" "foobar2000\.exe" "wine144 foobar2000.exe" "$HOME/.foobar2000"
 
 for_window [class="Xarchiver"] floating enable resize set 1920 1080
 for_window [class="Xarchiver"] move position center
@@ -179,6 +179,7 @@ for_window [class="Desmume"] floating enable border normal
 for_window [class="melonDS"] floating enable border normal
 for_window [class="retroarch"] floating enable
 for_window [window_role="pop-up"] floating enable
+for_window [title="Corrupted Saviors"] floating enable
 #}}}
 #{{{ Launchers
 # start a terminal

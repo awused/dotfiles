@@ -1,0 +1,4 @@
+#! /bin/sh
+# A separate wine prefix with DPI set to 144
+
+WINEPREFIX=~/.wine_144 wine $@
