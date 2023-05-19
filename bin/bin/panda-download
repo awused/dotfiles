@@ -53,9 +53,11 @@ if [[ -z "$fullimg" ]]; then
   exit 1
 fi
 
-location=$(curl -I -s "$fullimg" --cookie "$PANDA_COOKIE" | grep "^Location" | sed "s/Location: //")
+text=$(curl -I -s "$fullimg" --cookie "$PANDA_COOKIE")
+location=$(echo "$text" | grep -i "^Location" | sed "s/Location: //i")
 if [[ -z "$location" ]]; then
   echo "No location for $fullimg"
+  echo "$text"
   notify-send -u critical "No location for full resolution image"
   exit 1
 fi
@@ -86,7 +88,7 @@ fi
 rm "$tmpfile"
 
 while [[ -n $1 ]]; do
-  sleep 60
+  sleep 5
   url=$1
   shift
 
@@ -121,9 +123,11 @@ while [[ -n $1 ]]; do
     exit 1
   fi
 
-  location=$(curl -I -s "$fullimg" --cookie "$PANDA_COOKIE" | grep "^Location" | sed "s/Location: //")
+  text=$(curl -I -s "$fullimg" --cookie "$PANDA_COOKIE")
+  location=$(echo "$text" | grep -i "^Location" | sed "s/Location: //i")
   if [[ -z "$location" ]]; then
     echo "No location for $fullimg"
+    echo "$text"
     notify-send -u critical "No location for full resolution image"
     exit 1
   fi

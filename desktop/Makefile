@@ -122,7 +122,7 @@ waifu2x-vulkan:
 	  rm -rf build/; mkdir build; cd build; \
 	  cmake ../src; $(MAKE); \
 	  mv waifu2x-ncnn-vulkan ~/.bin/; \
-	  ln -s "${THIRD_PARTY_SOURCE}/waifu2x-ncnn-vulkan/models/models-cunet" ~/.bin/ && true
+	  ln -s "${THIRD_PARTY_SOURCE}/waifu2x-ncnn-vulkan/models/models-cunet" ~/.bin/ || true
 
 third-party: maim melonds waifu2x-vulkan
 

@@ -1,0 +1,14 @@
+#! /bin/sh
+
+#
+# sudo mkdir -p /etc/systemd/system/user@.service.d
+# cat <<EOF | sudo tee /etc/systemd/system/user@.service.d/delegate.conf
+#[Service]
+#Delegate=cpu cpuset io memory pids
+#EOF
+#sudo systemctl daemon-reload
+
+# 0-7, 16-23 is the v-cache CCD
+systemctl set-property --runtime -- user.slice AllowedCPUs=0-7,16-23
+systemctl set-property --runtime -- system.slice AllowedCPUs=0-7,16-23
+systemctl set-property --runtime -- init.scope AllowedCPUs=0-7,16-23

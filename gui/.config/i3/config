@@ -134,8 +134,8 @@ workspace $wsct output $m_right
 
 set $wsst "steam"
 bindsym $mod+Mod1+t workspace $wsst
-for_window [class="Steam"] move container to workspace $wsst
-for_window [class="Steam"] floating enable
+for_window [class="steam"] move container to workspace $wsst
+for_window [class="steam"] floating enable
 workspace $wsst output $m_center
 
 set $wsnm "caja"

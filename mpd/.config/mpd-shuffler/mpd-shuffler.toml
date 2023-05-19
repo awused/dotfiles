@@ -8,7 +8,7 @@ database = '/home/desuwa/.config/mpd-shuffler/db'
 
 # Regex that song paths must match to be included in the rotation
 # Paths are relative to the root of the MPD library.
-song_regex = '^(Anime/|General/|Zelda/)'
+song_regex = '^(Anime/|General/|Zelda/|Other/)'
 
 # How many previously played songs to keep on the playlist.
 # Doesn't impact the randomization
