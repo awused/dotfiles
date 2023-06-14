@@ -88,7 +88,6 @@ fi
 rm "$tmpfile"
 
 while [[ -n $1 ]]; do
-  sleep 5
   url=$1
   shift
 
@@ -100,6 +99,13 @@ while [[ -n $1 ]]; do
   fi
 
   let counter++
+
+  assumed_filename="$directory/${hash}$(printf '%02d' $counter).$ext"
+  if [[ -f "$assumed_filename" ]]; then
+    echo "File already exists: $assumed_filename"
+    continue
+  fi
+  sleep 5
 
   response=$(curl -s "$url" --cookie "$PANDA_COOKIE")
   if [[ -z "$response" ]]; then

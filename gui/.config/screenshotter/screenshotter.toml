@@ -208,6 +208,14 @@ MouseKeys = true
   Callback = "/home/desuwa/.config/screenshotter/ppsspp-callback.sh"
 
 [[Overrides]]
+  Name = "ppssppsdl"
+  Delegate = "/home/desuwa/.config/screenshotter/ppssppsdl.sh"
+
+[[Overrides]]
+  Name = "duckstation-qt"
+  Delegate = "/home/desuwa/.config/screenshotter/duckstation.sh"
+
+[[Overrides]]
   Name = "kthreadd"
   Delegate = "/home/desuwa/.config/screenshotter/kthreadd.sh"
 

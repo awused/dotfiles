@@ -7,6 +7,7 @@
 
     "-Wclippy::borrow_as_ptr",
     "-Wclippy::cloned_instead_of_copied",
+    "-Wclippy::collection_is_never_read",
     "-Wclippy::default_trait_access",
     "-Wclippy::derive-partial-eq-without-eq",
     "-Wclippy::explicit_iter_loop",

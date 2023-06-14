@@ -136,6 +136,8 @@ set $wsst "steam"
 bindsym $mod+Mod1+t workspace $wsst
 for_window [class="steam"] move container to workspace $wsst
 for_window [class="steam"] floating enable
+for_window [class="Steam"] move container to workspace $wsst
+for_window [class="Steam"] floating enable
 workspace $wsst output $m_center
 
 set $wsnm "caja"
@@ -162,24 +164,24 @@ bindsym $mod+Shift+f exec --no-startup-id ~/.config/i3/exec-once "foobar2000.exe
 for_window [class="Xarchiver"] floating enable resize set 1920 1080
 for_window [class="Xarchiver"] move position center
 
-for_window [instance="emuera-anchor.exe"] floating enable
-for_window [instance="emuera-anchor-sprite-blueberry.exe"] floating enable
-for_window [instance="game.exe"] floating enable
+for_window [title="Corrupted Saviors"] floating enable
+for_window [class="Desmume"] floating enable border normal
 for_window [class="Displaycal"] floating enable border normal
 for_window [title="DisplayCAL 0"] floating enable border normal
-for_window [title="Interactive display adjustment"] floating enable border normal
-for_window [class="File-roller"] floating enable
-for_window [class="Yad"] floating enable
-for_window [title="manage tags"] floating enable
-for_window [title="review services"] floating enable
 for_window [class="KADOKAWA/RPGMV"] floating enable
+for_window [instance="emuera-anchor.exe"] floating enable
+for_window [instance="emuera-anchor-sprite-blueberry.exe"] floating enable
+for_window [class="File-roller"] floating enable
+for_window [instance="game.exe"] floating enable
+for_window [title="Interactive display adjustment"] floating enable border normal
+for_window [title="manage tags"] floating enable
+for_window [class="melonDS"] floating enable border normal
 for_window [class="^Minecraft\*? .*"] floating enable
 for_window [class="MultiMC"] floating enable
-for_window [class="Desmume"] floating enable border normal
-for_window [class="melonDS"] floating enable border normal
-for_window [class="retroarch"] floating enable
 for_window [window_role="pop-up"] floating enable
-for_window [title="Corrupted Saviors"] floating enable
+for_window [title="review services"] floating enable
+for_window [class="retroarch"] floating enable
+for_window [class="Yad"] floating enable
 #}}}
 #{{{ Launchers
 # start a terminal
