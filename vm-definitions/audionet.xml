@@ -1,6 +1,6 @@
 <network>
-  <name>audionet</name>
-  <bridge name="anet0"/>
+  <name>win10</name>
+  <bridge name="win10"/>
   <ip address="192.168.123.1" netmask="255.255.255.0">
     <dhcp>
       <range start="192.168.123.2" end="192.168.123.254"/>

@@ -341,7 +341,7 @@ mode "resize" {
 exec_always --no-startup-id "~/.config/polybar/launch.sh"
 exec_always --no-startup-id "killall picom; picom --legacy-backend -b"
 exec_always --no-startup-id "killall dunst; dunst &"
-exec_always --no-startup-id "killall vmrpc-server; vmrpc-server &"
+exec_always --no-startup-id "killall vmrpc-server; vmrpc-server 2>&1 > ~/vmrpc-error &"
 exec_always --no-startup-id "ibus-daemon -drx"
 # Lock after 10 minutes
 exec_always --no-startup-id "killall xautolock; xautolock -time 120 -locker ~/.config/i3/lock -secure &"

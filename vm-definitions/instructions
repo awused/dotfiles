@@ -1,0 +1,29 @@
+### pipewire-jack audio
+
+sudo mkdir /srv/win10
+sudo chown example: /srv/win10
+chmod 700 /srv/win10
+setfacl -m u:qemu:rx /srv/win10
+touch /srv/win10/pipewire-0
+
+# Start VM
+
+sudo audit2allow -a -w
+sudo audit2allow -a
+sudo audit2allow -a -M mysvirt
+sudo semodule -i mysvirt.pp
+
+# Add to pipewire unit
+systemctl --user edit pipewire.socket
+
+[Socket]
+ExecStartPost=/bin/mount /srv/win10/pipewire-0
+ExecStopPre=/bin/umount /srv/win10/pipewire-0
+
+# fstab:
+/run/user/1001/pipewire-0 /srv/win10/pipewire-0 none bind,rw,user,noauto 0 0
+
+
+### Networking
+
+Make sure win10 is in the libvirt zone for dhcp/dns and open "Source Ports"

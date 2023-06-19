@@ -85,6 +85,8 @@ if [[ $(uname) == 'Linux' ]]; then
 
   # Other machines don't compile enough rust for this to be a huge benefit
   export CARGO_TARGET_DIR=/cache/rust
+
+  export STEAM_FORCE_DESKTOPUI_SCALING=1.5
 fi
 
 if [[ $(uname) == 'FreeBSD' ]]; then

@@ -185,7 +185,8 @@ windows-wallpapers:
 
 rust: aw-man mpd-shuffler strpick wallpapers
 
-windows-rust: windows-upscale windows-wallpapers
+windows-rust: windows-upscale
+	# windows-wallpapers -- broken compilation for rocksdb
 
 # update: gems pip npm opam flatpak
 
