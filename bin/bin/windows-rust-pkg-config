@@ -1,0 +1,4 @@
+#!/bin/sh
+
+export PKG_CONFIG_SYSROOT_DIR=/usr/x86_64-w64-mingw32/
+export RUSTFLAGS="-C link-args=-Wl,-Bstatic -L/mingw64/lib"

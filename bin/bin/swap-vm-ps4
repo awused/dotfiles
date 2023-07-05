@@ -1,0 +1,10 @@
+#!/bin/sh
+# Hotplugs the PS4 controller to and from the VM.
+
+virsh list --state-running | grep -q win10 || exit
+
+if virsh dumpxml win10 | grep -q ua-Sony-ps4; then
+  virsh detach-device win10 /home/desuwa/dotfiles/vm-definitions/ps4-controller.xml --live
+else
+  virsh attach-device win10 /home/desuwa/dotfiles/vm-definitions/ps4-controller.xml --live
+fi

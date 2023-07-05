@@ -18,7 +18,7 @@ vqualifiers = [
     # FPS
     ['[fps>30]', ''],
     # Codec
-    ['[vcodec^=av01]', '[vcodec=vp9]', '']
+    ['[vcodec^=av01]', '[vcodec=vp9]', '[vcodec^=vp09]', '']
 ]
 
 aqualifiers = [
