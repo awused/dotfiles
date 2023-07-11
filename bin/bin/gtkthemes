@@ -1,0 +1,19 @@
+#!/bin/sh
+
+mkdir -p ~/.themes/Adwaita-dark/gtk-3.0; cd ~/.themes/Adwaita-dark/gtk-3.0
+gresource extract /usr/lib64/libgtk-3.so.0 /org/gtk/libgtk/theme/Adwaita/gtk-contained-dark.css > gtk.css
+rg-replace "backdrop " -r "backdropdisabled "
+rg-replace "backdrop:" -r "backdropdisabled:"
+rg-replace "backdrop," -r "backdropdisabled,"
+echo "* { caret-color: #222222; }" >> gtk.css
+
+mkdir -p ~/.themes/Adwaita-dark/gtk-4.0; cd ~/.themes/Adwaita-dark/gtk-4.0
+gresource extract /usr/lib64/libgtk-4.so /org/gtk/libgtk/theme/Default/Default-dark.css > gtkbad.css
+cat gtkbad.css | \
+  sed ':repeat; s/,[^,]*:backdrop[^,{]*,/,/; t repeat' | \
+  sed 's/[^,]*:backdrop[^,{]*,//g' | \
+  sed 's/,[^,]*:backdrop[^,{]*{/{/g' | \
+  sed 's/[^,]*:backdrop[^,{]*{/{/g' | \
+  sed 's/^{.*//' > gtk.css
+echo "* { caret-color: #222222; }" >> gtk.css
+rm gtkbad.css

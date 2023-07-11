@@ -72,12 +72,7 @@ fi
 #{{{ OS/Computer specific settings
 if [[ $(uname) == 'Linux' ]]; then
   # This needs some modifications to not be really annoying.
-  # mkdir -p ~/.themes; cd ~/.themes/; cp -r /usr/share/themes/Adwaita-dark .; cd Adwaita-dark/gtk-3.0;
-  # gresource extract /usr/lib64/libgtk-3.so.0 /org/gtk/libgtk/theme/Adwaita/gtk-contained-dark.css > gtk.css
-  # rg-replace "backdrop " -r "backdropdisabled "
-  # rg-replace "backdrop:" -r "backdropdisabled:"
-  # rg-replace "backdrop," -r "backdropdisabled,"
-  # echo "* { caret-color: #222222; }" >> gtk.css
+  # See ~/bin/gtkthemes
   export GTK_THEME=Adwaita-dark
   # Install xdg-desktop-portal-kde and kio-extras (plus other thumbnailer support)
   # export GTK_USE_PORTAL=1
