@@ -202,8 +202,8 @@ bindsym $mod+Shift+s exec "rofi -modi ssh -show ssh"
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # Floating applications I generally only want one instance of
-bindsym $mod+Shift+minus move scratchpad
-bindsym $mod+minus scratchpad show
+# bindsym $mod+Shift+minus move scratchpad
+# bindsym $mod+minus scratchpad show
 #}}}
 #{{{ Other Commands
 # reload the configuration file

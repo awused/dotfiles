@@ -1,0 +1,143 @@
+#! /usr/bin/env python
+
+import sys
+import os
+import io
+import subprocess
+import rarfile
+import libarchive
+from PIL import Image
+import gi
+
+gi.require_version("GdkPixbuf", "2.0")
+from gi.repository import GdkPixbuf, GLib, Gio
+
+[output, dimensions, archive] = sys.argv[1:4]
+
+abspath = os.path.abspath(archive)
+
+ext = os.path.splitext(archive)[1].lower()
+
+files = []
+firstimg = None
+
+
+def testImage(b):
+    try:
+        with Image.open(io.BytesIO(b)) as i:
+            i.verify()
+            return True
+    except:
+        pass
+    try:
+        stream = Gio.MemoryInputStream.new_from_bytes(GLib.Bytes.new(b))
+        GdkPixbuf.Pixbuf.new_from_stream(stream)
+        return True
+    except:
+        pass
+
+
+# If it contains an executable or a script, assume we shouldn't thumbnail it
+def is_abort_path(name):
+    lname = name.lower()
+    return lname.endswith(".exe") or lname.endswith(".sh") or lname.endswidth(
+        ".dll") or lname.endswidth(".py")
+
+
+def image_name(name):
+    lname = name.lower()
+    return lname.endswith("png") or lname.endswith("jpg") or lname.endswith(
+        "jpeg") or lname.endswith("bmp") or lname.endswith(
+            "jx") or lname.endswith("webp")
+
+
+if ext == ".rar" or ext == ".cbr":
+    with rarfile.RarFile(abspath) as zipf:
+        flist = zipf.infolist()
+        for f in flist:
+            if is_abort_path(f):
+                sys.exit(1)
+
+        # Natural sorting should be unnecessary here
+        flist.sort(key=lambda x: x.filename.lower())
+        for f in flist:
+            if f.is_dir():
+                continue
+            if not image_name(f.filename):
+                continue
+            imgb = zipf.read(f)
+            if testImage(imgb):
+                firstimg = imgb
+                break
+else:
+    with libarchive.file_reader(abspath) as archive:
+        files = [entry.name for entry in archive if entry.isfile]
+        for f in files:
+            if is_abort_path(f):
+                sys.exit(1)
+        files = [f for f in files if image_name(f)]
+        files.sort(key=lambda x: x.lower())
+
+    # Don't loop too many times if there are huge directories.
+    # This only even matters if the archive isn't sorted and there are
+    # things that look like images but aren't.
+    loops = 2
+
+    while len(files) > 0 and firstimg is None and loops > 0:
+        loops -= 1
+
+        with libarchive.file_reader(abspath) as archive:
+            for entry in archive:
+                if entry.name == files[0]:
+                    file = files[0]
+                    files = files[1:]
+                    contents = b''
+                    for block in entry.get_blocks():
+                        contents += block
+
+                    if testImage(contents):
+                        firstimg = contents
+                        break
+
+if not firstimg:
+    sys.exit(1)
+
+try:
+    completed = subprocess.run(
+        [
+            "convert",
+            "-",
+            "-flatten",
+            "-thumbnail",
+            dimensions,
+            "PNG:" + output,
+        ],
+        input=firstimg,
+        check=True,
+    )
+    completed.check_returncode()
+    sys.exit(0)
+except:
+    pass
+
+stream = Gio.MemoryInputStream.new_from_bytes(GLib.Bytes.new(firstimg))
+pb = GdkPixbuf.Pixbuf.new_from_stream(stream)
+pb.savev(
+    output,
+    "bmp",
+    [],
+    [],
+)
+
+completed = subprocess.run(
+    [
+        "convert",
+        "BMP:" + output,
+        "-flatten",
+        "-thumbnail",
+        dimensions,
+        "PNG:" + output,
+    ],
+    check=True,
+)
+completed.check_returncode()

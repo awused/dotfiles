@@ -1,3 +1,3 @@
 [Thumbnailer Entry]
-Exec=manga-thumbnail "%o" "%s" "%i"
+Exec=awused-manga-thumbnail "%o" "%s" "%i"
 MimeType=application/zip;application/vnd.comicbook+zip;application/vnd.comicbook+rar;application/x-7z-compressed;application/x-rar;application/rar;application/x-rar-compressed;application/x-zip-compressed;application/vnd.rar;application/vnd.comicbook-zip;application/vnd.comicbook-rar

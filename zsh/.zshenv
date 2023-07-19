@@ -33,6 +33,7 @@ export THIRD_PARTY_SOURCE=$SOURCE_DIR/third_party
 export AWUSED_SOURCE=$SOURCE_DIR/awused
 export GOPATH=/storage/cache/go
 export CARGO_TARGET_DIR=/storage/cache/rust
+export CLIPPY_CONF_DIR=$HOME/.config/clippy
 export NASHOME=/storage/usr/desuwa
 
 # Set TIME_STYLE for GNU coreutils

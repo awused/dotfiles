@@ -27,8 +27,8 @@ both:
 	git config --global core.hooksPath ~/.config/git-hooks
 	git config --global core.filemode true
 	git config --global pull.ff only
-	git config --global credential.helper store
 	git config --global credential.'https://source.developers.google.com'.helper gcloud.sh
+	git config --global credential.helper store
 
 sudo:
 	sudo echo "Starting"
@@ -50,7 +50,10 @@ desktop: sudo both
 	# TODO -- recursive mkdir -p
 	sudo cp -uv --no-preserve=ownership root-scripts/desktop/* /root/
 	sudo cp -uvr --no-preserve=ownership etc/desktop/* /etc/
+	sudo cp -uvr --no-preserve=ownership usr/desktop/* /usr/
 	#ln -s /home/ ~/.duplicacy-repo/ || true
+	# TODO -- dracut modules
+	# sudo cp -uvr --no-preverse=ownership dracut/* /usr/lib/dracut/modules.d/
 
 
 server: both

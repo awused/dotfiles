@@ -366,6 +366,7 @@ augroup autoformat_settings
   " Alternative: autocmd FileType python if s:ShouldFormat() | exe 'AutoFormatBuffer autopep8' | endif
 augroup END
 
+
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
@@ -587,7 +588,7 @@ augroup filetype_settings
   autocmd FileType rust setlocal softtabstop=4 shiftwidth=4
   autocmd FileType go setlocal noexpandtab nosmarttab tabstop=2
   autocmd FileType go nnoremap <buffer> <Leader>l :GoLint<cr>
-  autocmd BufRead,BufNewFile *.html,*.js,*.ts,*.xml call s:CompleteTags()
+  autocmd BufRead,BufNewFile *.html,*.js,*.ts,*.xml,*.ui call s:CompleteTags()
 augroup END
 "}}}
 "{{{ Custom Commands and Keybinds

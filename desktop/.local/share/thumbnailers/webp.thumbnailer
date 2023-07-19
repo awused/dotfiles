@@ -1,3 +1,0 @@
-[Thumbnailer Entry]
-Exec=convert %i -flatten -thumbnail %s PNG:%o
-MimeType=image/webp;

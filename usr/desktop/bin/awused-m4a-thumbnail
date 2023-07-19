@@ -1,6 +1,8 @@
 #! /bin/sh
 set -e
 
+echo "running" > /home/desuwa/m4athumb
+
 size=$(stat -c%s "$3")
 
 if [ "$size" -gt "100000000" ]; then

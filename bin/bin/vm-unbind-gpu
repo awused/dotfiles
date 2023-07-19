@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -e
+
+# gpu="0000:03:00.0"
+pci1="pci_0000_03_00_0"
+pci2="pci_0000_03_00_1"
+
+# nvidia-smi -i "$gpu" -pm 0
+# nvidia-smi drain -p "$gpu" -m 1
+
+virsh nodedev-reattach "$pci1"
+virsh nodedev-reattach "$pci2"
+
+# Add to sudoers
+sudo nvidia-smi -pm 1

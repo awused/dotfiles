@@ -388,6 +388,7 @@ export FZF_EXCLUDES=" \
   -not \( -name '.sass-cache' -prune \) \
   -not \( -name '.steam' -prune \) \
   -not \( -name '.Superposition' -prune \) \
+  -not \( -name '.sqlite-histories' -prune \) \
   -not \( -name '.TeamSpeak*' -prune \) \
   -not \( -name '.thumbnails' -prune \) \
   -not \( -name '.trackma' -prune \) \

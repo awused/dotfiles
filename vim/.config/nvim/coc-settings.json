@@ -57,7 +57,8 @@
     "-Aclippy::module-name-repetitions",
     "-Aclippy::needless_collect",
     "-Aclippy::option_if_let_else",
-    "-Aclippy::suspicious_operation_groupings"
+    "-Aclippy::suspicious_operation_groupings",
+    "-Aclippy::non_send_fields_in_send_ty"
   ],
   "rust-analyzer.procMacro.enable": true,
   "rust-analyzer.procMacro.attributes.enable": true,

@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -e
+
+gpu="0000:03:00.0"
+pci1="pci_0000_03_00_0"
+pci2="pci_0000_03_00_1"
+
+if [[ -n "$(fuser -v /dev/nvidia1 2>&1 )" ]]; then
+  echo "GPU in use, cannot unbind"
+  fuser -v /dev/nvidia1
+  exit 1
+fi
+
+# nvidia-smi -i "$gpu" -pm 0
+# nvidia-smi drain -p "$gpu" -m 1
+
+virsh nodedev-detach "$pci1"
+virsh nodedev-detach "$pci2"
