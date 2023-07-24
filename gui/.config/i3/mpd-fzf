@@ -1,4 +1,4 @@
 #! /bin/sh
 
 export FZF_DEFAULT_OPTS="--reverse --ansi -m"
-alacritty -t aw-i3-forced-float -o window.dimensions.columns=120 -o window.dimensions.lines=50 -e mpd-fzf
+alacritty-float mpd-fzf

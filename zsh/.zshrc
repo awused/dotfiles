@@ -107,6 +107,7 @@ alias ngserve='ng serve'
 alias ngprod='npm run prod'
 alias ydl='yt-dlp --write-thumbnail --write-description'
 alias ydls='yt-dlp --write-sub --write-thumbnail --write-description'
+alias ydl1080="yt-dlp --format 'bestvideo[height=1080][fps>30][vcodec^=av01]+bestaudio[acodec=opus]/bestvideo[height=1080][fps>30][vcodec=vp9]+bestaudio[acodec=opus]/bestvideo[height=1080][vcodec^=av01]+bestaudio[acodec=opus]/bestvideo[height=1080][vcodec^=vp09]+bestaudio[acodec=opus]'"
 
 _YT_FORMAT="%(title).205B-%(id)s.%(ext)s"
 
@@ -359,6 +360,7 @@ export FZF_EXCLUDES=" \
   -not \( -path '*/.config/unity3d' -prune \) \
   -not \( -name '.dbus' -prune \) \
   -not \( -name '.duplicacy-repo' -prune \) \
+  -not \( -name '.esmtp_queue' -prune \) \
   -not \( -name '.fonts' -prune \) \
   -not \( -name '.foobar2000' -prune \) \
   -not \( -name '.gcloud-sdk' -prune \) \
@@ -388,7 +390,7 @@ export FZF_EXCLUDES=" \
   -not \( -name '.sass-cache' -prune \) \
   -not \( -name '.steam' -prune \) \
   -not \( -name '.Superposition' -prune \) \
-  -not \( -name '.sqlite-histories' -prune \) \
+  -not \( -name '.sqlite_histories' -prune \) \
   -not \( -name '.TeamSpeak*' -prune \) \
   -not \( -name '.thumbnails' -prune \) \
   -not \( -name '.trackma' -prune \) \

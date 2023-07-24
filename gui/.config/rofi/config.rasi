@@ -6,5 +6,9 @@ configuration {
 	sorting-method: "fzf";
 	matching: "fuzzy";
 	dpi: 1;
+        kb-accept-alt: "Tab";
+        kb-element-next: "";
+        kb-mode-previous: "Shift+Left";
+	kb-cancel: "Escape,Control+g,Control+bracketleft,Super+Q";
 }
 @theme "/usr/share/rofi/themes/gruvbox-dark-hard.rasi"

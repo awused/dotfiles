@@ -40,22 +40,23 @@ def testImage(b):
 # If it contains an executable or a script, assume we shouldn't thumbnail it
 def is_abort_path(name):
     lname = name.lower()
-    return lname.endswith(".exe") or lname.endswith(".sh") or lname.endswidth(
-        ".dll") or lname.endswidth(".py")
+    return lname.endswith(".exe") or lname.endswith(".sh") or lname.endswith(
+        ".dll") or lname.endswith(".py") or lname.endswith(
+            ".bin") or lname.endswith(".pak")
 
 
 def image_name(name):
     lname = name.lower()
     return lname.endswith("png") or lname.endswith("jpg") or lname.endswith(
         "jpeg") or lname.endswith("bmp") or lname.endswith(
-            "jx") or lname.endswith("webp")
+            "jxl") or lname.endswith("webp")
 
 
 if ext == ".rar" or ext == ".cbr":
     with rarfile.RarFile(abspath) as zipf:
         flist = zipf.infolist()
         for f in flist:
-            if is_abort_path(f):
+            if is_abort_path(f.filename):
                 sys.exit(1)
 
         # Natural sorting should be unnecessary here
@@ -70,8 +71,14 @@ if ext == ".rar" or ext == ".cbr":
                 firstimg = imgb
                 break
 else:
+
+    def bytes_to_str(maybe):
+        if type(maybe) == str:
+            return maybe
+        return maybe.decode("utf-8", "backslashreplace")
+
     with libarchive.file_reader(abspath) as archive:
-        files = [entry.name for entry in archive if entry.isfile]
+        files = [bytes_to_str(entry.name) for entry in archive if entry.isfile]
         for f in files:
             if is_abort_path(f):
                 sys.exit(1)
@@ -88,7 +95,7 @@ else:
 
         with libarchive.file_reader(abspath) as archive:
             for entry in archive:
-                if entry.name == files[0]:
+                if bytes_to_str(entry.name) == files[0]:
                     file = files[0]
                     files = files[1:]
                     contents = b''

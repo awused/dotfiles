@@ -15,5 +15,6 @@ cat gtkbad.css | \
   sed 's/,[^,]*:backdrop[^,{]*{/{/g' | \
   sed 's/[^,]*:backdrop[^,{]*{/{/g' | \
   sed 's/^{.*//' > gtk.css
-echo "* { caret-color: #222222; }" >> gtk.css
+# Uncertain, but I have fewer light windows now.
+echo "* { caret-color: #fff; }" >> gtk.css
 rm gtkbad.css

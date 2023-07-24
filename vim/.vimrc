@@ -231,6 +231,12 @@ if !has('nvim-0.5')
   " let g:go_fmt_experimental = 1
 endif
 
+if has('nvim')
+  Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+  let g:mkdp_auto_start = 0
+  let g:mkdp_auto_close = 1
+endif
+
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 let g:rustfmt_autosave = 1
 if executable('rustup')
@@ -586,6 +592,7 @@ augroup filetype_settings
   autocmd!
   autocmd FileType python setlocal softtabstop=4 shiftwidth=4
   autocmd FileType rust setlocal softtabstop=4 shiftwidth=4
+  autocmd FileType markdown setlocal softtabstop=2 shiftwidth=2
   autocmd FileType go setlocal noexpandtab nosmarttab tabstop=2
   autocmd FileType go nnoremap <buffer> <Leader>l :GoLint<cr>
   autocmd BufRead,BufNewFile *.html,*.js,*.ts,*.xml,*.ui call s:CompleteTags()
@@ -640,6 +647,7 @@ set fillchars+=fold:─
 set fileencodings=ucs-bom,utf-8,sjis
 set ignorecase
 set smartcase
+set showtabline=0
 
 if has('nvim')
   " https://github.com/neoclide/coc.nvim/issues/4511
