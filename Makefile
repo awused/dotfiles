@@ -27,6 +27,7 @@ both:
 	git config --global core.hooksPath ~/.config/git-hooks
 	git config --global core.filemode true
 	git config --global pull.ff only
+	git config --global core.quotePath false
 	git config --global credential.'https://source.developers.google.com'.helper gcloud.sh
 	git config --global credential.helper store
 

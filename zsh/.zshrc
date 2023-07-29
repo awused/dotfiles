@@ -411,16 +411,16 @@ export FZF_EXCLUDES=" \
   -not \( -name 'hydrus' -prune \) \
   -not \( -name 'node_modules' -prune \) \
   -not \( -name 'target' -prune \) \
-  -not \( -path '*/third_party/*/*/*' -prune \) \
   -not \( -name 'Unsorted Downloads' -prune \) \
   -not \( -name 'vendor' -prune \) "
 
 export FZF_DEFAULT_COMMAND="bfs -color -L \
   $FZF_EXCLUDES \
-  -type f"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="bfs -color -L -type d $FZF_EXCLUDES"
-FZF_BOTH_COMMAND="bfs -color -L $FZF_EXCLUDES"
+  -type f \
+  -maxdepth 4"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND -maxdepth 4"
+export FZF_ALT_C_COMMAND="bfs -color -L -type d $FZF_EXCLUDES -maxdepth 4"
+FZF_BOTH_COMMAND="bfs -color -L $FZF_EXCLUDES -maxdepth 4"
 export FZF_TMUX=1
 
 # Override functions in fzf/completion.zsh
@@ -465,7 +465,7 @@ zle -N fzf-editor
 
 fzf-editor-dir() {
   local oldt="$FZF_CTRL_T_COMMAND"
-  FZF_CTRL_T_COMMAND="$FZF_CTRL_T_COMMAND \"$1\""; fzf-editor
+  FZF_CTRL_T_COMMAND="$FZF_CTRL_T_COMMAND \"$1\""; fzf-editor || true
   export FZF_CTRL_T_COMMAND="$oldt"
 
   # Would be nice to get working
@@ -477,13 +477,13 @@ fzf-editor-dir() {
 
 fzf-cd-dir() {
   local oldc="$FZF_ALT_C_COMMAND"
-  FZF_ALT_C_COMMAND="$FZF_ALT_C_COMMAND \"$1\""; fzf-cd-widget
+  FZF_ALT_C_COMMAND="$FZF_ALT_C_COMMAND \"$1\""; fzf-cd-widget || true
   export FZF_ALT_C_COMMAND="$oldc"
 }
 
 fzf-ctrlt-dir() {
   local oldt="$FZF_CTRL_T_COMMAND"
-  FZF_CTRL_T_COMMAND="$FZF_BOTH_COMMAND \"$1\""; fzf-file-widget
+  FZF_CTRL_T_COMMAND="$FZF_BOTH_COMMAND \"$1\""; fzf-file-widget || true
   export FZF_CTRL_T_COMMAND="$oldt"
 }
 

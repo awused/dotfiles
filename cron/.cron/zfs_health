@@ -17,7 +17,7 @@ emailSubject=""
 # Health - Check if all zfs volumes are in good condition. We are looking for
 # any keyword signifying a degraded or broken array.
 
-condition=$(/sbin/zpool status | egrep -i '(DEGRADED|FAULTED|OFFLINE|UNAVAIL|REMOVED|FAIL|DESTROYED|corrupt|cannot|unrecover)' | egrep -v 'features are unavailable.')
+condition=$(/sbin/zpool status | grep -E -i '(DEGRADED|FAULTED|OFFLINE|UNAVAIL|REMOVED|FAIL|DESTROYED|corrupt|cannot|unrecover)' | grep -E -v 'features are unavailable.')
 if [ "${condition}" ]; then
         emailSubject="`hostname` - ZFS pool - HEALTH fault"
         problems=1
@@ -86,17 +86,17 @@ if [ ${problems} -eq 0 ]; then
 
   for volume in ${zfsVolumes}
    do
-    if [ $(/sbin/zpool status $volume | egrep -c "none requested") -ge 1 ]; then
+    if [ $(/sbin/zpool status $volume | grep -E -c "none requested") -ge 1 ]; then
         echo "ERROR: You need to run \"zpool scrub $volume\" before this script can monitor the scrub expiration time."
         emailSubject="`hostname` - ZFS pool - Scrub Needed on Volume(s)"
         problems=1
         break
     fi
-    if [ $(/sbin/zpool status $volume | egrep -c "scrub in progress|resilver") -ge 1 ]; then
+    if [ $(/sbin/zpool status $volume | grep -E -c "scrub in progress|resilver") -ge 1 ]; then
         emailSubject="`hostname` - ZFS pool - Scrub in progress."
         break
     fi
-    if [ $(/sbin/zpool status $volume | egrep -c "scrub canceled") -ge 1 ]; then
+    if [ $(/sbin/zpool status $volume | grep -E -c "scrub canceled") -ge 1 ]; then
         emailSubject="`hostname` - ZFS pool - Scrub canceled."
         break
     fi
