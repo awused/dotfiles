@@ -1,0 +1,210 @@
+# You can use the --awconf flag to override the config being loaded.
+# This config file is optional, the options specified here are the defaults.
+
+# The colour used for the background.
+# This is any string understood by GDK, such as "black", "magenta", or "#55667788"
+# Transparency is allowed but depends on the display server for support.
+# When set will override all backgrounds.
+#
+# Leave empty to use your default GTK theme.
+background_colour = '#000000be'
+
+# The timeout, in seconds, for detecting idleness.
+# When the application is idle for a long period of time then most preloaded images can be unloaded
+# to reduce wasted memory.
+# Comment out or set to 0 to disable.
+# UNIMPLEMENTED
+idle_timeout = 600
+
+# Shortcuts
+#
+# All shortcuts must have a key and an action, and optionally one or more modifiers.
+# See the readme or the example scripts for details on the commands and environment variables.
+# Valid modifiers are Control, Shift, Alt, Super, and Command.
+# See https://gitlab.gnome.org/GNOME/gtk/blob/master/gdk/gdkkeysyms.h for names of keys.
+#
+# "Activate" probably should not be bound, but you can if you want.
+# Some keybinds will be bound by the existing GTK components and will not work.
+#
+# Binding letters without modifiers is not recommended either.
+#
+# Use uppercase letters.
+# Defaults and Examples:
+shortcuts = [
+  {key = "question", modifiers = "Shift", action = "Help"},
+
+  {key = "C", modifiers = "Control", action = "Copy"},
+  {key = "X", modifiers = "Control", action = "Cut"},
+  {key = "V", modifiers = "Control", action = "Paste"},
+
+  # {key = "P", modifiers = "Control", action = "Navigate /home/" },
+  # {key = "P", modifiers = "Alt", action = "Script /path/to/rofi-jump-home.sh"},
+
+  {key = "H", modifiers = "Control", action = "Home" },
+  {key = "T", modifiers = "Control", action = "NewTab"},
+  {key = "T", modifiers = "Alt", action = "NewBackgroundTab"},
+
+  {key = "W", modifiers = "Control", action = "CloseTab"},
+  {key = "W", modifiers = "Control, Shift", action = "ClosePane"},
+  {key = "W", modifiers = "Control, Alt", action = "CloseActive"},
+
+  {key = "V", modifiers = "Alt", action = "Split vertical"},
+  {key = "H", modifiers = "Alt", action = "Split horizontal"},
+
+  {key = "F", modifiers = "Control", action = "Search"},
+
+  # {key = "R", modifiers = "Control", action = "Rename"},
+
+  {key = "Up", modifiers = "Alt", action = "Parent"},
+  {key = "Down", modifiers = "Alt", action = "Child"},
+  {key = "Right", modifiers = "Alt", action = "Forward"},
+  {key = "Left", modifiers = "Alt", action = "Back"},
+
+  {key = "1", modifiers = "Control", action = "Display icons"},
+  {key = "2", modifiers = "Control", action = "Display columns"},
+
+  {key = "1", modifiers = "Alt", action = "SortBy name"},
+  {key = "2", modifiers = "Alt", action = "SortBy mtime"},
+  {key = "3", modifiers = "Alt", action = "SortBy size"},
+  {key = "Page_Up", modifiers = "Alt", action = "SortDir ascending"},
+  {key = "Page_Down", modifiers = "Alt", action = "SortDir descending"},
+
+  {key = "F5", action = "Refresh"},
+
+  {key = "Delete", action = "Trash"},
+  {key = "Delete", modifiers = "Shift", action = "Delete"},
+
+  # Relative paths are not allowed.
+  # Change these to correct paths if you actually use them.
+  # {key= "F6", action = "Execute /path/to/examples/dump-env.sh"},
+  # {key= "H", modifiers = "Control, Shift", action = "Script /path/to/examples/rofi-jump-home.sh"},
+  # {key= "P", modifiers = "Alt", action = "Script /path/to/examples/rofi-open-subdirs.sh"},
+  {key= "Q", modifiers = "Alt", action = "Script /home/desuwa/.config/aw-fm/rofi-home-dirs.sh"},
+  {key= "Q", modifiers = "Control", action = "Script /home/desuwa/.config/aw-fm/rofi-home-files.sh"},
+  {key= "D", modifiers = "Alt", action = "Script /home/desuwa/.config/aw-fm/rofi-storage-home-dirs.sh"},
+  {key= "D", modifiers = "Control", action = "Script /home/desuwa/.config/aw-fm/rofi-storage-home-files.sh"},
+  {key= "S", modifiers = "Alt", action = "Script /home/desuwa/.config/aw-fm/rofi-source-dirs.sh"},
+  {key= "S", modifiers = "Control", action = "Script /home/desuwa/.config/aw-fm/rofi-source-files.sh"},
+  {key= "P", modifiers = "Alt", action = "Script /home/desuwa/.config/aw-fm/rofi-current-dirs.sh"},
+  {key= "P", modifiers = "Control", action = "Script /home/desuwa/.config/aw-fm/rofi-current-files.sh"},
+  {key= "Y", modifiers = "Alt", action = "Script /home/desuwa/.config/aw-fm/rofi-youtube-dirs.sh"},
+  {key= "Y", modifiers = "Control", action = "Script /home/desuwa/.config/aw-fm/rofi-youtube-files.sh"},
+  {key= "A", modifiers = "Alt", action = "Script /home/desuwa/.config/aw-fm/rofi-anime-dirs.sh"},
+]
+
+# Bookmarks
+# These show up on the left, as buttons above the list of tabs, and are always visible.
+#
+# Ask yourself if you really want these, or if a keyboard shortcut and a
+# rofi script wouldn't be a better option.
+# Defined as { name = "Name", action = "Command" },
+bookmarks = [
+  {name = "Home", action = "Home"},
+  {name = "Completed", action = "Navigate /storage/media/torrents/completed"},
+  {name = "Public", action = "Navigate /storage/public"},
+]
+
+# Context Menu
+# All context menu items need a name and an action.
+# Context menu entries are placed in the context menu in order.
+# The set of allowable actions is the same as those for shortcuts.
+#
+# Sub-menus and sections can be specified by name.
+# All commands sharing the same named sub-menu or section will be grouped together in order.
+#
+# For more control over when actions appear, use custom action scripts which allow for
+# fine-grained filtering on mimetypes or paths.
+#
+# Example:
+# {name = "Do Something", action = "Execute /path/to/do-something.sh"},
+# {name = "Sample Script", action = "Script /path/to/sample-script.sh"},
+context_menu = [
+  {name = "Icons", submenu = "Display", action = "Display icons"},
+  {name = "Columns", submenu = "Display", action = "Display columns"},
+
+  {name = "Name", submenu = "Sort", action = "SortBy name"},
+  {name = "Date modified", submenu = "Sort", action = "SortBy mtime"},
+  {name = "Size", submenu = "Sort", action = "SortBy size"},
+
+  {name = "Ascending", submenu = "Sort", action = "SortDir ascending"},
+  {name = "Descending", submenu = "Sort", action = "SortDir descending"},
+]
+
+# How to handle directory collisions during file operations.
+#
+# Allowed values are ask (UNIMPLEMENTED), merge, and skip.
+#
+# ask will be the default once it is implemented.
+directory_collisions = "merge"
+
+# How to handle file collisions when moving files.
+#
+# Allowed values are ask (UNIMPLEMENTED), overwrite, skip, newer, and rename.
+#
+# newer will overwrite if the destination is strictly older and skip otherwise.
+# rename will keep the existing destination file as-is but add a suffix to the file name.
+# rename is assumed when copying a file on top of itself.
+#
+# ask will be the default once it is implemented.
+file_collisions = "rename"
+
+# Custom actions directory.
+# All executable contents with proper headers (see examples/sample-action.sh) are added as context
+# menu entries.
+#
+# Defaults to ~/.config/aw-fm/actions/, or ${XDG_CONFIG_HOME}/aw-fm/actions/
+actions_directory = ""
+
+# ------------------------------------------------------------------------------------------------
+# More advanced configuration options below. They probably do not need to be changed.
+# ------------------------------------------------------------------------------------------------
+
+# The location of the database to use for persistent data storage.
+# Currently only per-directory sort and display settings.
+# Defaults to $XDG_DATA_HOME/aw-fm/settings.db or $HOME/.local/share/aw-fm/settings.db
+# database = ''
+
+# How deeply to recurse for searches.
+#
+# Set to 0 to only search the current directory. Max 255.
+# Comment out to allow for unlimited depth. Not recommended.
+search_max_depth = 8
+
+# Whether to show all files in search or not.
+#
+# The default behaviour is to respect .gitignore files and ignore hidden files and directories for
+# recursive searching, but to show everything within the current directory unconditionally.
+search_show_all = false
+
+# Whether to allow pasting files into a search tab.
+#
+# This might cause confusing or surprising file operations.
+paste_into_search = false
+
+
+# Thread Settings --------------------------------------------------------------------------------
+
+# How many concurrent thumbnail processes to allow.
+# There are tradeoffs between how fast thumbnails are generated and how responsive the UI remains.
+# Thumbnailing is done in separate threads but GTK still limits performance.
+#
+# The slower the thumbnail process, the less choppy this is even at higher values. Too high and
+# directories with many cheap thumbnails cause the process to slow down. Too low and expensive
+# thumbnails take forever.
+#
+# Experimentally 8 is a bit past the acceptable limit in pathologically bad cases like many tiny
+# images, while in directories with many videos up to 16 is beneficial.
+#
+# Max 255 (bad idea), 0 entirely disables thumbnail loading.
+max_thumbnailers = 6
+
+# How many thumbnailers to run in the background.
+# This is used for files that aren't currently visible.
+#
+# Max 255, 0 disables background thumbnailing.
+# No effect if larger than max_thumbnailers.
+background_thumbnailers = 1
+
+
+# ------------------------------------------------------------------------------------------------
+

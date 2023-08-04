@@ -1,0 +1,18 @@
+#! /usr/bin/env bash
+
+#**aw-fm-settings-begin**
+# name=Unar
+# directories=false
+# mimetypes=application/zip;application/x-rar;application/x-7z-compressed;application/vnd.comicbook;application/x-tar;application/x-bzip-compressed;application/x-compressed;application/x-zstd-compressed;application/vnd.rar;application/x-lz4-compressed;application/x-lz4-compressed;application/x-xz-compressed
+# priority=-1
+#**aw-fm-settings-end**
+
+
+printf %s "$AWFM_SELECTION" | while IFS= read -r f; do
+  [ -f "$f" ] || continue
+
+  dir=$(dirname "$f")
+
+  unar -o "$dir" "$f" && notify-send done "$f"
+done
+

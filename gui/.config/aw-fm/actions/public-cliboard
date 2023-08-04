@@ -1,0 +1,14 @@
+#! /usr/bin/env bash
+
+#**aw-fm-settings-begin**
+# name=Public Clipboard
+# directories=false
+# regex=^/storage/public/
+# multiple=false
+# priority=50
+#**aw-fm-settings-end**
+
+f=${AWFM_SELECTION%%$'\n'*}
+
+[ -f "$f" ] && public-clipboard "$f" || xsel -bc
+

@@ -1,0 +1,17 @@
+#! /bin/sh
+# Primarily meant to fix stuck thumbnails that cause caja to spin forever.
+
+readarray -t uris <<< "$CAJA_SCRIPT_SELECTED_URIS"
+
+for f in "${uris[@]}"; do
+  [ -z "$f" ] &&  continue
+
+  h=$(echo -n "$f" | md5sum | awk '{print $1}')
+
+  rm -f "$HOME/.cache/thumbnails/large/$h.png"
+  rm -f "$HOME/.cache/thumbnails/fail/mate-thumbnail-factory/$h.png"
+  rm -f "$HOME/.cache/thumbnails/fail/gnome-thumbnail-factory/$h.png"
+  # Seems like removing large thumbnails is enough to fix the stuck files
+  # Uncomment this if that is ever found to not be the case
+  rm -f "$HOME/.cache/thumbnails/normal/$h.png"
+done

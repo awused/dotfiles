@@ -1,0 +1,15 @@
+#! /usr/bin/env bash
+
+#**aw-fm-settings-begin**
+# name=Music Cover
+# directories=false
+# mimetypes=image;audio
+# multiple=required
+# priority=-1
+#**aw-fm-settings-end**
+
+readarray -t fa <<< "$AWFM_SELECTION"
+
+[ "${#fa[@]}" = "2" ] || exit 0
+
+music-cover "${fa[0]}" "${fa[1]}" > /dev/null

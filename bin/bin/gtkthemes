@@ -17,4 +17,5 @@ cat gtkbad.css | \
   sed 's/^{.*//' > gtk.css
 # Uncertain, but I have fewer light windows now.
 echo "* { caret-color: #fff; }" >> gtk.css
+echo "radio:checked { background-color: white; }" >> gtk.css
 rm gtkbad.css

@@ -156,6 +156,9 @@ rustup:
 aw-man:
 	cargo install --path "${AWUSED_SOURCE}/aw-man" --locked
 
+aw-fm:
+	cargo install --path "${AWUSED_SOURCE}/aw-fm" --locked
+
 mpd-shuffler:
 	cargo install --path "${AWUSED_SOURCE}/mpd-shuffler" --locked
 
@@ -183,7 +186,7 @@ windows-wallpapers:
 	cp /usr/x86_64-w64-mingw32/sys-root/mingw/bin/libwinpthread-1.dll /storage/winshare/gobin/
 	cp /usr/x86_64-w64-mingw32/sys-root/mingw/bin/libgcc_s_seh-1.dll /storage/winshare/gobin/
 
-rust: aw-man mpd-shuffler strpick wallpapers
+rust: aw-fm aw-man mpd-shuffler strpick wallpapers
 
 windows-rust: windows-upscale
 	# windows-wallpapers -- broken compilation for rocksdb

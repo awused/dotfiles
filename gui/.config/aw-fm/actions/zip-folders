@@ -1,0 +1,13 @@
+#! /usr/bin/env bash
+
+printf %s "$CAJA_SCRIPT_SELECTED_FILE_PATHS" | while IFS= read -r dir; do
+  [ -d "$dir" ] || continue
+
+  base=$(basename "$dir")
+
+  cd "$dir"
+
+  zip -r "../${base}.zip" "." || notify-send "Failed to zip" "$base"
+done
+
+notify-send "Done archiving"

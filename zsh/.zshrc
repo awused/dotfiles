@@ -417,10 +417,10 @@ export FZF_EXCLUDES=" \
 export FZF_DEFAULT_COMMAND="bfs -color -L \
   $FZF_EXCLUDES \
   -type f \
-  -maxdepth 4"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND -maxdepth 4"
-export FZF_ALT_C_COMMAND="bfs -color -L -type d $FZF_EXCLUDES -maxdepth 4"
-FZF_BOTH_COMMAND="bfs -color -L $FZF_EXCLUDES -maxdepth 4"
+  -maxdepth 8"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="bfs -color -L -type d $FZF_EXCLUDES -maxdepth 8"
+FZF_BOTH_COMMAND="bfs -color -L $FZF_EXCLUDES -maxdepth 8"
 export FZF_TMUX=1
 
 # Override functions in fzf/completion.zsh
@@ -493,7 +493,10 @@ fzf-editor-home() {
 zle -N fzf-editor-home
 
 fzf-editor-source() {
-  fzf-editor-dir $SOURCE_DIR
+  local oldt="$FZF_CTRL_T_COMMAND"
+  FZF_CTRL_T_COMMAND="$FZF_CTRL_T_COMMAND -not \( -path '*/third_party/*/*/*' -prune \)"
+  fzf-editor-dir $SOURCE_DIR || true
+  export FZF_CTRL_T_COMMAND="$oldt"
 }
 zle -N fzf-editor-source
 

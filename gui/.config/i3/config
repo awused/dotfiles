@@ -140,9 +140,11 @@ for_window [class="Steam"] move container to workspace $wsst
 for_window [class="Steam"] floating enable
 workspace $wsst output $m_center
 
-set $wsnm "caja"
+set $wsnm "aw-fm"
 assign [class="Caja"] $wsnm
+assign [class="aw-fm"] $wsnm
 for_window [class="Caja"] focus
+for_window [class="aw-fm"] focus
 bindsym $mod+x workspace $wsnm
 workspace $wsnm output $m_left
 
@@ -182,6 +184,7 @@ for_window [window_role="pop-up"] floating enable
 for_window [title="review services"] floating enable
 for_window [class="retroarch"] floating enable
 for_window [class="Yad"] floating enable
+for_window [class="zenity"] floating enable
 #}}}
 #{{{ Launchers
 # start a terminal
@@ -251,7 +254,6 @@ bindsym $mod+Control+Down exec --no-startup-id "mpc volume -5; notify-send Volum
 # It should be a better option than spinning up a new terminal just to run mpd-fzf in a floating window
 for_window [title="aw-i3-forced-float"] floating enable
 bindsym $mod+Control+m exec --no-startup-id ~/.config/i3/mpd-fzf
-bindsym $mod+Mod1+m exec mpd-rofi
 #}}}
 #{{{ Movement and Layout
 # change focus
