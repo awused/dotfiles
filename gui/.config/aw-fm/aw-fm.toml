@@ -53,7 +53,7 @@ shortcuts = [
 
   {key = "F", modifiers = "Control", action = "Search"},
 
-  # {key = "R", modifiers = "Control", action = "Rename"},
+  {key = "R", modifiers = "Control", action = "Rename"},
 
   {key = "Up", modifiers = "Alt", action = "Parent"},
   {key = "Down", modifiers = "Alt", action = "Child"},
@@ -79,6 +79,12 @@ shortcuts = [
   # {key= "F6", action = "Execute /path/to/examples/dump-env.sh"},
   # {key= "H", modifiers = "Control, Shift", action = "Script /path/to/examples/rofi-jump-home.sh"},
   # {key= "P", modifiers = "Alt", action = "Script /path/to/examples/rofi-open-subdirs.sh"},
+
+  {key = "F1", action = "LoadSession one"},
+  {key = "F1", modifiers="Control", action = "SaveSession one"},
+  {key = "F1", modifiers="Alt", action = "DeleteSession one"},
+
+
   {key= "Q", modifiers = "Alt", action = "Script /home/desuwa/.config/aw-fm/rofi-home-dirs.sh"},
   {key= "Q", modifiers = "Control", action = "Script /home/desuwa/.config/aw-fm/rofi-home-files.sh"},
   {key= "D", modifiers = "Alt", action = "Script /home/desuwa/.config/aw-fm/rofi-storage-home-dirs.sh"},

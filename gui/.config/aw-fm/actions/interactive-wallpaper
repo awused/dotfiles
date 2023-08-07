@@ -4,7 +4,7 @@
 # name=Interactive Wallpapers
 # directories=false
 # mimetypes=image/png;image/jpeg;image/bmp
-# multiple=false
+# selection=one
 # priority=-1
 #**aw-fm-settings-end**
 

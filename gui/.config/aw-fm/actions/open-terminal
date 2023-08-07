@@ -3,7 +3,7 @@
 #**aw-fm-settings-begin**
 # name=Open Terminal
 # files=false
-# multiple=false
+# selection=maybe_one
 # priority=100
 #**aw-fm-settings-end**
 

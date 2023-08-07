@@ -4,7 +4,7 @@
 # name=Music Cover
 # directories=false
 # mimetypes=image;audio
-# multiple=required
+# selection=multiple
 # priority=-1
 #**aw-fm-settings-end**
 

@@ -4,7 +4,7 @@
 # name=Public Clipboard
 # directories=false
 # regex=^/storage/public/
-# multiple=false
+# selection=one
 # priority=50
 #**aw-fm-settings-end**
 
