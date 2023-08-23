@@ -6,7 +6,7 @@ root=$1
 type=$2
 
 target=$(
-  sh -c "bfs -L $FZF_EXCLUDES $type \"$root\" -maxdepth 8" | \
+  sh -c "bfs -L $FZF_EXCLUDES $type \"$root\" -maxdepth 6" | \
       sed "s?${root}/??" | \
       tail -n +2 | \
       rofi -dmenu -i -multi-select -ballot-unselected-str ' ' -ballot-selected-str '>'

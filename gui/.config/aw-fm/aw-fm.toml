@@ -10,11 +10,10 @@
 background_colour = '#000000be'
 
 # The timeout, in seconds, for detecting idleness.
-# When the application is idle for a long period of time then most preloaded images can be unloaded
-# to reduce wasted memory.
+# When the application is idle for a long period of time tabs that aren't visible can be unloaded.
+# The default of 6 hours should not be disruptive.
 # Comment out or set to 0 to disable.
-# UNIMPLEMENTED
-idle_timeout = 600
+idle_timeout = 21600
 
 # Shortcuts
 #
@@ -37,12 +36,16 @@ shortcuts = [
   {key = "X", modifiers = "Control", action = "Cut"},
   {key = "V", modifiers = "Control", action = "Paste"},
 
+  {key = "N", modifiers = "Control,Shift", action = "NewFolder"},
+  {key = "N", modifiers = "Control", action = "NewFile"},
+
   # {key = "P", modifiers = "Control", action = "Navigate /home/" },
   # {key = "P", modifiers = "Alt", action = "Script /path/to/rofi-jump-home.sh"},
 
   {key = "H", modifiers = "Control", action = "Home" },
   {key = "T", modifiers = "Control", action = "NewTab"},
   {key = "T", modifiers = "Alt", action = "NewBackgroundTab"},
+  {key = "T", modifiers = "Control,Shift", action = "ReopenTab"},
 
   {key = "W", modifiers = "Control", action = "CloseTab"},
   {key = "W", modifiers = "Control, Shift", action = "ClosePane"},
@@ -83,7 +86,12 @@ shortcuts = [
   {key = "F1", action = "LoadSession one"},
   {key = "F1", modifiers="Control", action = "SaveSession one"},
   {key = "F1", modifiers="Alt", action = "DeleteSession one"},
-
+  {key = "F2", action = "LoadSession two"},
+  {key = "F2", modifiers="Control", action = "SaveSession two"},
+  {key = "F2", modifiers="Alt", action = "DeleteSession two"},
+  {key = "F3", action = "LoadSession three"},
+  {key = "F3", modifiers="Control", action = "SaveSession three"},
+  {key = "F3", modifiers="Alt", action = "DeleteSession three"},
 
   {key= "Q", modifiers = "Alt", action = "Script /home/desuwa/.config/aw-fm/rofi-home-dirs.sh"},
   {key= "Q", modifiers = "Control", action = "Script /home/desuwa/.config/aw-fm/rofi-home-files.sh"},
@@ -125,6 +133,15 @@ bookmarks = [
 # {name = "Do Something", action = "Execute /path/to/do-something.sh"},
 # {name = "Sample Script", action = "Script /path/to/sample-script.sh"},
 context_menu = [
+  {name = "Open", action = "OpenDefault", selection = "at_least_one"},
+  {name = "Open With", action = "OpenWith", selection = "at_least_one"},
+
+  {name = "Cut", action = "Cut", selection = "at_least_one" },
+  {name = "Copy", action = "Copy", selection = "at_least_one" },
+  # Paste has special handling, if selection is not present
+  {name = "Paste", action = "Paste" },
+  {name = "Rename", action = "Rename", selection = "one" },
+
   {name = "Icons", submenu = "Display", action = "Display icons"},
   {name = "Columns", submenu = "Display", action = "Display columns"},
 
@@ -138,21 +155,17 @@ context_menu = [
 
 # How to handle directory collisions during file operations.
 #
-# Allowed values are ask (UNIMPLEMENTED), merge, and skip.
-#
-# ask will be the default once it is implemented.
-directory_collisions = "merge"
+# Allowed values are ask, merge, and skip.
+directory_collisions = "ask"
 
 # How to handle file collisions when moving files.
 #
-# Allowed values are ask (UNIMPLEMENTED), overwrite, skip, newer, and rename.
+# Allowed values are ask, overwrite, skip, newer, and rename.
 #
 # newer will overwrite if the destination is strictly older and skip otherwise.
 # rename will keep the existing destination file as-is but add a suffix to the file name.
 # rename is assumed when copying a file on top of itself.
-#
-# ask will be the default once it is implemented.
-file_collisions = "rename"
+file_collisions = "ask"
 
 # Custom actions directory.
 # All executable contents with proper headers (see examples/sample-action.sh) are added as context

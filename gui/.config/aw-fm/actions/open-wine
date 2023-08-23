@@ -1,0 +1,12 @@
+#! /usr/bin/env bash
+
+#**aw-fm-settings-begin**
+# name=Open With Wine
+# directories=false
+# mimetypes=application/vnd.microsoft.portable-executable;application/x-ms-dos-executable
+# selection=one
+# priority=-2
+#**aw-fm-settings-end**
+
+wine "$AWFM_SELECTION"
+
