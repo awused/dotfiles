@@ -32,6 +32,7 @@
     "-Wclippy::needless_late_init",
     "-Wclippy::obfuscated_if_else",
     "-Wclippy::ptr_as_ptr",
+    "-Wclippy::pub_without_shorthand",
     "-Wclippy::redundant_closure_for_method_calls",
     "-Wclippy::redundant_else",
     "-Wclippy::return_self_not_must_use",

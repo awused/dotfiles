@@ -14,6 +14,7 @@ background_colour = '#000000be'
 # The default of 6 hours should not be disruptive.
 # Comment out or set to 0 to disable.
 idle_timeout = 21600
+# idle_timeout = 60
 
 # Shortcuts
 #
@@ -50,6 +51,7 @@ shortcuts = [
   {key = "W", modifiers = "Control", action = "CloseTab"},
   {key = "W", modifiers = "Control, Shift", action = "ClosePane"},
   {key = "W", modifiers = "Control, Alt", action = "CloseActive"},
+  {key = "W", modifiers = "Alt", action = "HidePanes"},
 
   {key = "V", modifiers = "Alt", action = "Split vertical"},
   {key = "H", modifiers = "Alt", action = "Split horizontal"},
@@ -93,17 +95,17 @@ shortcuts = [
   {key = "F3", modifiers="Control", action = "SaveSession three"},
   {key = "F3", modifiers="Alt", action = "DeleteSession three"},
 
-  {key= "Q", modifiers = "Alt", action = "Script /home/desuwa/.config/aw-fm/rofi-home-dirs.sh"},
-  {key= "Q", modifiers = "Control", action = "Script /home/desuwa/.config/aw-fm/rofi-home-files.sh"},
-  {key= "D", modifiers = "Alt", action = "Script /home/desuwa/.config/aw-fm/rofi-storage-home-dirs.sh"},
-  {key= "D", modifiers = "Control", action = "Script /home/desuwa/.config/aw-fm/rofi-storage-home-files.sh"},
-  {key= "S", modifiers = "Alt", action = "Script /home/desuwa/.config/aw-fm/rofi-source-dirs.sh"},
-  {key= "S", modifiers = "Control", action = "Script /home/desuwa/.config/aw-fm/rofi-source-files.sh"},
-  {key= "P", modifiers = "Alt", action = "Script /home/desuwa/.config/aw-fm/rofi-current-dirs.sh"},
-  {key= "P", modifiers = "Control", action = "Script /home/desuwa/.config/aw-fm/rofi-current-files.sh"},
-  {key= "Y", modifiers = "Alt", action = "Script /home/desuwa/.config/aw-fm/rofi-youtube-dirs.sh"},
-  {key= "Y", modifiers = "Control", action = "Script /home/desuwa/.config/aw-fm/rofi-youtube-files.sh"},
-  {key= "A", modifiers = "Alt", action = "Script /home/desuwa/.config/aw-fm/rofi-anime-dirs.sh"},
+  {key = "Q", modifiers = "Alt", action = "Script /home/desuwa/.config/aw-fm/rofi-home-dirs.sh"},
+  {key = "Q", modifiers = "Control", action = "Script /home/desuwa/.config/aw-fm/rofi-home-files.sh"},
+  {key = "D", modifiers = "Alt", action = "Script /home/desuwa/.config/aw-fm/rofi-storage-home-dirs.sh"},
+  {key = "D", modifiers = "Control", action = "Script /home/desuwa/.config/aw-fm/rofi-storage-home-files.sh"},
+  {key = "S", modifiers = "Alt", action = "Script /home/desuwa/.config/aw-fm/rofi-source-dirs.sh"},
+  {key = "S", modifiers = "Control", action = "Script /home/desuwa/.config/aw-fm/rofi-source-files.sh"},
+  {key = "P", modifiers = "Alt", action = "Script /home/desuwa/.config/aw-fm/rofi-current-dirs.sh"},
+  {key = "P", modifiers = "Control", action = "Script /home/desuwa/.config/aw-fm/rofi-current-files.sh"},
+  {key = "Y", modifiers = "Alt", action = "Script /home/desuwa/.config/aw-fm/rofi-youtube-dirs.sh"},
+  {key = "Y", modifiers = "Control", action = "Script /home/desuwa/.config/aw-fm/rofi-youtube-files.sh"},
+  {key = "A", modifiers = "Alt", action = "Script /home/desuwa/.config/aw-fm/rofi-anime-dirs.sh"},
 ]
 
 # Bookmarks
@@ -151,6 +153,8 @@ context_menu = [
 
   {name = "Ascending", submenu = "Sort", action = "SortDir ascending"},
   {name = "Descending", submenu = "Sort", action = "SortDir descending"},
+
+  {name = "Properties", action = "Properties", selection = "at_least_one"},
 ]
 
 # How to handle directory collisions during file operations.
@@ -211,7 +215,7 @@ paste_into_search = false
 # directories with many cheap thumbnails cause the process to slow down. Too low and expensive
 # thumbnails take forever.
 #
-# Experimentally 8 is a bit past the acceptable limit in pathologically bad cases like many tiny
+# Experimentally, 8 is a bit past the acceptable limit in pathologically bad cases like many tiny
 # images, while in directories with many videos up to 16 is beneficial.
 #
 # Max 255 (bad idea), 0 entirely disables thumbnail loading.

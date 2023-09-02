@@ -7,7 +7,7 @@
 # priority=200
 #**aw-fm-settings-end**
 
-echo "$AWFM_SELECTION" | while IFS=$'\n' read -r f; do
+echo "$AWFM_SELECTION" | while IFS=$'\n' read -r dir; do
   [ -d "$dir" ] || continue
 
   base=$(basename "$dir")
