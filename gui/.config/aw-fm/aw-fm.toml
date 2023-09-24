@@ -16,6 +16,14 @@ background_colour = '#000000be'
 idle_timeout = 21600
 # idle_timeout = 60
 
+
+# Whether to limit aw-fm to a single window or not.
+#
+# If true, only one aw-fm window can be open at a time. Running "aw-fm directory" with an
+# open window will open "directory" in a tab in the existing window instead of a new window.
+unique = false
+
+
 # Shortcuts
 #
 # All shortcuts must have a key and an action, and optionally one or more modifiers.
