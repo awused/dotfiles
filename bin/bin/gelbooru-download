@@ -88,6 +88,7 @@ if [[ -f $filename ]]; then
 else
   echo "Downloading $filename from $fileurl"
   curl -s -o "$filename" "$fileurl" || notify-send -u critical "Download failed for $filename"
+  chmod 0664 "$filename" || true
 fi
 
 while [[ -n $1 ]]; do
@@ -124,5 +125,6 @@ while [[ -n $1 ]]; do
   else
     echo "Downloading $filename from $fileurl"
     curl -s -o "$filename" "$fileurl" || notify-send -u critical "Download failed for $filename"
+    chmod 0664 "$filename" || true
   fi
 done

@@ -83,6 +83,7 @@ if [[ -f $filename ]]; then
 else
   echo "Downloaded $filename from $location"
   cp "$tmpfile" "$filename"
+  chmod 0664 "$filename" || true
 fi
 
 rm "$tmpfile"
@@ -146,5 +147,6 @@ while [[ -n $1 ]]; do
   else
     echo "Downloading $filename from $location"
     wget --quiet "$location" -O "$filename"
+    chmod 0664 "$filename" || true
   fi
 done
