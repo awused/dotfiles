@@ -29,6 +29,9 @@ rgfiles = []
 
 # My format
 fname_re = re.compile(r"^(.+) - x?[0-9]+ - (.+)\.[^.]+$")
+reject_re = re.compile(r"^.*  .*$")
+
+rejected = []
 
 parser = argparse.ArgumentParser(
     description=
@@ -550,6 +553,12 @@ def walklevel(some_dir, level=-1):
 
 
 def tagPath(path):
+    match = reject_re.match(os.path.basename(path))
+    if match:
+        print(f'{path} contains two spaces, not tagging')
+        rejected.append(path)
+        return
+
     for ft in filetypes:
         if path.endswith(ft):
             tagFile(path)
@@ -598,3 +607,8 @@ if len(rgfiles) > 0:
             p.wait()
         else:
             print("Would run ", " ".join(rgargs))
+
+if len(rejected) > 0:
+    print("Rejected files")
+    for file in rejected:
+        print(f'Rejected "{file}", it was not tagged')
