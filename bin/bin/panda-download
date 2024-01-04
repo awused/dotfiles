@@ -55,6 +55,8 @@ fi
 
 text=$(curl -I -s "$fullimg" --cookie "$PANDA_COOKIE")
 location=$(echo "$text" | grep -i "^Location" | sed "s/Location: //i")
+location="${location#"${location%%[![:space:]]*}"}"
+location="${location%"${location##*[![:space:]]}"}"
 if [[ -z "$location" ]]; then
   echo "No location for $fullimg"
   echo "$text"
@@ -106,7 +108,7 @@ while [[ -n $1 ]]; do
     echo "File already exists: $assumed_filename"
     continue
   fi
-  sleep 5
+  sleep 2
 
   response=$(curl -s "$url" --cookie "$PANDA_COOKIE")
   if [[ -z "$response" ]]; then
@@ -132,6 +134,8 @@ while [[ -n $1 ]]; do
 
   text=$(curl -I -s "$fullimg" --cookie "$PANDA_COOKIE")
   location=$(echo "$text" | grep -i "^Location" | sed "s/Location: //i")
+  location="${location#"${location%%[![:space:]]*}"}"
+  location="${location%"${location##*[![:space:]]}"}"
   if [[ -z "$location" ]]; then
     echo "No location for $fullimg"
     echo "$text"
@@ -146,7 +150,8 @@ while [[ -n $1 ]]; do
     echo "File already exists: $filename"
   else
     echo "Downloading $filename from $location"
-    wget --quiet "$location" -O "$filename"
+    # wget --quiet "$location" -O "$filename" || $(notify-send -u critical "Download failed for $filename"
+    curl -s -o "$filename" "$location" || notify-send -u critical "Download failed for $filename"
     chmod 0664 "$filename" || true
   fi
 done

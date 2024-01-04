@@ -2,9 +2,6 @@
 # A basic script to save the current page as a file using zenity.
 # Remembers the previous directory used.
 
-# You may want to edit this.
-prevdirfile="$HOME/.config/aw-man/.save-page-dir"
-
 set -e
 
 # It's important to set the clipboard to something to avoid the case where the user reflexively
@@ -31,7 +28,7 @@ mime=$(file -b --mime-type "$src")
 if [ "$mime" = "image/png" ]; then
   cp "$src" "$dst"
 else
-  vips pngsave "$src" "$dst" --compression 9
+  magick convert "$src" -define png:compression-level=9 "$dst"
 fi
 
 chmod 664 "$dst"

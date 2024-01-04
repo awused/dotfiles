@@ -35,7 +35,6 @@ fi
 shift
 
 api="https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&id="
-download="https://img1.gelbooru.com/images/"
 
 # If there is no second image, just download this one without a suffix.
 
@@ -76,6 +75,12 @@ if [[ $hash == "null" ]]; then
   hash=$(echo "$image" | grep -Eo "^[^.]+")
 fi
 
+if [[ $hash == "" ]]; then
+  echo "Couldn't find image URL or hash"
+  notify-send -u critical "Couldn't find image URL or hash for $url"
+  exit 1
+fi
+
 ext="${image##*.}"
 filename="$directory/${hash}$(printf '%02d' $counter).$ext"
 
@@ -88,6 +93,7 @@ if [[ -f $filename ]]; then
 else
   echo "Downloading $filename from $fileurl"
   curl -s -o "$filename" "$fileurl" || notify-send -u critical "Download failed for $filename"
+  curl -o "$filename" "$fileurl"
   chmod 0664 "$filename" || true
 fi
 

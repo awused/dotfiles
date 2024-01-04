@@ -1,0 +1,23 @@
+#! /usr/bin/env bash
+
+#**aw-fm-settings-begin**
+# name=nw-fonts
+# directories=false
+# mimetypes=application/x-executable
+# selection=one
+# regex=.*/nw$
+# priority=-1
+#**aw-fm-settings-end**
+
+dir=$(dirname "$AWFM_SELECTION");
+
+[ -d "$dir" ] || exit
+
+cd "$dir"
+
+[ -d fonts ] || mkdir fonts
+[ -f "fonts/fonts.conf" ] || \
+  echo "<fontconfig><dir>/usr/share/fonts</dir><cachedir>fonts</cachedir></fontconfig>" > "fonts/fonts.conf"
+
+FONTCONFIG_PATH=fonts ./nw
+

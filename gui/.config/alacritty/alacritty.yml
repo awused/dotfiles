@@ -69,9 +69,8 @@ scrolling:
   # to allow mouse scrolling for applications like `man`.
   #
   # Specifying `0` will disable faux scrolling.
-  multiplier: 3
 
-# Font configuration (changes require restart)
+    # Font configuration (changes require restart)
 font:
   # Normal (roman) font face
   # normal:

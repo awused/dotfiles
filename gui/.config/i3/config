@@ -166,6 +166,7 @@ bindsym $mod+Shift+f exec --no-startup-id ~/.config/i3/exec-once "foobar2000.exe
 for_window [class="Xarchiver"] floating enable resize set 1920 1080
 for_window [class="Xarchiver"] move position center
 
+for_window [class="calibre"] floating enable
 for_window [title="Corrupted Saviors"] floating enable
 for_window [class="Desmume"] floating enable border normal
 for_window [class="Displaycal"] floating enable border normal

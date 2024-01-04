@@ -1,0 +1,102 @@
+live_config_reload = true
+
+[bell]
+animation = "EaseOutExpo"
+color = "0xffffff"
+duration = 0
+
+[colors]
+draw_bold_text_with_bright_colors = true
+indexed_colors = []
+
+[colors.bright]
+black = "0x767676"
+blue = "0x1a8fff"
+cyan = "0x14ffff"
+green = "0x23fd00"
+magenta = "0xfd28ff"
+red = "0xf2201f"
+white = "0xffffff"
+yellow = "0xfffd00"
+
+[colors.normal]
+black = "0x000000"
+blue = "0x0d73cc"
+cyan = "0x0dcdcd"
+green = "0x19cb00"
+magenta = "0xcd1ed1"
+red = "0xcc0403"
+white = "0xdddddd"
+yellow = "0xcecb00"
+
+[colors.primary]
+background = "0x000000"
+foreground = "0xffffff"
+
+[colors.selection]
+background = "0x202020"
+text = "0xeaeaea"
+
+[cursor]
+style = "Block"
+unfocused_hollow = true
+
+[debug]
+persistent_logging = false
+render_timer = false
+
+[env]
+WINIT_X11_SCALE_FACTOR = "randr"
+
+[font]
+size = 12.0
+
+[font.glyph_offset]
+x = 0
+y = 0
+
+[font.offset]
+x = 0
+y = 0
+
+[[hints.enabled]]
+command = "xdg-open"
+post_processing = true
+regex = "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\u0000-\u001F\u007F-<>\"\\s{-}\\^⟨⟩`]+"
+
+[hints.enabled.binding]
+key = "U"
+mods = "Control|Shift"
+
+[hints.enabled.mouse]
+enabled = true
+mods = "None"
+
+[mouse]
+hide_when_typing = false
+
+[[mouse.bindings]]
+action = "PasteSelection"
+mouse = "Middle"
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[selection]
+save_to_clipboard = false
+semantic_escape_chars = ",│`|:\"' ()[]{}<>"
+
+[window]
+decorations = "full"
+dynamic_padding = false
+dynamic_title = true
+opacity = 0.75
+
+[window.dimensions]
+columns = 0
+lines = 0
+
+[window.padding]
+x = 2
+y = 2
