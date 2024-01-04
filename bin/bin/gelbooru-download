@@ -93,7 +93,6 @@ if [[ -f $filename ]]; then
 else
   echo "Downloading $filename from $fileurl"
   curl -s -o "$filename" "$fileurl" || notify-send -u critical "Download failed for $filename"
-  curl -o "$filename" "$fileurl"
   chmod 0664 "$filename" || true
 fi
 
