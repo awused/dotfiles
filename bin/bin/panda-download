@@ -45,20 +45,23 @@ if [[ -n "$error509" ]]; then
   exit 1
 fi
 
+location=''
 fullimg=$(echo "$response" | xmllint --html --xpath "//a[contains(text(), 'Download original')]/@href" - 2>/dev/null | \
   sed 's/.*href="//' | sed 's/".*$//' | python3 -c "import html, sys; print(html.unescape(sys.stdin.read()));")
+
 if [[ -z "$fullimg" ]]; then
-  echo "No full resolution original image"
-  notify-send -u critical "No full resolution original image"
-  exit 1
+  location=$(echo "$response" | xmllint --html --xpath '//img[@id="img"]/@src' - 2>/dev/null | \
+    sed 's/.*src="//' | sed 's/".*$//' | python3 -c "import html, sys; print(html.unescape(sys.stdin.read()));")
+else
+  text=$(curl -I -s "$fullimg" --cookie "$PANDA_COOKIE")
+  location=$(echo "$text" | grep -i "^Location" | sed "s/Location: //i")
+  location="${location#"${location%%[![:space:]]*}"}"
+  location="${location%"${location##*[![:space:]]}"}"
 fi
 
-text=$(curl -I -s "$fullimg" --cookie "$PANDA_COOKIE")
-location=$(echo "$text" | grep -i "^Location" | sed "s/Location: //i")
-location="${location#"${location%%[![:space:]]*}"}"
-location="${location%"${location##*[![:space:]]}"}"
+
 if [[ -z "$location" ]]; then
-  echo "No location for $fullimg"
+  echo "No location for $url"
   echo "$text"
   notify-send -u critical "No location for full resolution image"
   exit 1
@@ -124,20 +127,22 @@ while [[ -n $1 ]]; do
     exit 1
   fi
 
+  location=''
   fullimg=$(echo "$response" | xmllint --html --xpath "//a[contains(text(), 'Download original')]/@href" - 2>/dev/null | \
     sed 's/.*href="//' | sed 's/".*$//' | python3 -c "import html, sys; print(html.unescape(sys.stdin.read()));")
+
   if [[ -z "$fullimg" ]]; then
-    echo "No full resolution original image"
-    notify-send -u critical "No full resolution original image"
-    exit 1
+    location=$(echo "$response" | xmllint --html --xpath '//img[@id="img"]/@src' - 2>/dev/null | \
+      sed 's/.*src="//' | sed 's/".*$//' | python3 -c "import html, sys; print(html.unescape(sys.stdin.read()));")
+  else
+    text=$(curl -I -s "$fullimg" --cookie "$PANDA_COOKIE")
+    location=$(echo "$text" | grep -i "^Location" | sed "s/Location: //i")
+    location="${location#"${location%%[![:space:]]*}"}"
+    location="${location%"${location##*[![:space:]]}"}"
   fi
 
-  text=$(curl -I -s "$fullimg" --cookie "$PANDA_COOKIE")
-  location=$(echo "$text" | grep -i "^Location" | sed "s/Location: //i")
-  location="${location#"${location%%[![:space:]]*}"}"
-  location="${location%"${location##*[![:space:]]}"}"
   if [[ -z "$location" ]]; then
-    echo "No location for $fullimg"
+    echo "No location for $url"
     echo "$text"
     notify-send -u critical "No location for full resolution image"
     exit 1
