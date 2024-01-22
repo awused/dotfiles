@@ -15,6 +15,7 @@ manga-syncer:
 
 rss-scrapers:
 	cd ${AWUSED_SOURCE}/rss-scrapers; go install ./...
+	cargo install --path "${AWUSED_SOURCE}/rss-scrapers" --locked
 
 rss:
 	cd ${AWUSED_SOURCE}/aw-rss; go install
