@@ -4,6 +4,6 @@ set -e
 
 pgrep '^manga-syncer$' > /dev/null && exit 1
 
-/usr/local/bin/sqlite3 /usr/home/desuwa/.rss/aw-rss.db "SELECT url FROM feeds WHERE url LIKE '!mangadex-rss %' AND disabled = 0;" 2>/dev/null | \
-  sed -E 's/.* //' | \
+/usr/local/bin/sqlite3 /usr/home/desuwa/.rss/aw-rss.db "SELECT url FROM feeds WHERE url LIKE '!rss-scrapers mangadex %' AND disabled = 0;" 2>/dev/null | \
+  sed -E 's/.* mangadex //' | \
   xargs manga-syncer
