@@ -10,12 +10,6 @@ sudo:
 hydrus-mover:
 	cd ${AWUSED_SOURCE}/hydrus-mover; go install
 
-manga-syncer:
-	cd ${AWUSED_SOURCE}/manga-syncer; go install
-
-rss-scrapers:
-	cd ${AWUSED_SOURCE}/rss-scrapers; go install ./...
-	cargo install --path "${AWUSED_SOURCE}/rss-scrapers" --locked
 
 rss:
 	cd ${AWUSED_SOURCE}/aw-rss; go install
@@ -23,7 +17,16 @@ rss:
 steam-screenshots:
 	cd ${AWUSED_SOURCE}/steam-screenshots; go install
 
-go: hydrus-mover manga-syncer rss rss-scrapers steam-screenshots
+go: hydrus-mover rss steam-screenshots
+
+manga-syncer:
+	cargo install --path "${AWUSED_SOURCE}/manga-syncer" --locked
+
+rss-scrapers:
+	ROCKSDB_LIB_DIR=/usr/local/lib cargo install --path "${AWUSED_SOURCE}/rss-scrapers" --locked
+	# cargo install --path "${AWUSED_SOURCE}/rss-scrapers" --locked
+
+rust: manga-syncer rss-scrapers
 
 # loudness-scanner: sudo
 # 	cd ${THIRD_PARTY_SOURCE}/loudness-scanner; \
