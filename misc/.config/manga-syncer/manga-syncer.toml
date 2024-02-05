@@ -1,46 +1,38 @@
 # Currently most of these are specific to Mangadex. The config format will
 # change if more sites are supported.
 
+# Language code used by Mangadex. Must be set.
+language = "en"
+
 # Directory where all the manga will be stored.
 # The directory must already exist.
 # Existing files in the directory will not be touched but manually deleting
 # chapters will cause them to be redownloaded.
-OutputDirectory = "/storage/media/manga"
+output_directory = "/storage/media/manga"
 
 # Directory to store temporary files, leave blank for the system default.
-TempDirectory = '/tmp'
-
-# The number of pages to download in parallel.
-# Don't set it too high.
-Threads = 8
-
-# Language code used by Mangadex. Must be set.
-Language = "en"
+temp_directory = '/tmp'
 
 # Whether or not chapter archives should be renamed.
 # This can be relevant when volume numbering is revised later.
-RenameChapters = true
-RenameManga = true
+rename_chapters = true
+rename_manga = true
 
 # Whether to allow question marks in file names or not.
 # Most operating systems allow question marks in file names.
 # Windows does not, files cannot be created or read if their names contain question marks.
 #
 # DO NOT ENABLE THIS ON WINDOWS
-AllowQuestionMarks = true
+allow_question_marks = true
 
-
-# Mangadex manga IDs.
-# These are the numbers in the URLs for the Manga, not the individual chapters.
-# https://mangadex.org/title/36283/looking-up-to-magical-girls -> 36283
-Manga = [
-  "feff4eaf-01df-4a05-83f4-68bb5cdf4fad",
-  #36283,
-]
-
-# Groups to block, for low quality or otherwise.
-BlockedGroups = [
+# Groups to block, for low quality or other reasons.
+blocked_groups = [
   "4fdaf04f-b965-4f82-801d-8bfc00693773",
   "9dcf0896-a184-4cbc-8070-751bb71c5f2e",
   "fb26969d-0365-4944-831a-5b8a3d471e94",
 ]
+
+# The number of pages to download in parallel
+# Do not set it too high.
+parallel_downloads = 8
+

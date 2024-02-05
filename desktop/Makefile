@@ -37,9 +37,6 @@ mpd-fzf:
 public-clipboard:
 	cd ${AWUSED_SOURCE}/public-clipboard; go install
 
-rss-scrapers:
-	cd ${AWUSED_SOURCE}/rss-scrapers; go install ./...
-
 screenshotter:
 	cd ${AWUSED_SOURCE}/screenshotter; go install
 
@@ -62,7 +59,7 @@ vmrpc:
 
 go: dispatcher add-to-transmission \
   public-clipboard screenshotter \
-  hydrus-mover mpd-fzf vmrpc rss-scrapers \
+  hydrus-mover mpd-fzf vmrpc \
   manga-syncer
 
 windows-clipboard:
@@ -146,7 +143,7 @@ opam:
 	source ~/.zshenv; opam upgrade
 
 flatpak:
-	flatpak update --user
+	flatpak update
 	flatpak uninstall --unused
 
 rustup:
@@ -161,6 +158,9 @@ aw-fm:
 
 mpd-shuffler:
 	cargo install --path "${AWUSED_SOURCE}/mpd-shuffler" --locked
+
+rss-scrapers:
+	cargo install --path "${AWUSED_SOURCE}/rss-scrapers" --locked
 
 strpick:
 	cargo install --path "${AWUSED_SOURCE}/aw-shuffle/strpick" --locked
@@ -186,10 +186,9 @@ windows-wallpapers:
 	cp /usr/x86_64-w64-mingw32/sys-root/mingw/bin/libwinpthread-1.dll /storage/winshare/gobin/
 	cp /usr/x86_64-w64-mingw32/sys-root/mingw/bin/libgcc_s_seh-1.dll /storage/winshare/gobin/
 
-rust: aw-fm aw-man mpd-shuffler strpick wallpapers
+rust: aw-fm aw-man mpd-shuffler rss-scrapers strpick wallpapers
 
-windows-rust: windows-upscale
-	# windows-wallpapers -- broken compilation for rocksdb
+windows-rust: windows-upscale windows-wallpapers # -- broken compilation for rocksdb
 
 # update: gems pip npm opam flatpak
 

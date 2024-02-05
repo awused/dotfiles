@@ -66,6 +66,10 @@ MouseKeys = true
   Format = "chromium"
 
 [[Overrides]]
+  Regex = '(E|e)muera'
+  Format = "emuera"
+
+[[Overrides]]
   Name = "wine32-preloader"
   Regex = 'TLS.*Game.exe$'
   Format = "the-last-sovereign"

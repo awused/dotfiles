@@ -1,12 +1,13 @@
 #!/bin/sh
 # ~/bin/restic-cmd
 
-usbdir=/media/BACKUPS/google_cloud_storage
+#usbdir=/media/BACKUPS/google_cloud_storage
+usbdir=/root
 cacheroot=/cache/restic
 
-if [ "`uname`" = "Linux" ]; then
-  usbdir=/run/media/$USER/BACKUPS/google_cloud_storage
-fi
+# if [ "`uname`" = "Linux" ]; then
+  # usbdir=/run/media/$USER/BACKUPS/google_cloud_storage
+# fi
 
 export TMPDIR=$cacheroot/tmp
 export GOOGLE_PROJECT_ID="$(get-automation-password restic-google-project)"

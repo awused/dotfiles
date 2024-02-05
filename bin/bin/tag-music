@@ -350,7 +350,8 @@ def tagID3File(fname):
     if changed and not args.dry_run:
         f.save()
 
-    if args.force_rg or 'TXXX:replaygain_track_gain' not in f:
+    if args.force_rg or ('TXXX:replaygain_track_gain' not in f
+                         and 'TXXX:REPLAYGAIN_TRACK_GAIN' not in f):
         rgfiles.append(fname)
 
 
@@ -599,7 +600,19 @@ if len(rgfiles) > 0:
     print("EBU R128 Scanning")
     for files in [rgfiles[i:i + 128] for i in range(0, len(rgfiles), 128)]:
         print(files)
-        rgargs = ['loudgain', '--tagmode', 'i', '-L', '--track', '--noclip']
+        rgargs = [
+            'rsgain',
+            'custom',
+            '--true-peak',
+            '--tagmode',
+            'i',
+            '--clip-mode',
+            'a',
+            '--opus-mode',
+            # 's', # Doesn't write the expected '0' r128_track_gain tag
+            'r',
+        ]
+        rgargs = ['loudgain', '--tagmode', 'i', '--track', '--noclip']
         # rgargs = ['loudness', 'tag', '-t']
         rgargs.extend(files)
         if not args.dry_run:

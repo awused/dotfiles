@@ -4,9 +4,12 @@
 
 root=$1
 type=$2
+depth=$3
+
+[ -n "$depth" ] || depth="6"
 
 target=$(
-  sh -c "bfs -L $FZF_EXCLUDES $type \"$root\" -maxdepth 6" | \
+  sh -c "bfs -L $FZF_EXCLUDES $type \"$root\" -maxdepth $depth" | \
       sed "s?${root}/??" | \
       tail -n +2 | \
       rofi -dmenu -i -multi-select -ballot-unselected-str ' ' -ballot-selected-str '>'
