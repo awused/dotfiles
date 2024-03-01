@@ -214,6 +214,7 @@ if !has('nvim-0.5')
   Plug 'othree/yajs.vim'
   Plug 'othree/es.next.syntax.vim'
   let g:python_highlight_all = 1
+  let g:python_recommended_style = 0
   Plug 'vim-python/python-syntax'
   Plug 'tmhedberg/SimpylFold'
   let g:yapf_style = "google"
@@ -582,7 +583,6 @@ Glaive codefmt clang_format_style="{
   \ BasedOnStyle: Google,
   \  ColumnLimit: 0 }"
 "}}}
-
 "{{{ Filetype Settings
 function! s:CompleteTags()
   inoremap <buffer> >< ></<C-x><C-o><Esc>:startinsert!<CR><C-O>?</<CR>
@@ -592,7 +592,7 @@ endfunction
 
 augroup filetype_settings
   autocmd!
-  autocmd FileType python setlocal softtabstop=4 shiftwidth=4
+  autocmd FileType python setlocal softtabstop=4 shiftwidth=4 tabstop=4
   autocmd FileType rust setlocal softtabstop=4 shiftwidth=4
   autocmd FileType markdown setlocal softtabstop=2 shiftwidth=2
   autocmd FileType go setlocal noexpandtab nosmarttab tabstop=2
@@ -622,13 +622,6 @@ let &t_ZH="\<Esc>[3m"
 let &t_ZR="\<Esc>[23m"
 
 set background=dark
-if g:os == "FreeBSD"
-  " Different to support older/less compatible terminals.
-  colorscheme eldar
-else
-  set termguicolors
-  colorscheme gruvbox
-endif
 set nohlsearch
 set expandtab
 set smarttab
@@ -708,6 +701,15 @@ set backupdir=$HOME/.vim/backups//
 "}}}
 "{{{ OS Settings
 " At least the ones that don't belong anywhere else
+
+if g:os == "FreeBSD"
+  " Different to support older/less compatible terminals.
+  colorscheme eldar
+else
+  set termguicolors
+  colorscheme gruvbox
+endif
+
 if g:os == "Linux"
   if empty($FORCE_BG)
     set background=dark

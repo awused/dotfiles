@@ -25,9 +25,6 @@ hydrus-mover:
 # madokami:
 # 	cd ${AWUSED_SOURCE}/madokami; go install
 
-manga-syncer:
-	cd ${AWUSED_SOURCE}/manga-syncer; go install
-
 mpd-fzf:
 	cd ${AWUSED_SOURCE}/mpd-fzf; go install
 
@@ -59,8 +56,7 @@ vmrpc:
 
 go: dispatcher add-to-transmission \
   public-clipboard screenshotter \
-  hydrus-mover mpd-fzf vmrpc \
-  manga-syncer
+  hydrus-mover mpd-fzf vmrpc
 
 windows-clipboard:
 	cd ${AWUSED_SOURCE}/public-clipboard; \
@@ -156,6 +152,9 @@ aw-man:
 aw-fm:
 	cargo install --path "${AWUSED_SOURCE}/aw-fm" --locked
 
+manga-syncer:
+	cargo install --path "${AWUSED_SOURCE}/manga-syncer" --locked
+
 mpd-shuffler:
 	cargo install --path "${AWUSED_SOURCE}/mpd-shuffler" --locked
 
@@ -186,7 +185,7 @@ windows-wallpapers:
 	cp /usr/x86_64-w64-mingw32/sys-root/mingw/bin/libwinpthread-1.dll /storage/winshare/gobin/
 	cp /usr/x86_64-w64-mingw32/sys-root/mingw/bin/libgcc_s_seh-1.dll /storage/winshare/gobin/
 
-rust: aw-fm aw-man mpd-shuffler rss-scrapers strpick wallpapers
+rust: aw-fm aw-man manga-syncer mpd-shuffler rss-scrapers strpick wallpapers
 
 windows-rust: windows-upscale windows-wallpapers # -- broken compilation for rocksdb
 
