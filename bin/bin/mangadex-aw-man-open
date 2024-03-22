@@ -21,7 +21,7 @@ fi
 
 notify-send "Attempting to download $cid"
 # Download it now if we don't have it already.
-manga-syncer -chapter "$cid"
+manga-syncer chapter "$cid"
 
 f=$(find /storage/media/manga/ -name "*${h}.zip" -print -quit)
 if [ -n "$f" ]; then

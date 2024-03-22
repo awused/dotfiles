@@ -186,6 +186,7 @@ for_window [title="review services"] floating enable
 for_window [class="retroarch"] floating enable
 for_window [class="Yad"] floating enable
 for_window [class="zenity"] floating enable
+for_window [class="zoom"] floating enable
 #}}}
 #{{{ Launchers
 # start a terminal
@@ -304,6 +305,9 @@ bindsym $mod+space focus mode_toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
+# Move to center (for floating windows)
+bindsym $mod+Mod1+c move position center
+
 # focus the child container
 #bindsym $mod+d focus child
 #}}}
@@ -343,7 +347,7 @@ mode "resize" {
 #{{{ Startup Programs
 exec_always --no-startup-id "~/.config/polybar/launch.sh"
 # exec_always --no-startup-id "killall picom; picom --legacy-backend -b"
-exec_always --no-startup-id "killall picom; /usr/local/bin/picom -b"
+# exec_always --no-startup-id "killall picom; /usr/local/bin/picom -b"
 exec_always --no-startup-id "killall dunst; dunst &"
 exec_always --no-startup-id "killall vmrpc-server; vmrpc-server &"
 exec_always --no-startup-id "ibus-daemon -drx"

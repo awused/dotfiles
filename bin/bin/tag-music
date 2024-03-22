@@ -469,7 +469,19 @@ def tagM4AFile(fname):
     if changed and not args.dry_run:
         f.save()
 
-    if args.force_rg or '----:com.apple.iTunes:replaygain_track_peak' not in f:
+    if args.force_rg or ('----:com.apple.iTunes:replaygain_track_peak' not in f
+                         and '----:com.apple.iTunes:REPLAYGAIN_TRACK_PEAK'
+                         not in f):
+        if not args.dry_run:
+            if '----:com.apple.iTunes:replaygain_track_peak' in f:
+                del f['----:com.apple.iTunes:replaygain_track_peak']
+            if '----:com.apple.iTunes:REPLAYGAIN_TRACK_PEAK' in f:
+                del f['----:com.apple.iTunes:REPLAYGAIN_TRACK_PEAK']
+            if '----:com.apple.iTunes:replaygain_track_gain' in f:
+                del f['----:com.apple.iTunes:replaygain_track_gain']
+            if '----:com.apple.iTunes:REPLAYGAIN_TRACK_GAIN' in f:
+                del f['----:com.apple.iTunes:REPLAYGAIN_TRACK_GAIN']
+            f.save()
         rgfiles.append(fname)
 
 

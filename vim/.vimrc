@@ -233,6 +233,7 @@ if !has('nvim-0.5')
 endif
 
 if has('nvim')
+  " :MarkdownPreview
   Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
   let g:mkdp_auto_start = 0
   let g:mkdp_auto_close = 1
