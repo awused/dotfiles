@@ -105,6 +105,16 @@ MouseKeys = true
   Format = "%[4]s"
 
 [[Overrides]]
+  Name = "wine-preloader"
+  Regex = '^(.*(/|\\))?([^/]+) v?(\d+\.)*\d+[[:lower:]]?\\Game.exe'
+  Format = "%[4]s"
+
+[[Overrides]]
+  Name = "wine-preloader"
+  Regex = '^(.*(/|\\))?([^/]+) (\d+\.)*\d+[[:lower:]]?\\Game.exe'
+  Format = "%[4]s"
+
+[[Overrides]]
   Name = "wine64-preloader"
   Regex = '^(.*(/|\\))?([^/]+)\\Game.exe'
   Format = "%[4]s"
@@ -138,19 +148,6 @@ MouseKeys = true
   Yearly = true
 
 [[Overrides]]
-  Regex = 'bin/mcomix /storage/media/manga/'
-  Delegate = "/home/desuwa/.config/screenshotter/mcomix-manga-dir.sh"
-
-[[Overrides]]
-  Regex = 'bin/mcomix '
-  Delegate = "/home/desuwa/.config/screenshotter/mcomix-manga.sh"
-
-[[Overrides]]
-  Regex = 'bin/mcomix '
-  Format = "mcomix"
-  Yearly = true
-
-[[Overrides]]
   Regex = '^/usr/bin/python(\d(.\d)?)? .*/\.?bin/([^/ ]+)( .*)?'
   Format = "%[4]s"
 
@@ -167,22 +164,6 @@ MouseKeys = true
 [[Overrides]]
   Name = "firefox"
   Delegate = "/home/desuwa/.config/screenshotter/firefox-mangadex.sh"
-
-[[Overrides]]
-  Name = "firefox"
-  Delegate = "/home/desuwa/.config/screenshotter/firefox-mangaplus.sh"
-
-[[Overrides]]
-  Name = "firefox"
-  Delegate = "/home/desuwa/.config/screenshotter/firefox-ptscans.sh"
-
-[[Overrides]]
-  Name = "firefox"
-  Delegate = "/home/desuwa/.config/screenshotter/firefox-readjump.sh"
-
-[[Overrides]]
-  Name = "firefox"
-  Delegate = "/home/desuwa/.config/screenshotter/firefox-dynasty.sh"
 
 [[Overrides]]
   Name = "mpv"
