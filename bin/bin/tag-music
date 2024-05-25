@@ -195,7 +195,8 @@ artist_map = {
     u"大神ミオ": u"Ookami Mio",
     u"沙花叉クロヱ": u"Sakamata Chloe",
     u"百鬼あやめ": u"Nakiri Ayame",
-    u"博衣こより": u"Hakui Koyori"
+    u"博衣こより": u"Hakui Koyori",
+    u"赤井はあと": u"Akai Haato"
 }
 # }}}
 
@@ -229,7 +230,8 @@ def tagFile(fname):
     if match:
         oldt = f.get('title', [''])[0]
         newt = match.group(2)
-        newt = youtube_re.sub("", newt)
+        if not fname.endswith(".flac"):
+            newt = youtube_re.sub("", newt)
         newt = newt.rstrip(" ")
         if oldt == '' or (args.force_title and titlesDiffer(oldt, newt)):
             if not changed: x += "\n" + fname + "\n"

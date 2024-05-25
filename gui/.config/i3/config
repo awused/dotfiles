@@ -104,7 +104,7 @@ set $wsmpv "mpv"
 bindsym $mod+m workspace $wsmpv
 #set $wsyt "youtube"
 #bindsym $mod+y workspace $wsyt
-for_window [class="mpv"] floating enable move window to workspace $wsmpv focus
+for_window [class="mpv"] floating enable border pixel 0 move window to workspace $wsmpv focus
 #for_window [class="mpv" workspace="^(?!firefox$)"] floating enable move window to workspace $wsmpv focus
 #for_window [class="mpv" workspace="firefox"] move window to workspace $wsyt
 workspace $wsmpv output $m_center
@@ -347,10 +347,11 @@ mode "resize" {
 #{{{ Startup Programs
 exec_always --no-startup-id "~/.config/polybar/launch.sh"
 # exec_always --no-startup-id "killall picom; picom --legacy-backend -b"
-# exec_always --no-startup-id "killall picom; /usr/local/bin/picom -b"
+# exec_always --no-startup-id "killall picom; picom -b"
+exec_always --no-startup-id "killall picom; /usr/local/bin/picom -b"
 exec_always --no-startup-id "killall dunst; dunst &"
 exec_always --no-startup-id "killall vmrpc-server; vmrpc-server &"
-exec_always --no-startup-id "ibus-daemon -drx"
+# exec_always --no-startup-id "ibus-daemon -drx"
 # Lock after 10 minutes
 exec_always --no-startup-id "killall xautolock; xautolock -time 120 -locker ~/.config/i3/lock -secure &"
 # Deal with files being overwritten

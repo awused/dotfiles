@@ -192,7 +192,7 @@ alternate_upscaler = "/home/desuwa/.config/aw-man/aw-upscale-client.py"
 # By default aw-man prefers to save on memory by using RGB or greyscale formats when possible, but
 # this results in much slower data uploads to the GPU than RGBA.
 # The default is still very fast and should be unnoticeable, but RGBA can be forced for performance.
-# force_rgba = false
+# force_rgba = true
 
 # How many future images to upscale in advance.
 # This will cause future chapters/archives to be extracted and upscaled even outside of manga mode.
