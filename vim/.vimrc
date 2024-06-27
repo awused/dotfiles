@@ -336,7 +336,8 @@ nnoremap <C-d> :call GrepDirAbs($NASHOME, 0, 0)<cr>
 nnoremap <leader>m :Buffers<cr>
 nnoremap <leader>s :call PromptInput(":S")<cr>
 "}}}
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+"Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 " Plug 'justinmk/vim-sneak'
 Plug 'unblevable/quick-scope'
@@ -422,7 +423,11 @@ let g:gruvbox_contrast_dark="hard"
 if g:os == "Linux"
   let g:gruvbox_italic=1
 endif
-Plug 'morhetz/gruvbox'
+if has('nvim')
+  Plug 'ellisonleao/gruvbox.nvim'
+else
+  Plug 'morhetz/gruvbox'
+endif
 
 " Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 " Plug 'rebelot/kanagawa.nvim'
@@ -708,17 +713,17 @@ if g:os == "FreeBSD"
   colorscheme eldar
 else
   set termguicolors
-  colorscheme gruvbox
+  " colorscheme gruvbox
 endif
 
-if g:os == "Linux"
+if g:os == "Linux" && !has('nvim')
   if empty($FORCE_BG)
     set background=dark
     " Make most backgrounds transparent
     call RemoveBG("BufTabLineActive")
     hi BufTabLineCurrent guibg=NONE ctermbg=NONE guifg=#c8b9a4 ctermfg=white
-    call RemoveBG("BufTabLineFill")
     hi BufTabLineHidden guibg=NONE ctermbg=NONE guifg=#555555
+    call RemoveBG("BufTabLineFill")
     call RemoveBG("CursorLineNR")
     call RemoveBG("Folded")
     call RemoveBG("Normal")
