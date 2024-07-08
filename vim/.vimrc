@@ -291,7 +291,8 @@ if has('nvim')
 
   " Morons
   "Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'neoclide/coc.nvim', {'commit': '3dc6153', 'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc.nvim', {'commit': 'bdfd169', 'do': 'yarn install --frozen-lockfile'}
+  " Plug 'neoclide/coc.nvim', {'commit': '3dc6153', 'do': 'yarn install --frozen-lockfile'}
   Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
   Plug 'josa42/coc-sh', {'do': 'yarn install --frozen-lockfile'}
   Plug 'josa42/coc-go', {'do': 'yarn install --frozen-lockfile'}

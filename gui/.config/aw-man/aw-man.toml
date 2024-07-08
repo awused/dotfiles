@@ -120,6 +120,7 @@ shortcuts = [
   {key = "M", modifiers = "Control", action = "Execute /home/desuwa/.config/aw-man/mangadex-url-clipboard.sh"},
   {key = "P", modifiers = "Control", action = "Execute /home/desuwa/.config/aw-man/public-clipboard.sh"},
   {key = "C", modifiers = "Control", action = "Execute /home/desuwa/.config/aw-man/clipboard.sh"},
+  {key = "R", modifiers = "Control", action = "Script /home/desuwa/.config/aw-man/shuffle-files.sh"},
 
   {key = "Page_Down", modifiers = "Control", action = "NextPage current"},
   {key = "Page_Up", modifiers = "Control", action = "PreviousPage current"},
