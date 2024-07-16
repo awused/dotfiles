@@ -45,6 +45,7 @@ require 'colorizer'.setup{
   },
 }
 
+if vim.g.os == 'Linux' then
 require"gruvbox".setup{
   terminal_colors = false, -- add neovim terminal colors
   undercurl = true,
@@ -71,13 +72,18 @@ require"gruvbox".setup{
   dim_inactive = false,
   transparent_mode = true,
 }
+
 vim.cmd('colorscheme gruvbox')
+
+end
+
 EOF
 endif
 
+if g:os == "Linux"
 hi BufTabLineCurrent guibg=NONE ctermbg=NONE guifg=#c8b9a4 ctermfg=white
 hi BufTabLineHidden guibg=NONE ctermbg=NONE guifg=#555555
 hi BufTabLineFill guibg=NONE ctermbg=NONE guifg=#555555
 hi BufTabLineActive guibg=NONE ctermbg=NONE guifg=#c8b9a4 ctermfg=white
 hi CocHighlightText ctermfg=cyan guifg=cyan
-
+endif

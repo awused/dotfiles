@@ -435,7 +435,7 @@ endif
 " Plug 'lifepillar/vim-solarized8'
 " Plug 'altercation/vim-colors-solarized'
 "Plug 'tpope/vim-vividchalk'
-" Plug 'agude/vim-eldar'
+Plug 'agude/vim-eldar'
 if has('nvim')
   Plug 'NvChad/nvim-colorizer.lua'
 endif
@@ -712,6 +712,7 @@ set backupdir=$HOME/.vim/backups//
 if g:os == "FreeBSD"
   " Different to support older/less compatible terminals.
   colorscheme eldar
+  call coc#config("rust-analyzer.updates.prompt", "neverDownload")
 else
   set termguicolors
   " colorscheme gruvbox

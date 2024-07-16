@@ -44,7 +44,8 @@ setenv	PAGER	more
 setenv  LANG    en_US.UTF-8
 setenv  LSCOLORS ExGxdxdxCxDxDxBxBxegeg
 setenv  GOPATH /usr/home/desuwa/go
-setenv  PATH $PATH\:$GOPATH/bin
+setenv  CARGO_PATH /usr/home/desuwa/.cargo/bin
+setenv  PATH $PATH\:$GOPATH/bin\:$CARGO_PATH
 
 if ($?prompt) then
 	# An interactive shell -- set some stuff up
