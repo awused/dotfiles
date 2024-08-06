@@ -241,7 +241,7 @@ bindsym --release Print exec --no-startup-id screenshotter window
 
 bindsym --release Shift+Print exec --no-startup-id screenshotter region
 # bindsym --release Mod1+Print exec --no-startup-id screenshotter window
-bindsym --release Mod1+Sys_Req exec --no-startup-id screenshotter window
+# bindsym --release Mod1+Sys_Req exec --no-startup-id screenshotter window
 
 
 # MPD

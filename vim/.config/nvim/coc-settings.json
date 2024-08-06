@@ -22,6 +22,7 @@
     "-Wclippy::let_unit_value",
     "-Wclippy::manual_assert",
     "-Wclippy::manual_let_else",
+    "-Wclippy::manual_string_new",
     "-Wclippy::map_flatten",
     "-Wclippy::map_unwrap_or",
     "-Wclippy::match_same_arms",

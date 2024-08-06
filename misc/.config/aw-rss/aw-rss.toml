@@ -1,4 +1,4 @@
-# You can use the -awconf flag to override the config being loaded.
+# You can use the --awconf flag to override the config being loaded.
 
 # Database file. Use :memory: for a temporary, in memory database.
 database = "/usr/home/desuwa/.rss/aw-rss.db"
@@ -16,6 +16,8 @@ port = 9092
 
 # Log file, leave blank to log to stdout
 # aw-rss truncates this file on every start.
+#
+# Must be an absolute path if present.
 log_file= "/usr/local/var/log/desurss/aw-rss.log"
 
 # Log level, as per RUST_LOG, defaults to Info
