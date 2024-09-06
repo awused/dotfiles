@@ -8,5 +8,7 @@
 # priority=-2
 #**aw-fm-settings-end**
 
+cd "$AWFM_CURRENT_TAB_PATH"
+
 wine "$AWFM_SELECTION"
 

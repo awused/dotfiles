@@ -140,9 +140,9 @@ shortcuts = [
 # rofi script wouldn't be a better option.
 # Defined as { name = "Name", action = "Command" },
 bookmarks = [
-  {name = "Home", action = "Home"},
-  {name = "Completed", action = "Navigate /storage/media/torrents/completed"},
-  {name = "Public", action = "Navigate /storage/public"},
+  # {name = "Home", action = "Home"},
+  # {name = "Completed", action = "Navigate /storage/media/torrents/completed"},
+  # {name = "Public", action = "Navigate /storage/public"},
 ]
 
 # Context Menu
