@@ -1,0 +1,66 @@
+#! /usr/bin/env bash
+
+# ~/.config/pixiv-cookie of the form
+
+#export PIXIV_COOKIE="PHPSESSID=1234_blahblahblah;";
+
+
+set -e
+
+source ~/.config/pixiv-cookie
+
+directory="$1"
+counter=0
+
+if [[ ! -d $directory ]]; then
+  echo "Directory $directory does not exist"
+  exit 1
+fi
+
+cd "$directory"
+
+shift
+
+url=$1
+id=$(echo "$url" | grep -Eo '/artworks/[0-9]+' | sed -rn 's/.*\/artworks\/([0-9]+)/\1/p')
+
+if [[ -z $id ]]; then
+  echo "No valid pixiv url found"
+  notify-send -u critical "No valid pixiv url found"
+  exit 1
+fi
+shift
+
+response=$(curl -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:131.0) Gecko/20100101 Firefox/131.0' \
+  -H "Cookie: ${PIXIV_COOKIE}" \
+  -s "https://www.pixiv.net/ajax/illust/${id}/pages")
+if [[ -z "$response" ]]; then
+  echo "Error downloading pixiv metadata, logged out?"
+  notify-send -u critical "Error downloading pixiv metadata, logged out?"
+  exit 1
+fi
+
+pages=$(echo "$response" | jq -r '.body.[].urls.original')
+
+if [[ -z "$pages" ]]; then
+  echo "Bad response from pixiv: ${pages}"
+  notify-send -u critical "Bad response from pixiv"
+  exit 1
+fi
+
+for location in $pages; do
+  filename=$(echo "$location" | sed 's/.*\///')
+  filename="${directory}/${filename}"
+ 
+  if [[ -f $filename ]]; then
+    echo "File already exists: $filename"
+  else
+    echo "Downloading $filename from $location"
+    curl -s -H 'Referer: https://www.pixiv.net/' -o "$filename" "$location" || notify-send -u critical "Download failed for $filename"
+    chmod 0664 "$filename" || true
+  
+    sleep 1
+  fi
+done
+
+

@@ -213,6 +213,13 @@ if [[ $(hostname) == 'desutop' ]]; then
       zle .kill-whole-line
       BUFFER=$BUFFERz
       zle .accept-line
+    elif [[ $BUFFER =~ ^https://www.pixiv.net/ ]]; then
+      fc -R
+
+      BUFFERz=" pixdl $BUFFER"
+      zle .kill-whole-line
+      BUFFER=$BUFFERz
+      zle .accept-line
     else
       zle .accept-line
     fi
