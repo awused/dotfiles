@@ -1,0 +1,9 @@
+#! /bin/sh
+
+for f in ~/.local/state/mpv/watch_later/*; do
+  filename=$(head -n1 $f | sed 's/^# //')
+  [ -f "$filename" ] || continue
+
+
+  nohup mpv "$filename" --pause --fs=no > /dev/null 2>&1 &
+done
