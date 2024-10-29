@@ -16,7 +16,9 @@ rm -f /tmp/screen_locked.bmp
 # Keep them low while it's locked
 (sleep 10; xset s 600 dpms 600 600 600) &
 
-i3lock -n -i  /tmp/screen_locked.png -e || true
+i3lock -n -i  /tmp/screen_locked.png -e > /home/desuwa/i3lockout || true
+
+killall i3lock
 
 rm -f /tmp/screen_locked.png
 
