@@ -18,6 +18,8 @@ rm -f /tmp/screen_locked.bmp
 
 i3lock -n -i  /tmp/screen_locked.png -e > /home/desuwa/i3lockout || true
 
+xset s 7200 dpms 7200 7200 7200
+
 killall i3lock
 
 rm -f /tmp/screen_locked.png

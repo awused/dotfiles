@@ -101,6 +101,8 @@ shortcuts = [
   {key = "F", action = "Fullscreen toggle"},
   {key = "M", action = "MangaMode toggle"},
   {key = "J", action = "Jump"},
+
+  {key = "C", modifiers = "Control", action = "Copy"},
   {key = "O", modifiers = "Control", action = "Open"},
   {key = "O", modifiers = "Control, Shift", action = "OpenFolder"},
 
@@ -119,7 +121,6 @@ shortcuts = [
   {key = "S", modifiers = "Control, Shift", action = "Execute /home/desuwa/.config/aw-man/screenshotter-save-page.sh"},
   {key = "M", modifiers = "Control", action = "Execute /home/desuwa/.config/aw-man/mangadex-url-clipboard.sh"},
   {key = "P", modifiers = "Control", action = "Execute /home/desuwa/.config/aw-man/public-clipboard.sh"},
-  {key = "C", modifiers = "Control", action = "Execute /home/desuwa/.config/aw-man/clipboard.sh"},
   {key = "R", modifiers = "Control", action = "Script /home/desuwa/.config/aw-man/random-jump.sh"},
 
   {key = "Page_Down", modifiers = "Control", action = "NextPage current"},
