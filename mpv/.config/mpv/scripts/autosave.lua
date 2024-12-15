@@ -4,7 +4,7 @@
 --
 -- Saves a watch later config if the video has been paused for more than 1 minute.
 --
--- Does not save in the first/last 30 seconds of the file.
+-- Does not save in the last 30 seconds of the file.
 --
 -- Also clears watch later on clean exit.
 -- This lets you easily recover your position in the case of an ungraceful shutdown of mpv (crash, power failure, etc.).
@@ -24,11 +24,11 @@ end
 local function save()
   stop()
 
-  local elapsed = mp.get_property_native("time-pos")
-
-  if elapsed < 30 then
-    return
-  end
+  -- local elapsed = mp.get_property_native("time-pos")
+  --
+  -- if elapsed < 30 then
+  --   return
+  -- end
 
   local remaining = mp.get_property_native("time-remaining")
 

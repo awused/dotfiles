@@ -3,7 +3,7 @@
 #**aw-fm-settings-begin**
 # name=Unar
 # directories=false
-# mimetypes=application/zip;application/x-rar;application/x-7z-compressed;application/vnd.comicbook;application/x-tar;application/x-bzip-compressed;application/x-compressed;application/x-zstd-compressed;application/vnd.rar;application/x-lz4-compressed;application/x-xz-compressed
+# mimetypes=application/zip;application/x-rar;application/x-7z-compressed;application/vnd.comicbook;application/x-tar;application/x-bzip-compressed;application/x-compressed;application/x-zstd-compressed;application/vnd.rar;application/x-lz4-compressed;application/x-xz-compressed;application/x-bzip2
 # selection=at_least_one
 # priority=-1
 #**aw-fm-settings-end**
