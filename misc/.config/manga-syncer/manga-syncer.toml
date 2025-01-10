@@ -38,9 +38,10 @@ parallel_downloads = 8
 
 # Individual chapters that should be ignored for one reason or another.
 #
-# I've only see one broken chapter in multiple years of running manga-syncer,
+# I've only seen two broken chapters in multiple years of running manga-syncer,
 # so, for now, mark them manually.
 ignored_chapters = [
   "4ae1f8a4-6cce-418a-85a9-262277c74f1e",
+  "e630e73b-0caa-4e16-b5b0-d3d9bccc1d3b",
 ]
 
