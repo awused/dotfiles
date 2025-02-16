@@ -47,3 +47,4 @@ report.dotfiles.description=Miscellaneous small programming tasks
 report.dotfiles.columns=id,priority,status,description
 report.dotfiles.filter=status:pending and project:dotfiles
 report.dotfiles.sort=priority-\/,entry+
+news.version=2.6.0

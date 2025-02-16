@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Runelite
+GenericName=Old School Runescape
+Comment=Runelist 
+Exec=Runelite.AppImage -J -Xmx4096m
+Terminal=false
+Type=Application
+StartupNotify=true

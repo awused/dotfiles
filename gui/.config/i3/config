@@ -217,6 +217,7 @@ bindsym $mod+Shift+o reload
 bindsym Mod1+Shift+o restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym Mod1+Shift+e exec i3-msg exit
 bindsym Ctrl+Mod1+l exec --no-startup-id "xset dpms 5 5 5; ~/.config/i3/lock"
 
 bindsym $mod+Shift+w exec --no-startup-id wallpapers random
@@ -347,8 +348,8 @@ mode "resize" {
 #{{{ Startup Programs
 exec_always --no-startup-id "~/.config/polybar/launch.sh"
 # exec_always --no-startup-id "killall picom; picom --legacy-backend -b"
-# exec_always --no-startup-id "killall picom; picom -b"
-exec_always --no-startup-id "killall picom; /usr/local/bin/picom -b"
+exec_always --no-startup-id "killall picom; picom -b"
+# exec_always --no-startup-id "killall picom; /usr/local/bin/picom -b"
 exec_always --no-startup-id "killall dunst; dunst &"
 exec_always --no-startup-id "killall vmrpc-server; vmrpc-server &"
 # exec_always --no-startup-id "ibus-daemon -drx"

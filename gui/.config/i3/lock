@@ -2,6 +2,8 @@
 set -e
 # https://faq.i3wm.org/question/83/how-to-run-i3lock-after-computer-inactivity.1.html
 
+(set -o noclobber;> /tmp/.screen_locked ) &>/dev/null || exit 0
+
 import -window root /tmp/screen_locked.bmp
 # Needs to be PNG. Optimize appearance then locking speed
 convert /tmp/screen_locked.bmp \
@@ -16,11 +18,11 @@ rm -f /tmp/screen_locked.bmp
 # Keep them low while it's locked
 (sleep 10; xset s 600 dpms 600 600 600) &
 
-i3lock -n -i  /tmp/screen_locked.png -e > /home/desuwa/i3lockout || true
+i3lock -n -i  /tmp/screen_locked.png --debug -e >> /home/desuwa/i3lockout 2>&1 || true
 
 xset s 7200 dpms 7200 7200 7200
 
-killall i3lock
+# killall i3lock
 
 rm -f /tmp/screen_locked.png
 
@@ -28,3 +30,4 @@ wait
 
 xset s 7200 dpms 7200 7200 7200
 
+rm -f /tmp/.screen_locked

@@ -12,5 +12,4 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/home/desuwa/.
   */15  *  *  *  * ~/.cron/wallpaper-cron.sh
   0  8  *  *  sun  gio trash --empty
   0  8  *  *  sun ~/.cron/empty-nfs-trash
-  20  */2 *  *  * ~/.cron/jnc-check
   0  */6 * * * ~/.cron/firefox-youtube-cookies

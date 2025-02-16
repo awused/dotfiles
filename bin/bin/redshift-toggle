@@ -1,5 +1,9 @@
 #!/bin/sh
 
+
+# Add "x /tmp/.redshift-disabled" and "x /tmp/.redshift-force-disabled" to
+#
+# /usr/lib/tmpfiles.d/redshift-disable.conf
 tempfile=/tmp/.redshift-disabled
 forcefile=/tmp/.redshift-force-disabled
 
