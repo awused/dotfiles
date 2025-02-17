@@ -11,6 +11,7 @@ local pause_delay = 10 * 1
 
 local mp = require 'mp'
 
+local saved_filename = nil
 
 local function save()
   -- Do not save in the first 30 seconds of the file.
@@ -27,6 +28,16 @@ local function save()
   --   mp.command("delete-watch-later-config")
   --   return
   -- end
+
+  -- end-file is executed asynchronously so the playlist will usually be missing the last file
+  -- If the current file changes, clear the watch_later config
+  local fname = mp.get_property('path')
+  if saved_filename ~= nil then
+    if saved_filename ~= fname then
+      mp.commandv("delete-watch-later-config", saved_filename)
+    end
+  end
+  saved_filename = fname
 
   mp.commandv("set", "msg-level", "cplayer=warn")
   mp.command("write-watch-later-config")
@@ -66,7 +77,7 @@ mp.observe_property("pause", "bool", pause)
 local function end_file(data)
   pause_timer:kill()
 
-  if data.reason == 'eof' or data.reason == 'stop' then
+  if data.reason == 'eof' or data.reason == 'stop' or data.reason == 'redirect' then
     local playlist = mp.get_property_native('playlist')
     for i, entry in pairs(playlist) do
       if entry.id == data.playlist_entry_id then
