@@ -27,7 +27,6 @@ mkdir -p "$session_dir"
 # Restoring won't work at all without at least these
 [ -z "$AWMAN_PID" ] && exit 0
 [ -z "$AWMAN_ARCHIVE" ] && exit 0
-[ -z "$AWMAN_MANGA_MODE" ] && exit 0
 
 # Reject non-numeric PIDs
 case "$AWMAN_PID" in
