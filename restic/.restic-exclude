@@ -59,6 +59,7 @@ $HOME/.rustup
 $HOME/.runelite/screenshots
 $HOME/.runelite/repository2
 $HOME/.runelite/cache
+$HOME/.runelite/jagexcache
 $HOME/.steam
 $HOME/.Superposition
 $HOME/.thumbnails

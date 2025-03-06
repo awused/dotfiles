@@ -20,6 +20,7 @@
     "-Wclippy::let_underscore_drop",
     "-Wclippy::let_underscore_must_use",
     "-Wclippy::let_unit_value",
+    "-Wclippy::literal_string_with_formatting_args",
     "-Wclippy::manual_assert",
     "-Wclippy::manual_let_else",
     "-Wclippy::manual_string_new",

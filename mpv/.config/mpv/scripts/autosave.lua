@@ -14,6 +14,16 @@ local mp = require 'mp'
 local saved_filename = nil
 
 local function save()
+  -- end-file is executed asynchronously so the playlist will usually be missing the last file
+  -- If the current file changes, clear the watch_later config
+  local fname = mp.get_property('path')
+  if saved_filename ~= nil then
+    if saved_filename ~= fname then
+      mp.commandv("delete-watch-later-config", saved_filename)
+    end
+  end
+  saved_filename = fname
+
   -- Do not save in the first 30 seconds of the file.
   -- local elapsed = mp.get_property_native("time-pos")
   --
@@ -29,15 +39,12 @@ local function save()
   --   return
   -- end
 
-  -- end-file is executed asynchronously so the playlist will usually be missing the last file
-  -- If the current file changes, clear the watch_later config
-  local fname = mp.get_property('path')
-  if saved_filename ~= nil then
-    if saved_filename ~= fname then
-      mp.commandv("delete-watch-later-config", saved_filename)
-    end
+  -- Do not save at the very end of the file.
+  local remaining = mp.get_property_native("time-remaining")
+  if remaining < 0.5 then
+    mp.command("delete-watch-later-config")
+    return
   end
-  saved_filename = fname
 
   mp.commandv("set", "msg-level", "cplayer=warn")
   mp.command("write-watch-later-config")

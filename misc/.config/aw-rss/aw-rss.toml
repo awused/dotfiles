@@ -26,11 +26,16 @@ log_level = "Info"
 
 # Whether items with identical URLs should be deduplicated or not, even in
 # different feeds.
+#
 # When true, items with the same URLs in different feeds will be automatically
-# marked as "read" after the first one.
+# marked as "read" after the first one. This is meant for when you have multiple
+# overlapping feeds, such as rss feeds for topics or searches, from the same website
+# that can potentially return the same items.
+#
 # Whichever feed happens to go first is not deterministic.
 dedupe = true
 
+# NOT ENABLED
 # Whitelist of known cloudflare protected hosts that you trust enough to run
 # Javascript from.
 #
@@ -40,7 +45,7 @@ dedupe = true
 #
 # For cloudflare protected domains that aren't in the whitelist, aw-rss will
 # back off aggressively but will never run their javascript.
-# CloudflareDomains = [
+# cloudflare_domains = [
 #   "konachan.com",
 #   "www.royalroad.com",
 #   "www.novelupdates.com"
