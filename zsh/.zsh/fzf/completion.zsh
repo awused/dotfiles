@@ -33,7 +33,7 @@ fi
 
 __fzfcmd_complete() {
   [ -n "$TMUX_PANE" ] && [ "${FZF_TMUX:-0}" != 0 ] && [ ${LINES:-40} -gt 15 ] &&
-    echo "fzf-tmux -d${FZF_TMUX_HEIGHT:-40%}" || echo "fzf"
+    echo "fzf --tmux -d${FZF_TMUX_HEIGHT:-40%}" || echo "fzf"
 }
 
 __fzf_generic_path_completion() {
