@@ -69,7 +69,7 @@ fi
 
 tmpfile=$(mktemp)
 wget --quiet "$location" -O "$tmpfile"
-hash=$(sha256sum "$tmpfile" | sed 's/ .*//')
+hash=$(md5sum "$tmpfile" | sed 's/ .*//')
 
 if [[ ! -d $directory ]]; then
   echo "Creating sub-directory $directory"

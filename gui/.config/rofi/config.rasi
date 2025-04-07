@@ -10,5 +10,9 @@ configuration {
         kb-element-next: "";
         kb-mode-previous: "Shift+Left";
 	kb-cancel: "Escape,Control+g,Control+bracketleft,Super+Q";
+  timeout {
+      action: "kb-cancel";
+      delay:  15;
+  }
 }
 @theme "/usr/share/rofi/themes/gruvbox-dark-hard.rasi"
