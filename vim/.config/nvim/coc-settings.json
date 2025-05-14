@@ -2,8 +2,9 @@
   "diagnostic.checkCurrentLine": true,
   "rust-analyzer.imports.granularity.group": "module",
   "inlayHint.position": "eol",
-  "rust-analyzer.checkOnSave.command": "clippy",
-  "rust-analyzer.checkOnSave.extraArgs": ["--", "-Wclippy::nursery",
+  "rust-analyzer.checkOnSave": true,
+  "rust-analyzer.check.command": "clippy",
+  "rust-analyzer.check.extraArgs": ["--", "-Wclippy::nursery",
     "-Wunsafe_op_in_unsafe_fn",
 
     "-Wclippy::borrow_as_ptr",

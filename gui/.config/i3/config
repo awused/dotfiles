@@ -187,6 +187,7 @@ for_window [class="retroarch"] floating enable
 for_window [class="Yad"] floating enable
 for_window [class="zenity"] floating enable
 for_window [class="zoom"] floating enable
+for_window [class="com.lilithsthrone.main.Main"] floating enable
 #}}}
 #{{{ Launchers
 # start a terminal

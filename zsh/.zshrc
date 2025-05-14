@@ -369,6 +369,7 @@ export FZF_EXCLUDES=" \
   -not \( -name '.duplicacy-repo' -prune \) \
   -not \( -name '.esmtp_queue' -prune \) \
   -not \( -name '.fonts' -prune \) \
+  -not \( -name '.fonts-windows' -prune \) \
   -not \( -name '.foobar2000' -prune \) \
   -not \( -name '.gcloud-sdk' -prune \) \
   -not \( -name '.gem' -prune \) \
@@ -409,6 +410,7 @@ export FZF_EXCLUDES=" \
   -not \( -name 'vivaldi' -prune \) \
   -not \( -name '.waifu2x' -prune \) \
   -not \( -name '.wine*' -prune \) \
+  -not \( -name '.youtube-fonts' -prune \) \
   -not \( -name '.zplug' -prune \) \
   -not \( -name 'dist' -prune \) \
   -not \( -name 'env' -prune \) \
