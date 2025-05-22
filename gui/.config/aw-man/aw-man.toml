@@ -191,7 +191,7 @@ allow_external_extractors = true
 
 # Runs when aw-man starts up.
 #
-# This runs after any commands passed in with --command or --commands
+# This runs after any commands passed in with --command
 startup_command = "Execute /home/desuwa/.config/aw-man/save-session.sh"
 
 # Runs whenever the current page changes, subject to debouncing if configured.

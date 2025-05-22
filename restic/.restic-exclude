@@ -53,6 +53,7 @@ $HOME/.node-gyp
 $HOME/.npm
 $HOME/.nv
 $HOME/.opam
+$HOME/.openjfx
 $HOME/.purple/icons
 $HOME/.QtWebEngineProcess
 $HOME/.rustup

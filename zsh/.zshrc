@@ -388,6 +388,7 @@ export FZF_EXCLUDES=" \
   -not \( -name '.npm' -prune \) \
   -not \( -name '.nv' -prune \) \
   -not \( -name '.opam' -prune \) \
+  -not \( -name '.openjfx' -prune \) \
   -not \( -name '.password-store' -prune \) \
   -not \( -path '*/.purple/icons' -prune \) \
   -not \( -name '__pycache__' -prune \) \
