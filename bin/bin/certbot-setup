@@ -31,7 +31,6 @@ echo $domains
 certbot certonly \
   --no-eff-email \
   --agree-tos \
-  --must-staple \
   --email "$(get-automation-password certbot-email)" \
   --config-dir $config_dir \
   --logs-dir $logs_dir \
@@ -41,7 +40,7 @@ certbot certonly \
 
 python -c 'import time; time.sleep(60)'
 
-~/bin/ocsp-renew $cert $chain $ocsp_resp
+# ~/bin/ocsp-renew $cert $chain $ocsp_resp
 
 sudo /root/nginx-reload.sh
 

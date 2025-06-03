@@ -1,5 +1,5 @@
 SHELL=/bin/sh
-PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/usr/home/desuwa/.gobin:/usr/home/desuwa/bin:/usr/home/desuwa/.local/bin
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/usr/home/desuwa/.cargo/bin:/usr/home/desuwa/.gobin:/usr/home/desuwa/bin:/usr/home/desuwa/.local/bin
 # .---------------- minute (0 - 59)
 # |  .------------- hour (0 - 23)
 # |  |  .---------- day of month (1 - 31)
@@ -12,4 +12,4 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/usr/home/desu
   0  9  *  *  * ~/.cron/task-notify
   0  0,12  *  *  * ~/.cron/certbot-renew
   *  *  *  *  * steam-screenshots
-  37  5,11,17,23 * * * [ $(pgrep "^manga-syncer$") ] || manga-syncer
+  37  5,11,17,23 * * * ~/.cron/manga-syncer-cron

@@ -23,15 +23,15 @@ certbot renew \
   --quiet \
   --no-eff-email \
   --agree-tos \
-  --must-staple \
+  --dry-run \
   --email "$(get-automation-password certbot-email)" \
   --config-dir $config_dir \
   --logs-dir $logs_dir \
   --work-dir $work_dir
-
+  
 python -c 'import time; time.sleep(60)'
 
-~/bin/ocsp-renew $cert $chain $ocsp_resp
+# ~/bin/ocsp-renew $cert $chain $ocsp_resp
 
 sudo /root/nginx-reload.sh
 
