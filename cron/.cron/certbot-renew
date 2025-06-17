@@ -12,7 +12,6 @@ root="desuwa.net"
 
 cert=$config_dir/live/$root/cert.pem
 chain=$config_dir/live/$root/chain.pem
-ocsp_resp=$config_dir/live/$root/ocsp.resp
 
 # --staging
 #--dry-run
@@ -29,9 +28,5 @@ certbot renew \
   --logs-dir $logs_dir \
   --work-dir $work_dir
   
-python -c 'import time; time.sleep(60)'
-
-# ~/bin/ocsp-renew $cert $chain $ocsp_resp
-
 sudo /root/nginx-reload.sh
 

@@ -13,8 +13,6 @@ root="desuwa.net"
 
 cert=$config_dir/live/$root/cert.pem
 chain=$config_dir/live/$root/chain.pem
-ocsp_resp=$config_dir/live/$root/ocsp.resp
-
 
 
 domains="$root,www.$root"
@@ -37,10 +35,6 @@ certbot certonly \
   --work-dir $work_dir \
   --webroot -w $webroot \
   -d $domains
-
-python -c 'import time; time.sleep(60)'
-
-# ~/bin/ocsp-renew $cert $chain $ocsp_resp
 
 sudo /root/nginx-reload.sh
 
