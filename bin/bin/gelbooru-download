@@ -5,6 +5,10 @@
 # Skips any images that already exist but will continue to download those that don't
 # Doesn't add numbering for single images.
 
+# Take this from gelbooru's settings page
+api_key=""
+# api_key="&api_key=12345679abcd&user_id=12345"
+
 declare -A tagdirs
 tagdirs[touhou]="Touhou"
 tagdirs[kantai_collection]="Kantai Collection"
@@ -12,7 +16,6 @@ tagdirs[strike_witches]="Strike Witches"
 tagdirs['neptune_\(series\)']="neptunia"
 tagdirs[pokemon]="pokemon"
 tagdirs[idolmaster]="im@s"
-
 
 directory="$1"
 counter=1
@@ -34,7 +37,7 @@ if [[ -z $id ]]; then
 fi
 shift
 
-api="https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&id="
+api="https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1${api_key}&id="
 
 # If there is no second image, just download this one without a suffix.
 
