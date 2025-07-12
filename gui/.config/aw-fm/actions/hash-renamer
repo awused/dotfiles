@@ -1,0 +1,56 @@
+#! /usr/bin/env bash
+
+#**aw-fm-settings-begin**
+# name=Hash Renamer
+# directories=false
+# mimetypes=image
+# selection=at_least_one
+# priority=99
+#**aw-fm-settings-end**
+
+
+set -e
+
+readarray -t fa <<< "$AWFM_SELECTION"
+
+[ ! "${#fa[@]}" = "0" ] || exit 0
+
+first=${fa[0]}
+dir=$(dirname "$first")
+
+if [[ ! -f "$first" ]]; then
+  notify-send -u critical "No such file \"$first\""
+  exit 0
+fi
+
+hash=$(md5sum "$first" | sed 's/ .*//')
+
+for i in ${!fa[@]}; do
+  file=${fa[$i]}
+  directory=$(dirname "$file")
+  if [[ ! "$dir" = "$directory" ]]; then
+    notify-send -u critical "Cannot rename files in multiple directories"
+    exit 0
+  fi
+
+  base=$(basename "$file")
+  ext="${base##*.}"
+
+  newname=""
+    newname="$dir"/"$hash"."$ext"
+  if [ "${#fa[@]}" = "1" ]; then
+    newname="$dir"/"$hash"."$ext"
+  else
+    i=$(printf "%02d" $((i+1)))
+    newname="$dir"/"$hash"${i}."$ext"
+  fi
+
+  [[ ! "$newname" = "$file" ]] || continue
+
+  if [[ -f "$newname" ]]; then
+    notify-send "File $newname already exists"
+    continue
+  fi
+
+  mv "$file" "$newname"
+done
