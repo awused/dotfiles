@@ -22,7 +22,6 @@ certbot renew \
   --quiet \
   --no-eff-email \
   --agree-tos \
-  --dry-run \
   --email "$(get-automation-password certbot-email)" \
   --config-dir $config_dir \
   --logs-dir $logs_dir \

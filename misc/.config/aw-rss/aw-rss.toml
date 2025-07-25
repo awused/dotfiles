@@ -9,7 +9,7 @@ database = "/usr/home/desuwa/.rss/aw-rss.db"
 # authorization. If you want to expose aw-rss for remote access it should be
 # done using a reverse proxy with basic authentication support such as nginx.
 # Change this your own risk.
-host = "localhost"
+host = "127.0.0.1"
 
 # Port to listen on.
 port = 9092
