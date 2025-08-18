@@ -21,8 +21,10 @@
 " itself)
 " Set g:plug_timeout to large value if necessary
 
+" These manual overrides are not necessary with my fork:
 " Manually apply https://github.com/rust-lang/rust.vim/pull/448/commits/ce431a00633d924bd4781cdff493226d6eb65d1f
 " Line ~160 goes from 'call setline(1, l:content)' to 'call nvim_buf_set_lines(0, 0, -1, v:true, l:content)'
+" Manually disable rust.vim edition 2018 default
 
 " --- REMINDER --- Also need to set Glaive
 let g:os = substitute(system('uname'), '\n', '', '')
@@ -250,7 +252,7 @@ if g:os == "Linux" && executable('mold')
   let $MOLD_PATH = "mold"
   let $LD_PRELOAD = "/usr/lib64/mold/mold-wrapper.so"
 endif
-Plug 'rust-lang/rust.vim'
+Plug 'awused/rust.vim'
 
 if has('nvim-0.5')
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}

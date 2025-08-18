@@ -17,4 +17,5 @@ else
     [ -x /usr/bin/twm ] && /usr/bin/twm
 fi
 xrdb -merge ~/.Xresources
+setxkbmap -option keypad:pointerkeys
 exec i3
