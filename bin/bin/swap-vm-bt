@@ -1,0 +1,11 @@
+#!/bin/sh
+# Hotplugs the USB bluetooth receiver to and from the VM.
+# Follow https://tomlankhorst.nl/share-bluetooth-adapter-between-vm to copy BT pairing keys
+
+virsh list --state-running | grep -q win10 || exit
+
+if virsh dumpxml win10 | grep -q ua-bluetooth-receiver; then
+  virsh detach-device win10 /home/desuwa/dotfiles/vm-definitions/usb-bt-receiver.xml --live
+else
+  virsh attach-device win10 /home/desuwa/dotfiles/vm-definitions/usb-bt-receiver.xml --live
+fi

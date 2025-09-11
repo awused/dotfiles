@@ -1,0 +1,12 @@
+#!/bin/sh
+# Hotplugs the USB 2.4ghz receiver to and from the VM.
+# This one is annoying, and the USB controller changes how it identifies when a controller is connected or not
+# Rerunning this script is enough to get it working.
+
+virsh list --state-running | grep -q win10 || exit
+
+if virsh dumpxml win10 | grep -q ua-8bitdo-receiver; then
+  virsh detach-device win10 /home/desuwa/dotfiles/vm-definitions/usb-8bitdo-receiver.xml --live
+else
+  virsh attach-device win10 /home/desuwa/dotfiles/vm-definitions/usb-8bitdo-receiver.xml --live
+fi

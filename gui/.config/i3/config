@@ -234,7 +234,7 @@ bindsym $mod+Ctrl+t exec --no-startup-id swap-vm-monitors
 bindsym Mod1+Ctrl+t exec --no-startup-id swap-vm-monitors primary
 bindsym Mod1+Shift+t exec --no-startup-id toggle-monitors
 
-bindcode Shift+62 exec --no-startup-id swap-vm-ps4
+bindcode Shift+62 exec --no-startup-id swap-vm-bt
 
 
 # Screenshots
