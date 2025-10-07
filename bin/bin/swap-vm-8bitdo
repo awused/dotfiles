@@ -2,6 +2,7 @@
 # Hotplugs the USB 2.4ghz receiver to and from the VM.
 # This one is annoying, and the USB controller changes how it identifies when a controller is connected or not
 # Rerunning this script is enough to get it working.
+# There are udev rules to fix this
 
 virsh list --state-running | grep -q win10 || exit
 

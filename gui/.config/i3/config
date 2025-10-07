@@ -188,7 +188,9 @@ for_window [class="Yad"] floating enable
 for_window [class="zenity"] floating enable
 for_window [class="zoom"] floating enable
 for_window [class="com.lilithsthrone.main.Main"] floating enable
-for_window [class="net-runelite-launcher-Launcher"]  border pixel 0
+for_window [class="net-runelite-launcher-Launcher"] border pixel 0
+for_window [class="net-runelite-client-RuneLite"] border pixel 0
+for_window [class="BoltLauncher"] floating enable border pixel 0
 #}}}
 #{{{ Launchers
 # start a terminal

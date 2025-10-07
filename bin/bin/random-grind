@@ -1,0 +1,21 @@
+#! /usr/bin/env bash
+
+set -e
+
+# For later:
+#
+# pyramid
+# tithe farm strawhat
+# fletching
+# firemaking
+# gauntlet
+# herblore
+# soul cape
+# gwd
+
+skills=(woodcutting crafting fishing agility runecrafting medium-clues)
+db="$HOME/.runescape/grind"
+
+
+printf '%s\n' "${skills[@]}" | strpick --db "$db" pick "$1"
+

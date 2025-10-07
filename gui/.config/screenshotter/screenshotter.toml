@@ -153,6 +153,11 @@ MouseKeys = true
 
 [[Overrides]]
   Name = 'java'
+  Regex = 'runelite'
+  Format = "runelite"
+
+[[Overrides]]
+  Name = 'java'
   Regex = 'minecraft-[0-9.]*-client.jar'
   Format = "minecraft"
 

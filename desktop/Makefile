@@ -90,6 +90,14 @@ loudgain: sudo
 	  cmake -DCMAKE_INSTALL_PREFIX=/usr/local ..; $(MAKE); sudo $(MAKE) install
 
 # Third party code
+bolt:
+	cd ${THIRD_PARTY_SOURCE}/Bolt; \
+	  rm -rf build/; mkdir build; cd build; \
+	  cmake .. -D CMAKE_BUILD_TYPE=Release -D BOLT_SKIP_LIBRARIES=1 -D BOLT_BINDIR=bin \
+	      -D BOLT_LIBDIR=lib -D BOLT_SHAREDIR=share -G Ninja; \
+	  cmake --build .; \
+	  cmake --install . --prefix "${HOME}/.local"
+
 maim: sudo slop
 	cd ${THIRD_PARTY_SOURCE}/maim; \
 	  rm -rf build/; mkdir build; cd build; \
