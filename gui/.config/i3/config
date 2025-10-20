@@ -366,7 +366,7 @@ exec_always --no-startup-id "killall xautolock; xautolock -time 120 -locker ~/.c
 
 exec_always --no-startup-id "redshift-reset"
 
-exec --no-startup-id "setxkbmap -option keypad:pointerkeys; xkbset exp =mousekeys"
+exec_always --no-startup-id "setxkbmap -option keypad:pointerkeys; xkbset exp =mousekeys"
 
 exec --no-startup-id xset s 7200 dpms 7200 7200 7200
 # exec --no-startup-id "~/.fehbg || :"

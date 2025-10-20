@@ -44,9 +44,10 @@ $HOME/.local/kitty.app
 $HOME/.local/MultiMC
 $HOME/.local/lib
 $HOME/.local/lib64
-$HOME/.local/TeamSpeak3-Client-linux_amd64
+$HOME/.local/opt
 $HOME/.local/share/flatpak
 $HOME/.local/share/Steam
+$HOME/.local/TeamSpeak3-Client-linux_amd64
 $HOME/.manga-upscaler.log
 $HOME/.nimble
 $HOME/.node-gyp

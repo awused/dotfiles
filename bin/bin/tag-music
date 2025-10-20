@@ -624,11 +624,10 @@ if len(rgfiles) > 0:
             '--clip-mode',
             'a',
             '--opus-mode',
-            # 's', # Doesn't write the expected '0' r128_track_gain tag
-            'r',
+            's',
         ]
         rgargs = ['loudgain', '--tagmode', 'i', '--track', '--noclip']
-        # rgargs = ['loudness', 'tag', '-t']
+
         rgargs.extend(files)
         if not args.dry_run:
             p = subprocess.Popen(rgargs, stdout=sys.stdout, stderr=sys.stderr)
