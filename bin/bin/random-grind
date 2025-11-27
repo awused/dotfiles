@@ -4,15 +4,17 @@ set -e
 
 # For later:
 #
+# smithing
 # pyramid
 # fletching
-# firemaking
+# agility
+# wintertodt
 # gauntlet
-# herblore
-# soul cape
+# mixology
+# soul-cape
 # gwd
 
-skills=(woodcutting crafting fishing agility runecrafting medium-clues)
+skills=(woodcutting crafting fishing runecrafting medium-clues)
 db="$HOME/.runescape/grind"
 
 

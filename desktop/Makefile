@@ -157,7 +157,7 @@ flatpak:
 
 rustup:
 	rustup update
-	cargo install --locked --force cargo-audit cargo-bloat cargo-criterion cargo-udeps cargo-edit
+	cargo install --locked --force cargo-audit cargo-bloat cargo-criterion cargo-udeps cargo-edit deno
 
 aw-man:
 	cargo install --path "${AWUSED_SOURCE}/aw-man" --locked

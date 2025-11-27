@@ -1,0 +1,22 @@
+#! /usr/bin/env bash
+
+#**aw-fm-settings-begin**
+# name=File Name Swapper
+# directories=false
+# selection=exactly_2
+# priority=100
+#**aw-fm-settings-end**
+
+
+readarray -t fa <<< "$AWFM_SELECTION"
+
+[ "${#fa[@]}" = "2" ] || exit 0
+
+tmp="${fa[0]}.tmp"
+
+[[ -d "$tmp" ]] && exit 0
+
+mv "${fa[0]}" "$tmp"
+mv "${fa[1]}" "${fa[0]}"
+mv "$tmp" "${fa[1]}"
+

@@ -191,6 +191,8 @@ for_window [class="com.lilithsthrone.main.Main"] floating enable
 for_window [class="net-runelite-launcher-Launcher"] border pixel 0
 for_window [class="net-runelite-client-RuneLite"] border pixel 0
 for_window [class="BoltLauncher"] floating enable border pixel 0
+for_window [title="Bro King"] floating enable
+for_window [class="companytrip.exe"] floating enable
 #}}}
 #{{{ Launchers
 # start a terminal
