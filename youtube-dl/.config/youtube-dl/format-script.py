@@ -22,6 +22,8 @@ vqualifiers = [
 ]
 
 aqualifiers = [
+    # Prioritize skipping auto-dubs
+    ['[format_note*=original]', ''],
     # Format
     [
         '[acodec=opus]',
