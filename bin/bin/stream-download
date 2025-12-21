@@ -32,8 +32,8 @@ title=$(clean "$title")
 channel=$(clean "$channel")
 
 if [ -z "$channel" ]; then
-  echo "Unable to get channel name"
-  exit 1
+  echo "Unable to get channel name, using default"
+  channel="default"
 fi
 
 dir="${channel}"
@@ -61,7 +61,7 @@ else
   echo "Chat file $ydir/$chat already exists"
 fi
 
-ytarchive -w --debug --threads 5 --write-thumbnail --vp9 --output "$file" "$url" best
+ytarchive -w --debug --threads 5 --write-thumbnail --av1 --vp9 --output "$file" "$url" best
 #streamlink --retry-streams 10 "$url" best -o "$file" || true
 
 get-start-time "$url" || true

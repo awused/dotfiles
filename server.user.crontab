@@ -7,9 +7,10 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/usr/home/desu
 # |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7)  OR sun,mon,tue,wed,thu,fri,sat
 # |  |  |  |  |
 # *  *  *  *  *  command to be executed
-  0  *  *  *  * ~/git/youtube-grabber/cron_grabber.py
+#  0  *  *  *  * ~/git/youtube-grabber/cron_grabber.py
   0  0  *  *  * ~/.cron/zfs_health
   0  9  *  *  * ~/.cron/task-notify
   0  0,12  *  *  * ~/.cron/certbot-renew
   *  *  *  *  * steam-screenshots
   37  5,11,17,23 * * * ~/.cron/manga-syncer-cron
+  0  6  1  *  *  pip cache purge
