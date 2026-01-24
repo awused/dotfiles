@@ -5,30 +5,79 @@ source ~/.vimrc
 
 if has('nvim-0.5')
 lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = {
-      "bash",
-      "c",
-      "cpp",
-      "css",
-      "go",
-      "gomod",
-      "html",
-      "javascript",
-      "json",
-      "lua",
-      "python",
-      "regex",
-      "scss",
-      "rust",
-      "toml",
-      "typescript",
-      "yaml",
-  },
-  highlight = {
-    enable = true,
-  },
+-- require('lazy').setup({
+--   'nvim-treesitter/nvim-treesitter',
+--   lazy = false,
+--   build = ':TSUpdate'
+-- })
+--
+require'nvim-treesitter'.install {
+        "bash",
+        "c",
+        "cpp",
+        "css",
+        "go",
+        "gomod",
+        "html",
+        "javascript",
+        "json",
+        "lua",
+        "python",
+        "regex",
+        "scss",
+        "rust",
+        "toml",
+        "typescript",
+        "yaml",
 }
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = {
+        "bash",
+        "c",
+        "cpp",
+        "css",
+        "go",
+        "gomod",
+        "html",
+        "javascript",
+        "json",
+        "lua",
+        "python",
+        "regex",
+        "scss",
+        "rust",
+        "toml",
+        "typescript",
+        "yaml",
+  },
+  callback = function() vim.treesitter.start() end,
+})
+
+-- require'nvim-treesitter.configs'.setup {
+--   ensure_installed = {
+--       "bash",
+--       "c",
+--       "cpp",
+--       "css",
+--       "go",
+--       "gomod",
+--       "html",
+--       "javascript",
+--       "json",
+--       "lua",
+--       "python",
+--       "regex",
+--       "scss",
+--       "rust",
+--       "toml",
+--       "typescript",
+--       "yaml",
+--   },
+--   highlight = {
+--     enable = true,
+--   },
+-- }
 
 require 'colorizer'.setup{
   filetypes = {
@@ -68,7 +117,9 @@ require"gruvbox".setup{
   palette_overrides = {
     light1 = "#ffffff",
   },
-  overrides = {},
+  overrides = {
+    TabLineFill = {bg = "NONE"}
+  },
   dim_inactive = false,
   transparent_mode = true,
 }

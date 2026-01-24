@@ -93,8 +93,8 @@ shortcuts = [
   {key = "Home", action = "FirstPage start"},
   {key = "Escape", action = "Quit"},
   {key = "Q", action = "Quit"},
-  {key = "Escape", modifiers = "Shift", action = "Quit nocommand"},
-  {key = "Q", modifiers = "Shift", action = "Quit nocommand"},
+  {key = "Escape", modifiers = "Shift", action = "Quit altcommand"},
+  {key = "Q", modifiers = "Shift", action = "Quit altcommand"},
   {key = "bracketright", action = "NextArchive"}, # ]
   {key = "bracketleft", action = "PreviousArchive"}, # [
   {key = "U", action = "Upscaling toggle"},
@@ -123,7 +123,7 @@ shortcuts = [
   {key = "S", modifiers = "Control, Shift", action = "Execute /home/desuwa/.config/aw-man/screenshotter-save-page.sh"},
   {key = "M", modifiers = "Control", action = "Execute /home/desuwa/.config/aw-man/mangadex-url-clipboard.sh"},
   {key = "P", modifiers = "Control", action = "Execute /home/desuwa/.config/aw-man/public-clipboard.sh"},
-  {key = "R", modifiers = "Control", action = "Script /home/desuwa/.config/aw-man/random-jump.sh"},
+  {key = "R", modifiers = "Control,Shift", action = "Script /home/desuwa/.config/aw-man/random-jump.sh"},
 
   {key = "Page_Down", modifiers = "Control", action = "NextPage current"},
   {key = "Page_Up", modifiers = "Control", action = "PreviousPage current"},
@@ -239,6 +239,9 @@ idle_command = "Execute /home/desuwa/.config/aw-man/save-session.sh"
 # While aw-man will wait for any scripts to finish, the GUI will already be shutting down so it
 # will not be responsive to commands from "Script"
 quit_command = "Execute /home/desuwa/.config/aw-man/clear-session.sh"
+# Used for `Quit altcommand`, such as if you want to ensure sessions are updated regardless of
+# page_change_debounce or only want to manually save sessions.
+alternate_quit_command = "Execute /home/desuwa/.config/aw-man/save-session.sh"
 
 # For automatic session saving using the example scripts (read them for customization):
 #

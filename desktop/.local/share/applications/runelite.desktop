@@ -6,3 +6,4 @@ Exec=RuneLite.AppImage -J -Xmx4096m
 Terminal=false
 Type=Application
 StartupNotify=true
+NoDisplay=true

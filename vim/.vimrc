@@ -728,6 +728,7 @@ if g:os == "Linux" && !has('nvim')
     hi BufTabLineCurrent guibg=NONE ctermbg=NONE guifg=#c8b9a4 ctermfg=white
     hi BufTabLineHidden guibg=NONE ctermbg=NONE guifg=#555555
     call RemoveBG("BufTabLineFill")
+    call RemoveBG("BufTabLine")
     call RemoveBG("CursorLineNR")
     call RemoveBG("Folded")
     call RemoveBG("Normal")

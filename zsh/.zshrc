@@ -105,7 +105,7 @@ alias sgrep='/usr/bin/lv -g -Is -'
 alias ng='npm run-script ng --'
 alias ngserve='ng serve'
 alias ngprod='npm run prod'
-alias ydl='yt-dlp --write-thumbnail --write-description'
+alias ydl='yt-dlp --write-thumbnail --write-description --mtime'
 alias ydls='yt-dlp --write-sub --write-thumbnail --write-description'
 alias ydl1080="yt-dlp --format 'bestvideo[height=1080][fps>30][vcodec^=av01]+bestaudio[acodec=opus]/bestvideo[height=1080][fps>30][vcodec=vp9]+bestaudio[acodec=opus]/bestvideo[height=1080][vcodec^=av01]+bestaudio[acodec=opus]/bestvideo[height=1080][vcodec^=vp09]+bestaudio[acodec=opus]'"
 
@@ -645,17 +645,17 @@ __zshrc_sourced=$(stat-rc)
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/usr/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/usr/etc/profile.d/conda.sh" ]; then
-        . "/usr/etc/profile.d/conda.sh"
-    else
-        export PATH="/usr/bin:$PATH"
-    fi
-fi
-unset __conda_setup
+# __conda_setup="$('/usr/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "/usr/etc/profile.d/conda.sh" ]; then
+#         . "/usr/etc/profile.d/conda.sh"
+#     else
+#         export PATH="/usr/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
 # <<< conda initialize <<<
 
 # Enforce unique PATH, unsets $PATH for the rest of the script

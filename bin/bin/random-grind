@@ -4,17 +4,23 @@ set -e
 
 # For later:
 #
-# smithing
+# gwd-bos
+# toa
+# dt2-boss
+# tds-off-task
 # pyramid
+# hunter-rumours (after gryphon)
 # fletching
-# agility
 # wintertodt
-# gauntlet
-# mixology
-# soul-cape
+# smithing
 # gwd
+# runecrafting
+# tithe farm
+# corp
+#
+# after sceptre -> toa
 
-skills=(woodcutting crafting fishing runecrafting medium-clues)
+skills=(crafting fishing fishing2 gauntlet mixology agility zulrah woodcutting)
 db="$HOME/.runescape/grind"
 
 

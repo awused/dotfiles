@@ -306,6 +306,7 @@ bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
+# ; [floating class="net-runelite-client-RuneLite"] resize set 1973 1200
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle

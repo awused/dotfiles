@@ -65,6 +65,8 @@ npm:
 	npm update -g
 
 cargo:
+	# cargo install --locked --force deno
+
 
 #go-update:
 #	go get -u all
