@@ -1,0 +1,7 @@
+#! /bin/sh
+# Jank script instead of a proper daemon
+
+
+[ $(killall -0 -q "steam-screenshots" ) ] && exit 0
+
+steam-screenshots
