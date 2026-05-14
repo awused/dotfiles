@@ -18,8 +18,7 @@ if [[ $4 != "" ]]; then
   cd "$4"
 fi
 
-count=$(pgrep -u $USER -f -c $2)
-# Expect to match this shell script
+count=$(pgrep -u $USER -f -c "$2$") || true
 if [[ $count < 2 ]]; then
   $($3) &
   exit

@@ -1,0 +1,352 @@
+# vim: set foldmethod=marker foldlevel=0:
+
+
+# Windows key
+set $mod Mod4
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# Stop mouse from overriding focus
+focus_follows_mouse no
+
+# Mouse should stay where I put it
+mouse_warping none
+
+# Monitors
+# TODO -- actual names
+set $m_center "DP-1"
+set $m_left "DP-2"
+set $m_right "DP-3"
+set $m_top "HDMI-A-1"
+
+
+# i3-gaps features
+smart_borders on
+smart_gaps on
+gaps inner 10
+
+# xrandr --output DP-0 --mode 3840x2160 --rate 120 --pos 2560x1440 --primary --output HDMI-0 --mode 2560x1440 --pos 3200x0 --rate 120 --output DP-2 --mode 2560x1440 --pos 6400x2160 --rate 120 --output DP-4 --mode 2560x1440 --pos 0x2160 --rate 120
+
+
+# DP-1
+output 'GIGA-BYTE TECHNOLOGY CO., LTD. AORUS FI32U 20480B000000' mode 3840x2160@120Hz pos 2560 1440 adaptive_sync off scale 1.5
+#output HDMI-A-1 mode 2560x1440@119.998Hz pos 3200 0 adaptive_sync on
+# output DP-2 mode 2560x1440@119.998Hz pos 6400 2160 adaptive_sync on
+# output DP-2 mode 2560x1440@119.998Hz pos 5120 2160 adaptive_sync on
+# output DP-3 mode 2560x1440@119.998Hz pos 0 2160 adaptive_sync on
+
+# HDMI-A-1
+output 'GIGA-BYTE TECHNOLOGY CO., LTD. AORUS AD27QD 19050B000068' mode 2560x1440@119.998Hz pos 2560 0 adaptive_sync off
+# DP-2
+output 'GIGA-BYTE TECHNOLOGY CO., LTD. AORUS AD27QD 19050B000199' mode 2560x1440@119.998Hz pos 5120 1440 adaptive_sync off
+# DP-3
+output 'GIGA-BYTE TECHNOLOGY CO., LTD. AORUS AD27QD 19050B000191' mode 2560x1440@119.998Hz pos 0 1440 adaptive_sync off
+
+output Unknown-1 disable
+
+## output DP-1 mode 3840x2160@120Hz pos 2560 1440 adaptive_sync on scale 1.25
+## output DP-3 mode 2560x1440@119.998Hz pos 5632 2160
+
+#{{{ Input
+input type:pointer {
+    accel_profile flat
+    pointer_accel -0.3
+}
+#}}}
+
+
+#{{{ General Purpose Workspaces
+#workspace_auto_back_and_forth yes
+bindsym $mod+b workspace back_and_forth
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+
+bindsym Mod1+Shift+Left move workspace to output left
+bindsym Mod1+Shift+Down move workspace to output down
+bindsym Mod1+Shift+Up move workspace to output up
+bindsym Mod1+Shift+Right move workspace to output right
+
+#}}}
+#{{{ Visuals
+font pango:DejaVu Sans Mono 12
+
+default_border pixel 1
+default_floating_border normal
+#}}}
+#{{{ Application Overrides TODO
+set $wsff "firefox"
+bindsym $mod+z workspace $wsff
+bindsym $mod+Shift+z move container to workspace $wsff
+# assign [class="firefox"] $wsff
+# for_window [class="firefox"] floating enable
+# for_window [class="firefox" instance="Navigator" window_type="normal"] floating disable border pixel 0
+# for_window [class="firefox" instance="Navigator" title="Torrents for .*"] floating enable border normal
+# for_window [class="firefox" instance="Navigator" title="Torrents for .*"] move position center
+# for_window [class="firefox" instance="Navigator" title="Extension: \(Tree Style Tab\) - Close.*"] floating enable border normal
+# for_window [class="firefox" instance="Places"] floating enable border normal
+workspace $wsff output $m_center
+#
+set $wsct "chat"
+bindsym $mod+c workspace $wsct
+bindsym $mod+Shift+c move container to workspace $wsct
+assign [class="Slack"] $wsct
+assign [class="TeamSpeak 3"] $wsct
+workspace $wsct output $m_right
+
+set $wsst "steam"
+bindsym $mod+Mod1+t workspace $wsst
+for_window [class="steam"] move container to workspace $wsst
+for_window [class="steam"] floating enable
+for_window [class="Steam"] move container to workspace $wsst
+for_window [class="Steam"] floating enable
+workspace $wsst output $m_center
+
+set $wsnm "aw-fm"
+assign [class="Caja"] $wsnm
+assign [class="aw-fm"] $wsnm
+for_window [class="Caja"] focus
+for_window [class="aw-fm"] focus
+bindsym $mod+x workspace $wsnm
+workspace $wsnm output $m_left
+
+set $wsmx "aw-man"
+bindsym Mod1+m workspace $wsmx
+for_window [class="MComix"] move window to workspace $wsmx layout tabbed
+for_window [class="Aw-man"] move window to workspace $wsmx layout tabbed
+for_window [instance="aw-man"] move window to workspace $wsmx layout tabbed
+workspace $wsmx output $m_center
+bindsym Mod1+Shift+m move container to workspace $wsmx
+#}}}
+#{{{ Launchers
+# start a terminal
+bindsym $mod+Return exec /home/desuwa/bin/desu-terminal
+bindsym $mod+Shift+Return exec gnome-terminal || xfce4-terminal || urxvt || i3-sensible-terminal
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# Rofi
+bindsym $mod+d exec "rofi -modi drun,run -show drun"
+# bindsym $mod+d exec "fuzzel"
+# bindsym $mod+Shift+f exec "rofi -modi drun,run -show drun"
+# bindsym $mod+d exec "fuzzel"
+# bindsym Mod1+Tab exec "rofi -modi windowcd,window -show window"
+# bindsym $mod+Shift+s exec "rofi -modi ssh -show ssh"
+# bindsym $mod+Ctrl+a exec "rofi-files /storage/media/anime"
+# bindsym $mod+Ctrl+c exec "rofi-files /storage/media/torrents/completed"
+# bindsym $mod+Ctrl+n exec "rofi-files /storage/media/manga"
+
+# There also is the (new) i3-dmenu-desktop which only displays applications
+# shipping a .desktop file. It is a wrapper around dmenu, so you need that
+# installed.
+# bindsym $mod+d exec i3-dmenu-desktop
+
+# Floating applications I generally only want one instance of
+# I never use this
+# bindsym $mod+Shift+minus move scratchpad
+# bindsym $mod+minus scratchpad show
+#}}}
+#{{{ Other Commands
+# reload the configuration file
+# TODO -- re-enable when i3 stops crashing on reload
+bindsym $mod+Shift+o reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym Mod1+Shift+o restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your session.' -b 'Yes, exit sway' 'sway-msg exit'"
+bindsym Mod1+Shift+e exec sway-msg exit
+bindsym Ctrl+Mod1+l exec pkill -x -USR1 swayidle
+
+bindsym $mod+Shift+w exec pkill -x -USR1 -H wallpapers
+bindsym $mod+Shift+d exec ~/.config/i3/show-desktop
+bindsym $mod+Mod1+d exec ~/.config/i3/show-desktop false
+
+bindsym $mod+Shift+r exec "redshift-toggle force"
+bindsym Mod1+Shift+r exec redshift-reset
+
+bindsym $mod+Shift+t exec swap-vm-monitors
+bindsym Mod1+Shift+t exec toggle-monitors
+
+bindcode Ctrl+105 exec swap-vm-usb
+
+
+# Screenshots
+# Edit /etc/sysctl.d/99-sysctl.conf with kernel.sysrq = 0
+# Change to allow full desktop screenshots. In practice I never take these
+bindsym --release Print exec screenshotter window
+
+bindsym --release Shift+Print exec screenshotter region
+# bindsym --release Mod1+Print exec screenshotter window
+bindsym --release Mod1+Sys_Req exec screenshotter window
+
+
+# MPD
+bindsym $mod+Control+s exec mpc toggle
+bindsym $mod+Control+Shift+S exec mpc stop
+bindsym $mod+Control+u exec mpc update
+bindsym $mod+Control+Right exec mpc next
+bindsym $mod+Control+Left exec mpc prev
+bindsym $mod+Control+Up exec "mpc volume +5; notify-send Volume \\"$(mpc volume)\\" -t 1000 -i /usr/share/icons/Adwaita/32x32/status/audio-volume-high.png"
+bindsym $mod+Control+Down exec "mpc volume -5; notify-send Volume \\"$(mpc volume)\\" -t 1000 -i /usr/share/icons/Adwaita/32x32/status/audio-volume-high.png"
+# Rofi rendering ended up being very janky for some reason I haven't figured out
+# It should be a better option than spinning up a new terminal just to run mpd-fzf in a floating window
+for_window [title="aw-i3-forced-float"] floating enable
+bindsym $mod+Control+m exec ~/.config/i3/mpd-fzf
+bindsym $mod+Mod1+m exec mpd-rofi
+#}}}
+#{{{ Movement and Layout
+# change focus
+# bindsym $mod+j focus left
+# bindsym $mod+k focus down
+# bindsym $mod+l focus up
+# bindsym $mod+semicolon focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+# bindsym $mod+Shift+j move left
+# bindsym $mod+Shift+k move down
+# bindsym $mod+Shift+l move up
+# bindsym $mod+Shift+semicolon move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+#}}}
+#{{{ Resizing
+bindsym $mod+r mode "resize"
+bindsym --release $mod+Shift+g exec dpi-scale
+bindsym --release Mod1+Shift+g exec "720-1080-scale"
+
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Shift+Left resize shrink width 100 px or 100 ppt
+        bindsym Shift+Down resize grow height 100 px or 100 ppt
+        bindsym Shift+Up resize shrink height 100 px or 100 ppt
+        bindsym Shift+Right resize grow width 100 px or 100 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+#}}}
+#{{{ Startup Programs
+
+bar {
+  swaybar_command waybar
+}
+swaybg_command -
+exec_always "killall wallpapers; wallpapers daemon"
+# exec_always "killall mpd; killall mpd-shuffler; mpd; mpd-shuffler &"
+# exec_always "killall vmrpc-server; vmrpc-server &"
+
+# Enable in sudoers with
+# desuwa ALL=(root) NOPASSWD:/usr/bin/nvidia-smi -i 0 -pl 375
+exec_always "sudo /usr/bin/nvidia-smi -i 0 -pl 375"
+
+# # udev rules are not consistently applied, give them a kick
+exec_always "udevadm trigger"
+
+# Lock screen at 2 hours
+# Monitors off at 2 hours 5 minutes or 2 minutes while screen is locked
+exec_always killall swayidle; killall swaylock; \
+    swayidle -w \
+	timeout 120 'pidof "swaylock" > /dev/null && swaymsg "output * power off"' \
+		resume 'swaymsg -t get_outputs | rg "power\": true" || swaymsg "output * power on"' \
+	timeout 7200 'swaylock -f' \
+	timeout 7500 'swaymsg "output * power off"' \
+		resume 'swaymsg "output * power on"' \
+	before-sleep 'swaylock -f'
+
+# exec_always "ibus-daemon -drx"
+
+# # Lock after 10 minutes
+# exec_always "killall xautolock; xautolock -time 120 -locker ~/.config/i3/lock -secure &"
+
+#}}}

@@ -1,0 +1,49 @@
+{
+  "position": "bottom",
+  "modules-left": ["sway/workspaces", "sway/mode", "keyboard-state"],
+  "modules-center": ["mpd"],
+  "modules-right": ["disk", "disk#storage", "clock"],
+  "height": 30,
+  "mpd": {
+    "format": "{artist} - {title} - {elapsedTime:%M:%S} / {totalTime:%M:%S}",
+    "format-stopped": "",
+    "format-disconnect": "",
+    "tooltip": false,
+    "title-len": 160
+  },
+  "clock": {
+    "format": "{:%m-%d %H:%M}",
+    "format-alt": "{:%Y-%m-%d %H:%M:%S}",
+    "interval": 5,
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "format": {
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+      }
+    }
+  },
+  "keyboard-state": {
+    "capslock": true
+  },
+
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "numeric-first": false
+  },
+
+  "disk": {
+    "interval": 60,
+    "format": "{free}",
+    "tooltip": false,
+    "path": "/"
+  },
+
+  "disk#storage": {
+    "interval": 300,
+    "format": "{free}",
+    "tooltip": false,
+    "path": "/storage"
+  },
+
+  "reload_style_on_change": true
+}
