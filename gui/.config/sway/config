@@ -15,10 +15,10 @@ mouse_warping none
 
 # Monitors
 # TODO -- actual names
-set $m_center "DP-1"
-set $m_left "DP-2"
-set $m_right "DP-3"
-set $m_top "HDMI-A-1"
+set $m_center 'GIGA-BYTE TECHNOLOGY CO., LTD. AORUS FI32U 20480B000000'
+set $m_left 'GIGA-BYTE TECHNOLOGY CO., LTD. AORUS AD27QD 19050B000191'
+set $m_right 'GIGA-BYTE TECHNOLOGY CO., LTD. AORUS AD27QD 19050B000199'
+set $m_top 'GIGA-BYTE TECHNOLOGY CO., LTD. AORUS AD27QD 19050B000068'
 
 
 # i3-gaps features
@@ -29,8 +29,11 @@ gaps inner 10
 # xrandr --output DP-0 --mode 3840x2160 --rate 120 --pos 2560x1440 --primary --output HDMI-0 --mode 2560x1440 --pos 3200x0 --rate 120 --output DP-2 --mode 2560x1440 --pos 6400x2160 --rate 120 --output DP-4 --mode 2560x1440 --pos 0x2160 --rate 120
 
 
+# scale_filter nearest
+# TODO -- configure output <name> max_render_time off|<msec>
 # DP-1
 output 'GIGA-BYTE TECHNOLOGY CO., LTD. AORUS FI32U 20480B000000' mode 3840x2160@120Hz pos 2560 1440 adaptive_sync off scale 1.5
+
 #output HDMI-A-1 mode 2560x1440@119.998Hz pos 3200 0 adaptive_sync on
 # output DP-2 mode 2560x1440@119.998Hz pos 6400 2160 adaptive_sync on
 # output DP-2 mode 2560x1440@119.998Hz pos 5120 2160 adaptive_sync on
@@ -45,13 +48,11 @@ output 'GIGA-BYTE TECHNOLOGY CO., LTD. AORUS AD27QD 19050B000191' mode 2560x1440
 
 output Unknown-1 disable
 
-## output DP-1 mode 3840x2160@120Hz pos 2560 1440 adaptive_sync on scale 1.25
-## output DP-3 mode 2560x1440@119.998Hz pos 5632 2160
 
 #{{{ Input
-input type:pointer {
+input 'type:pointer' {
+    pointer_accel -0.5
     accel_profile flat
-    pointer_accel -0.3
 }
 #}}}
 
@@ -115,20 +116,16 @@ default_floating_border normal
 set $wsff "firefox"
 bindsym $mod+z workspace $wsff
 bindsym $mod+Shift+z move container to workspace $wsff
-# assign [class="firefox"] $wsff
-# for_window [class="firefox"] floating enable
-# for_window [class="firefox" instance="Navigator" window_type="normal"] floating disable border pixel 0
-# for_window [class="firefox" instance="Navigator" title="Torrents for .*"] floating enable border normal
-# for_window [class="firefox" instance="Navigator" title="Torrents for .*"] move position center
-# for_window [class="firefox" instance="Navigator" title="Extension: \(Tree Style Tab\) - Close.*"] floating enable border normal
-# for_window [class="firefox" instance="Places"] floating enable border normal
+assign [app_id="firefox"] $wsff
+for_window [app_id="firefox" title="Torrents for .*"] floating enable, border normal, move position center
+for_window [app_id="firefox" title="Extension: \(Tree Style Tab\) - Close.*"] floating enable, border normal
 workspace $wsff output $m_center
 #
 set $wsct "chat"
 bindsym $mod+c workspace $wsct
 bindsym $mod+Shift+c move container to workspace $wsct
+assign [title="Weechat.*"] $wsct
 assign [class="Slack"] $wsct
-assign [class="TeamSpeak 3"] $wsct
 workspace $wsct output $m_right
 
 set $wsst "steam"
@@ -141,16 +138,16 @@ workspace $wsst output $m_center
 
 set $wsnm "aw-fm"
 assign [class="Caja"] $wsnm
-assign [class="aw-fm"] $wsnm
+assign [app_id="aw-fm"] $wsnm
 for_window [class="Caja"] focus
-for_window [class="aw-fm"] focus
+for_window [app_id="aw-fm"] focus
 bindsym $mod+x workspace $wsnm
 workspace $wsnm output $m_left
 
 set $wsmx "aw-man"
 bindsym Mod1+m workspace $wsmx
 for_window [class="MComix"] move window to workspace $wsmx layout tabbed
-for_window [class="Aw-man"] move window to workspace $wsmx layout tabbed
+for_window [app_id="aw-man"] move window to workspace $wsmx, layout tabbed
 for_window [instance="aw-man"] move window to workspace $wsmx layout tabbed
 workspace $wsmx output $m_center
 bindsym Mod1+Shift+m move container to workspace $wsmx
@@ -186,11 +183,8 @@ bindsym $mod+d exec "rofi -modi drun,run -show drun"
 #}}}
 #{{{ Other Commands
 # reload the configuration file
-# TODO -- re-enable when i3 stops crashing on reload
 bindsym $mod+Shift+o reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym Mod1+Shift+o restart
-# exit i3 (logs you out of your X session)
+
 bindsym $mod+Shift+e exec "swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your session.' -b 'Yes, exit sway' 'sway-msg exit'"
 bindsym Mod1+Shift+e exec sway-msg exit
 bindsym Ctrl+Mod1+l exec pkill -x -USR1 swayidle
@@ -285,8 +279,8 @@ bindsym $mod+a focus parent
 #}}}
 #{{{ Resizing
 bindsym $mod+r mode "resize"
-bindsym --release $mod+Shift+g exec dpi-scale
-bindsym --release Mod1+Shift+g exec "720-1080-scale"
+# bindsym --release $mod+Shift+g exec dpi-scale
+# bindsym --release Mod1+Shift+g exec "720-1080-scale"
 
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -322,13 +316,14 @@ bar {
   swaybar_command waybar
 }
 swaybg_command -
-exec_always "killall wallpapers; wallpapers daemon"
-# exec_always "killall mpd; killall mpd-shuffler; mpd; mpd-shuffler &"
-# exec_always "killall vmrpc-server; vmrpc-server &"
+exec "wallpapers daemon &"
+# exec "killall mpd; killall mpd-shuffler; mpd; mpd-shuffler &"
+# exec "killall vmrpc-server; vmrpc-server &"
+exec "killall dunst; killall mako; mako &"
 
 # Enable in sudoers with
 # desuwa ALL=(root) NOPASSWD:/usr/bin/nvidia-smi -i 0 -pl 375
-exec_always "sudo /usr/bin/nvidia-smi -i 0 -pl 375"
+exec "sudo /usr/bin/nvidia-smi -i 0 -pl 375"
 
 # # udev rules are not consistently applied, give them a kick
 exec_always "udevadm trigger"
@@ -345,8 +340,5 @@ exec_always killall swayidle; killall swaylock; \
 	before-sleep 'swaylock -f'
 
 # exec_always "ibus-daemon -drx"
-
-# # Lock after 10 minutes
-# exec_always "killall xautolock; xautolock -time 120 -locker ~/.config/i3/lock -secure &"
 
 #}}}

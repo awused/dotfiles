@@ -1,0 +1,27 @@
+#!/bin/bash
+
+ALL_NODES='recurse(.nodes[]?, .floating_nodes[]?) | select(.pid and .visible)'
+WINDOW_GEOMETRY='(.rect | "\(.x),\(.y) \(.width)x\(.height) ")'
+
+FORMAT='" " + (. | tostring)'
+FILT="$ALL_NODES | $WINDOW_GEOMETRY + $FORMAT"
+
+function getprop() {
+	typeset -A views
+	local selected
+
+	while read POS GEOM INFO; do
+		views["$POS $GEOM"]="$INFO"
+	done
+
+	selected="$(printf "%s\n" "${!views[@]}" | slurp -r)"
+        if [ -n "$selected" ] ; then
+		printf '%s\n' "${views[${selected}]}"
+	fi
+}
+
+if  [ "$1" == "wait" ] ; then
+	swaymsg -t subscribe '["workspace"]' | jq -r ".current | $FILT" | getprop | jq
+else
+	swaymsg -t get_tree | jq -r "$FILT" | getprop | jq
+fi

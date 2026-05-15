@@ -1,10 +1,13 @@
 # Used for desktop screenshots and when the window name can't be determined
 Fallback = 'desktop'
+fallback = 'desktop'
 ScreenshotDir = '/storage/public/shots'
+screenshot_dir = '/storage/public/shots'
 
 # Will be ignored in favour of any available children
 # Note that gnome-terminal is uniquely incapable and doesn't set WINDOWID
 IgnoredParents = ['kitty', 'xfce4-terminal', 'zsh', 'alacritty', 'bash', 'kthreadadd']
+ignored_parents = ['kitty', 'xfce4-terminal', 'zsh', 'alacritty', 'bash', 'kthreadadd']
 
 # Uncomment to check for WINDOWID if you're using a terminal that doesn't use
 # separate processes per window. Doesn't help with gnome-terminal.
@@ -12,12 +15,14 @@ CheckWindowID = true
 
 # Callback will be called with the path to screenshot.
 Callback = 'public-clipboard'
+callback = 'public-clipboard'
 
 # PNG compression level in the range of 0-9
 # 0 is fastest, 9 is slowest
 # 8 and 9 are slow enough to be annoying for interactive usage
 # 0 compresses too poorly to use and saves little time over 1
 Compression = 5
+compression = 5
 
 # Additional shaders to use with slop.
 # See https://github.com/naelstrof/slop/tree/master/shaderexamples

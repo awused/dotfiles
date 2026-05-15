@@ -1,0 +1,3 @@
+#! /bin/sh
+
+/usr/bin/slurp -s '#00ffff4d' -B '#00000000' -b '#00000000' -c '#00ffffee' -d $@

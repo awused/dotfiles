@@ -2,7 +2,7 @@
   "position": "bottom",
   "modules-left": ["sway/workspaces", "sway/mode", "keyboard-state"],
   "modules-center": ["mpd"],
-  "modules-right": ["disk", "disk#storage", "clock"],
+  "modules-right": ["disk", "disk#storage", "cpu", "custom/gpu", "memory", "custom/gpumemory", "temperature", "custom/gputemp", "clock"],
   "height": 30,
   "mpd": {
     "format": "{artist} - {title} - {elapsedTime:%M:%S} / {totalTime:%M:%S}",
@@ -43,6 +43,43 @@
     "format": "{free}",
     "tooltip": false,
     "path": "/storage"
+  },
+
+  "custom/gpu": {
+    "exec": "~/.config/polybar/ramp-percent.sh $(~/.config/polybar/gpu-query.sh utilization.gpu)",
+    "interval": 5,
+    "format": "{text}"
+  },
+
+  "custom/gpumemory": {
+    "exec": "~/.config/polybar/gpu-memory.sh",
+    "interval": 5,
+    "format": "{text}"
+  },
+
+  "custom/gputemp": {
+    "exec": "~/.config/polybar/gpu-query.sh temperature.gpu",
+    "interval": 5,
+    "format": "{text}°C"
+  },
+
+  "temperature": {
+    // Tctl
+    "hwmon-path": "/sys/class/hwmon/hwmon3/temp1_input",
+    "interval": 5,
+    "warning-threshold": 90
+  },
+
+  "memory": {
+    "format": "{icon}{used:.2f}G",
+    "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
+    "interval": 5
+  },
+
+  "cpu": {
+    "format": "{icon}{usage:2}%",
+    "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
+    "interval": 5
   },
 
   "reload_style_on_change": true

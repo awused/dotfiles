@@ -12,5 +12,5 @@ percent=$(echo "100*$q" | bc)
 ramp=(▂ ▃ ▄ ▅ ▆ ▇ █ █ █)
 index=$(expr $percent \* 8 / 100)
 
-echo ${ramp[$index]}$(printf '%2s' $used) GiB
+echo ${ramp[$index]}$(printf '%2s' $used)G
 

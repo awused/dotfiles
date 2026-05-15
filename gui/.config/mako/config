@@ -1,0 +1,18 @@
+output=DP-2
+font=monospace 14
+group-by=app-name,app-icon,summary,body,urgency,category
+max-icon-size=128
+width=400
+height=150
+
+background-color=#181818
+text-color=#888888
+default-timeout=60000
+border-color=#383838
+
+[urgency=critical]
+border-color=#ff0000
+default-timeout=0
+background-color=#181818
+text-color=#bb0000
+
