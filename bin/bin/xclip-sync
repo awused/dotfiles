@@ -1,0 +1,16 @@
+#!/bin/bash
+# Syncs x11 clipboard changes to wayland
+# Uses https://github.com/cdown/clipnotify to avoid polling
+last=""
+watch="clipnotify -s clipboard"
+command -v clipnotify &>/dev/null || ( watch="sleep 0.5"; echo "No clipnotify, falling back to polling" )
+
+while true; do
+    current=$(xclip -selection clipboard -t UTF8_STRING -o 2>/dev/null) || current=""
+    if [[ -n "$current" && "$current" != "$last" ]]; then
+        printf '%s' "$current" | wl-copy
+        last="$current"
+    fi
+    $watch
+done
+
