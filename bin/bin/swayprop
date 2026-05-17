@@ -10,11 +10,13 @@ function getprop() {
 	typeset -A views
 	local selected
 
+        out=""
 	while read POS GEOM INFO; do
+                out+="$POS $GEOM\n"
 		views["$POS $GEOM"]="$INFO"
 	done
 
-	selected="$(printf "%s\n" "${!views[@]}" | slurp -r)"
+	selected="$(echo -e -n "$out" | slurp -r)"
         if [ -n "$selected" ] ; then
 		printf '%s\n' "${views[${selected}]}"
 	fi

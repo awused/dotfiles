@@ -1,0 +1,6 @@
+#! /bin/sh
+
+waybar="/usr/local/bin/waybar"
+[ -f "$waybar" ] || waybar="/usr/bin/waybar"
+
+"$waybar" $@

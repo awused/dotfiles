@@ -427,10 +427,10 @@ export FZF_EXCLUDES=" \
 export FZF_DEFAULT_COMMAND="bfs -color -L \
   $FZF_EXCLUDES \
   -type f \
-  -maxdepth 8"
+  -maxdepth 8 2>/dev/null"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="bfs -color -L -type d $FZF_EXCLUDES -maxdepth 8"
-FZF_BOTH_COMMAND="bfs -color -L $FZF_EXCLUDES -maxdepth 8"
+export FZF_ALT_C_COMMAND="bfs -color -L -type d $FZF_EXCLUDES -maxdepth 8 2>/dev/null"
+FZF_BOTH_COMMAND="bfs -color -L $FZF_EXCLUDES -maxdepth 8 2>/dev/null"
 export FZF_TMUX=1
 
 # Override functions in fzf/completion.zsh

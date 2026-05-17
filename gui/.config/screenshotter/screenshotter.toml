@@ -38,12 +38,11 @@ MouseKeys = true
 # Name: The application name to match against. Multiple overrides can be
 # specified for a name.
 #
-# TODO -- Regex
 # Regex: If present, the full command line is matched against this RE.
 # Leave blank to match every instance of Name. Regex can't match every window,
 # some windows have no pids so we use the name instead.
 #
-# Format: The output pattern. Use %s to reference the groups from any regex
+# Format: The output pattern. Use {n} to reference the groups from any regex
 # match.
 
 [[Overrides]]
@@ -214,3 +213,159 @@ MouseKeys = true
   Name = "kthreadd"
   Delegate = "/home/desuwa/.config/screenshotter/kthreadd.sh"
 
+
+
+[[overrides]]
+  name = "vimx"
+  format = "vim"
+
+[[overrides]]
+  name = "gvim"
+  format = "vim"
+
+[[overrides]]
+  name = "nvim"
+  format = "vim"
+
+[[overrides]]
+  name = "chromium-browser"
+  format = "chromium"
+
+[[overrides]]
+  regex = '(E|e)muera'
+  format = "emuera"
+
+[[overrides]]
+  name = "wine32-preloader"
+  regex = 'TLS.*Game.exe$'
+  format = "the-last-sovereign"
+
+# [[overrides]]
+#   name = "wine32-preloader"
+#   regex = '^(.*(/|\\))?([^/]+) \d\.\d\d\d[[:lower:]]?\\Game.exe'
+#   format = "%[4]s"
+#
+# [[overrides]]
+#   name = "wine32-preloader"
+#   regex = '^(.*(/|\\))?([^/]+) ?\d\.?\d\.?\d[[:lower:]]?\\Game.exe'
+#   format = "%[4]s"
+#
+# [[overrides]]
+#   name = "wine32-preloader"
+#   regex = '^(.*(/|\\))?([^/]+)\\Game.exe'
+#   format = "%[4]s"
+#
+# [[overrides]]
+#   name = "wine32-preloader"
+#   regex = '^(.*(/|\\))?([^/\ ]+)\.exe'
+#   format = "%[4]s"
+#
+# [[overrides]]
+#   name = "wine64-preloader"
+#   regex = '^(.*(/|\\))?([^/]+) \d\.\d\d\d[[:lower:]]?\\Game.exe'
+#   format = "%[4]s"
+#
+# [[overrides]]
+#   name = "wine64-preloader"
+#   regex = '^(.*(/|\\))?([^/]+) ?\d\.?\d\.?\d[[:lower:]]?\\Game.exe'
+#   format = "%[4]s"
+#
+# [[overrides]]
+#   name = "wine-preloader"
+#   regex = '^(.*(/|\\))?([^/]+) v?(\d+\.)*\d+[[:lower:]]?\\Game.exe'
+#   format = "%[4]s"
+#
+# [[overrides]]
+#   name = "wine-preloader"
+#   regex = '^(.*(/|\\))?([^/]+) (\d+\.)*\d+[[:lower:]]?\\Game.exe'
+#   format = "%[4]s"
+#
+# [[overrides]]
+#   name = "wine64-preloader"
+#   regex = '^(.*(/|\\))?([^/]+)\\Game.exe'
+#   format = "%[4]s"
+#
+# [[overrides]]
+#   name = "wine64-preloader"
+#   regex = '^(.*(/|\\))?([^/\ ]+)\.exe'
+#   format = "%[4]s"
+#
+# [[overrides]]
+#   name = "wine-preloader"
+#   regex = '^(.*(/|\\))?([^/\ ]+)\.exe'
+#   format = "%[4]s"
+#
+[[overrides]]
+  name = "nw"
+  regex = '^(.*(/))?([^/]+) V\.\d+\(:alpha:\) Linux/nw'
+  format = "%[3]s"
+
+[[overrides]]
+  name = "nw"
+  regex = '^(.*(/))?([^/]+)/nw'
+  format = "%[3]s"
+
+[[overrides]]
+  name = "aw-man"
+  delegate = "/home/desuwa/.config/screenshotter/aw-man-manga-dir.sh"
+
+[[overrides]]
+  name = "aw-man"
+  yearly = true
+
+[[overrides]]
+  regex = '^/usr/bin/python(\d(.\d)?)? .*/\.?bin/([^/ ]+)( .*)?'
+  format = "%[4]s"
+
+[[overrides]]
+  name = 'java'
+  regex = 'runelite'
+  format = "runelite"
+
+[[overrides]]
+  name = 'java'
+  regex = 'minecraft-[0-9.]*-client.jar'
+  format = "minecraft"
+
+[[overrides]]
+  name = "watch"
+  regex = '^watch (\-n [^ ]+ )?([^ ]+)?'
+  format = "%[3]s"
+
+[[overrides]]
+  name = "firefox"
+  delegate = "/home/desuwa/.config/screenshotter/firefox-mangadex.sh"
+
+[[overrides]]
+  name = "mpv"
+  delegate = "/home/desuwa/.config/screenshotter/mpv-anime.sh"
+
+[[overrides]]
+  name = "firefox"
+  yearly = true
+
+[[overrides]]
+  name = "mpv"
+  yearly = true
+
+[[overrides]]
+  name = "wine-preloader"
+  regex = 'Among Us.exe$'
+  format = "Among Us"
+
+[[overrides]]
+  name = "ppssppqt"
+  delegate = "/home/desuwa/.config/screenshotter/ppsspp.sh"
+  callback = "/home/desuwa/.config/screenshotter/ppsspp-callback.sh"
+
+[[overrides]]
+  name = "ppssppsdl"
+  delegate = "/home/desuwa/.config/screenshotter/ppssppsdl.sh"
+
+[[overrides]]
+  name = "duckstation-qt"
+  delegate = "/home/desuwa/.config/screenshotter/duckstation.sh"
+
+[[overrides]]
+  name = "kthreadd"
+  delegate = "/home/desuwa/.config/screenshotter/kthreadd.sh"

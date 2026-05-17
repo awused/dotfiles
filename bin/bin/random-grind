@@ -4,23 +4,25 @@ set -e
 
 # For later:
 #
-# gwd-bos
-# toa
-# dt2-boss
-# tds-off-task
-# pyramid
-# hunter-rumours (after gryphon)
-# fletching
-# wintertodt
-# smithing
-# gwd
-# runecrafting
-# tithe farm
+# fishing (molch? clogs? trawling?)
+# corrupted-gauntlet
+# nightmare
+# vardorvis
+# muspah
 # corp
+# zalcano
+# gwd bosses
+# dt2 bosses
+# yama (after emberlight)
+# doom (after emberlight)
+# hunter-rumours (after gryphon)
+# wintertodt
+# smithing (94 for keel parts)
+# tithe-farm
 #
 # after sceptre -> toa
 
-skills=(crafting fishing fishing2 gauntlet mixology agility zulrah woodcutting)
+skills=(agility zulrah pyramid fletching toa gotr cow)
 db="$HOME/.runescape/grind"
 
 

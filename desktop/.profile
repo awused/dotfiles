@@ -14,4 +14,6 @@ if [ "$0" = "/etc/X11/xinit/Xsession" -a "$DESKTOP_SESSION" = "i3" ]; then
   export GLFW_IM_MODULE=ibus
 fi
 
-export WLR_NO_HARDWARE_CURSORS=1
+# export WLR_NO_HARDWARE_CURSORS=1
+export GBM_BACKEND=nvidia-drm
+export LIBVA_DRIVER_NAME=nvidia

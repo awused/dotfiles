@@ -1,6 +1,6 @@
 {
   "position": "bottom",
-  "modules-left": ["sway/workspaces", "sway/mode", "keyboard-state"],
+  "modules-left": ["hyprland/workspaces", "hyprland/mode", "sway/workspaces", "sway/mode", "keyboard-state"],
   "modules-center": ["mpd"],
   "modules-right": ["disk", "disk#storage", "cpu", "custom/gpu", "memory", "custom/gpumemory", "temperature", "custom/gputemp", "clock"],
   "height": 30,
@@ -27,6 +27,11 @@
   },
 
   "sway/workspaces": {
+    "disable-scroll": true,
+    "numeric-first": false
+  },
+
+  "hyprland/workspaces": {
     "disable-scroll": true,
     "numeric-first": false
   },

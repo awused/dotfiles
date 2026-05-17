@@ -47,11 +47,6 @@ if [[ -z $_INIT_SCRIPTS_RUN ]]; then
 
   test -r $HOME/.gcloud-sdk/path.zsh.inc && . $HOME/.gcloud-sdk/path.zsh.inc > /dev/null 2> /dev/null || true
 
-  if [[ $(uname) == 'Linux' ]]; then
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib64:/usr/local/lib
-    export PATH=$HOME/.bin:$PATH:$HOME/.cargo/bin
-  fi
-
   if [[ $(hostname) == 'desutop' ]]; then
     # apps_script_format=json
     # cache_directory=/cache/gdfuse
@@ -74,6 +69,8 @@ fi
 if [[ $(uname) == 'Linux' ]]; then
   # This needs some modifications to not be really annoying.
   # See ~/bin/gtkthemes
+  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib64:/usr/local/lib
+  export PATH=$HOME/.bin:$PATH:$HOME/.cargo/bin
   export GTK_THEME=Adwaita-dark
   # Install xdg-desktop-portal-kde and kio-extras (plus other thumbnailer support)
   # export GTK_USE_PORTAL=1

@@ -255,7 +255,7 @@ endif
 Plug 'awused/rust.vim'
 
 if has('nvim-0.5')
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'branch': 'master'}
 endif
 
 Plug 'petRUShka/vim-opencl'
@@ -384,6 +384,7 @@ augroup END
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
+Plug 'stevearc/conform.nvim'
 "}}}
 "{{{ Copying and Pasting
 let g:highlightedyank_highlight_duration = 2000

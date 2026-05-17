@@ -13,6 +13,8 @@ focus_follows_mouse no
 # Mouse should stay where I put it
 mouse_warping none
 
+hide_edge_borders --i3 both
+
 # Monitors
 # TODO -- actual names
 set $m_center 'GIGA-BYTE TECHNOLOGY CO., LTD. AORUS FI32U 20480B000000'
@@ -28,6 +30,10 @@ gaps inner 10
 
 # xrandr --output DP-0 --mode 3840x2160 --rate 120 --pos 2560x1440 --primary --output HDMI-0 --mode 2560x1440 --pos 3200x0 --rate 120 --output DP-2 --mode 2560x1440 --pos 6400x2160 --rate 120 --output DP-4 --mode 2560x1440 --pos 0x2160 --rate 120
 
+
+output "*" {
+  subpixel bgr
+}
 
 # scale_filter nearest
 # TODO -- configure output <name> max_render_time off|<msec>
@@ -107,7 +113,7 @@ bindsym Mod1+Shift+Right move workspace to output right
 
 #}}}
 #{{{ Visuals
-font pango:DejaVu Sans Mono 12
+font pango:DejaVu Sans Mono 14
 
 default_border pixel 1
 default_floating_border normal
@@ -120,7 +126,14 @@ assign [app_id="firefox"] $wsff
 for_window [app_id="firefox" title="Torrents for .*"] floating enable, border normal, move position center
 for_window [app_id="firefox" title="Extension: \(Tree Style Tab\) - Close.*"] floating enable, border normal
 workspace $wsff output $m_center
-#
+
+set $wsmpv "mpv"
+bindsym $mod+m workspace $wsmpv
+for_window [app_id="mpv"] floating enable, border pixel 0, move window to workspace $wsmpv, focus
+#for_window [class="mpv" workspace="^(?!firefox$)"] floating enable move window to workspace $wsmpv focus
+#for_window [class="mpv" workspace="firefox"] move window to workspace $wsyt
+workspace $wsmpv output $m_center
+
 set $wsct "chat"
 bindsym $mod+c workspace $wsct
 bindsym $mod+Shift+c move container to workspace $wsct
@@ -148,9 +161,47 @@ set $wsmx "aw-man"
 bindsym Mod1+m workspace $wsmx
 for_window [class="MComix"] move window to workspace $wsmx layout tabbed
 for_window [app_id="aw-man"] move window to workspace $wsmx, layout tabbed
-for_window [instance="aw-man"] move window to workspace $wsmx layout tabbed
 workspace $wsmx output $m_center
 bindsym Mod1+Shift+m move container to workspace $wsmx
+
+# Floating applications I generally only want one instance of
+# I never use this
+# bindsym $mod+Shift+minus move scratchpad
+# bindsym $mod+minus scratchpad show
+for_window [class="Xarchiver"] floating enable resize set 1920 1080
+for_window [class="Xarchiver"] move position center
+
+for_window [app_id="calibre-gui"] floating enable
+for_window [app_id="gamescope"] floating enable
+for_window [app_id="emuera.*"] border none, floating enable
+for_window [title="^Corrupted Saviors$"] floating enable
+for_window [class="Desmume"] floating enable border normal
+# for_window [class="Displaycal"] floating enable border normal
+# for_window [title="DisplayCAL 0"] floating enable border normal
+for_window [class="KADOKAWA/RPGMV"] floating enable
+for_window [instance="emuera-anchor.exe"] floating enable
+for_window [instance="^emuera.*.exe$"] floating enable
+for_window [instance="emuera-anchor.exe"] floating enable
+for_window [class="File-roller"] floating enable
+for_window [instance="game.exe"] floating enable
+for_window [title="Interactive display adjustment"] floating enable border normal
+for_window [title="manage tags"] floating enable
+for_window [class="melonDS"] floating enable border normal
+for_window [class="^Minecraft\*? .*"] floating enable
+for_window [class="MultiMC"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [title="review services"] floating enable
+for_window [class="retroarch"] floating enable
+for_window [class="Yad"] floating enable
+for_window [class="zenity"] floating enable
+for_window [class="zoom"] floating enable
+for_window [class="com.lilithsthrone.main.Main"] floating enable
+for_window [class="net-runelite-launcher-Launcher"] border pixel 0
+for_window [class="net-runelite-client-RuneLite"] border pixel 0
+# Runelite 1973x1200 default windowed size
+for_window [class="BoltLauncher"] floating enable border pixel 0
+for_window [title="Bro King"] floating enable
+for_window [class="companytrip.exe"] floating enable
 #}}}
 #{{{ Launchers
 # start a terminal
@@ -166,7 +217,7 @@ bindsym $mod+d exec "rofi -modi drun,run -show drun"
 # bindsym $mod+Shift+f exec "rofi -modi drun,run -show drun"
 # bindsym $mod+d exec "fuzzel"
 # bindsym Mod1+Tab exec "rofi -modi windowcd,window -show window"
-# bindsym $mod+Shift+s exec "rofi -modi ssh -show ssh"
+bindsym $mod+Shift+s exec "rofi -modi ssh -show ssh"
 # bindsym $mod+Ctrl+a exec "rofi-files /storage/media/anime"
 # bindsym $mod+Ctrl+c exec "rofi-files /storage/media/torrents/completed"
 # bindsym $mod+Ctrl+n exec "rofi-files /storage/media/manga"
@@ -176,16 +227,13 @@ bindsym $mod+d exec "rofi -modi drun,run -show drun"
 # installed.
 # bindsym $mod+d exec i3-dmenu-desktop
 
-# Floating applications I generally only want one instance of
-# I never use this
-# bindsym $mod+Shift+minus move scratchpad
-# bindsym $mod+minus scratchpad show
+
 #}}}
 #{{{ Other Commands
 # reload the configuration file
 bindsym $mod+Shift+o reload
 
-bindsym $mod+Shift+e exec "swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your session.' -b 'Yes, exit sway' 'sway-msg exit'"
+bindsym $mod+Shift+e exec "swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your session.' -b 'Yes, exit sway' 'swaymsg exit'"
 bindsym Mod1+Shift+e exec sway-msg exit
 bindsym Ctrl+Mod1+l exec pkill -x -USR1 swayidle
 
@@ -193,11 +241,18 @@ bindsym $mod+Shift+w exec pkill -x -USR1 -H wallpapers
 bindsym $mod+Shift+d exec ~/.config/i3/show-desktop
 bindsym $mod+Mod1+d exec ~/.config/i3/show-desktop false
 
-bindsym $mod+Shift+r exec "redshift-toggle force"
-bindsym Mod1+Shift+r exec redshift-reset
-
-bindsym $mod+Shift+t exec swap-vm-monitors
+bindsym $mod+Shift+t exec swap-vm-monitors secondary
+bindsym $mod+Ctrl+t exec swap-vm-monitors
+bindsym Mod1+Ctrl+t exec swap-vm-monitors primary
 bindsym Mod1+Shift+t exec toggle-monitors
+
+bindcode Shift+62 exec swap-vm-bt
+
+# bindsym $mod+Shift+r exec "redshift-toggle force"
+# bindsym Mod1+Shift+r exec redshift-reset
+
+# bindsym $mod+Shift+t exec swap-vm-monitors
+# bindsym Mod1+Shift+t exec toggle-monitors
 
 bindcode Ctrl+105 exec swap-vm-usb
 
@@ -312,12 +367,8 @@ mode "resize" {
 #}}}
 #{{{ Startup Programs
 
-bar {
-  swaybar_command waybar
-}
-swaybg_command -
 exec "wallpapers daemon &"
-# exec "killall mpd; killall mpd-shuffler; mpd; mpd-shuffler &"
+exec "killall mpd; killall mpd-shuffler; mpd; mpd-shuffler &"
 # exec "killall vmrpc-server; vmrpc-server &"
 exec "killall dunst; killall mako; mako &"
 
@@ -327,6 +378,14 @@ exec "sudo /usr/bin/nvidia-smi -i 0 -pl 375"
 
 # # udev rules are not consistently applied, give them a kick
 exec_always "udevadm trigger"
+
+bar {
+  # swaybar_command waybar
+  swaybar_command /storage/src/third_party/Waybar/build/waybar
+}
+swaybg_command -
+xwayland disabled
+# Manually start xwayland-sattelite for now
 
 # Lock screen at 2 hours
 # Monitors off at 2 hours 5 minutes or 2 minutes while screen is locked
