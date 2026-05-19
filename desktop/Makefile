@@ -34,7 +34,7 @@ mpd-fzf:
 public-clipboard:
 	cd ${AWUSED_SOURCE}/public-clipboard; go install
 
-screenshotter:
+screenshotter-go:
 	cd ${AWUSED_SOURCE}/screenshotter; go install
 
 vmrpc:
@@ -55,7 +55,7 @@ vmrpc:
 
 
 go: dispatcher add-to-transmission \
-  public-clipboard screenshotter \
+  public-clipboard screenshotter-go \
   hydrus-mover mpd-fzf vmrpc
 
 windows-clipboard:
@@ -98,6 +98,10 @@ bolt:
 	  cmake --build .; \
 	  cmake --install . --prefix "${HOME}/.local"
 
+clipnotify:
+	cd ${THIRD_PARTY_SOURCE}/clipnotify; \ 
+		$(MAKE); sudo $(MAKE) install
+
 maim: sudo slop
 	cd ${THIRD_PARTY_SOURCE}/maim; \
 	  rm -rf build/; mkdir build; cd build; \
@@ -123,6 +127,12 @@ slop: sudo
 	  rm -rf build/; mkdir build; cd build; \
 	  cmake -DCMAKE_INSTALL_PREFIX=/usr/local ..; $(MAKE); sudo $(MAKE) install
 
+slurp: sudo
+	cd ${THIRD_PARTY_SOURCE}/slurp; \
+	  rm -rf build/; mkdir build; cd build; \
+	  meson --buildtype=release build; sudo ninja -C build install
+
+
 waifu2x-vulkan:
 	  cd "${THIRD_PARTY_SOURCE}/waifu2x-ncnn-vulkan"; \
 	  rm -rf build/; mkdir build; cd build; \
@@ -130,7 +140,7 @@ waifu2x-vulkan:
 	  mv waifu2x-ncnn-vulkan ~/.bin/; \
 	  ln -s "${THIRD_PARTY_SOURCE}/waifu2x-ncnn-vulkan/models/models-cunet" ~/.bin/ || true
 
-third-party: loudgain maim melonds waifu2x-vulkan
+third-party: clipnotify loudgain maim melonds waifu2x-vulkan
 
 all-install: go third-party
 
@@ -174,6 +184,9 @@ mpd-shuffler:
 rss-scrapers:
 	cargo install --path "${AWUSED_SOURCE}/rss-scrapers" --locked
 
+screenshotter:
+	cargo install --path "${AWUSED_SOURCE}/screenshotter" --locked
+
 strpick:
 	cargo install --path "${AWUSED_SOURCE}/aw-shuffle/strpick" --locked
 
@@ -198,7 +211,7 @@ windows-wallpapers:
 	cp /usr/x86_64-w64-mingw32/sys-root/mingw/bin/libwinpthread-1.dll /storage/winshare/gobin/
 	cp /usr/x86_64-w64-mingw32/sys-root/mingw/bin/libgcc_s_seh-1.dll /storage/winshare/gobin/
 
-rust: aw-fm aw-man manga-syncer mpd-shuffler rss-scrapers strpick wallpapers
+rust: aw-fm aw-man manga-syncer mpd-shuffler rss-scrapers screenshotter strpick wallpapers
 
 windows-rust: windows-upscale windows-wallpapers # -- broken compilation for rocksdb
 

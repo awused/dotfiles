@@ -17,3 +17,4 @@ fi
 # export WLR_NO_HARDWARE_CURSORS=1
 export GBM_BACKEND=nvidia-drm
 export LIBVA_DRIVER_NAME=nvidia
+# export MOZ_DISABLE_RDD_SANDBOX=1

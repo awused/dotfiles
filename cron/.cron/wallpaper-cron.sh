@@ -2,8 +2,7 @@
 # Runs wallpapers random if the session is unlocked and if mpv is not playing.
 # Connects to the first session owned by the current user if DISPLAY is not set.
 
-lockname='i3lock'
-lockname2='swaylock'
+locks='i3lock swaylock hyprlock'
 
 mpvsocket='/tmp/mpvsocket'
 
@@ -12,8 +11,7 @@ mpv_glob='/tmp/mpv-sockets/*'
 
 #############
 
-pidof "$lockname" > /dev/null && exit 0
-pidof "$lockname2" > /dev/null && exit 0
+echo "$locks" | xargs -r pidof > /dev/null && exit 0
 
 if [ -S "$mpvsocket" ]; then
   paused=$(echo '{ "command": ["get_property", "pause"] }' | nc -UN "$mpvsocket" 2>/dev/null | jq '.data')

@@ -1,8 +1,8 @@
 #! /usr/bin/env bash
 
-lockname='i3lock'
+locks='i3lock swaylock hyprlock'
 
-pidof "$lockname" > /dev/null && exit 0
+echo "$locks" | xargs -r pidof > /dev/null && echo "locked" && exit 0
 
 q=$(nvidia-smi -i 0 --query-gpu=memory.used,memory.total --format=csv,noheader,nounits | head -n1 | awk '{ print ""$1"/"$2""}' | sed 's/,//')
 

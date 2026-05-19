@@ -1,7 +1,9 @@
 #!/bin/sh
 
-windows=$(hyprctl clients -j | jq --argjson workspaces "$(hyprctl monitors -j | jq -r 'map(.activeWorkspace.id)')" 'map(select([.workspace.id] | inside($workspaces)))')
+~/.cargo/bin/screenshotter prop | jq
 
-address=$(echo "$windows" | jq -r '.[] | "\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1]) \(.address)"' | slurp -r -f "%l")
-
-echo "$windows" | jq ".[] | select(.address == \"$address\")"
+# windows=$(hyprctl clients -j | jq --argjson workspaces "$(hyprctl monitors -j | jq -r 'map(.activeWorkspace.id)')" 'map(select(([.workspace.id] | inside($workspaces)) and .visible))')
+#
+# address=$(echo "$windows" | jq -r '.[] | "\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1]) \(.address)"' | slurp -r -f "%l")
+#
+# echo "$windows" | jq ".[] | select(.address == \"$address\")"

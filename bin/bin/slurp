@@ -1,6 +1,7 @@
 #! /bin/sh
 
 slurp="/usr/local/bin/slurp"
-[ -f "$slurp" ] || slurp="/usr/bin/slurp"
+priority="-P"
+[ -f "$slurp" ] || (slurp="/usr/bin/slurp"; priority="")
 
-"$slurp" -s '#00ffff4d' -B '#00000000' -b '#00000000' -c '#00ffffee' -d $@
+"$slurp" $priority -s '#00ffff4d' -B '#00000000' -b '#00000000' -c '#00ffffee' -d $@

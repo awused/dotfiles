@@ -1,10 +1,9 @@
+-- vim: set foldmethod=marker foldlevel=0:
+
 hl.env("LIBVA_DRIVER_NAME", "nvidia")
 hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
 
-------------------
----- MONITORS ----
-------------------
-
+-- {{{ Monitors
 local m_center = "GIGA-BYTE TECHNOLOGY CO. LTD. AORUS FI32U 20480B000000"
 local m_left = "GIGA-BYTE TECHNOLOGY CO. LTD. AORUS AD27QD 19050B000191"
 local m_right = "GIGA-BYTE TECHNOLOGY CO. LTD. AORUS AD27QD 19050B000199"
@@ -43,6 +42,7 @@ hl.monitor({
     scale = 1,
 })
 
+-- }}}
 ---------------------
 ---- MY PROGRAMS ----
 ---------------------
@@ -66,11 +66,13 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("wallpapers daemon")
     hl.exec_cmd("waybar")
 
+    -- hl.exec_cmd("hyprpm reload")
     -- Enable in sudoers with
     -- desuwa ALL=(root) NOPASSWD:/usr/bin/nvidia-smi -i 0 -pl 375
     hl.exec_cmd("sudo /usr/bin/nvidia-smi -i 0 -pl 375")
 end)
 
+local hy3 = hl.plugin.hy3
 -------------------------------
 ---- ENVIRONMENT VARIABLES ----
 -------------------------------
@@ -98,15 +100,12 @@ hl.env("HYPRCURSOR_SIZE", "24")
 -- hl.permission("/usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland", "screencopy", "allow")
 -- hl.permission("/usr/(bin|local/bin)/hyprpm", "plugin", "allow")
 
------------------------
----- LOOK AND FEEL ----
------------------------
-
+-- {{{ Appearance
 -- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 hl.config({
     general = {
         gaps_in = 5,
-        gaps_out = 20,
+        gaps_out = 10,
 
         border_size = 1,
 
@@ -121,7 +120,11 @@ hl.config({
         -- Please see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Tearing/ before you turn this on
         allow_tearing = false,
 
-        layout = "dwindle",
+        layout = hy3 and "hy3" or "dwindle",
+    },
+
+    debug = {
+        disable_logs = false,
     },
 
     decoration = {
@@ -145,6 +148,20 @@ hl.config({
             passes = 1,
             vibrancy = 0.1696,
         },
+    },
+
+    group = {
+        groupbar = {
+            -- enabled = false,
+            text_color = "0xff000000",
+            gradients = true,
+            -- keep_upper_gap = false,
+            gradient_rounding = 0,
+        },
+    },
+
+    cursor = {
+        no_warps = true,
     },
 
     animations = {
@@ -199,6 +216,17 @@ hl.window_rule({
     no_shadow = true,
     rounding = 0,
 })
+hl.workspace_rule({
+    workspace = "n[s:aw-man]",
+    gaps_out = 0,
+    gaps_in = 0,
+    border_size = 0,
+    no_border = true,
+    -- no_gaps = true,
+    layout = "scrolling",
+    monitor = "desc:" .. m_center,
+    no_shadow = true,
+})
 
 -- See https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/ for more
 hl.config({
@@ -218,12 +246,13 @@ hl.config({
 hl.config({
     scrolling = {
         fullscreen_on_one_column = true,
+        column_width = 1.0,
+        focus_fit_method = 0,
+        wrap_swapcol = false,
+        wrap_focus = false,
+        follow_min_visible = 0.0,
     },
 })
-
-----------------
-----  MISC  ----
-----------------
 
 hl.config({
     misc = {
@@ -232,10 +261,8 @@ hl.config({
     },
 })
 
----------------
----- INPUT ----
----------------
-
+-- }}}
+-- {{{ Input
 hl.config({
     input = {
         kb_layout = "us",
@@ -261,6 +288,20 @@ hl.gesture({
     fingers = 3,
     direction = "horizontal",
     action = "workspace",
+})
+-- }}} Input
+
+--for_window [app_id="calibre-gui"] floating enable
+--for_window [app_id="gamescope"] floating enable-
+--for_window [app_id="emuera.*"] border none, floating enable
+
+hl.window_rule({
+    match = { class = "^emuera.*" },
+    float = true,
+})
+hl.window_rule({
+    match = { class = "^awused\\.aw-man$" },
+    workspace = "name:aw-man",
 })
 
 ---------------------
@@ -290,21 +331,92 @@ hl.bind(
 )
 
 -- hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
-hl.bind(mainMod .. "V", hl.dsp.window.float({ action = "toggle" }))
+hl.bind(mainMod .. shiftMod .. "Space", hl.dsp.window.float({ action = "toggle" }))
 -- hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 -- hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
-hl.bind(mainMod .. "J", hl.dsp.layout("togglesplit")) -- dwindle only
+hl.bind(mainMod .. "J", function()
+    local workspace = hl.get_active_workspace()
 
--- Move focus with mainMod + arrow keys
-hl.bind(mainMod .. "left", hl.dsp.focus({ direction = "left" }))
-hl.bind(mainMod .. "right", hl.dsp.focus({ direction = "right" }))
-hl.bind(mainMod .. "up", hl.dsp.focus({ direction = "up" }))
-hl.bind(mainMod .. "down", hl.dsp.focus({ direction = "down" }))
+    if not workspace then
+        return
+    elseif workspace.tiled_layout == "scrolling" then
+        hl.dispatch(hl.dsp.layout("promote"))
+    elseif workspace.tiled_layout == "dwindle" then
+        hl.dispatch(hl.dsp.layout("togglesplit"))
+    end
+end)
 
-hl.bind(mainMod .. shiftMod .. "left", hl.dsp.window.move({ direction = "left" }))
-hl.bind(mainMod .. shiftMod .. "right", hl.dsp.window.move({ direction = "right" }))
-hl.bind(mainMod .. shiftMod .. "up", hl.dsp.window.move({ direction = "up" }))
-hl.bind(mainMod .. shiftMod .. "down", hl.dsp.window.move({ direction = "down" }))
+if hy3 then
+    hl.bind(mainMod .. "left", hy3.move_focus("left", { warp = false }))
+    hl.bind(mainMod .. "right", hy3.move_focus("right", { warp = false }))
+    hl.bind(mainMod .. "up", hy3.move_focus("up"))
+    hl.bind(mainMod .. "down", hy3.move_focus("down"))
+
+    hl.bind(mainMod .. shiftMod .. "left", hl.dsp.window.move({ direction = "left" }))
+    hl.bind(mainMod .. shiftMod .. "right", hl.dsp.window.move({ direction = "right" }))
+    hl.bind(mainMod .. shiftMod .. "up", hl.dsp.window.move({ direction = "up" }))
+    hl.bind(mainMod .. shiftMod .. "down", hl.dsp.window.move({ direction = "down" }))
+else
+    -- Move focus with mainMod + arrow keys
+    hl.bind(mainMod .. "left", function()
+        focus_left_right("left")
+    end)
+    hl.bind(mainMod .. "right", function()
+        focus_left_right("right")
+    end)
+    hl.bind(mainMod .. "up", hl.dsp.focus({ direction = "up" }))
+    hl.bind(mainMod .. "down", hl.dsp.focus({ direction = "down" }))
+
+    hl.bind(mainMod .. shiftMod .. "left", hl.dsp.window.move({ direction = "left" }))
+    hl.bind(mainMod .. shiftMod .. "right", hl.dsp.window.move({ direction = "right" }))
+    hl.bind(mainMod .. shiftMod .. "up", hl.dsp.window.move({ direction = "up" }))
+    hl.bind(mainMod .. shiftMod .. "down", hl.dsp.window.move({ direction = "down" }))
+
+    hl.bind(mainMod .. "E", hl.dsp.group.toggle())
+end
+
+-- group > scrolling workspace > regular focus
+function focus_left_right(dir)
+    local win = hl.get_active_window()
+    local grp = win and win.group
+
+    local workspace = hl.get_active_workspace()
+    -- dump(workspace)
+
+    if grp then
+        local idx = grp.current_index
+        if not ((idx == 1 and dir == "left") or (idx == grp.size and dir == "right")) then
+            if dir == "left" then
+                idx = idx - 1
+            else
+                idx = idx + 1
+            end
+
+            hl.dispatch(hl.dsp.group.active({ index = idx }))
+            return
+        end
+    end
+
+    if workspace and workspace.tiled_layout == "scrolling" then
+        local windows = hl.get_windows()
+        local min_x = win.at.x
+        local max_x = win.at.x + win.size.x
+
+        for k, w in pairs(windows) do
+            if w.workspace.id == workspace.id then
+                if w.at.x < min_x and dir == "left" then
+                    hl.dispatch(hl.dsp.layout("focus left"))
+                    return
+                elseif w.at.x + w.size.x > max_x and dir == "right" then
+                    hl.dispatch(hl.dsp.layout("focus right"))
+                    return
+                end
+            end
+        end
+    end
+
+    hl.dispatch(hl.dsp.focus({ direction = dir }))
+end
 
 hl.bind(altMod .. shiftMod .. "left", function()
     move_workspace("left")
@@ -351,7 +463,7 @@ end
 for i = 1, 10 do
     local key = i % 10 -- 10 maps to key 0
     hl.bind(mainMod .. key, hl.dsp.focus({ workspace = i }))
-    hl.bind(mainMod .. shiftMod .. key, hl.dsp.window.move({ workspace = i }))
+    hl.bind(mainMod .. shiftMod .. key, hl.dsp.window.move({ workspace = i, follow = false }))
 end
 
 -- Example special workspace (scratchpad)
@@ -391,6 +503,7 @@ hl.window_rule({
 
     float = true,
 })
+
 --bindsym $mod+Control+m exec ~/.config/i3/mpd-fzf
 --bindsym $mod+Mod1+m exec mpd-rofi
 
@@ -435,13 +548,6 @@ hl.window_rule({
     no_focus = true,
 })
 
--- Layer rules also return a handle.
--- overlayLayerRule = hl.layer_rule({
---     name = "wallpaper-hack",
---     match = { namespace = "wall" },
---     -- no_anim = true,
--- })
---
 -- Hyprland-run windowrule
 hl.window_rule({
     name = "move-hyprland-run",
