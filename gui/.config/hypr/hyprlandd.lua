@@ -1,9 +1,10 @@
 -- vim: set foldmethod=marker foldlevel=0:
 
+-- DEBUG CONFIG
 hl.env("LIBVA_DRIVER_NAME", "nvidia")
 hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
 
-local mainMod = "SUPER + " -- Sets "Windows" key as main modifier
+local mainMod = "ALT + " -- Sets "Windows" key as main modifier
 local shiftMod = "SHIFT + "
 local ctrlMod = "CTRL + "
 local altMod = "ALT + "
@@ -47,6 +48,10 @@ hl.monitor({
     vrr = 0,
     scale = 1,
 })
+hl.monitor({
+    output = "name:WAYLAND-1",
+    scale = 1,
+})
 
 -- }}}
 ---------------------
@@ -68,14 +73,14 @@ local menu = "rofi"
 -- Or execute your favorite apps at launch like this:
 --
 hl.on("hyprland.start", function()
-    hl.exec_cmd("mako")
-    hl.exec_cmd("wallpapers daemon")
-    hl.exec_cmd("waybar")
+    -- hl.exec_cmd("mako")
+    -- hl.exec_cmd("wallpapers daemon")
+    -- hl.exec_cmd("waybar")
 
     -- hl.exec_cmd("hyprpm reload")
     -- Enable in sudoers with
     -- desuwa ALL=(root) NOPASSWD:/usr/bin/nvidia-smi -i 0 -pl 375
-    hl.exec_cmd("sudo /usr/bin/nvidia-smi -i 0 -pl 375")
+    -- hl.exec_cmd("sudo /usr/bin/nvidia-smi -i 0 -pl 375")
 end)
 
 local hy3 = hl.plugin.hy3
@@ -129,6 +134,7 @@ hl.config({
         layout = hy3 and "hy3" or "dwindle",
     },
 
+    -- tail -f $XDG_RUNTIME_DIR/hypr/$(ls -t $XDG_RUNTIME_DIR/hypr/ | head -n 1)/hyprlandd.log
     debug = {
         disable_logs = false,
     },
@@ -205,60 +211,6 @@ hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" 
 
 -- Ref https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
 -- "Smart gaps" / "No gaps when only"
-hl.workspace_rule({ workspace = "w[tv1]", gaps_out = 0, gaps_in = 0, no_border = true })
-hl.workspace_rule({ workspace = "f[1]", gaps_out = 0, gaps_in = 0, no_border = true })
-hl.window_rule({
-    name = "no-gaps-wtv1",
-    match = { float = false, workspace = "w[tv1]" },
-    border_size = 0,
-    no_shadow = true,
-    rounding = 0,
-})
-hl.window_rule({
-    name = "no-gaps-f1",
-    match = { float = false, workspace = "f[1]" },
-    border_size = 0,
-    no_shadow = true,
-    rounding = 0,
-})
-
--- See https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/ for more
-hl.config({
-    dwindle = {
-        preserve_split = true, -- You probably want this
-    },
-})
-
--- See https://wiki.hypr.land/Configuring/Layouts/Master-Layout/ for more
-hl.config({
-    master = {
-        new_status = "master",
-    },
-})
-
--- See https://wiki.hypr.land/Configuring/Layouts/Scrolling-Layout/ for more
-hl.config({
-    scrolling = {
-        fullscreen_on_one_column = true,
-        column_width = 0.5,
-        -- focus_fit_method = 0,
-        wrap_swapcol = false,
-        wrap_focus = false,
-        follow_min_visible = 0.0,
-    },
-})
-
-hl.config({
-    misc = {
-        force_default_wallpaper = 0, -- Set to 0 or 1 to disable the anime mascot wallpapers
-        disable_hyprland_logo = true, -- If true disables the random hyprland logo / anime girl background. :(
-        disable_splash_rendering = true,
-        mouse_move_focuses_monitor = false,
-        -- enable_swallow = true,
-        -- swallow_regex = "^(Alacritty)$",
-    },
-})
-
 -- }}}
 -- {{{ Input
 hl.config({
@@ -303,16 +255,6 @@ hl.workspace_rule({
 })
 hl.bind(mainMod .. "Z", hl.dsp.focus({ workspace = "name:firefox" }))
 
--- hl.workspace_rule({
---     workspace = "name:test",
---     -- My 1.5x scale monitor
---     monitor = "desc:" .. m_center,
--- })
--- hl.window_rule({
---     match = { title = "XDG Subsurface Scale Test" },
---     workspace = "name:test",
--- })
---
 hl.workspace_rule({
     workspace = "name:mpv",
     monitor = "desc:" .. m_center,
@@ -351,7 +293,7 @@ hl.workspace_rule({
     gaps_in = 0,
     border_size = 0,
     no_border = true,
-    -- layout = "monocle",
+    layout = "monocle",
     monitor = "desc:" .. m_center,
     no_shadow = true,
 })
@@ -386,31 +328,9 @@ hl.bind(mainMod .. "J", function()
     if not workspace then
         return
     elseif workspace.tiled_layout == "scrolling" then
-        hl.dispatch(hl.dsp.layout("consume_or_expel next"))
+        hl.dispatch(hl.dsp.layout("promote"))
     elseif workspace.tiled_layout == "dwindle" then
         hl.dispatch(hl.dsp.layout("togglesplit"))
-    end
-end)
-hl.bind(mainMod .. shiftMod .. "J", function()
-    -- Cycle workspace layouts
-    local workspace = hl.get_active_workspace()
-    if not workspace then
-        return
-    end
-
-    local layouts = { "dwindle", "scrolling", "monocle" }
-    for i, l in pairs(layouts) do
-        if l == workspace.tiled_layout then
-            print(#layouts)
-            print(layouts[i % #layouts + 1])
-            local rule = "'hl.workspace_rule({ workspace = \""
-                .. workspace.id
-                .. '", layout = "'
-                .. layouts[i % #layouts + 1]
-                .. "\" })'"
-            print(rule)
-            hl.dispatch(hl.dsp.exec_cmd("hyprctl eval " .. rule))
-        end
     end
 end)
 
@@ -451,6 +371,7 @@ function focus_left_right(dir)
     local grp = win and win.group
 
     local workspace = hl.get_active_workspace()
+    -- dump(workspace)
 
     if grp then
         local idx = grp.current_index
@@ -521,75 +442,6 @@ function focus_left_right(dir)
     end
 
     hl.dispatch(hl.dsp.focus({ direction = dir }))
-end
-
-function move_left_right(dir)
-    local win = hl.get_active_window()
-    local grp = win and win.group
-
-    local workspace = hl.get_active_workspace()
-
-    if grp then
-        local idx = grp.current_index
-        if not ((idx == 1 and dir == "left") or (idx == grp.size and dir == "right")) then
-            hl.dispatch(hl.dsp.group.move_window({ forward = (dir == "right") }))
-            return
-        end
-    end
-
-    if not win or win.floating then
-        print("Floating window, ignoring workspace")
-    elseif workspace and workspace.tiled_layout == "scrolling" then
-        local windows = hl.get_windows()
-        local min_x = win.at.x
-        local max_x = win.at.x + win.size.x
-
-        for k, w in pairs(windows) do
-            if w.workspace.id == workspace.id and w.floating == false and w.hidden == false then
-                if w.at.x < min_x and dir == "left" then
-                    print("scrolling focus left")
-                    hl.dispatch(hl.dsp.layout("focus left"))
-                    return
-                elseif w.at.x + w.size.x > max_x and dir == "right" then
-                    print("scrolling focus right")
-                    hl.dispatch(hl.dsp.layout("focus right"))
-                    return
-                end
-            end
-        end
-    elseif workspace and workspace.tiled_layout == "monocle" then
-        local windows = hl.get_windows()
-
-        local first = true
-        local found = false
-        local last = true
-        for k, w in pairs(windows) do
-            if w.workspace.id == workspace.id and w.hidden == false and w.floating == false then
-                last = not found
-
-                if w.address == win.address then
-                    found = true
-                    if first and dir == "left" then
-                        break
-                    end
-                end
-
-                first = false
-            end
-        end
-
-        if dir == "left" and not first then
-            print("monocle cyceprev")
-            hl.dispatch(hl.dsp.layout("cycleprev"))
-            return
-        elseif dir == "right" and not last then
-            print("monocle cyclenext")
-            hl.dispatch(hl.dsp.layout("cyclenext"))
-            return
-        end
-    end
-
-    hl.dispatch(hl.dsp.window.move({ direction = dir }))
 end
 
 hl.bind(altMod .. shiftMod .. "left", function()

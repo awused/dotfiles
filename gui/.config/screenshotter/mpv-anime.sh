@@ -5,7 +5,7 @@ set -e
 
 title=""
 match=""
-if title=$(xprop -id $SCREENSHOTTER_WINDOWID _NET_WM_NAME) ; then
+if title=$(xprop -id $SCREENSHOTTER_WINDOWID _NET_WM_NAME) || false ; then
   beginning=$(echo $title | grep -b -o '= "' | cut -d: -f1 | head -n1)
   title=${title:($beginning + 3)}
 else
