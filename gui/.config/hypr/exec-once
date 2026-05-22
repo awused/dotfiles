@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# args: window instance, something to pgrep for, startup command
+
+# Launch program if it's not running
+# Show program if it's hidden
+# Move all windows of a program to this workspace if it's only visible somewhere else
+# Hide all windows of a program if any are visible on this workspace
+
+# $1 - window class
+# $2 - startup command
+# $3 - optional: working directory
+set -e
+
+class=$1
+
+if [[ $3 != "" ]]; then
+  cd "$3"
+fi
+
+window=$(hyprctl clients -j | jq -r ".[] | select(.class == \"$1\")")
+if [ "$window" = "" ]; then
+  $($2) &
+  exit
+fi
+
+address=$(echo "$window" | jq -r '.address')
+workspace=$(echo "$window" | jq -r '.workspace.id')
+target=$(hyprctl activeworkspace -j | jq '.id')
+follow=true
+if [ "$target" = "$workspace" ]; then
+  target='"special:scratchpad"'
+  follow=false
+fi
+
+hyprctl dispatch "hl.dsp.window.move({window = 'address:$address', follow = $follow, workspace = $target })" > /dev/null
+

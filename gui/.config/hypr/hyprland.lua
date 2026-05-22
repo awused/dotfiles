@@ -1,7 +1,12 @@
 -- vim: set foldmethod=marker foldlevel=0:
 
+-- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Environment-variables/
 hl.env("LIBVA_DRIVER_NAME", "nvidia")
 hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
+hl.env("XCURSOR_SIZE", "24")
+hl.env("HYPRCURSOR_SIZE", "24")
+
+-- TODO -- hyprlock/hyprlidle
 
 local mainMod = "SUPER + " -- Sets "Windows" key as main modifier
 local shiftMod = "SHIFT + "
@@ -54,39 +59,7 @@ hl.monitor({
 ---------------------
 
 -- Set programs that you use
-local terminal = "alacritty"
-local fileManager = "aw-fm"
-local menu = "rofi"
-
--------------------
----- AUTOSTART ----
--------------------
-
--- See https://wiki.hypr.land/Configuring/Basics/Autostart/
-
--- Autostart necessary processes (like notifications daemons, status bars, etc.)
--- Or execute your favorite apps at launch like this:
---
-hl.on("hyprland.start", function()
-    hl.exec_cmd("mako")
-    hl.exec_cmd("wallpapers daemon")
-    hl.exec_cmd("waybar")
-
-    -- hl.exec_cmd("hyprpm reload")
-    -- Enable in sudoers with
-    -- desuwa ALL=(root) NOPASSWD:/usr/bin/nvidia-smi -i 0 -pl 375
-    hl.exec_cmd("sudo /usr/bin/nvidia-smi -i 0 -pl 375")
-end)
-
 local hy3 = hl.plugin.hy3
--------------------------------
----- ENVIRONMENT VARIABLES ----
--------------------------------
-
--- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Environment-variables/
-
-hl.env("XCURSOR_SIZE", "24")
-hl.env("HYPRCURSOR_SIZE", "24")
 
 -----------------------
 ----- PERMISSIONS -----
@@ -188,19 +161,55 @@ hl.curve("easy", { type = "spring", mass = 1, stiffness = 71.2633, dampening = 1
 hl.animation({ leaf = "global", enabled = true, speed = 10, bezier = "default" })
 hl.animation({ leaf = "border", enabled = true, speed = 5.39, bezier = "easeOutQuint" })
 hl.animation({ leaf = "windows", enabled = true, speed = 4.79, spring = "easy" })
-hl.animation({ leaf = "windowsIn", enabled = true, speed = 4.1, spring = "easy", style = "popin 87%" })
-hl.animation({ leaf = "windowsOut", enabled = true, speed = 1.49, bezier = "linear", style = "popin 87%" })
+hl.animation({
+    leaf = "windowsIn",
+    enabled = true,
+    speed = 4.1,
+    spring = "easy",
+    style = "popin 87%",
+})
+hl.animation({
+    leaf = "windowsOut",
+    enabled = true,
+    speed = 1.49,
+    bezier = "linear",
+    style = "popin 87%",
+})
 hl.animation({ leaf = "fadeIn", enabled = true, speed = 1.73, bezier = "almostLinear" })
 hl.animation({ leaf = "fadeOut", enabled = true, speed = 1.46, bezier = "almostLinear" })
 hl.animation({ leaf = "fade", enabled = true, speed = 3.03, bezier = "quick" })
 hl.animation({ leaf = "layers", enabled = true, speed = 3.81, bezier = "easeOutQuint" })
-hl.animation({ leaf = "layersIn", enabled = true, speed = 4, bezier = "easeOutQuint", style = "fade" })
+hl.animation({
+    leaf = "layersIn",
+    enabled = true,
+    speed = 4,
+    bezier = "easeOutQuint",
+    style = "fade",
+})
 hl.animation({ leaf = "layersOut", enabled = true, speed = 1.5, bezier = "linear", style = "fade" })
 hl.animation({ leaf = "fadeLayersIn", enabled = true, speed = 1.79, bezier = "almostLinear" })
 hl.animation({ leaf = "fadeLayersOut", enabled = true, speed = 1.39, bezier = "almostLinear" })
-hl.animation({ leaf = "workspaces", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
-hl.animation({ leaf = "workspacesIn", enabled = true, speed = 1.21, bezier = "almostLinear", style = "fade" })
-hl.animation({ leaf = "workspacesOut", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
+hl.animation({
+    leaf = "workspaces",
+    enabled = true,
+    speed = 1.94,
+    bezier = "almostLinear",
+    style = "fade",
+})
+hl.animation({
+    leaf = "workspacesIn",
+    enabled = true,
+    speed = 1.21,
+    bezier = "almostLinear",
+    style = "fade",
+})
+hl.animation({
+    leaf = "workspacesOut",
+    enabled = true,
+    speed = 1.94,
+    bezier = "almostLinear",
+    style = "fade",
+})
 hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" })
 
 -- Ref https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
@@ -278,7 +287,7 @@ hl.config({
         },
 
         accel_profile = "flat",
-        sensitivity = -0.4,
+        sensitivity = -0.64,
     },
 })
 
@@ -356,6 +365,30 @@ hl.workspace_rule({
     no_shadow = true,
 })
 
+hl.bind(
+    mainMod .. shiftMod .. "K",
+    hl.dsp.exec_cmd("~/.config/hypr/exec-once 'org.keepassxc.KeePassXC' keepassxc")
+)
+
+hl.bind(
+    mainMod .. shiftMod .. "F",
+    hl.dsp.exec_cmd(
+        '~/.config/hypr/exec-once "foobar2000.exe" "wine144 foobar2000.exe" "$HOME/.foobar2000"'
+    )
+)
+
+-- All the one-off floating windows
+hl.window_rule({
+    match = { class = "(KADOKAWA/RPGMV)|(foobar2000.exe)|(org.keepassxc.KeePassXC)" },
+    float = true,
+})
+hl.window_rule({
+    match = { class = "(net-runelite-client-RuneLite)|(BoltLauncher)" },
+    float = true,
+    no_shadow = true,
+    border_size = 0,
+})
+
 -- }}}
 -- {{{ Keybindings
 
@@ -363,7 +396,10 @@ hl.workspace_rule({
 hl.bind(mainMod .. "RETURN", hl.dsp.exec_cmd("/home/desuwa/bin/desu-terminal"))
 hl.bind(
     mainMod .. shiftMod .. "RETURN",
-    hl.dsp.exec_cmd("gnome-terminal || xfce4-terminal || urxvt || i3-sensible-terminal")
+    hl.dsp.exec_cmd(
+        "gnome-terminal || xfce4-terminal || "
+            .. "urxvt || foot || kitty || alacritty || i3-sensible-terminal"
+    )
 )
 
 hl.bind(mainMod .. shiftMod .. "Q", hl.dsp.window.close())
@@ -373,12 +409,13 @@ hl.bind(mainMod .. shiftMod .. "S", hl.dsp.exec_cmd("rofi -modi ssh -show ssh"))
 
 hl.bind(
     altMod .. shiftMod .. "E",
-    hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'")
+    hl.dsp.exec_cmd(
+        "command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown ||"
+            .. " hyprctl dispatch 'hl.dsp.exit()'"
+    )
 )
 
--- hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. shiftMod .. "Space", hl.dsp.window.float({ action = "toggle" }))
--- hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 -- hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. "J", function()
     local workspace = hl.get_active_workspace()
@@ -401,14 +438,11 @@ hl.bind(mainMod .. shiftMod .. "J", function()
     local layouts = { "dwindle", "scrolling", "monocle" }
     for i, l in pairs(layouts) do
         if l == workspace.tiled_layout then
-            print(#layouts)
-            print(layouts[i % #layouts + 1])
             local rule = "'hl.workspace_rule({ workspace = \""
                 .. workspace.id
                 .. '", layout = "'
                 .. layouts[i % #layouts + 1]
                 .. "\" })'"
-            print(rule)
             hl.dispatch(hl.dsp.exec_cmd("hyprctl eval " .. rule))
         end
     end
@@ -523,6 +557,7 @@ function focus_left_right(dir)
     hl.dispatch(hl.dsp.focus({ direction = dir }))
 end
 
+-- TODO
 function move_left_right(dir)
     local win = hl.get_active_window()
     local grp = win and win.group
@@ -544,6 +579,7 @@ function move_left_right(dir)
         local min_x = win.at.x
         local max_x = win.at.x + win.size.x
 
+        -- TODO
         for k, w in pairs(windows) do
             if w.workspace.id == workspace.id and w.floating == false and w.hidden == false then
                 if w.at.x < min_x and dir == "left" then
@@ -558,35 +594,36 @@ function move_left_right(dir)
             end
         end
     elseif workspace and workspace.tiled_layout == "monocle" then
-        local windows = hl.get_windows()
-
-        local first = true
-        local found = false
-        local last = true
-        for k, w in pairs(windows) do
-            if w.workspace.id == workspace.id and w.hidden == false and w.floating == false then
-                last = not found
-
-                if w.address == win.address then
-                    found = true
-                    if first and dir == "left" then
-                        break
-                    end
-                end
-
-                first = false
-            end
-        end
-
-        if dir == "left" and not first then
-            print("monocle cyceprev")
-            hl.dispatch(hl.dsp.layout("cycleprev"))
-            return
-        elseif dir == "right" and not last then
-            print("monocle cyclenext")
-            hl.dispatch(hl.dsp.layout("cyclenext"))
-            return
-        end
+        -- TODO There is currently no way to cycle windows in monocle
+        -- local windows = hl.get_windows()
+        --
+        -- local first = true
+        -- local found = false
+        -- local last = true
+        -- for k, w in pairs(windows) do
+        --     if w.workspace.id == workspace.id and w.hidden == false and w.floating == false then
+        --         last = not found
+        --
+        --         if w.address == win.address then
+        --             found = true
+        --             if first and dir == "left" then
+        --                 break
+        --             end
+        --         end
+        --
+        --         first = false
+        --     end
+        -- end
+        --
+        -- if dir == "left" and not first then
+        --     print("monocle cyceprev")
+        --     hl.dispatch(hl.dsp.layout("cycleprev"))
+        --     return
+        -- elseif dir == "right" and not last then
+        --     print("monocle cyclenext")
+        --     hl.dispatch(hl.dsp.layout("cyclenext"))
+        --     return
+        -- end
     end
 
     hl.dispatch(hl.dsp.window.move({ direction = dir }))
@@ -740,3 +777,27 @@ hl.window_rule({
 
     float = true,
 })
+
+-- hl.workspace_rule({ workspace = "special:scratchpad", animation = "no" })
+
+-- {{{ AUTOSTART
+
+-- See https://wiki.hypr.land/Configuring/Basics/Autostart/
+
+-- Autostart necessary processes (like notifications daemons, status bars, etc.)
+-- Or execute your favorite apps at launch like this:
+--
+
+hl.on("hyprland.start", function()
+    hl.exec_cmd("mako")
+    hl.exec_cmd("wallpapers daemon")
+    hl.exec_cmd("waybar")
+    -- TODO: vmprpc, mpd, mpd-shuffler, udevadm trigger
+
+    -- hl.exec_cmd("hyprpm reload")
+    -- Enable in sudoers with
+    -- desuwa ALL=(root) NOPASSWD:/usr/bin/nvidia-smi -i 0 -pl 375
+    hl.exec_cmd("sudo /usr/bin/nvidia-smi -i 0 -pl 375")
+end)
+
+-- }}}
