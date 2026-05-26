@@ -45,171 +45,175 @@ MouseKeys = true
 # Format: The output pattern. Use {n} to reference the groups from any regex
 # match.
 
-[[Overrides]]
+[[OverridesX]]
   Name = "vimx"
   Format = "vim"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "gvim"
   Format = "vim"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "nvim"
   Format = "vim"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "i3"
   Format = "desktop"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "chromium-browser"
   Format = "chromium"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "chromium-freeworld"
   Format = "chromium"
 
-[[Overrides]]
+[[OverridesX]]
   Regex = '(E|e)muera'
   Format = "emuera"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "wine32-preloader"
   Regex = 'TLS.*Game.exe$'
   Format = "the-last-sovereign"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "wine32-preloader"
   Regex = '^(.*(/|\\))?([^/]+) \d\.\d\d\d[[:lower:]]?\\Game.exe'
   Format = "%[4]s"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "wine32-preloader"
   Regex = '^(.*(/|\\))?([^/]+) ?\d\.?\d\.?\d[[:lower:]]?\\Game.exe'
   Format = "%[4]s"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "wine32-preloader"
   Regex = '^(.*(/|\\))?([^/]+)\\Game.exe'
   Format = "%[4]s"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "wine32-preloader"
   Regex = '^(.*(/|\\))?([^/\ ]+)\.exe'
   Format = "%[4]s"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "wine64-preloader"
   Regex = '^(.*(/|\\))?([^/]+) \d\.\d\d\d[[:lower:]]?\\Game.exe'
   Format = "%[4]s"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "wine64-preloader"
   Regex = '^(.*(/|\\))?([^/]+) ?\d\.?\d\.?\d[[:lower:]]?\\Game.exe'
   Format = "%[4]s"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "wine-preloader"
   Regex = '^(.*(/|\\))?([^/]+) v?(\d+\.)*\d+[[:lower:]]?\\Game.exe'
   Format = "%[4]s"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "wine-preloader"
   Regex = '^(.*(/|\\))?([^/]+) (\d+\.)*\d+[[:lower:]]?\\Game.exe'
   Format = "%[4]s"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "wine64-preloader"
   Regex = '^(.*(/|\\))?([^/]+)\\Game.exe'
   Format = "%[4]s"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "wine64-preloader"
   Regex = '^(.*(/|\\))?([^/\ ]+)\.exe'
   Format = "%[4]s"
 
-[[Overrides]]
+[[OverridesX]]
+  Name = "wine64-preloader"
+  Delegate = "/home/desuwa/.config/screenshotter/wine-preloader.sh"
+
+[[OverridesX]]
   Name = "wine-preloader"
   Regex = '^(.*(/|\\))?([^/\ ]+)\.exe'
   Format = "%[4]s"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "nw"
   Regex = '^(.*(/))?([^/]+) V\.\d+\(:alpha:\) Linux/nw'
   Format = "%[3]s"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "nw"
   Regex = '^(.*(/))?([^/]+)/nw'
   Format = "%[3]s"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "aw-man"
   Delegate = "/home/desuwa/.config/screenshotter/aw-man-manga-dir.sh"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "aw-man"
   Yearly = true
 
-[[Overrides]]
+[[OverridesX]]
   Regex = '^/usr/bin/python(\d(.\d)?)? .*/\.?bin/([^/ ]+)( .*)?'
   Format = "%[4]s"
 
-[[Overrides]]
+[[OverridesX]]
   Name = 'java'
   Regex = 'runelite'
   Format = "runelite"
 
-[[Overrides]]
+[[OverridesX]]
   Name = 'java'
   Regex = 'minecraft-[0-9.]*-client.jar'
   Format = "minecraft"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "watch"
   Regex = '^watch (\-n [^ ]+ )?([^ ]+)?'
   Format = "%[3]s"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "firefox"
   Delegate = "/home/desuwa/.config/screenshotter/firefox-mangadex.sh"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "mpv"
   Delegate = "/home/desuwa/.config/screenshotter/mpv-anime.sh"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "firefox"
   Yearly = true
 
-[[Overrides]]
+[[OverridesX]]
   Name = "mpv"
   Yearly = true
 
-[[Overrides]]
+[[OverridesX]]
   Name = "wine-preloader"
   Regex = 'Among Us.exe$'
   Format = "Among Us"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "wine-preloader"
   Regex = 'noratoto1.exe$'
   Format = "Nora to Oujo to Noraneko Heart"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "ppssppqt"
   Delegate = "/home/desuwa/.config/screenshotter/ppsspp.sh"
   Callback = "/home/desuwa/.config/screenshotter/ppsspp-callback.sh"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "ppssppsdl"
   Delegate = "/home/desuwa/.config/screenshotter/ppssppsdl.sh"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "duckstation-qt"
   Delegate = "/home/desuwa/.config/screenshotter/duckstation.sh"
 
-[[Overrides]]
+[[OverridesX]]
   Name = "kthreadd"
   Delegate = "/home/desuwa/.config/screenshotter/kthreadd.sh"
 

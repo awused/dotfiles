@@ -84,10 +84,10 @@ windows-vmrpc: vmrpc
 
 windows-go: windows-sharex windows-vmrpc windows-clipboard windows-quiet-cmd
 
-loudgain: sudo
-	cd ${THIRD_PARTY_SOURCE}/loudgain; \
-	  rm -rf build/; mkdir build; cd build; \
-	  cmake -DCMAKE_INSTALL_PREFIX=/usr/local ..; $(MAKE); sudo $(MAKE) install
+# loudgain: sudo
+# 	cd ${THIRD_PARTY_SOURCE}/loudgain; \
+# 	  rm -rf build/; mkdir build; cd build; \
+# 	  cmake -DCMAKE_INSTALL_PREFIX=/usr/local ..; $(MAKE); sudo $(MAKE) install
 
 # Third party code
 bolt:
@@ -140,7 +140,7 @@ waifu2x-vulkan:
 	  mv waifu2x-ncnn-vulkan ~/.bin/; \
 	  ln -s "${THIRD_PARTY_SOURCE}/waifu2x-ncnn-vulkan/models/models-cunet" ~/.bin/ || true
 
-third-party: clipnotify loudgain maim melonds waifu2x-vulkan
+third-party: clipnotify maim melonds waifu2x-vulkan
 
 all-install: go third-party
 

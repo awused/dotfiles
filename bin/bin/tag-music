@@ -639,7 +639,7 @@ if len(rgfiles) > 0:
             '--opus-mode',
             's',
         ]
-        rgargs = ['loudgain', '--tagmode', 'i', '--track', '--noclip']
+        # rgargs = ['loudgain', '--tagmode', 'i', '--track', '--noclip']
 
         rgargs.extend(files)
         if not args.dry_run:

@@ -5,6 +5,7 @@ hl.env("LIBVA_DRIVER_NAME", "nvidia")
 hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
+hl.env("__GL_SYNC_TO_VBLANK", "0")
 
 -- TODO -- hyprlock/hyprlidle
 
@@ -13,6 +14,7 @@ local shiftMod = "SHIFT + "
 local ctrlMod = "CTRL + "
 local altMod = "ALT + "
 
+-- Keep in sync with toggle-monitors
 local m_center = "GIGA-BYTE TECHNOLOGY CO. LTD. AORUS FI32U 20480B000000"
 local m_left = "GIGA-BYTE TECHNOLOGY CO. LTD. AORUS AD27QD 19050B000191"
 local m_right = "GIGA-BYTE TECHNOLOGY CO. LTD. AORUS AD27QD 19050B000199"
@@ -51,6 +53,7 @@ hl.monitor({
     position = "5120x1440",
     vrr = 0,
     scale = 1,
+    transform = 0,
 })
 
 -- }}}
@@ -288,6 +291,7 @@ hl.config({
 
         accel_profile = "flat",
         sensitivity = -0.64,
+        float_switch_override_focus = 0,
     },
 })
 
@@ -302,7 +306,7 @@ hl.gesture({
 -- https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
 
 hl.window_rule({
-    match = { class = "firefox" },
+    match = { class = "org.mozilla.firefox" },
     workspace = "name:firefox",
 })
 hl.workspace_rule({
@@ -311,6 +315,10 @@ hl.workspace_rule({
     default = true,
 })
 hl.bind(mainMod .. "Z", hl.dsp.focus({ workspace = "name:firefox" }))
+hl.bind(
+    mainMod .. shiftMod .. "Z",
+    hl.dsp.window.move({ workspace = "name:firefox", follow = false })
+)
 
 -- hl.workspace_rule({
 --     workspace = "name:test",
@@ -348,6 +356,41 @@ hl.window_rule({
     match = { class = "^emuera.*" },
     float = true,
 })
+
+hl.window_rule({
+    match = { title = ".*Weechat.*" },
+    workspace = "name:chat",
+})
+hl.window_rule({
+    match = { class = "com.slack.Slack" },
+    workspace = "name:chat",
+})
+hl.workspace_rule({
+    workspace = "name:chat",
+    monitor = "desc:" .. m_right,
+    -- layout = "master",
+})
+hl.bind(mainMod .. "C", hl.dsp.focus({ workspace = "name:chat" }))
+hl.bind(mainMod .. shiftMod .. "C", hl.dsp.window.move({ workspace = "name:chat", follow = false }))
+-- assign [class="Slack"] $wsct
+-- assign [class="TeamSpeak 3"] $wsct
+-- workspace $wsct output $m_right
+--
+-- set $wsst "steam"
+-- bindsym $mod+Mod1+t workspace $wsst
+-- for_window [class="steam"] move container to workspace $wsst
+-- for_window [class="steam"] floating enable
+-- for_window [class="Steam"] move container to workspace $wsst
+-- for_window [class="Steam"] floating enable
+-- workspace $wsst output $m_center
+--
+-- set $wsnm "aw-fm"
+-- assign [class="Caja"] $wsnm
+-- assign [class="aw-fm"] $wsnm
+-- for_window [class="Caja"] focus
+-- for_window [class="aw-fm"] focus
+-- bindsym $mod+x workspace $wsnm
+-- workspace $wsnm output $m_left
 hl.window_rule({
     match = { class = "^awused\\.aw-man$" },
     workspace = "name:aw-man",
@@ -360,7 +403,7 @@ hl.workspace_rule({
     gaps_in = 0,
     border_size = 0,
     no_border = true,
-    -- layout = "monocle",
+    layout = "monocle",
     monitor = "desc:" .. m_center,
     no_shadow = true,
 })
@@ -383,7 +426,7 @@ hl.window_rule({
     float = true,
 })
 hl.window_rule({
-    match = { class = "(net-runelite-client-RuneLite)|(BoltLauncher)" },
+    match = { class = "(.*runelite.*)|(BoltLauncher)" },
     float = true,
     no_shadow = true,
     border_size = 0,

@@ -50,9 +50,14 @@ hl.monitor({
 })
 hl.monitor({
     output = "WAYLAND-1",
-    scale = 1.25,
+    scale = 1.67,
+    position = "auto",
 })
-
+hl.monitor({
+    output = "WAYLAND-2",
+    scale = 1.0,
+    position = "auto-right",
+})
 -- }}}
 ---------------------
 ---- MY PROGRAMS ----
@@ -293,7 +298,7 @@ hl.bind(mainMod .. "Z", hl.dsp.focus({ workspace = "name:firefox" }))
 
 hl.workspace_rule({
     workspace = "name:mpv",
-    monitor = "desc:" .. m_center,
+    monitor = "WAYLAND-1",
 })
 hl.window_rule({
     match = { class = "mpv" },
@@ -330,7 +335,7 @@ hl.workspace_rule({
     border_size = 0,
     no_border = true,
     layout = "monocle",
-    monitor = "desc:" .. m_center,
+    monitor = "WAYLAND-1",
     no_shadow = true,
 })
 
@@ -394,8 +399,8 @@ else
     hl.bind(mainMod .. "down", hl.dsp.focus({ direction = "down" }))
 
     -- TODO -- move left/right overrides
-    hl.bind(mainMod .. shiftMod .. "left", hl.dsp.window.move({ direction = "left" }))
-    hl.bind(mainMod .. shiftMod .. "right", hl.dsp.window.move({ direction = "right" }))
+    hl.bind(ctrlMod .. "left", hl.dsp.window.move({ direction = "left" }))
+    hl.bind(ctrlMod .. "right", hl.dsp.window.move({ direction = "right" }))
     hl.bind(mainMod .. shiftMod .. "up", hl.dsp.window.move({ direction = "up" }))
     hl.bind(mainMod .. shiftMod .. "down", hl.dsp.window.move({ direction = "down" }))
 

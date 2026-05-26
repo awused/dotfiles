@@ -11,6 +11,15 @@ left_bus=8
 right_bus=7
 top_bus=5
 
+m_center="GIGA-BYTE TECHNOLOGY CO. LTD. AORUS FI32U 20480B000000"
+m_left="GIGA-BYTE TECHNOLOGY CO. LTD. AORUS AD27QD 19050B000191"
+m_right="GIGA-BYTE TECHNOLOGY CO. LTD. AORUS AD27QD 19050B000199"
+m_top="GIGA-BYTE TECHNOLOGY CO. LTD. AORUS AD27QD 19050B000068"
+
+hyprland=$(test "$HYPRLAND_INSTANCE_SIGNATURE" = "" || echo 1)
+
+sleep 1
+
 if [ ! -f "$tempfile" ]; then
   touch "$tempfile"
   # Only disable the left monitor if it's connected to this machine,
@@ -23,6 +32,9 @@ if [ ! -f "$tempfile" ]; then
     ddcutil --bus $top_bus setvcp D6 0x02 &
     ddcutil --bus $right_bus setvcp D6 0x02 &
   fi
+  # hyprctl dispatch 'hl.dsp.dpms({action = "off", monitor = "HDMI-A-1"})'
+  # hyprctl dispatch 'hl.dsp.dpms({action = "off", monitor = "DP-2"})'
+  # hyprctl dispatch 'hl.dsp.dpms({action = "off", monitor = "DP-3"})'
 else
   rm "$tempfile"
   # The monitors erroneously believe they're in on (0x01) state when they're
@@ -31,5 +43,10 @@ else
   # powered off (0x04) and aren't responsive.
   # DPMS has a global state, but the monitors are all in standby mode,
   # and won't leave it unless the global state transisions back to on.
+
+  # hyprctl dispatch 'hl.dsp.dpms({action = "on", monitor = "HDMI-A-1"})'
+  # hyprctl dispatch 'hl.dsp.dpms({action = "on", monitor = "DP-2"})'
+  # hyprctl dispatch 'hl.dsp.dpms({action = "on", monitor = "DP-3"})'
+
   xset dpms force standby; sleep 2; xset dpms force on
 fi

@@ -13,9 +13,12 @@ if [ "$0" = "/etc/X11/xinit/Xsession" -a "$DESKTOP_SESSION" = "i3" ]; then
   # Better off using xfce4-terminal when I need this
   export GLFW_IM_MODULE=ibus
   export __GL_SYNC_TO_VBLANK=1
+  export __GL_SYNC_DISPLAY_DEVICE=DP-0
+  export VDPAU_NVIDIA_SYNC_DISPLAY_DEVICE=DP-0
 else
-  export __GL_SYNC_DISPLAY_DEVICE=
-  export __GL_SYNC_TO_VBLANK=
+  # export __GL_SYNC_DISPLAY_DEVICE=
+  # export __GL_SYNC_TO_VBLANK=
+  # export VDPAU_NVIDIA_SYNC_DISPLAY_DEVICE=
 fi
 
 # export WLR_NO_HARDWARE_CURSORS=1

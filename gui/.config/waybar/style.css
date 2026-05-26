@@ -7,7 +7,7 @@
   /* `otf-font-awesome` is required to be installed for icons */
   /* font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif; */
   font-family: DejaVu Sans Mono, Noto Sans Mono CJK JP, FontAwesome, unifont, sans-serif;
-  font-size: 16px;
+  font-size: 13pt;
 }
 
 window#waybar {
