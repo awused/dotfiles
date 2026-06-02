@@ -33,6 +33,10 @@ SlopShaders = ['boxzoom']
 # Requires a version of slop with Mouse Keys support
 MouseKeys = true
 
+# Timeout in seconds.
+# Set to 0 to disable.
+timeout = 30
+
 # Overrides. The first one with a matching name and Regex is used.
 #
 # Name: The application name to match against. Multiple overrides can be

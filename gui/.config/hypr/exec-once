@@ -24,12 +24,14 @@ if [ "$window" = "" ]; then
 fi
 
 address=$(echo "$window" | jq -r '.address')
-workspace=$(echo "$window" | jq -r '.workspace.id')
-target=$(hyprctl activeworkspace -j | jq '.id')
+workspace=$(echo "$window" | jq -r '.workspace.name')
+target=$(hyprctl activeworkspace -j | jq -r '.name')
 follow=true
 if [ "$target" = "$workspace" ]; then
   target='"special:scratchpad"'
   follow=false
+else
+  target="\"name:$target"\"
 fi
 
 hyprctl dispatch "hl.dsp.window.move({window = 'address:$address', follow = $follow, workspace = $target })" > /dev/null

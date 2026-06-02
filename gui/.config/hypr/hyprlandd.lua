@@ -50,12 +50,12 @@ hl.monitor({
 })
 hl.monitor({
     output = "WAYLAND-1",
-    scale = 1.67,
+    scale = 1.0,
     position = "auto",
 })
 hl.monitor({
     output = "WAYLAND-2",
-    scale = 1.0,
+    scale = 1.5,
     position = "auto-right",
 })
 -- }}}
@@ -335,7 +335,7 @@ hl.workspace_rule({
     border_size = 0,
     no_border = true,
     layout = "monocle",
-    monitor = "WAYLAND-1",
+    monitor = "WAYLAND-2",
     no_shadow = true,
 })
 

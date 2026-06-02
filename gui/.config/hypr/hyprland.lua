@@ -266,6 +266,7 @@ hl.config({
         disable_hyprland_logo = true, -- If true disables the random hyprland logo / anime girl background. :(
         disable_splash_rendering = true,
         mouse_move_focuses_monitor = false,
+        render_unfocused_fps = 120,
         -- enable_swallow = true,
         -- swallow_regex = "^(Alacritty)$",
     },
@@ -283,14 +284,12 @@ hl.config({
 
         follow_mouse = 2,
 
-        sensitivity = 0, -- -1.0 - 1.0, 0 means no modification.
-
         touchpad = {
             natural_scroll = false,
         },
 
         accel_profile = "flat",
-        sensitivity = -0.64,
+        sensitivity = -0.66,
         float_switch_override_focus = 0,
     },
 })
@@ -341,6 +340,7 @@ hl.window_rule({
     opaque = true,
     no_anim = true,
     border_size = 0,
+    render_unfocused = true,
     -- animation = false,
     -- pseudo = true,
 })
@@ -403,7 +403,8 @@ hl.workspace_rule({
     gaps_in = 0,
     border_size = 0,
     no_border = true,
-    layout = "monocle",
+    -- layout = "monocle",
+    layout = "scrolling",
     monitor = "desc:" .. m_center,
     no_shadow = true,
 })
@@ -420,13 +421,22 @@ hl.bind(
     )
 )
 
+hl.window_rule({
+    match = { class = "net-runelite-client-RuneLite", initial_title = "RuneLite" },
+    float = true,
+    no_shadow = true,
+    border_size = 0,
+    -- 1701/1200 / 1.5 scale + sidebar
+    size = { 1295, 800 },
+})
+
 -- All the one-off floating windows
 hl.window_rule({
     match = { class = "(KADOKAWA/RPGMV)|(foobar2000.exe)|(org.keepassxc.KeePassXC)" },
     float = true,
 })
 hl.window_rule({
-    match = { class = "(.*runelite.*)|(BoltLauncher)" },
+    match = { class = "(BoltLauncher)" },
     float = true,
     no_shadow = true,
     border_size = 0,
@@ -588,11 +598,13 @@ function focus_left_right(dir)
 
         if dir == "left" and not first then
             print("monocle cyceprev")
+            -- hl.dispatch(hl.dsp.window.cycle_prev({ tiled = true }))
             hl.dispatch(hl.dsp.layout("cycleprev"))
             return
         elseif dir == "right" and not last then
             print("monocle cyclenext")
             hl.dispatch(hl.dsp.layout("cyclenext"))
+            -- hl.dispatch(hl.dsp.window.cycle_next({ tiled = true }))
             return
         end
     end
@@ -811,6 +823,7 @@ hl.window_rule({
 hl.config({
     xwayland = {
         force_zero_scaling = true,
+        use_nearest_neighbor = true,
     },
 })
 
