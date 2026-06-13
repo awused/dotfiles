@@ -1,13 +1,18 @@
 -- vim: set foldmethod=marker foldlevel=0:
 
+-- TODO:
+--  - idle
+--  - locking
+--  - missing hotkeys
+--  -- hyprlock/hyprlidle
+--  - Something for better tabbed aw-man (hy3 just for that? seems unstable too)
+
 -- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Environment-variables/
 hl.env("LIBVA_DRIVER_NAME", "nvidia")
 hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 hl.env("__GL_SYNC_TO_VBLANK", "0")
-
--- TODO -- hyprlock/hyprlidle
 
 local mainMod = "SUPER + " -- Sets "Windows" key as main modifier
 local shiftMod = "SHIFT + "
@@ -102,11 +107,12 @@ hl.config({
         -- Please see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Tearing/ before you turn this on
         allow_tearing = false,
 
-        layout = hy3 and "hy3" or "dwindle",
+        layout = "dwindle",
     },
 
     debug = {
         disable_logs = false,
+        -- watchdog_timeout = 10,
     },
 
     decoration = {
@@ -148,6 +154,35 @@ hl.config({
 
     animations = {
         enabled = true,
+    },
+
+    plugin = {
+        hy3 = {
+            -- tab_first_window = true,
+            tabs = {
+                height = 20,
+                padding = 0,
+                radius = 0,
+                text_height = 10,
+                colors = {
+                    active = "rgba(285577ce)",
+                    active_border = "rgba(33ccffc0)",
+                    active_text = "rgba(ffffffff)",
+
+                    active_alt_monitor = "rgba(000000bf)",
+                    active_alt_monitor_border = "rgba(33ccffc0)",
+                    active_alt_monitor_text = "rgba(ffffffff)",
+
+                    focused = "rgba(000000bf)",
+                    focused_border = "rgba(33ccffc0)",
+                    focused_text = "rgba(ffffffff)",
+
+                    inactive = "rgba(000000bf)",
+                    inactive_border = "rgba(000000df)",
+                    inactive_text = "rgba(ffffffff)",
+                },
+            },
+        },
     },
 })
 
@@ -237,6 +272,7 @@ hl.window_rule({
 -- See https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/ for more
 hl.config({
     dwindle = {
+        force_split = 2,
         preserve_split = true, -- You probably want this
     },
 })
@@ -403,8 +439,9 @@ hl.workspace_rule({
     gaps_in = 0,
     border_size = 0,
     no_border = true,
-    -- layout = "monocle",
-    layout = "scrolling",
+    -- layout = "master",
+    -- layout = "scrolling",
+    layout = hy3 and "hy3" or "scrolling",
     monitor = "desc:" .. m_center,
     no_shadow = true,
 })
@@ -501,36 +538,6 @@ hl.bind(mainMod .. shiftMod .. "J", function()
     end
 end)
 
-if hy3 then
-    hl.bind(mainMod .. "left", hy3.move_focus("left", { warp = false }))
-    hl.bind(mainMod .. "right", hy3.move_focus("right", { warp = false }))
-    hl.bind(mainMod .. "up", hy3.move_focus("up"))
-    hl.bind(mainMod .. "down", hy3.move_focus("down"))
-
-    hl.bind(mainMod .. shiftMod .. "left", hl.dsp.window.move({ direction = "left" }))
-    hl.bind(mainMod .. shiftMod .. "right", hl.dsp.window.move({ direction = "right" }))
-    hl.bind(mainMod .. shiftMod .. "up", hl.dsp.window.move({ direction = "up" }))
-    hl.bind(mainMod .. shiftMod .. "down", hl.dsp.window.move({ direction = "down" }))
-else
-    -- Move focus with mainMod + arrow keys
-    hl.bind(mainMod .. "left", function()
-        focus_left_right("left")
-    end)
-    hl.bind(mainMod .. "right", function()
-        focus_left_right("right")
-    end)
-    hl.bind(mainMod .. "up", hl.dsp.focus({ direction = "up" }))
-    hl.bind(mainMod .. "down", hl.dsp.focus({ direction = "down" }))
-
-    -- TODO -- move left/right overrides
-    hl.bind(mainMod .. shiftMod .. "left", hl.dsp.window.move({ direction = "left" }))
-    hl.bind(mainMod .. shiftMod .. "right", hl.dsp.window.move({ direction = "right" }))
-    hl.bind(mainMod .. shiftMod .. "up", hl.dsp.window.move({ direction = "up" }))
-    hl.bind(mainMod .. shiftMod .. "down", hl.dsp.window.move({ direction = "down" }))
-
-    hl.bind(mainMod .. "E", hl.dsp.group.toggle())
-end
-
 --- {{{ Custom movement methods
 -- group > monocole or scrolling workspace > regular focus
 function focus_left_right(dir)
@@ -607,6 +614,10 @@ function focus_left_right(dir)
             -- hl.dispatch(hl.dsp.window.cycle_next({ tiled = true }))
             return
         end
+    elseif workspace and workspace.tiled_layout == "hy3" and hy3 then
+        hl.dispatch(hy3.move_focus(dir, { warp = false }))
+        -- hl.dispatch(hy3.focus_tab({ direction = dir }))
+        return
     end
 
     hl.dispatch(hl.dsp.focus({ direction = dir }))
@@ -684,6 +695,17 @@ function move_left_right(dir)
     hl.dispatch(hl.dsp.window.move({ direction = dir }))
 end
 
+local function dispatch_if_hy3(disp)
+    return function()
+        local workspace = hl.get_active_workspace()
+        if not workspace or workspace.tiled_layout ~= "hy3" then
+            return
+        end
+
+        hl.dispatch(disp)
+    end
+end
+
 hl.bind(altMod .. shiftMod .. "left", function()
     move_workspace("left")
 end)
@@ -724,6 +746,37 @@ function move_workspace(dir)
     end
 end
 -- }}}
+-- if hy3 then
+--     hl.bind(mainMod .. "left", hy3.move_focus("left", { warp = false }))
+--     hl.bind(mainMod .. "right", hy3.move_focus("right", { warp = false }))
+--     hl.bind(mainMod .. "up", hy3.move_focus("up"))
+--     hl.bind(mainMod .. "down", hy3.move_focus("down"))
+--
+-- hl.bind(mainMod .. shiftMod .. "left", hl.dsp.window.move({ direction = "left" }))
+-- hl.bind(mainMod .. shiftMod .. "right", hl.dsp.window.move({ direction = "right" }))
+-- hl.bind(mainMod .. shiftMod .. "up", hl.dsp.window.move({ direction = "up" }))
+-- hl.bind(mainMod .. shiftMod .. "down", hl.dsp.window.move({ direction = "down" }))
+-- else
+-- Move focus with mainMod + arrow keys
+hl.bind(mainMod .. "left", function()
+    focus_left_right("left")
+end)
+hl.bind(mainMod .. "right", function()
+    focus_left_right("right")
+end)
+hl.bind(mainMod .. "up", hl.dsp.focus({ direction = "up" }))
+hl.bind(mainMod .. "down", hl.dsp.focus({ direction = "down" }))
+
+-- TODO -- move left/right overrides
+hl.bind(mainMod .. shiftMod .. "left", hl.dsp.window.move({ direction = "left" }))
+hl.bind(mainMod .. shiftMod .. "right", hl.dsp.window.move({ direction = "right" }))
+hl.bind(mainMod .. shiftMod .. "up", hl.dsp.window.move({ direction = "up" }))
+hl.bind(mainMod .. shiftMod .. "down", hl.dsp.window.move({ direction = "down" }))
+
+if hy3 then
+    hl.bind(mainMod .. "W", dispatch_if_hy3(hy3.change_group("toggletab")))
+    hl.bind(mainMod .. "E", dispatch_if_hy3(hy3.change_group("opposite")))
+end
 
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
@@ -850,7 +903,8 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("waybar")
     -- TODO: vmprpc, mpd, mpd-shuffler, udevadm trigger
 
-    -- hl.exec_cmd("hyprpm reload")
+    hl.exec_cmd("hyprpm reload")
+    hl.exec_cmd("xdg-desktop-portal-aw-fm")
     -- Enable in sudoers with
     -- desuwa ALL=(root) NOPASSWD:/usr/bin/nvidia-smi -i 0 -pl 375
     hl.exec_cmd("sudo /usr/bin/nvidia-smi -i 0 -pl 375")

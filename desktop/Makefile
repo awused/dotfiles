@@ -173,7 +173,8 @@ aw-man:
 	cargo install --path "${AWUSED_SOURCE}/aw-man" --locked
 
 aw-fm:
-	cargo install --path "${AWUSED_SOURCE}/aw-fm" --locked
+	cargo install --path "${AWUSED_SOURCE}/aw-fm" --locked; \
+	cargo install --path "${AWUSED_SOURCE}/aw-fm/xdg-desktop-portal-aw-fm" --locked
 
 manga-syncer:
 	cargo install --path "${AWUSED_SOURCE}/manga-syncer" --locked

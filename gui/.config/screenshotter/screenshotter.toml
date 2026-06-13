@@ -17,6 +17,11 @@ CheckWindowID = true
 Callback = 'public-clipboard'
 callback = 'public-clipboard'
 
+# File format
+# Either png or webp, webp is always lossless.
+# png is recommended but webp compresses much faster and slightly better.
+format = "png"
+
 # PNG compression level in the range of 0-9
 # 0 is fastest, 9 is slowest
 # 8 and 9 are slow enough to be annoying for interactive usage
@@ -35,7 +40,28 @@ MouseKeys = true
 
 # Timeout in seconds.
 # Set to 0 to disable.
-timeout = 30
+timeout = 120
+
+# A list of monitor positions in _physical_ pixels.
+# Used to correct positions with unscaled output when it covers multiple monitors with different
+# scales. Not necessary if all monitors share the same scales.
+#
+# id is some unique fragment of the monitor's description.
+# Recommended to pick the serial number, if available.
+# See `hyprctl monitors | grep description`, `swaymsg -t get_outputs | grep serial`,
+#     or `RUST_LOG=Trace screenshotter name | grep Description`
+# If the id matches multiple monitors, this will give bad results.
+#
+# x and y are the integer position of the visible upper left corner of the monitor.
+# The same values you'd have passed to xrander --pos if no scaling is applied.
+# Positions can be negative.
+monitor_positions = [
+  {id = "20480B000000", x = 2560, y = 1440 },
+  {id = "19050B000191", x = 0, y = 2160 },
+  {id = "19050B000199", x = 6400, y = 2160 },
+  {id = "19050B000068", x = 3200, y = 0 },
+]
+
 
 # Overrides. The first one with a matching name and Regex is used.
 #
@@ -220,7 +246,6 @@ timeout = 30
 [[OverridesX]]
   Name = "kthreadd"
   Delegate = "/home/desuwa/.config/screenshotter/kthreadd.sh"
-
 
 
 [[overrides]]

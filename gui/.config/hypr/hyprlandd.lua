@@ -142,7 +142,12 @@ hl.config({
     -- tail -f $XDG_RUNTIME_DIR/hypr/$(ls -t $XDG_RUNTIME_DIR/hypr/ | head -n 1)/hyprlandd.log
     debug = {
         disable_logs = false,
+        watchdog_timeout = 0,
     },
+
+    misc = {
+      disable_watchdog_warning = true,
+    }
 
     decoration = {
         -- rounding = 10,

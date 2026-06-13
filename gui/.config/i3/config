@@ -141,7 +141,7 @@ workspace $wsst output $m_center
 
 set $wsnm "aw-fm"
 assign [class="Caja"] $wsnm
-assign [class="aw-fm"] $wsnm
+assign [class="aw-fm$"] $wsnm
 for_window [class="Caja"] focus
 for_window [class="aw-fm"] focus
 bindsym $mod+x workspace $wsnm
@@ -374,8 +374,9 @@ exec_always --no-startup-id "setxkbmap -option keypad:pointerkeys; xkbset exp =m
 
 exec --no-startup-id xset s 7200 dpms 7200 7200 7200
 # exec --no-startup-id "~/.fehbg || :"
-# Will make wallpapers restore soon
 exec --no-startup-id "wallpapers random"
+exec --no-startup-id "xdg-desktop-portal-aw-fm"
+exec --no-startup-id "xdg-desktop-portal"
 exec_always --no-startup-id "killall mpd; killall mpd-shuffler; mpd; mpd-shuffler &"
 # exec_always --no-startup-id "killall manga-upscaler; manga-upscaler > ~/.manga-upscaler.log"
 
