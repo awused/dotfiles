@@ -4,25 +4,21 @@ set -e
 
 # For later:
 #
+# hunter-rumours (after gryphon)
+# yama
+# doom
 # fishing (molch? clogs? trawling?)
-# corrupted-gauntlet
-# nightmare
 # vardorvis
+# nightmare
 # muspah
 # corp
 # zalcano
 # gwd bosses
 # dt2 bosses
-# yama (after emberlight)
-# doom (after emberlight)
-# hunter-rumours (after gryphon)
 # wintertodt
 # smithing (94 for keel parts)
-# tithe-farm
-#
-# after sceptre -> toa
 
-skills=(agility zulrah pyramid fletching toa gotr cow)
+skills=(agility zulrah pyramid fletching toa gotr cow corrupted-gauntlet herblore tithe-farm)
 db="$HOME/.runescape/grind"
 
 

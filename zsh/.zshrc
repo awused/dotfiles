@@ -115,6 +115,7 @@ alias ytv='yt-dlp --no-mtime --output "/storage/usr/desuwa/Videos/${_YT_FORMAT}"
 alias ytvm='yt-dlp --mtime --output "/storage/usr/desuwa/Videos/${_YT_FORMAT}" --'
 alias ytvs='yt-dlp --write-sub --no-mtime --output "/storage/usr/desuwa/Videos/${_YT_FORMAT}" --'
 alias vt='yt-dlp --no-mtime --output "/storage/media/youtube/vtubers/${_YT_FORMAT}" --'
+alias vtm='yt-dlp --mtime --output "/storage/media/youtube/vtubers/${_YT_FORMAT}" --'
 alias vts='yt-dlp --write-sub --no-mtime --output "/storage/media/youtube/vtubers/${_YT_FORMAT}" --'
 alias ya='youtube-audio'
 alias sqlite3='sqlite3-history'
