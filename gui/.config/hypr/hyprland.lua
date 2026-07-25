@@ -155,36 +155,40 @@ hl.config({
     animations = {
         enabled = true,
     },
+})
 
-    plugin = {
-        hy3 = {
-            -- tab_first_window = true,
-            tabs = {
-                height = 20,
-                padding = 0,
-                radius = 0,
-                text_height = 10,
-                colors = {
-                    active = "rgba(285577ce)",
-                    active_border = "rgba(33ccffc0)",
-                    active_text = "rgba(ffffffff)",
+if hy3 then
+    hl.config({
+        plugin = {
+            hy3 = {
+                -- tab_first_window = true,
+                tabs = {
+                    height = 20,
+                    padding = 0,
+                    radius = 0,
+                    text_height = 10,
+                    colors = {
+                        active = "rgba(285577ce)",
+                        active_border = "rgba(33ccffc0)",
+                        active_text = "rgba(ffffffff)",
 
-                    active_alt_monitor = "rgba(000000bf)",
-                    active_alt_monitor_border = "rgba(33ccffc0)",
-                    active_alt_monitor_text = "rgba(ffffffff)",
+                        active_alt_monitor = "rgba(000000bf)",
+                        active_alt_monitor_border = "rgba(33ccffc0)",
+                        active_alt_monitor_text = "rgba(ffffffff)",
 
-                    focused = "rgba(000000bf)",
-                    focused_border = "rgba(33ccffc0)",
-                    focused_text = "rgba(ffffffff)",
+                        focused = "rgba(000000bf)",
+                        focused_border = "rgba(33ccffc0)",
+                        focused_text = "rgba(ffffffff)",
 
-                    inactive = "rgba(000000bf)",
-                    inactive_border = "rgba(000000df)",
-                    inactive_text = "rgba(ffffffff)",
+                        inactive = "rgba(000000bf)",
+                        inactive_border = "rgba(000000df)",
+                        inactive_text = "rgba(ffffffff)",
+                    },
                 },
             },
         },
-    },
-})
+    })
+end
 
 -- Default curves and animations, see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Animations/
 hl.curve("easeOutQuint", { type = "bezier", points = { { 0.23, 1 }, { 0.32, 1 } } })
@@ -194,7 +198,7 @@ hl.curve("almostLinear", { type = "bezier", points = { { 0.5, 0.5 }, { 0.75, 1 }
 hl.curve("quick", { type = "bezier", points = { { 0.15, 0 }, { 0.1, 1 } } })
 
 -- Default springs
-hl.curve("easy", { type = "spring", mass = 1, stiffness = 71.2633, dampening = 15.8273644 })
+hl.curve("easy", { type = "spring", mass = 1, stiffness = 278.1191, dampening = 35.21279333 })
 
 hl.animation({ leaf = "global", enabled = true, speed = 10, bezier = "default" })
 hl.animation({ leaf = "border", enabled = true, speed = 5.39, bezier = "easeOutQuint" })
@@ -210,7 +214,7 @@ hl.animation({
     leaf = "windowsOut",
     enabled = true,
     speed = 1.49,
-    bezier = "linear",
+    bezier = "quick",
     style = "popin 87%",
 })
 hl.animation({ leaf = "fadeIn", enabled = true, speed = 1.73, bezier = "almostLinear" })
@@ -237,14 +241,14 @@ hl.animation({
 hl.animation({
     leaf = "workspacesIn",
     enabled = true,
-    speed = 1.21,
+    speed = 0.8,
     bezier = "almostLinear",
     style = "fade",
 })
 hl.animation({
     leaf = "workspacesOut",
     enabled = true,
-    speed = 1.94,
+    speed = 0.94,
     bezier = "almostLinear",
     style = "fade",
 })
