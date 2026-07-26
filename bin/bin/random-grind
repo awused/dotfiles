@@ -4,7 +4,6 @@ set -e
 
 # For later:
 #
-# hunter-rumours (after gryphon)
 # yama
 # doom
 # fishing (molch? clogs? trawling?)
@@ -15,10 +14,20 @@ set -e
 # zalcano
 # gwd bosses
 # dt2 bosses
-# wintertodt
-# smithing (94 for keel parts)
+#
+#
+# pyramid 20%
+# herblore 25%?
+# rc 25 pulls
+# herblore 20%
+# wintertodt 33%? 
+# fletching 25%
+# agility - 50 tickets
+# 5 or 10 hunter rumours? need to time them
+#
+# blood sap if low
 
-skills=(agility zulrah pyramid fletching toa gotr cow corrupted-gauntlet herblore tithe-farm)
+skills=(agility zulrah pyramid fletching toa gotr herblore tithe-farm wintertodt mining-gloves veiled-kraken hunter-rumours duke smithing)
 db="$HOME/.runescape/grind"
 
 
