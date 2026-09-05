@@ -255,7 +255,7 @@ endif
 Plug 'awused/rust.vim'
 
 if has('nvim-0.5')
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'branch': 'master'}
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'branch': 'main'}
 endif
 
 Plug 'petRUShka/vim-opencl'

@@ -4,12 +4,11 @@ set -e
 
 # For later:
 #
+# muspah (after saturated)
 # yama
 # doom
-# fishing (molch? clogs? trawling?)
 # vardorvis
 # nightmare
-# muspah
 # corp
 # zalcano
 # gwd bosses
@@ -17,17 +16,20 @@ set -e
 #
 #
 # pyramid 20%
-# herblore 25%?
+# herblore 25%? low resources
 # rc 25 pulls
 # herblore 20%
 # wintertodt 33%? 
-# fletching 25%
+# fletching 20%
+# smithing 25%
 # agility - 50 tickets
-# 5 or 10 hunter rumours? need to time them
+# 10 hunter rumours? long time to afk golems
 #
-# blood sap if low
+# herblore - wait to passively build up more materials
+#
+# blood sap if low (<2k?)
 
-skills=(agility zulrah pyramid fletching toa gotr herblore tithe-farm wintertodt mining-gloves veiled-kraken hunter-rumours duke smithing)
+skills=(agility zulrah pyramid fletching toa gotr tithe-farm wintertodt mining-gloves veiled-kraken hunter-rumours duke smithing molch)
 db="$HOME/.runescape/grind"
 
 

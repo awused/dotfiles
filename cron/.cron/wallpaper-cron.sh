@@ -9,6 +9,9 @@ mpvsocket='/tmp/mpvsocket'
 # In case you're using https://github.com/wis/mpvSockets or similar.
 mpv_glob='/tmp/mpv-sockets/*'
 
+# Set to true for wayland
+wayland=false
+
 #############
 
 echo "$locks" | xargs -r pidof > /dev/null && exit 0
@@ -25,9 +28,13 @@ for sock in $mpv_glob; do
   fi
 done
 
+if [ "$wayland" = true ]; then
+  pkill -x -H -USR1 wallpapers
+  exit 0
+fi
+
 if [ -z "$DISPLAY" ]; then
   export DISPLAY=$(ps e ww -u "$USER" | sed -rn 's/.* DISPLAY=(:[0-9]+).*/\1/p' | sort | uniq | head -n 1)
 fi
 
 wallpapers random
-# pkill -x -H -USR1 wallpapers

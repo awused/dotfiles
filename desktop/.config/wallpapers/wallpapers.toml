@@ -31,6 +31,10 @@ upscaling_jobs = 3
 
 # Only consider GPUs with names matching this prefix for accelerated downscaling.
 # Only affects interactive and preview modes.
-# See the output of --show-gpus.
+# See the output of show-gpus.
 # Case sensitive. Leave empty or blank to pick the first GPU found.
 gpu_prefix = "NVIDIA"
+
+# Set to true to use the same wallpaper on all monitors.
+# The default behaviour is to try to select different wallpapers for every monitor.
+single_wallpaper = false

@@ -11,8 +11,8 @@ lua <<EOF
 --   build = ':TSUpdate'
 -- })
 --
-require'nvim-treesitter'.setup {
-  ensure_installed = {
+
+require('nvim-treesitter').install {
         "bash",
         "c",
         "cpp",
@@ -30,8 +30,29 @@ require'nvim-treesitter'.setup {
         "toml",
         "typescript",
         "yaml",
-  }
 }
+
+-- require'nvim-treesitter'.setup {
+  -- " ensure_installed = {
+--         "bash",
+--         "c",
+--         "cpp",
+--         "css",
+--         "go",
+--         "gomod",
+--         "html",
+--         "javascript",
+--         "json",
+--         "lua",
+--         "python",
+--         "regex",
+--         "scss",
+--         "rust",
+--         "toml",
+--         "typescript",
+--         "yaml",
+--   }
+-- }
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = {
