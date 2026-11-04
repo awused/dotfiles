@@ -4,7 +4,7 @@ set -e
 
 # For later:
 #
-# muspah (after saturated)
+# easy clues to ham joint (5 at a time)
 # yama
 # doom
 # vardorvis
@@ -13,23 +13,24 @@ set -e
 # zalcano
 # gwd bosses
 # dt2 bosses
+# hunter-rumours (only pets now)
 #
 #
-# pyramid 20%
+# pyramid 16.67%
 # herblore 25%? low resources
 # rc 25 pulls
-# herblore 20%
-# wintertodt 33%? 
-# fletching 20%
+# wintertodt 33% for now 25%? 
+# fletching 20% 
 # smithing 25%
 # agility - 50 tickets
-# 10 hunter rumours? long time to afk golems
+# 5-10 hunter rumours depending on time
+# 25 molch pearls
 #
 # herblore - wait to passively build up more materials
 #
 # blood sap if low (<2k?)
 
-skills=(agility zulrah pyramid fletching toa gotr tithe-farm wintertodt mining-gloves veiled-kraken hunter-rumours duke smithing molch)
+skills=(agility zulrah pyramid fletching toa gotr tithe-farm wintertodt vampyre-kraken duke smithing molch easy-clues graardor muspah)
 db="$HOME/.runescape/grind"
 
 

@@ -63,6 +63,11 @@ $HOME/.runelite/screenshots
 $HOME/.runelite/repository2
 $HOME/.runelite/cache
 $HOME/.runelite/jagexcache
+$HOME/.local/share/bolt-launcher/CefCache
+$HOME/.local/share/bolt-launcher/.runelite/screenshots
+$HOME/.local/share/bolt-launcher/.runelite/repository2
+$HOME/.local/share/bolt-launcher/.runelite/cache
+$HOME/.local/share/bolt-launcher/.runelite/jagexcache
 $HOME/.steam
 $HOME/.Superposition
 $HOME/.thumbnails
