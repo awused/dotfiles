@@ -4,11 +4,13 @@ set -e
 
 # For later:
 #
-# easy clues to ham joint (5 at a time)
+# zilyana
+#
 # yama
 # doom
 # vardorvis
 # nightmare
+# trawling
 # corp
 # zalcano
 # gwd bosses
@@ -29,8 +31,12 @@ set -e
 # herblore - wait to passively build up more materials
 #
 # blood sap if low (<2k?)
+#
+# Retired
+# graardor
+# easy-clues
 
-skills=(agility zulrah pyramid fletching toa gotr tithe-farm wintertodt vampyre-kraken duke smithing molch easy-clues graardor muspah)
+skills=(agility zulrah pyramid fletching toa gotr tithe-farm wintertodt vampyre-kraken duke smithing molch muspah)
 db="$HOME/.runescape/grind"
 
 
